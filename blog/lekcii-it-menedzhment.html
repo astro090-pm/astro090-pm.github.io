@@ -13,27 +13,23 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../assets/style.css?v=a8c3c597">
+<link rel="stylesheet" href="../assets/style.css?v=b82d066f">
 </head>
 <body>
-<header class="top"><div class="shell top-in">
-<a class="brand" href="../index.html">Роман Понуров</a>
-<nav class="topnav" aria-label="Главное">
-<a href="../index.html">Блог</a>
-<a href="../assets/Ponurov_Roman_CV.pdf">Резюме PDF</a>
+<header class="top"><div class="wrap">
+<a class="brand" href="../index.html"><img class="avatar avatar-sm" src="../assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
+<nav class="nav" aria-label="Разделы">
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="../cv.html">📄 резюме</a><a href="../cases/index.html">📁 портфолио кейсов</a><a href="../about.html">чтобы лучше понимать Рому</a></div></details>
+<details class="menu"><summary>наука</summary><div class="menu-list"><a href="../research.html">🎓 исследования</a><a href="../study.html">📚 учёба</a></div></details>
+<a href="../projects.html">проекты</a>
+<a href="../blog/index.html">посты</a>
+<a href="../tags/index.html">теги</a>
 </nav>
-<details class="mnav"><summary aria-label="Меню">Меню</summary><div class="mnav-list"><div class="side-group"><span class="side-label">Продакт</span><a href="../cv.html">Резюме</a><a href="../cases/index.html">Кейсы</a><a href="../projects.html">Проекты</a><a href="../about.html">Обо мне</a></div><div class="side-group"><span class="side-label">Наука</span><a href="../research.html">Исследования</a><a href="../study.html">Учёба</a></div><div class="side-group"><span class="side-label">Пишу</span><a href="../blog/index.html" class="on" aria-current="page">Все посты</a><a href="../tags/index.html">Теги</a></div></div></details>
+<script>
+document.addEventListener('click', e => document.querySelectorAll('details.menu[open]').forEach(d => { if (!d.contains(e.target)) d.open = false; }));
+document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => { if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => { if (o !== d) o.open = false; }); }));
+</script>
 </div></header>
-<div class="shell grid">
-<aside class="side">
-<div class="side-group"><span class="side-label">Продакт</span><a href="../cv.html">Резюме</a><a href="../cases/index.html">Кейсы</a><a href="../projects.html">Проекты</a><a href="../about.html">Обо мне</a></div><div class="side-group"><span class="side-label">Наука</span><a href="../research.html">Исследования</a><a href="../study.html">Учёба</a></div><div class="side-group"><span class="side-label">Пишу</span><a href="../blog/index.html" class="on" aria-current="page">Все посты</a><a href="../tags/index.html">Теги</a></div>
-<div class="side-contacts">
-<p>Telegram:<br><a href="https://t.me/astro090">@astro090</a></p>
-<p>Почта:<br><a href="mailto:ponurov.roman@yandex.ru">ponurov.roman@yandex.ru</a></p>
-<p>Соцсети:<br><a href="https://www.linkedin.com/in/roman-ponurov-bb3b81a6/">LinkedIn</a>, <a href="https://github.com/astro090-pm">GitHub</a></p>
-<p class="side-note">Преподаю ИТ-менеджмент и изучаю, как ИИ меняет управление компанией</p>
-</div>
-</aside>
 <main>
 
 <article class="page"><div class="wrap">
@@ -66,8 +62,7 @@
 </div></article>
 
 </main>
-</div>
-<footer><div class="shell foot">
+<footer><div class="wrap foot">
 © 2026 Роман Понуров · <a href="mailto:ponurov.roman@yandex.ru">email</a> · <a href="https://t.me/astro090">telegram</a> · все права защищены
 </div></footer>
 </body>
