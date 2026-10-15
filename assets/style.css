@@ -1,0 +1,163 @@
+/* Портфолио Романа Понурова. Палитра: шалфейно-серая бумага, глубокий чернильный, кобальт для ссылок,
+   медовый маркер — им выделены только результаты в цифрах. */
+:root {
+  --paper: #F2F3EE;
+  --surface: #FBFBF8;
+  --ink: #172026;
+  --muted: #56626B;
+  --rule: #D5D9D2;
+  --link: #2747D8;
+  --marker: #F0C24B;
+  --display: "Unbounded", "Arial Black", sans-serif;
+  --text: "Golos Text", "Segoe UI", Arial, sans-serif;
+  --measure: 68ch;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 18px/1.6 var(--text);
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--link); outline-offset: 3px; border-radius: 2px; }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+/* Шапка */
+.top { border-bottom: 1px solid var(--rule); }
+.top .wrap { display: flex; justify-content: space-between; align-items: center; gap: 8px 24px; min-height: 64px; flex-wrap: wrap; padding-top: 12px; padding-bottom: 12px; }
+.brand { font: 600 16px/1 var(--display); color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.nav { display: flex; gap: 20px; flex-wrap: wrap; font-size: 16px; }
+.nav a { color: var(--ink); text-decoration: none; }
+.nav a:hover { color: var(--link); text-decoration: underline; }
+
+/* Первый экран */
+.hero { padding: 88px 0 40px; }
+.hero h1 {
+  font: 700 clamp(44px, 8.4vw, 104px)/0.98 var(--display);
+  letter-spacing: -0.035em;
+  margin: 0 0 32px;
+}
+.lead { font-size: clamp(19px, 2.1vw, 24px); line-height: 1.5; max-width: 40ch; margin: 0; }
+.lead + .lead { margin-top: 16px; color: var(--muted); font-size: 19px; max-width: 52ch; }
+
+/* Реестр результатов: главный акцент страницы */
+.ledger { margin: 64px 0 0; border-top: 2px solid var(--ink); }
+.ledger-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 300px) 1fr minmax(160px, 240px);
+  gap: 24px;
+  align-items: baseline;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.num {
+  font: 700 clamp(34px, 4.6vw, 56px)/1.05 var(--display);
+  letter-spacing: -0.03em;
+  justify-self: start;
+  padding: 0 6px;
+  margin-left: -6px;
+  background: linear-gradient(var(--marker), var(--marker)) no-repeat 0 82% / 100% 42%;
+}
+.ledger-what { font-size: 20px; }
+.ledger-where { color: var(--muted); font-size: 16px; }
+.ledger-where a { color: var(--muted); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .num { animation: mark 900ms cubic-bezier(.2,.7,.2,1) both; }
+  .ledger-row:nth-child(2) .num { animation-delay: 120ms; }
+  .ledger-row:nth-child(3) .num { animation-delay: 240ms; }
+  .ledger-row:nth-child(4) .num { animation-delay: 360ms; }
+  @keyframes mark { from { background-size: 0% 42%; } to { background-size: 100% 42%; } }
+}
+
+/* Разделы */
+section.block { padding: 88px 0 0; }
+.block > .wrap > h2, .page h2 {
+  font: 600 clamp(26px, 3.2vw, 36px)/1.15 var(--display);
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.intro { color: var(--muted); max-width: var(--measure); margin: 0 0 32px; }
+
+/* Кейсы: список, а не сетка одинаковых карточек */
+.cases { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.case {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.case-when { color: var(--muted); font-size: 16px; line-height: 1.5; }
+.case-when b { color: var(--ink); font-weight: 600; display: block; }
+.case h3 { font: 600 22px/1.3 var(--text); margin: 0 0 6px; }
+.case h3 a { color: var(--ink); text-decoration: none; }
+.case h3 a:hover { color: var(--link); text-decoration: underline; }
+.case p { margin: 0; max-width: var(--measure); }
+.case .result { margin-top: 8px; font-weight: 600; }
+
+/* AI-проект */
+.project {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 40px;
+}
+.project h3 { font: 600 28px/1.2 var(--display); letter-spacing: -0.02em; margin: 0 0 16px; }
+.project ul { padding-left: 20px; margin: 16px 0; }
+.project li { margin-bottom: 6px; }
+.project figure { margin: 0; }
+.project figcaption { color: var(--muted); font-size: 15px; margin-top: 8px; }
+.project img { border: 1px solid var(--rule); border-radius: 4px; background: #fff; }
+
+/* Исследования и путь */
+.pubs { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--ink); }
+.pubs li { display: grid; grid-template-columns: 200px 1fr; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.pubs .when { color: var(--muted); font-size: 16px; }
+.pubs .what i { color: var(--muted); font-style: normal; display: block; font-size: 16px; }
+
+.path { list-style: none; padding: 0; margin: 0; position: relative; }
+.path::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--rule); }
+.path li { position: relative; padding: 0 0 22px 40px; }
+.path li::before {
+  content: ""; position: absolute; left: 0; top: 7px; width: 16px; height: 16px;
+  border-radius: 50%; background: var(--paper); border: 2px solid var(--ink);
+}
+.path li.now::before { background: var(--marker); }
+.path .yrs { color: var(--muted); font-size: 16px; display: block; }
+
+/* Контакты и подвал */
+.contacts { display: flex; gap: 32px; flex-wrap: wrap; font-size: 22px; }
+footer { margin-top: 104px; padding: 32px 0 48px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 15px; }
+
+/* Страница кейса */
+.page { padding: 56px 0 0; }
+.page .back { font-size: 16px; }
+.page h1 { font: 700 clamp(32px, 5vw, 56px)/1.08 var(--display); letter-spacing: -0.03em; margin: 24px 0 24px; max-width: 22ch; }
+.prose { max-width: var(--measure); }
+.prose h2 { margin-top: 48px; }
+.prose h3 { font: 600 20px/1.3 var(--text); margin: 28px 0 8px; }
+.prose table { width: 100%; border-collapse: collapse; margin: 16px 0 8px; font-size: 17px; }
+.prose th, .prose td { text-align: left; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.prose thead th { border-bottom: 2px solid var(--ink); }
+.prose table:first-of-type td:first-child { color: var(--muted); width: 34%; }
+.prose em { color: var(--muted); }
+.next-case { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--rule); }
+
+@media (max-width: 760px) {
+  body { font-size: 17px; }
+  .hero { padding-top: 56px; }
+  .ledger-row, .case, .pubs li { grid-template-columns: 1fr; gap: 6px; }
+  .project { grid-template-columns: 1fr; padding: 24px; gap: 24px; }
+  section.block { padding-top: 64px; }
+  .nav { gap: 6px 14px; font-size: 15px; }
+}
