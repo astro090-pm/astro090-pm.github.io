@@ -193,7 +193,7 @@ def index_page(posts: list[dict], page: int = 1) -> str:
 <img class="avatar avatar-lg" src="assets/avatar.jpg" width="160" height="160" alt="Роман Понуров">
 <div>
 <h1>Роман Понуров</h1>
-<p class="roles"><a href="cv.html">менеджер продукта</a>, <a href="tags/{tag_slug('преподавание')}.html">начинающий преподаватель</a> и аспирант РАНХиГС — <a href="research.html">исследую, как искусственный интеллект меняет управление компанией</a></p>
+<p class="roles"><a href="cv.html">менеджер продукта</a>, <a href="tags/{tag_slug('преподавание')}.html">начинающий преподаватель</a>, <a href="research.html">исследую ИИ в управлении компанией</a></p>
 <button type="button" class="random" id="random">случайный пост</button>
 </div>
 </section>
