@@ -57,6 +57,10 @@ FONTS = ("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600"
          "&family=Unbounded:wght@600;700&display=swap")
 
 
+import hashlib
+CSS_V = hashlib.md5((Path(__file__).parent / "assets" / "style.css").read_bytes()).hexdigest()[:8]
+
+
 def esc(s: str) -> str:
     return html.escape(s, quote=True)
 
@@ -78,7 +82,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
-<link rel="stylesheet" href="{up}assets/style.css">
+<link rel="stylesheet" href="{up}assets/style.css?v={CSS_V}">
 </head>
 <body>
 <header class="top"><div class="wrap">
