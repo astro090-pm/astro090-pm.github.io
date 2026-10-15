@@ -509,3 +509,5 @@ html { scroll-padding-top: 90px; }
   .tools { order: 2; margin-left: auto; }
   .nav { order: 3; margin-left: 0; }
 }
+.page .pubs-head { font: 600 15px/1 var(--sans); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin: 32px 0 12px; display: flex; gap: 8px; align-items: center; }
+.pubs-head span { display: inline-grid; place-items: center; min-width: 24px; height: 24px; border-radius: 999px; background: var(--surface); color: var(--ink); font-size: 13px; letter-spacing: 0; }
