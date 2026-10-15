@@ -183,12 +183,22 @@ def pager(page: int, pages: int) -> str:
     if pages <= 1:
         return ""
     href = lambda n: "index.html" if n == 1 else f"page{n}.html"
-    newer = f'<a href="{href(page - 1)}">свежее</a>' if page > 1 else "<span></span>"
-    older = f'<a href="{href(page + 1)}">старее</a>' if page < pages else "<span></span>"
-    return f'<nav class="pager" aria-label="Страницы ленты">{newer}<span>страница {page} из {pages}</span>{older}</nav>'
+    newer = (f'<a class="pg-btn" href="{href(page - 1)}" rel="prev">← свежее</a>' if page > 1
+             else '<span class="pg-btn off" aria-disabled="true">← свежее</span>')
+    older = (f'<a class="pg-btn" href="{href(page + 1)}" rel="next">старее →</a>' if page < pages
+             else '<span class="pg-btn off" aria-disabled="true">старее →</span>')
+    return f'<nav class="pager" aria-label="Страницы ленты">{newer}<span class="pg-now">страница {page} / {pages}</span>{older}</nav>'
 
 
 def index_page(posts: list[dict], page: int = 1) -> str:
+    hero = f"""<section class="hero-home">
+<img class="avatar avatar-lg" src="assets/avatar.jpg" width="160" height="160" alt="Роман Понуров">
+<div>
+<h1>Роман Понуров</h1>
+<p class="roles"><a href="cv.html">менеджер продукта</a>, <a href="tags/{tag_slug('преподавание')}.html">начинающий преподаватель</a>, <a href="research.html">исследую ИИ в управлении компанией</a></p>
+<button type="button" class="random" id="random">случайный пост</button>
+</div>
+</section>"""
     items = all_items(posts)
     pages = max(1, -(-len(posts) // PER_PAGE))
     chunk = posts[(page - 1) * PER_PAGE: page * PER_PAGE]
@@ -196,25 +206,18 @@ def index_page(posts: list[dict], page: int = 1) -> str:
     body = f"""
 <div class="wrap home">
 
-<section class="hero-home">
-<img class="avatar avatar-lg" src="assets/avatar.jpg" width="160" height="160" alt="Роман Понуров">
-<div>
-<h1>Роман Понуров</h1>
-<p class="roles"><a href="cv.html">менеджер продукта</a>, <a href="tags/{tag_slug('преподавание')}.html">начинающий преподаватель</a>, <a href="research.html">исследую ИИ в управлении компанией</a></p>
-<button type="button" class="random" id="random">случайный пост</button>
-</div>
-</section>
+{hero if page == 1 else '<h1 class="feed-page-h">Посты — страница ' + str(page) + '</h1>'}
 
 <section aria-label="Лента постов">
 <ul class="feed">
 {feed(chunk, "blog/")}
 </ul>
 {pager(page, pages)}
-<p class="all-posts"><a href="blog/index.html">Все посты</a></p>
+<p class="all-posts"><a href="blog/index.html">Все посты →</a></p>
 </section>
 </div>
 <script>
-document.getElementById('random').addEventListener('click', () => {{
+document.getElementById('random')?.addEventListener('click', () => {{
   const urls = [{urls}];
   location.href = urls[Math.floor(Math.random() * urls.length)];
 }});

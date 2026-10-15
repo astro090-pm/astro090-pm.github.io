@@ -511,3 +511,18 @@ html { scroll-padding-top: 90px; }
 }
 .page .pubs-head { font: 600 15px/1 var(--sans); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin: 32px 0 12px; display: flex; gap: 8px; align-items: center; }
 .pubs-head span { display: inline-grid; place-items: center; min-width: 24px; height: 24px; border-radius: 999px; background: var(--surface); color: var(--ink); font-size: 13px; letter-spacing: 0; }
+
+/* Переключение страниц ленты, как у референса */
+.pager { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--rule); font-family: var(--sans); }
+.pager a::before, .pager a:last-child::before, .pager a:last-child::after { content: none; }
+.pg-btn { justify-self: start; font: 400 18px/1 var(--sans); color: var(--link); padding: 12px 16px; border: 1px solid var(--card-rule); border-radius: 4px; }
+.pg-btn:last-child { justify-self: end; }
+a.pg-btn:hover { border-color: var(--link); text-decoration: none; }
+.pg-btn.off { color: var(--muted); opacity: .45; border-color: transparent; padding-left: 0; }
+.pg-btn.off:last-child { padding-right: 0; padding-left: 16px; }
+.pg-now { color: var(--muted); font-size: 18px; }
+.all-posts { margin-top: 28px; }
+.all-posts a { font: 400 19px var(--sans); }
+@media (max-width: 760px) { .pg-btn, .pg-now { font-size: 15px; } .pg-btn { padding: 10px 12px; } }
+.feed-item:last-child { border-bottom: 0; }
+.page .feed-page-h, .feed-page-h { font: 600 clamp(32px, 4vw, 44px)/1.1 var(--display); margin: 48px 0 24px; }
