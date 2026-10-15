@@ -1,4 +1,4 @@
-"""Сборка сайта-портфолио: python build.py  →  index.html и cases/*.html.
+"""Сборка сайта-портфолио: python build.py  →  главная с лентой постов, кейсы, резюме, проекты, теги.
 
 Тексты кейсов лежат в content/cases/*.md (те же, что в репозитории product-cases).
 Чтобы добавить кейс: положите .md в content/cases и добавьте строку в CASES ниже.
@@ -82,68 +82,166 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 </head>
 <body>
 <header class="top"><div class="wrap">
-<a class="brand" href="{up}index.html">Роман Понуров</a>
+<a class="brand" href="{up}index.html"><span class="avatar avatar-sm" aria-hidden="true">РП</span>Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
-<a href="{up}blog/index.html">Посты</a>
-<a href="{up}cases/index.html">Кейсы</a>
-<a href="{up}index.html#ai">AI-проекты</a>
-<a href="{up}research.html">Исследования</a>
-<a href="{up}index.html#contacts">Контакты</a>
-<a href="{up}assets/Ponurov_Roman_CV.pdf">Резюме, PDF</a>
+<div class="nav-group"><span class="nav-label">продакт</span><a href="{up}cv.html">резюме</a><a href="{up}cases/index.html">кейсы</a><a href="{up}projects.html">проекты</a></div>
+<div class="nav-group"><span class="nav-label">наука</span><a href="{up}research.html">исследования</a></div>
+<div class="nav-group"><span class="nav-label">посты</span><a href="{up}blog/index.html">все посты</a></div>
+<div class="nav-group"><a href="{up}tags/index.html">теги</a></div>
 </nav>
 </div></header>
 <main>
 {body}
 </main>
-<footer><div class="wrap">Роман Понуров, менеджер продукта. Исходники сайта — <a href="{GITHUB}/astro090-pm.github.io">на GitHub</a>.</div></footer>
+<footer><div class="wrap foot">
+<span>© 2026 Роман Понуров</span>
+<a href="mailto:ponurov.roman@yandex.ru">ponurov.roman@yandex.ru</a>
+<a href="https://t.me/astro090">Telegram</a>
+</div></footer>
 </body>
 </html>
 """
 
 
-def index_page(posts: list[dict]) -> str:
-    cases_html = "\n".join(
-        f"""<li class="case">
-<div class="case-when"><b>{esc(company)}</b>{esc(years)}<br>{esc(kind)}</div>
-<div><h3><a href="cases/{slug}.html">{esc(case_title(slug))}</a></h3>
-<p>{esc(about)}</p>
-<p class="result">{esc(result)}</p></div>
-</li>"""
-        for slug, company, years, kind, about, result in CASES
-    )
-    body = f"""
-<section class="hero"><div class="wrap">
-<h1>Роман Понуров</h1>
-<p class="lead">Менеджер продукта. Шесть лет запускаю продукты с нуля и вывожу бизнес из офлайна в онлайн.</p>
-<p class="lead">Работал в фудтехе, телекоме, финтехе и благотворительности — в B2C, B2B, B2E и B2G. Сейчас строю AI-продукты на агентах и исследую ИИ в управлении компанией.</p>
-<p class="cv-link"><a href="assets/Ponurov_Roman_CV.pdf">Скачать резюме, PDF</a></p>
+PER_PAGE = 10
 
+
+def tag_slug(t: str) -> str:
+    tr = dict(zip("абвгдеёжзийклмнопрстуфхцчшщъыьэюя",
+                  ["a","b","v","g","d","e","e","zh","z","i","y","k","l","m","n","o","p","r","s","t","u","f",
+                   "h","ts","ch","sh","sch","","y","","e","yu","ya"]))
+    out = "".join(tr.get(c, c) for c in t.lower())
+    return re.sub(r"[^a-z0-9]+", "-", out).strip("-")
+
+
+def all_items(posts: list[dict]) -> list[dict]:
+    """Посты и кейсы с метками — для облака тегов, страниц тегов и случайного перехода."""
+    items = [{"title": p["title"], "url": f"blog/{p['slug']}.html", "tags": p["tags"], "kind": "пост",
+              "date_h": p["date_h"]} for p in posts]
+    for slug, company, years, *_ in CASES:
+        sph, mod, _cover = TAGS[slug]
+        items.append({"title": case_title(slug), "url": f"cases/{slug}.html", "tags": ["продакт"] + sph + mod,
+                      "kind": "кейс", "date_h": f"{company}, {years}"})
+    return items
+
+
+def tag_counts(items: list[dict]) -> list[tuple[str, int]]:
+    counts: dict[str, int] = {}
+    for it in items:
+        for t in it["tags"]:
+            counts[t] = counts.get(t, 0) + 1
+    return sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))
+
+
+def tag_cloud(items: list[dict], prefix: str) -> str:
+    return "".join(f'<a class="chip" href="{prefix}tags/{tag_slug(t)}.html">{esc(t)} <span>{n}</span></a>'
+                   for t, n in tag_counts(items))
+
+
+def feed(posts: list[dict], prefix: str) -> str:
+    return "\n".join(
+        f"""<li class="feed-item"><a class="feed-link" href="{prefix}{p['slug']}.html">
+<time datetime="{p['date']}">{p['date_h']}</time>
+<span class="feed-title">{esc(p['title'])}</span>
+<span class="feed-excerpt">{esc(p['excerpt'])}</span></a></li>"""
+        for p in posts)
+
+
+def pager(page: int, pages: int) -> str:
+    if pages <= 1:
+        return ""
+    href = lambda n: "index.html" if n == 1 else f"page{n}.html"
+    newer = f'<a href="{href(page - 1)}">свежее</a>' if page > 1 else "<span></span>"
+    older = f'<a href="{href(page + 1)}">старее</a>' if page < pages else "<span></span>"
+    return f'<nav class="pager" aria-label="Страницы ленты">{newer}<span>страница {page} из {pages}</span>{older}</nav>'
+
+
+def index_page(posts: list[dict], page: int = 1) -> str:
+    items = all_items(posts)
+    pages = max(1, -(-len(posts) // PER_PAGE))
+    chunk = posts[(page - 1) * PER_PAGE: page * PER_PAGE]
+    urls = ",".join(f'"{it["url"]}"' for it in items)
+    body = f"""
+<div class="wrap home">
+<div class="cloud" aria-label="Теги">{tag_cloud(items, "")}</div>
+
+<section class="hero-home">
+<span class="avatar avatar-lg" aria-hidden="true">РП</span>
+<div>
+<h1>Роман Понуров</h1>
+<p class="roles"><a href="cv.html">менеджер продукта</a>, <a href="tags/{tag_slug('преподавание')}.html">преподаватель</a> и <a href="research.html">исследователь ИИ в управлении</a></p>
+<button type="button" class="random" id="random">случайный пост</button>
+</div>
+</section>
+
+<section aria-label="Лента постов">
+<ul class="feed">
+{feed(chunk, "blog/")}
+</ul>
+{pager(page, pages)}
+<p class="all-posts"><a href="blog/index.html">Все посты</a></p>
+</section>
+</div>
+<script>
+document.getElementById('random').addEventListener('click', () => {{
+  const urls = [{urls}];
+  location.href = urls[Math.floor(Math.random() * urls.length)];
+}});
+</script>
+"""
+    return layout("Роман Понуров — менеджер продукта",
+                  "Роман Понуров: менеджер продукта, преподаватель, исследователь ИИ в управлении. Посты, кейсы, проекты.",
+                  body, "" if page == 1 else f"page{page}.html")
+
+
+def cv_page() -> str:
+    body = """
+<section class="hero"><div class="wrap">
+<a class="back" href="index.html">На главную</a>
+<h1>Резюме</h1>
+<p class="lead">Менеджер продукта. Шесть лет запускаю продукты с нуля и вывожу бизнес из офлайна в онлайн.</p>
+<p class="lead">Работал в фудтехе, телекоме, финтехе и благотворительности — в B2C, B2B, B2E и B2G. Сейчас строю AI-продукты и исследую ИИ в управлении компанией.</p>
+<p class="cv-link"><a href="assets/Ponurov_Roman_CV.pdf">Скачать резюме, PDF</a></p>
 <div class="ledger" aria-label="Результаты">
 <div class="ledger-row"><span class="num">+103%</span><span class="ledger-what">выручки после перезапуска онлайн-доставки продуктов</span><span class="ledger-where"><a href="cases/asia-online.html">Азия Онлайн, 2023–2024</a></span></div>
 <div class="ledger-row"><span class="num">10 млн</span><span class="ledger-what">пользователей входят в 9 продуктов МТС через одну авторизацию</span><span class="ledger-where"><a href="cases/mts-id.html">MTS ID, 2021–2023</a></span></div>
 <div class="ledger-row"><span class="num">+89%</span><span class="ledger-what">заказов от бизнес-клиентов после выхода магазина в онлайн</span><span class="ledger-where"><a href="cases/po-sosedstvu.html">По соседству, 2022–2024</a></span></div>
-<div class="ledger-row"><span class="num">4</span><span class="ledger-what">продукта запущены с нуля, два из них — как сооснователь</span><span class="ledger-where"><a href="#cases">все кейсы</a></span></div>
+<div class="ledger-row"><span class="num">4</span><span class="ledger-what">продукта запущены с нуля, два из них — как сооснователь</span><span class="ledger-where"><a href="cases/index.html">все кейсы</a></span></div>
 </div>
 </div></section>
 
-<section class="block" id="posts"><div class="wrap">
-<h2>Посты</h2>
-<ul class="posts">
-{post_list(posts[:5], "blog/")}
-</ul>
-{'<p><a href="blog/index.html">Все посты</a></p>' if len(posts) > 5 else ''}
+<section class="block" id="path"><div class="wrap">
+<h2>Путь</h2>
+<p class="intro">Из инженерии — в системный анализ, оттуда — в продакт-менеджмент.</p>
+<ol class="path">
+<li><span class="yrs">2014–2019</span>Инженер, затем менеджер по развитию бизнеса</li>
+<li><span class="yrs">2019–2021</span>Системный аналитик, затем менеджер продукта — Концерн ГРАНИТ</li>
+<li><span class="yrs">2021–2023</span>Менеджер продукта MTS ID — МТС</li>
+<li><span class="yrs">2023–2024</span>Руководитель электронной коммерции — Азия Ритейл</li>
+<li class="now"><span class="yrs">с 2024</span>Старший менеджер продукта — Газпромбанк</li>
+</ol>
+<p class="intro" style="margin-top:24px">Образование — на странице <a href="research.html">исследований</a>.</p>
 </div></section>
 
-<section class="block" id="cases"><div class="wrap">
-<h2>Продуктовые кейсы</h2>
-<p class="intro">Код рабочих проектов принадлежит компаниям, поэтому здесь описания: контекст, что я сделал и к чему это привело. <a href="cases/index.html">Все кейсы с фильтрами по сферам</a></p>
-<ul class="cases">
-{cases_html}
-</ul>
+<section class="block" id="contacts"><div class="wrap">
+<h2>Контакты</h2>
+<p class="intro">Открыт к разговору о продуктовых и AI-ролях.</p>
+<div class="contacts">
+<a href="https://t.me/astro090">Telegram: @astro090</a>
+<a href="mailto:ponurov.roman@yandex.ru">ponurov.roman@yandex.ru</a>
+<a href="https://www.linkedin.com/in/roman-ponurov-bb3b81a6/">LinkedIn</a>
+<a href="https://github.com/astro090-pm">GitHub</a>
+</div>
 </div></section>
+"""
+    return layout("Резюме — Роман Понуров", "Резюме Романа Понурова: результаты, путь, контакты.", body, "cv.html")
 
-<section class="block" id="ai"><div class="wrap">
-<h2>AI-проекты</h2>
+
+def projects_page() -> str:
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="index.html">На главную</a>
+<h1>Проекты</h1>
 <p class="intro">Прототипы, на которых я проверяю гипотезы про AI-продукты. Код открыт.</p>
 <article class="project">
 <div>
@@ -162,35 +260,40 @@ def index_page(posts: list[dict]) -> str:
 <figcaption>Кто с кем работает внутри бота</figcaption>
 </figure>
 </article>
-</div></section>
-
-<section class="block" id="path"><div class="wrap">
-<h2>Путь</h2>
-<p class="intro">Из инженерии — в системный анализ, оттуда — в продакт-менеджмент.</p>
-<ol class="path">
-<li><span class="yrs">2014–2019</span>Инженер, затем менеджер по развитию бизнеса</li>
-<li><span class="yrs">2019–2021</span>Системный аналитик, затем менеджер продукта — Концерн ГРАНИТ</li>
-<li><span class="yrs">2021–2023</span>Менеджер продукта MTS ID — МТС</li>
-<li><span class="yrs">2023–2024</span>Руководитель электронной коммерции — Азия Ритейл</li>
-<li class="now"><span class="yrs">с 2024</span>Старший менеджер продукта — Газпромбанк</li>
-</ol>
-<p class="intro" style="margin-top:24px">Образование: НИУ МЭИ, электротехника (2015) · НИУ ВШЭ, корпоративные финансы (2021) · РАНХиГС, аспирантура по менеджменту (2027).</p>
-</div></section>
-
-<section class="block" id="contacts"><div class="wrap">
-<h2>Контакты</h2>
-<p class="intro">Открыт к разговору о продуктовых и AI-ролях.</p>
-<div class="contacts">
-<a href="https://t.me/astro090">Telegram: @astro090</a>
-<a href="mailto:ponurov.roman@yandex.ru">ponurov.roman@yandex.ru</a>
-<a href="{GITHUB}">GitHub</a>
-<a href="assets/Ponurov_Roman_CV.pdf">Резюме, PDF</a>
-</div>
-</div></section>
+</div></article>
 """
-    return layout("Роман Понуров — менеджер продукта",
-                  "Менеджер продукта: 6 лет запусков в B2C, B2B, B2E и B2G, кейсы с результатами и AI-проекты.",
-                  body, "")
+    return layout("Проекты — Роман Понуров", "AI-проекты Романа Понурова с открытым кодом.", body, "projects.html")
+
+
+def tags_pages(posts: list[dict]) -> dict[str, str]:
+    items = all_items(posts)
+    pages = {}
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="../index.html">На главную</a>
+<h1>Теги</h1>
+<div class="cloud cloud-big">{tag_cloud(items, "../")}</div>
+</div></article>
+"""
+    pages["index.html"] = layout("Теги — Роман Понуров", "Все темы: посты и кейсы по меткам.", body, "tags/", depth=1)
+    for t, n in tag_counts(items):
+        rows = "\n".join(
+            f'<li class="feed-item"><a class="feed-link" href="../{it["url"]}"><time>{esc(it["kind"])} · {esc(it["date_h"])}</time>'
+            f'<span class="feed-title">{esc(it["title"])}</span></a></li>'
+            for it in items if t in it["tags"])
+        body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="index.html">Все теги</a>
+<h1>{esc(t)}</h1>
+<p class="intro">{n} материал(ов) с этой меткой.</p>
+<ul class="feed">
+{rows}
+</ul>
+</div></article>
+"""
+        pages[f"{tag_slug(t)}.html"] = layout(f"{t} — Роман Понуров", f"Посты и кейсы с меткой «{t}».", body,
+                                              f"tags/{tag_slug(t)}.html", depth=1)
+    return pages
 
 
 _titles: dict[str, str] = {}
@@ -324,7 +427,7 @@ def cases_index_page() -> str:
 <nav class="related" aria-label="Другие разделы">
 <h2>Ещё на сайте</h2>
 <ul>
-<li><a href="../index.html#ai">AI-проекты</a> — прототипы с открытым кодом</li>
+<li><a href="../projects.html">Проекты</a> — AI-прототипы с открытым кодом</li>
 <li><a href="../research.html">Исследования и образование</a> — ИИ в управлении компанией</li>
 <li><a href="../assets/Ponurov_Roman_CV.pdf">Резюме, PDF</a></li>
 </ul>
@@ -388,18 +491,25 @@ def research_page() -> str:
 
 def main() -> None:
     posts = load_posts()
-    (ROOT / "index.html").write_text(index_page(posts), encoding="utf-8")
-    (ROOT / "blog").mkdir(exist_ok=True)
+    pages = max(1, -(-len(posts) // PER_PAGE))
+    for n in range(1, pages + 1):
+        (ROOT / ("index.html" if n == 1 else f"page{n}.html")).write_text(index_page(posts, n), encoding="utf-8")
+    (ROOT / "cv.html").write_text(cv_page(), encoding="utf-8")
+    (ROOT / "projects.html").write_text(projects_page(), encoding="utf-8")
+    (ROOT / "research.html").write_text(research_page(), encoding="utf-8")
+    for d in ("blog", "cases", "tags"):
+        (ROOT / d).mkdir(exist_ok=True)
+    for f in (ROOT / "tags").glob("*.html"):
+        f.unlink()
+    for name, html_ in tags_pages(posts).items():
+        (ROOT / "tags" / name).write_text(html_, encoding="utf-8")
     (ROOT / "blog" / "index.html").write_text(blog_index_page(posts), encoding="utf-8")
     for p in posts:
         (ROOT / "blog" / f"{p['slug']}.html").write_text(post_page(p), encoding="utf-8")
-    (ROOT / "research.html").write_text(research_page(), encoding="utf-8")
-    (ROOT / "cases").mkdir(exist_ok=True)
     (ROOT / "cases" / "index.html").write_text(cases_index_page(), encoding="utf-8")
-    (ROOT / "cases").mkdir(exist_ok=True)
     for i, case in enumerate(CASES):
         (ROOT / "cases" / f"{case[0]}.html").write_text(case_page(i), encoding="utf-8")
-    print(f"Готово: главная, {len(posts)} пост(ов), research.html и {len(CASES)} страниц кейсов")
+    print(f"Готово: главная, {len(posts)} пост(ов), {len(CASES)} кейсов, резюме, проекты, исследования, теги")
 
 
 if __name__ == "__main__":
