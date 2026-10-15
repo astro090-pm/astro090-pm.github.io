@@ -13,17 +13,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@600;700&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=37cba487">
+<link rel="stylesheet" href="assets/style.css?v=994c89a9">
 </head>
 <body>
 <header class="top"><div class="wrap">
 <a class="brand" href="index.html"><img class="avatar avatar-sm" src="assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
-<div class="nav-group"><span class="nav-label">продакт</span><a href="cv.html">резюме</a><a href="cases/index.html">кейсы</a><a href="projects.html">проекты</a></div>
-<div class="nav-group"><span class="nav-label">наука</span><a href="research.html">исследования</a><a href="study.html">учёба</a></div>
-<div class="nav-group"><span class="nav-label">посты</span><a href="blog/index.html">все посты</a></div>
-<div class="nav-group"><a href="tags/index.html">теги</a></div>
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="cv.html">📄 резюме</a><a href="cases/index.html">📁 портфолио кейсов</a></div></details>
+<details class="menu"><summary>наука</summary><div class="menu-list"><a href="research.html">🎓 исследования</a><a href="study.html">📚 учёба</a></div></details>
+<a href="projects.html">проекты</a>
+<a href="blog/index.html">посты</a>
+<a href="tags/index.html">теги</a>
 </nav>
+<script>
+document.addEventListener('click', e => document.querySelectorAll('details.menu[open]').forEach(d => { if (!d.contains(e.target)) d.open = false; }));
+document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => { if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => { if (o !== d) o.open = false; }); }));
+</script>
 </div></header>
 <main>
 

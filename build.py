@@ -88,11 +88,16 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <header class="top"><div class="wrap">
 <a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
-<div class="nav-group"><span class="nav-label">продакт</span><a href="{up}cv.html">резюме</a><a href="{up}cases/index.html">кейсы</a><a href="{up}projects.html">проекты</a></div>
-<div class="nav-group"><span class="nav-label">наука</span><a href="{up}research.html">исследования</a><a href="{up}study.html">учёба</a></div>
-<div class="nav-group"><span class="nav-label">посты</span><a href="{up}blog/index.html">все посты</a></div>
-<div class="nav-group"><a href="{up}tags/index.html">теги</a></div>
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}cv.html">📄 резюме</a><a href="{up}cases/index.html">📁 портфолио кейсов</a></div></details>
+<details class="menu"><summary>наука</summary><div class="menu-list"><a href="{up}research.html">🎓 исследования</a><a href="{up}study.html">📚 учёба</a></div></details>
+<a href="{up}projects.html">проекты</a>
+<a href="{up}blog/index.html">посты</a>
+<a href="{up}tags/index.html">теги</a>
 </nav>
+<script>
+document.addEventListener('click', e => document.querySelectorAll('details.menu[open]').forEach(d => {{ if (!d.contains(e.target)) d.open = false; }}));
+document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => {{ if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => {{ if (o !== d) o.open = false; }}); }}));
+</script>
 </div></header>
 <main>
 {body}
