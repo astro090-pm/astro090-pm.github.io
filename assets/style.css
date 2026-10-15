@@ -281,3 +281,6 @@ img.avatar { object-fit: cover; background: var(--rule); }
 .prose figure { margin: 24px 0; }
 .prose figure img { border-radius: 6px; border: 1px solid var(--rule); }
 .prose figcaption { color: var(--muted); font-size: 15px; margin-top: 8px; }
+.cards.own { margin-bottom: 24px; }
+.page h2.own-ai { margin-top: 72px; }
+.page h3.card-title { font: 600 21px/1.3 var(--text); margin: 0 0 6px; }

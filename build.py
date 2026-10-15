@@ -238,12 +238,49 @@ def cv_page() -> str:
     return layout("Резюме — Роман Понуров", "Резюме Романа Понурова: результаты, путь, контакты.", body, "cv.html")
 
 
+OWN = [
+    ("po-sosedstvu", "«По соседству»", "Сооснователь и менеджер продукта · 2022–2024",
+     "Вывел офлайн-магазин продуктов в онлайн: интернет-магазин с доставкой для частных и корпоративных клиентов. Концепция, процессы, команда внешних исполнителей, запуск на 1С-Битрикс.",
+     "B2B: заказы +89%, средний чек +71%, выручка +58%", ("po-sosedstvu.ru", "https://po-sosedstvu.ru/")),
+    ("dobster", "«Добстер»", "Сооснователь и менеджер продукта · 2022–2023",
+     "Платформа благотворительных услуг. Концепция и роадмап, мокапы, сбор команды, разработка на Python и React.",
+     "Запущен с нуля до продакшена", None),
+    ("bolz", "bolz", "Автор продукта · 2025",
+     "Агрегатор шеринг-сервисов. Упаковка идеи, проверка гипотез и питч перед экспертами.",
+     "Акселератор «Академия инноваторов» МИК, конкурс «Новатор Москвы 2025»", None),
+]
+
+
+def own_cards() -> str:
+    out = []
+    for slug, name, role, about, result, site in OWN:
+        big, small, color = TAGS[slug][2]
+        ext = f' · <a href="{site[1]}">{site[0]}</a>' if site else ""
+        out.append(f"""<li class="card">
+<a class="cover" href="cases/{slug}.html" style="background:{color}" tabindex="-1" aria-hidden="true"><span class="cover-big">{esc(big)}</span><span class="cover-small">{esc(small)}</span></a>
+<p class="card-meta"><span class="card-co">{esc(role)}</span></p>
+<h3 class="card-title"><a href="cases/{slug}.html">{esc(name)}</a></h3>
+<p class="card-about">{esc(about)}</p>
+<p class="card-result">{esc(result)}</p>
+<p class="card-about"><a href="cases/{slug}.html">Подробнее о кейсе</a>{ext}</p>
+</li>""")
+    return "\n".join(out)
+
+
 def projects_page() -> str:
     body = f"""
 <article class="page"><div class="wrap">
 <a class="back" href="index.html">На главную</a>
 <h1>Проекты</h1>
-<p class="intro">Прототипы, на которых я проверяю гипотезы про AI-продукты. Код открыт.</p>
+<p class="intro">То, что я запускал сам — как сооснователь или автор, — и прототипы, на которых проверяю гипотезы про AI-продукты.</p>
+
+<h2>Собственные проекты</h2>
+<ul class="cards own">
+{own_cards()}
+</ul>
+
+<h2 class="own-ai">AI-прототипы</h2>
+<p class="intro">Код открыт.</p>
 <article class="project">
 <div>
 <h3>Планировщик выходных</h3>
