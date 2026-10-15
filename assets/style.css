@@ -136,6 +136,16 @@ section.block { padding: 88px 0 0; }
 .path li.now::before { background: var(--marker); }
 .path .yrs { color: var(--muted); font-size: 16px; display: block; }
 
+/* Университеты */
+.uni { padding: 40px 0; border-top: 2px solid var(--ink); }
+.uni + .uni { margin-top: 24px; }
+.uni-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; flex-wrap: wrap; margin-bottom: 16px; }
+.uni-head h2 { font: 600 clamp(26px, 3.2vw, 36px)/1.15 var(--display); letter-spacing: -0.02em; margin: 0; }
+.uni-meta { margin: 0; color: var(--muted); font-size: 16px; text-align: right; }
+.uni-topic { max-width: var(--measure); margin: 0 0 24px; }
+.uni .pubs { border-top: 1px solid var(--rule); }
+@media (max-width: 760px) { .uni-meta { text-align: left; } }
+
 /* Контакты и подвал */
 .contacts { display: flex; gap: 32px; flex-wrap: wrap; font-size: 22px; }
 footer { margin-top: 104px; padding: 32px 0 48px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 15px; }
