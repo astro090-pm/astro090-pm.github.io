@@ -484,3 +484,28 @@ details[open] .tri { transform: rotate(90deg); }
 .cover, .cover .cover-big, .cover .cover-small { color: #141414; }
 :root[data-theme="dark"] .rel-ph { background: linear-gradient(135deg, #2A2825, #1E1D1B 60%, #2F2C28); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .rel-ph { background: linear-gradient(135deg, #2A2825, #1E1D1B 60%, #2F2C28); } }
+
+/* Шапка закреплена при прокрутке */
+.top { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--paper) 88%, transparent); -webkit-backdrop-filter: saturate(1.4) blur(10px); backdrop-filter: saturate(1.4) blur(10px); }
+@supports not (background: color-mix(in srgb, red 50%, transparent)) { .top { background: var(--paper); } }
+html { scroll-padding-top: 90px; }
+.top { background: color-mix(in srgb, var(--paper) 96%, transparent); }
+@media (max-width: 760px) {
+  .top { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--paper); }
+  .top .wrap { gap: 6px; padding-top: 10px; padding-bottom: 6px; min-height: 0; }
+  .nav { width: 100%; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; gap: 18px; padding-bottom: 4px; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav > a, .menu summary { white-space: nowrap; }
+  .tools { margin-left: auto; }
+  .icon-btn { width: 34px; height: 34px; }
+  .menu-list { position: fixed; top: 90px; left: 16px; right: 16px; min-width: 0; }
+}
+.top .wrap { flex-wrap: nowrap; }
+.nav { margin-left: auto; }
+.tools { flex: none; }
+@media (max-width: 760px) {
+  .top .wrap { flex-wrap: wrap; }
+  .brand { order: 1; }
+  .tools { order: 2; margin-left: auto; }
+  .nav { order: 3; margin-left: 0; }
+}
