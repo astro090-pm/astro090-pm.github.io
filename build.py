@@ -94,9 +94,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 {body}
 </main>
 <footer><div class="wrap foot">
-<span>© 2026 Роман Понуров</span>
-<a href="mailto:ponurov.roman@yandex.ru">ponurov.roman@yandex.ru</a>
-<a href="https://t.me/astro090">Telegram</a>
+© 2026 Роман Понуров · <a href="mailto:ponurov.roman@yandex.ru">email</a> · <a href="https://t.me/astro090">telegram</a> · все права защищены
 </div></footer>
 </body>
 </html>
