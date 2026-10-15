@@ -84,6 +84,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <header class="top"><div class="wrap">
 <a class="brand" href="{up}index.html">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
+<a href="{up}blog/index.html">Посты</a>
 <a href="{up}cases/index.html">Кейсы</a>
 <a href="{up}index.html#ai">AI-проекты</a>
 <a href="{up}research.html">Исследования</a>
@@ -100,7 +101,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 """
 
 
-def index_page() -> str:
+def index_page(posts: list[dict]) -> str:
     cases_html = "\n".join(
         f"""<li class="case">
 <div class="case-when"><b>{esc(company)}</b>{esc(years)}<br>{esc(kind)}</div>
@@ -123,6 +124,14 @@ def index_page() -> str:
 <div class="ledger-row"><span class="num">+89%</span><span class="ledger-what">заказов от бизнес-клиентов после выхода магазина в онлайн</span><span class="ledger-where"><a href="cases/po-sosedstvu.html">По соседству, 2022–2024</a></span></div>
 <div class="ledger-row"><span class="num">4</span><span class="ledger-what">продукта запущены с нуля, два из них — как сооснователь</span><span class="ledger-where"><a href="#cases">все кейсы</a></span></div>
 </div>
+</div></section>
+
+<section class="block" id="posts"><div class="wrap">
+<h2>Посты</h2>
+<ul class="posts">
+{post_list(posts[:5], "blog/")}
+</ul>
+{'<p><a href="blog/index.html">Все посты</a></p>' if len(posts) > 5 else ''}
 </div></section>
 
 <section class="block" id="cases"><div class="wrap">
@@ -214,6 +223,72 @@ def case_page(i: int) -> str:
 </div></article>
 """
     return layout(f"{case_title(slug)} — кейс Романа Понурова", about, body, f"cases/{slug}.html", depth=1)
+
+
+MONTHS_GEN = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября",
+              "ноября", "декабря"]
+
+
+def load_posts() -> list[dict]:
+    """Посты: content/posts/ГГГГ-ММ-ДД-slug.md с шапкой title/date/tags. Новые — сверху."""
+    posts = []
+    for f in sorted((ROOT / "content" / "posts").glob("*.md")):
+        raw = f.read_text(encoding="utf-8")
+        meta, body = {}, raw
+        m = re.match(r"^---\n(.*?)\n---\n", raw, re.S)
+        if m:
+            for line in m.group(1).splitlines():
+                if ":" in line:
+                    k, v = line.split(":", 1)
+                    meta[k.strip()] = v.strip()
+            body = raw[m.end():]
+        y, mo, d = (int(x) for x in meta["date"].split("-"))
+        text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", body.strip().split("\n\n")[0])
+        posts.append({
+            "slug": f.stem[11:] if re.match(r"\d{4}-\d{2}-\d{2}-", f.stem) else f.stem,
+            "title": meta["title"], "date": meta["date"], "date_h": f"{d} {MONTHS_GEN[mo - 1]} {y}",
+            "tags": [t.strip() for t in meta.get("tags", "").split(",") if t.strip()],
+            "excerpt": text, "body": body,
+        })
+    return sorted(posts, key=lambda p: p["date"], reverse=True)
+
+
+def post_list(posts: list[dict], prefix: str) -> str:
+    return "\n".join(
+        f"""<li class="post-item"><time datetime="{p['date']}">{p['date_h']}</time>
+<div><h3><a href="{prefix}{p['slug']}.html">{esc(p['title'])}</a></h3>
+<p>{esc(p['excerpt'])}</p></div></li>"""
+        for p in posts)
+
+
+def post_page(p: dict) -> str:
+    body_html = markdown.markdown(p["body"], extensions=["tables", "sane_lists"])
+    tags = "".join(f'<span class="tag">{esc(t)}</span>' for t in p["tags"])
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="index.html">Все посты</a>
+<h1>{esc(p['title'])}</h1>
+<p class="post-meta"><time datetime="{p['date']}">{p['date_h']}</time>{tags}</p>
+<div class="prose">
+{body_html}
+</div>
+</div></article>
+"""
+    return layout(f"{p['title']} — Роман Понуров", p["excerpt"][:160], body, f"blog/{p['slug']}.html", depth=1)
+
+
+def blog_index_page(posts: list[dict]) -> str:
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="../index.html">На главную</a>
+<h1>Посты</h1>
+<p class="intro">Короткие заметки о работе, продуктах и преподавании.</p>
+<ul class="posts">
+{post_list(posts, "")}
+</ul>
+</div></article>
+"""
+    return layout("Посты — Роман Понуров", "Заметки Романа Понурова о продуктах, AI и преподавании.", body, "blog/", depth=1)
 
 
 def cases_index_page() -> str:
@@ -312,14 +387,19 @@ def research_page() -> str:
 
 
 def main() -> None:
-    (ROOT / "index.html").write_text(index_page(), encoding="utf-8")
+    posts = load_posts()
+    (ROOT / "index.html").write_text(index_page(posts), encoding="utf-8")
+    (ROOT / "blog").mkdir(exist_ok=True)
+    (ROOT / "blog" / "index.html").write_text(blog_index_page(posts), encoding="utf-8")
+    for p in posts:
+        (ROOT / "blog" / f"{p['slug']}.html").write_text(post_page(p), encoding="utf-8")
     (ROOT / "research.html").write_text(research_page(), encoding="utf-8")
     (ROOT / "cases").mkdir(exist_ok=True)
     (ROOT / "cases" / "index.html").write_text(cases_index_page(), encoding="utf-8")
     (ROOT / "cases").mkdir(exist_ok=True)
     for i, case in enumerate(CASES):
         (ROOT / "cases" / f"{case[0]}.html").write_text(case_page(i), encoding="utf-8")
-    print(f"Готово: index.html, research.html и {len(CASES)} страниц кейсов")
+    print(f"Готово: главная, {len(posts)} пост(ов), research.html и {len(CASES)} страниц кейсов")
 
 
 if __name__ == "__main__":
