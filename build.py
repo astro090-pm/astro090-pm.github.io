@@ -65,6 +65,9 @@ def esc(s: str) -> str:
     return html.escape(s, quote=True)
 
 
+BOOKS_LINK = '<a href="{up}books.html">📖 книги</a>' if (ROOT / "content" / "books.txt").exists() and any(l.strip() and not l.lstrip().startswith("#") for l in (ROOT / "content" / "books.txt").read_text(encoding="utf-8").splitlines()) else ""
+
+
 def layout(title: str, description: str, body: str, path: str, depth: int = 0) -> str:
     up = "../" * depth
     return f"""<!doctype html>
@@ -89,7 +92,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
 <details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}cv.html">📄 резюме</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}about.html">чтобы лучше понимать Рому</a></div></details>
-<details class="menu"><summary>наука</summary><div class="menu-list"><a href="{up}research.html">🎓 исследования</a><a href="{up}study.html">📚 учёба</a></div></details>
+<details class="menu"><summary>наука</summary><div class="menu-list"><a href="{up}research.html">🎓 исследования</a><a href="{up}study.html">📚 учёба</a>{BOOKS_LINK.format(up=up)}</div></details>
 <a href="{up}projects.html">проекты</a>
 <a href="{up}blog/index.html">посты</a>
 <a href="{up}tags/index.html">теги</a>
@@ -638,6 +641,45 @@ def about_page() -> str:
     return layout("Чтобы лучше понимать Рому — Роман Понуров", "Как со мной работать: принципы, обратная связь, связь и встречи.", body, "about.html")
 
 
+def load_books() -> list[dict]:
+    """content/books.txt: одна книга на строку — Тема | Название | Автор | Чем полезна | slug поста-рецензии (необязательно)."""
+    f = ROOT / "content" / "books.txt"
+    books = []
+    if f.exists():
+        for line in f.read_text(encoding="utf-8").splitlines():
+            if not line.strip() or line.lstrip().startswith("#"):
+                continue
+            parts = [x.strip() for x in line.split("|")] + [""] * 5
+            books.append({"topic": parts[0], "title": parts[1], "author": parts[2], "note": parts[3], "post": parts[4]})
+    return books
+
+
+def books_page(books: list[dict], posts: list[dict]) -> str:
+    reviews = [p for p in posts if "книги" in p["tags"]]
+    blocks = []
+    if reviews:
+        blocks.append(f'<section class="uni"><div class="uni-head"><h2>Рецензии</h2></div><ul class="feed">{feed(reviews, "blog/")}</ul></section>')
+    topics: dict[str, list[dict]] = {}
+    for b in books:
+        topics.setdefault(b["topic"] or "Разное", []).append(b)
+    for topic, items in topics.items():
+        lis = "\n".join(
+            f'<li><span class="when">{esc(b["author"])}</span><span class="what">'
+            + (f'<a href="blog/{b["post"]}.html">{esc(b["title"])}</a>' if b["post"] else esc(b["title"]))
+            + (f'<i>{esc(b["note"])}</i>' if b["note"] else "") + "</span></li>"
+            for b in items)
+        blocks.append(f'<section class="uni"><div class="uni-head"><h2>{esc(topic)}</h2></div><ul class="pubs">\n{lis}\n</ul></section>')
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="index.html">На главную</a>
+<h1>Книги</h1>
+<p class="intro">Книги, которые повлияли на то, как я делаю продукты и управляю командами. По главным — пишу рецензии с основными тезисами.</p>
+{"".join(blocks)}
+</div></article>
+"""
+    return layout("Книги — Роман Понуров", "Книги о продукте, ИИ и менеджменте, которые читает Роман Понуров, и рецензии на них.", body, "books.html")
+
+
 def main() -> None:
     posts = load_posts()
     pages = max(1, -(-len(posts) // PER_PAGE))
@@ -648,6 +690,9 @@ def main() -> None:
     (ROOT / "research.html").write_text(research_page(), encoding="utf-8")
     (ROOT / "study.html").write_text(study_page(), encoding="utf-8")
     (ROOT / "about.html").write_text(about_page(), encoding="utf-8")
+    books = load_books()
+    if books:
+        (ROOT / "books.html").write_text(books_page(books, posts), encoding="utf-8")
     for d in ("blog", "cases", "tags"):
         (ROOT / d).mkdir(exist_ok=True)
     for f in (ROOT / "tags").glob("*.html"):
