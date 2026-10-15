@@ -300,3 +300,5 @@ img.avatar { object-fit: cover; background: var(--rule); }
 .menu-list a { padding: 8px 10px; border-radius: 5px; white-space: nowrap; }
 .menu-list a:hover { background: var(--paper); text-decoration: none; }
 @media (max-width: 760px) { .menu-list { left: 0; } .nav { gap: 6px 18px; } }
+.about-rule { margin-top: 32px; padding: 16px 20px; border-left: 4px solid var(--marker); background: var(--surface); font-weight: 600; }
+.related-row { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--rule); color: var(--muted); }

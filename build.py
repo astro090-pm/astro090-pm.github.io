@@ -88,7 +88,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <header class="top"><div class="wrap">
 <a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
-<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}cv.html">📄 резюме</a><a href="{up}cases/index.html">📁 портфолио кейсов</a></div></details>
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}cv.html">📄 резюме</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}about.html">чтобы лучше понимать Рому</a></div></details>
 <details class="menu"><summary>наука</summary><div class="menu-list"><a href="{up}research.html">🎓 исследования</a><a href="{up}study.html">📚 учёба</a></div></details>
 <a href="{up}projects.html">проекты</a>
 <a href="{up}blog/index.html">посты</a>
@@ -598,6 +598,38 @@ def study_page() -> str:
     return layout("Учёба — Роман Понуров", "Сертификаты, курсы и акселераторы Романа Понурова.", body, "study.html")
 
 
+def about_page() -> str:
+    body = """
+<article class="page"><div class="wrap">
+<a class="back" href="index.html">На главную</a>
+<h1>Чтобы лучше понимать Рому</h1>
+<div class="prose about">
+<p>Привет 👋 Эта страница — короткая инструкция по работе со мной. Она для коллег, команды и всех, с кем мы начинаем что-то делать вместе: <b>чтобы меньше времени уходило на притирку и больше — на продукт</b>.</p>
+
+<h2>Во что я верю</h2>
+<ul>
+<li>Гипотеза → проверка → решение</li>
+<li>Одна главная метрика на эксперимент</li>
+<li>Бизнес-результат важнее количества фич</li>
+<li>Сначала понять пользователя, потом рисовать экраны</li>
+<li>AI — там, где он даёт ценность, а не ради AI</li>
+</ul>
+
+<h2>Как со мной работать</h2>
+<p><b>Начинаю с «зачем».</b> Прежде чем обсуждать решение, спрошу, какую проблему пользователя или бизнеса мы решаем и как поймём, что решили. Это не недоверие, а привычка.</p>
+<p><b>Люблю цифры и факты.</b> Мнение без данных — нормальная отправная точка, но решение я хочу принимать по результатам кастдева, аналитики или эксперимента.</p>
+<p><b>Обратную связь — прямо.</b> Если что-то не так в продукте, процессе или в моей работе, скажите сразу и по делу. Сам даю обратную связь так же: конкретно и с предложением, что поменять.</p>
+<p><b>Плохие новости — рано.</b> Сорванный срок, о котором я узнал за неделю, — это план Б. Тот же срок, о котором я узнал в день релиза, — это пожар.</p>
+<p><b>Связь.</b> Быстрее всего отвечаю в Telegram. Письма читаю, но не мгновенно. Если срочно — так и напишите.</p>
+<p><b>Встречи.</b> У встречи должна быть цель и итог: в конце фиксируем, кто что делает и к какому сроку.</p>
+<p class="about-rule">Если сомневаетесь, писать мне или нет, — пишите.</p>
+</div>
+<p class="related-row">Ещё обо мне: <a href="cv.html">резюме</a> · <a href="cases/index.html">портфолио кейсов</a> · <a href="research.html">исследования</a></p>
+</div></article>
+"""
+    return layout("Чтобы лучше понимать Рому — Роман Понуров", "Как со мной работать: принципы, обратная связь, связь и встречи.", body, "about.html")
+
+
 def main() -> None:
     posts = load_posts()
     pages = max(1, -(-len(posts) // PER_PAGE))
@@ -607,6 +639,7 @@ def main() -> None:
     (ROOT / "projects.html").write_text(projects_page(), encoding="utf-8")
     (ROOT / "research.html").write_text(research_page(), encoding="utf-8")
     (ROOT / "study.html").write_text(study_page(), encoding="utf-8")
+    (ROOT / "about.html").write_text(about_page(), encoding="utf-8")
     for d in ("blog", "cases", "tags"):
         (ROOT / d).mkdir(exist_ok=True)
     for f in (ROOT / "tags").glob("*.html"):

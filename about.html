@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Чтобы лучше понимать Рому — Роман Понуров</title>
+<meta name="description" content="Как со мной работать: принципы, обратная связь, связь и встречи.">
+<link rel="canonical" href="https://astro090-pm.github.io/about.html">
+<meta property="og:title" content="Чтобы лучше понимать Рому — Роман Понуров">
+<meta property="og:description" content="Как со мной работать: принципы, обратная связь, связь и встречи.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css?v=92371e73">
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="index.html"><img class="avatar avatar-sm" src="assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
+<nav class="nav" aria-label="Разделы">
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="cv.html">📄 резюме</a><a href="cases/index.html">📁 портфолио кейсов</a><a href="about.html">чтобы лучше понимать Рому</a></div></details>
+<details class="menu"><summary>наука</summary><div class="menu-list"><a href="research.html">🎓 исследования</a><a href="study.html">📚 учёба</a></div></details>
+<a href="projects.html">проекты</a>
+<a href="blog/index.html">посты</a>
+<a href="tags/index.html">теги</a>
+</nav>
+<script>
+document.addEventListener('click', e => document.querySelectorAll('details.menu[open]').forEach(d => { if (!d.contains(e.target)) d.open = false; }));
+document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => { if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => { if (o !== d) o.open = false; }); }));
+</script>
+</div></header>
+<main>
+
+<article class="page"><div class="wrap">
+<a class="back" href="index.html">На главную</a>
+<h1>Чтобы лучше понимать Рому</h1>
+<div class="prose about">
+<p>Привет 👋 Эта страница — короткая инструкция по работе со мной. Она для коллег, команды и всех, с кем мы начинаем что-то делать вместе: <b>чтобы меньше времени уходило на притирку и больше — на продукт</b>.</p>
+
+<h2>Во что я верю</h2>
+<ul>
+<li>Гипотеза → проверка → решение</li>
+<li>Одна главная метрика на эксперимент</li>
+<li>Бизнес-результат важнее количества фич</li>
+<li>Сначала понять пользователя, потом рисовать экраны</li>
+<li>AI — там, где он даёт ценность, а не ради AI</li>
+</ul>
+
+<h2>Как со мной работать</h2>
+<p><b>Начинаю с «зачем».</b> Прежде чем обсуждать решение, спрошу, какую проблему пользователя или бизнеса мы решаем и как поймём, что решили. Это не недоверие, а привычка.</p>
+<p><b>Люблю цифры и факты.</b> Мнение без данных — нормальная отправная точка, но решение я хочу принимать по результатам кастдева, аналитики или эксперимента.</p>
+<p><b>Обратную связь — прямо.</b> Если что-то не так в продукте, процессе или в моей работе, скажите сразу и по делу. Сам даю обратную связь так же: конкретно и с предложением, что поменять.</p>
+<p><b>Плохие новости — рано.</b> Сорванный срок, о котором я узнал за неделю, — это план Б. Тот же срок, о котором я узнал в день релиза, — это пожар.</p>
+<p><b>Связь.</b> Быстрее всего отвечаю в Telegram. Письма читаю, но не мгновенно. Если срочно — так и напишите.</p>
+<p><b>Встречи.</b> У встречи должна быть цель и итог: в конце фиксируем, кто что делает и к какому сроку.</p>
+<p class="about-rule">Если сомневаетесь, писать мне или нет, — пишите.</p>
+</div>
+<p class="related-row">Ещё обо мне: <a href="cv.html">резюме</a> · <a href="cases/index.html">портфолио кейсов</a> · <a href="research.html">исследования</a></p>
+</div></article>
+
+</main>
+<footer><div class="wrap foot">
+© 2026 Роман Понуров · <a href="mailto:ponurov.roman@yandex.ru">email</a> · <a href="https://t.me/astro090">telegram</a> · все права защищены
+</div></footer>
+</body>
+</html>
