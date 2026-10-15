@@ -53,7 +53,8 @@ TAGS = {
     "bolz": (["шеринг"], ["B2C"], ("2025", "акселератор МИК", "#BFD3F2")),
 }
 
-FONTS = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+FONTS = ("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700"
+         "&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap")
 
 
 import hashlib
@@ -64,8 +65,28 @@ def esc(s: str) -> str:
     return html.escape(s, quote=True)
 
 
+SIDE = [
+    ("Продакт", [("Резюме", "cv.html"), ("Кейсы", "cases/"), ("Проекты", "projects.html"), ("Обо мне", "about.html")]),
+    ("Наука", [("Исследования", "research.html"), ("Учёба", "study.html")]),
+    ("Пишу", [("Все посты", "blog/"), ("Теги", "tags/")]),
+]
+
+
+def side_nav(up: str, path: str) -> str:
+    out = []
+    for label, links in SIDE:
+        items = []
+        for name, href in links:
+            on = path == href or (href.endswith("/") and path.startswith(href))
+            url = up + (href + "index.html" if href.endswith("/") else href)
+            items.append(f'<a href="{url}"{" class=\"on\" aria-current=\"page\"" if on else ""}>{name}</a>')
+        out.append(f'<div class="side-group"><span class="side-label">{label}</span>{"".join(items)}</div>')
+    return "".join(out)
+
+
 def layout(title: str, description: str, body: str, path: str, depth: int = 0) -> str:
     up = "../" * depth
+    cur = lambda p: ' class="on" aria-current="page"' if path == p else ""
     return f"""<!doctype html>
 <html lang="ru">
 <head>
@@ -84,24 +105,29 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <link rel="stylesheet" href="{up}assets/style.css?v={CSS_V}">
 </head>
 <body>
-<header class="top"><div class="wrap">
-<a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
-<nav class="nav" aria-label="Разделы">
-<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}cv.html">📄 резюме</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}about.html">чтобы лучше понимать Рому</a></div></details>
-<details class="menu"><summary>наука</summary><div class="menu-list"><a href="{up}research.html">🎓 исследования</a><a href="{up}study.html">📚 учёба</a></div></details>
-<a href="{up}projects.html">проекты</a>
-<a href="{up}blog/index.html">посты</a>
-<a href="{up}tags/index.html">теги</a>
+<header class="top"><div class="shell top-in">
+<a class="brand" href="{up}index.html">Роман Понуров</a>
+<nav class="topnav" aria-label="Главное">
+<a href="{up}index.html"{cur("")}>Блог</a>
+<a href="{up}assets/Ponurov_Roman_CV.pdf">Резюме PDF</a>
 </nav>
-<script>
-document.addEventListener('click', e => document.querySelectorAll('details.menu[open]').forEach(d => {{ if (!d.contains(e.target)) d.open = false; }}));
-document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => {{ if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => {{ if (o !== d) o.open = false; }}); }}));
-</script>
+<details class="mnav"><summary aria-label="Меню">Меню</summary><div class="mnav-list">{side_nav(up, path)}</div></details>
 </div></header>
+<div class="shell grid">
+<aside class="side">
+{side_nav(up, path)}
+<div class="side-contacts">
+<p>Telegram:<br><a href="https://t.me/astro090">@astro090</a></p>
+<p>Почта:<br><a href="mailto:ponurov.roman@yandex.ru">ponurov.roman@yandex.ru</a></p>
+<p>Соцсети:<br><a href="https://www.linkedin.com/in/roman-ponurov-bb3b81a6/">LinkedIn</a>, <a href="https://github.com/astro090-pm">GitHub</a></p>
+<p class="side-note">Преподаю ИТ-менеджмент и изучаю, как ИИ меняет управление компанией</p>
+</div>
+</aside>
 <main>
 {body}
 </main>
-<footer><div class="wrap foot">
+</div>
+<footer><div class="shell foot">
 © 2026 Роман Понуров · <a href="mailto:ponurov.roman@yandex.ru">email</a> · <a href="https://t.me/astro090">telegram</a> · все права защищены
 </div></footer>
 </body>
@@ -144,13 +170,23 @@ def tag_cloud(items: list[dict], prefix: str) -> str:
                    for t, n in tag_counts(items))
 
 
+def minutes(n: int) -> str:
+    form = "минуту" if n % 10 == 1 and n % 100 != 11 else "минуты" if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14 else "минут"
+    return f"{n} {form}"
+
+
 def feed(posts: list[dict], prefix: str) -> str:
-    return "\n".join(
-        f"""<li class="feed-item"><a class="feed-link" href="{prefix}{p['slug']}.html">
-<span class="feed-meta">{('<span class="feed-cat">' + esc(p['tags'][0]) + '</span>') if p['tags'] else ''}<span>{max(1, round(len(p['body'].split()) / 180))} мин</span><time datetime="{p['date']}">{p['date_h']}</time></span>
-<span class="feed-title">{esc(p['title'])}</span>
-<span class="feed-excerpt">{esc(p['excerpt'])}</span></a></li>"""
-        for p in posts)
+    out = []
+    for p in posts:
+        m = re.search(r'<img src="\.\./([^"]+)"', p["body"])
+        thumb = f'<img class="feed-thumb" src="{prefix}../{m.group(1)}" alt="" loading="lazy">' if m else ""
+        cat = (p["tags"][0].capitalize() + "—") if p["tags"] else ""
+        mins = max(1, round(len(p["body"].split()) / 180))
+        out.append(f"""<li class="feed-item"><a class="feed-link" href="{prefix}{p['slug']}.html">
+<span class="feed-meta">{esc(cat)}читать {minutes(mins)}, <time datetime="{p['date']}">{p['date_h']}</time></span>
+<span class="feed-row">{thumb}<span class="feed-body"><span class="feed-title">{esc(p['title'])}</span>
+<span class="feed-excerpt">{esc(p['excerpt'])}</span></span></span></a></li>""")
+    return "\n".join(out)
 
 
 def pager(page: int, pages: int) -> str:
@@ -170,14 +206,27 @@ def index_page(posts: list[dict], page: int = 1) -> str:
     body = f"""
 <div class="wrap home">
 
-<section class="hero-home">
-<img class="avatar avatar-lg" src="assets/avatar.jpg" width="160" height="160" alt="Роман Понуров">
-<div>
+<section class="hcard">
+<div class="hcard-text">
+<p class="hcard-kicker">Старший менеджер продукта в Газпромбанке</p>
 <h1>Роман Понуров</h1>
-<p class="roles"><a href="cv.html">менеджер продукта</a>, <a href="tags/{tag_slug('преподавание')}.html">преподаватель</a> и <a href="research.html">исследователь ИИ в управлении</a></p>
-<button type="button" class="random" id="random">случайный пост</button>
+<p class="hcard-lines">Запускаю продукты с нуля: фудтех, телеком, финтех<br>
+Читаю курс <a href="blog/lekcii-it-menedzhment.html">«ИТ-менеджмент»</a> в университете<br>
+Аспирант РАНХиГС: <a href="research.html">ИИ в управлении компанией</a></p>
+<a class="btn" href="https://t.me/astro090">Написать мне в Telegram</a>
+<p class="hcard-random"><button type="button" id="random">случайный пост</button></p>
+</div>
+<div class="hcard-side">
+<img class="hcard-photo" src="assets/avatar.jpg" width="320" height="320" alt="Роман Понуров">
+<div class="hcard-stats">
+<div class="stat"><b>4 продукта</b> запустил с нуля, два — как сооснователь</div>
+<div class="stat"><b>+103%</b> выручки после перезапуска e-commerce</div>
+</div>
 </div>
 </section>
+
+<h2 class="feed-head">Пишу о продукте, ИИ и преподавании</h2>
+<p class="feed-lead">Посты о запусках, кейсах и о том, чему я учусь и учу других. Все темы — на странице <a href="tags/index.html">тегов</a>.</p>
 
 <section aria-label="Лента постов">
 <ul class="feed">

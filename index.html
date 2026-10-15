@@ -12,51 +12,68 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=93842087">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="assets/style.css?v=b1bd009f">
 </head>
 <body>
-<header class="top"><div class="wrap">
-<a class="brand" href="index.html"><img class="avatar avatar-sm" src="assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
-<nav class="nav" aria-label="Разделы">
-<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="cv.html">📄 резюме</a><a href="cases/index.html">📁 портфолио кейсов</a><a href="about.html">чтобы лучше понимать Рому</a></div></details>
-<details class="menu"><summary>наука</summary><div class="menu-list"><a href="research.html">🎓 исследования</a><a href="study.html">📚 учёба</a></div></details>
-<a href="projects.html">проекты</a>
-<a href="blog/index.html">посты</a>
-<a href="tags/index.html">теги</a>
+<header class="top"><div class="shell top-in">
+<a class="brand" href="index.html">Роман Понуров</a>
+<nav class="topnav" aria-label="Главное">
+<a href="index.html" class="on" aria-current="page">Блог</a>
+<a href="assets/Ponurov_Roman_CV.pdf">Резюме PDF</a>
 </nav>
-<script>
-document.addEventListener('click', e => document.querySelectorAll('details.menu[open]').forEach(d => { if (!d.contains(e.target)) d.open = false; }));
-document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => { if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => { if (o !== d) o.open = false; }); }));
-</script>
+<details class="mnav"><summary aria-label="Меню">Меню</summary><div class="mnav-list"><div class="side-group"><span class="side-label">Продакт</span><a href="cv.html">Резюме</a><a href="cases/index.html">Кейсы</a><a href="projects.html">Проекты</a><a href="about.html">Обо мне</a></div><div class="side-group"><span class="side-label">Наука</span><a href="research.html">Исследования</a><a href="study.html">Учёба</a></div><div class="side-group"><span class="side-label">Пишу</span><a href="blog/index.html">Все посты</a><a href="tags/index.html">Теги</a></div></div></details>
 </div></header>
+<div class="shell grid">
+<aside class="side">
+<div class="side-group"><span class="side-label">Продакт</span><a href="cv.html">Резюме</a><a href="cases/index.html">Кейсы</a><a href="projects.html">Проекты</a><a href="about.html">Обо мне</a></div><div class="side-group"><span class="side-label">Наука</span><a href="research.html">Исследования</a><a href="study.html">Учёба</a></div><div class="side-group"><span class="side-label">Пишу</span><a href="blog/index.html">Все посты</a><a href="tags/index.html">Теги</a></div>
+<div class="side-contacts">
+<p>Telegram:<br><a href="https://t.me/astro090">@astro090</a></p>
+<p>Почта:<br><a href="mailto:ponurov.roman@yandex.ru">ponurov.roman@yandex.ru</a></p>
+<p>Соцсети:<br><a href="https://www.linkedin.com/in/roman-ponurov-bb3b81a6/">LinkedIn</a>, <a href="https://github.com/astro090-pm">GitHub</a></p>
+<p class="side-note">Преподаю ИТ-менеджмент и изучаю, как ИИ меняет управление компанией</p>
+</div>
+</aside>
 <main>
 
 <div class="wrap home">
 
-<section class="hero-home">
-<img class="avatar avatar-lg" src="assets/avatar.jpg" width="160" height="160" alt="Роман Понуров">
-<div>
+<section class="hcard">
+<div class="hcard-text">
+<p class="hcard-kicker">Старший менеджер продукта в Газпромбанке</p>
 <h1>Роман Понуров</h1>
-<p class="roles"><a href="cv.html">менеджер продукта</a>, <a href="tags/prepodavanie.html">преподаватель</a> и <a href="research.html">исследователь ИИ в управлении</a></p>
-<button type="button" class="random" id="random">случайный пост</button>
+<p class="hcard-lines">Запускаю продукты с нуля: фудтех, телеком, финтех<br>
+Читаю курс <a href="blog/lekcii-it-menedzhment.html">«ИТ-менеджмент»</a> в университете<br>
+Аспирант РАНХиГС: <a href="research.html">ИИ в управлении компанией</a></p>
+<a class="btn" href="https://t.me/astro090">Написать мне в Telegram</a>
+<p class="hcard-random"><button type="button" id="random">случайный пост</button></p>
+</div>
+<div class="hcard-side">
+<img class="hcard-photo" src="assets/avatar.jpg" width="320" height="320" alt="Роман Понуров">
+<div class="hcard-stats">
+<div class="stat"><b>4 продукта</b> запустил с нуля, два — как сооснователь</div>
+<div class="stat"><b>+103%</b> выручки после перезапуска e-commerce</div>
+</div>
 </div>
 </section>
+
+<h2 class="feed-head">Пишу о продукте, ИИ и преподавании</h2>
+<p class="feed-lead">Посты о запусках, кейсах и о том, чему я учусь и учу других. Все темы — на странице <a href="tags/index.html">тегов</a>.</p>
 
 <section aria-label="Лента постов">
 <ul class="feed">
 <li class="feed-item"><a class="feed-link" href="blog/lekcii-it-menedzhment.html">
-<span class="feed-meta"><span class="feed-cat">преподавание</span><span>2 мин</span><time datetime="2026-10-16">16 октября 2026</time></span>
-<span class="feed-title">Читаю курс по ИТ-менеджменту в университете</span>
-<span class="feed-excerpt">Этой осенью я веду курс «ИТ-менеджмент» для студентов первого курса: семь лекций по вторникам, с 13 октября по 24 ноября. Первая лекция уже прошла.</span></a></li>
+<span class="feed-meta">Преподавание—читать 2 минуты, <time datetime="2026-10-16">16 октября 2026</time></span>
+<span class="feed-row"><img class="feed-thumb" src="blog/../assets/lekcii-cover.jpg" alt="" loading="lazy"><span class="feed-body"><span class="feed-title">Читаю курс по ИТ-менеджменту в университете</span>
+<span class="feed-excerpt">Этой осенью я веду курс «ИТ-менеджмент» для студентов первого курса: семь лекций по вторникам, с 13 октября по 24 ноября. Первая лекция уже прошла.</span></span></span></a></li>
 <li class="feed-item"><a class="feed-link" href="blog/bolz-akselerator.html">
-<span class="feed-meta"><span class="feed-cat">продакт</span><span>1 мин</span><time datetime="2025-09-30">30 сентября 2025</time></span>
-<span class="feed-title">Прошёл акселератор «Академия инноваторов» с проектом bolz</span>
-<span class="feed-excerpt">С июня по сентябрь 2025 года я прошёл акселератор «Академия инноваторов» Московского инновационного кластера со своим продуктом bolz — агрегатором шеринг-сервисов.</span></a></li>
+<span class="feed-meta">Продакт—читать 1 минуту, <time datetime="2025-09-30">30 сентября 2025</time></span>
+<span class="feed-row"><span class="feed-body"><span class="feed-title">Прошёл акселератор «Академия инноваторов» с проектом bolz</span>
+<span class="feed-excerpt">С июня по сентябрь 2025 года я прошёл акселератор «Академия инноваторов» Московского инновационного кластера со своим продуктом bolz — агрегатором шеринг-сервисов.</span></span></span></a></li>
 <li class="feed-item"><a class="feed-link" href="blog/ocenka-mts.html">
-<span class="feed-meta"><span class="feed-cat">продакт</span><span>1 мин</span><time datetime="2022-04-18">18 апреля 2022</time></span>
-<span class="feed-title">Что показала независимая оценка менеджеров продукта в МТС</span>
-<span class="feed-excerpt">В апреле 2022 года МТС провела независимую оценку менеджеров продукта: тестирование делала компания Assessty. В это время я развивал MTS ID — единую авторизацию для продуктов МТС.</span></a></li>
+<span class="feed-meta">Продакт—читать 1 минуту, <time datetime="2022-04-18">18 апреля 2022</time></span>
+<span class="feed-row"><span class="feed-body"><span class="feed-title">Что показала независимая оценка менеджеров продукта в МТС</span>
+<span class="feed-excerpt">В апреле 2022 года МТС провела независимую оценку менеджеров продукта: тестирование делала компания Assessty. В это время я развивал MTS ID — единую авторизацию для продуктов МТС.</span></span></span></a></li>
 </ul>
 
 <p class="all-posts"><a href="blog/index.html">Все посты</a></p>
@@ -70,7 +87,8 @@ document.getElementById('random').addEventListener('click', () => {
 </script>
 
 </main>
-<footer><div class="wrap foot">
+</div>
+<footer><div class="shell foot">
 © 2026 Роман Понуров · <a href="mailto:ponurov.roman@yandex.ru">email</a> · <a href="https://t.me/astro090">telegram</a> · все права защищены
 </div></footer>
 </body>
