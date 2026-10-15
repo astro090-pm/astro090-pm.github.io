@@ -82,7 +82,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 </head>
 <body>
 <header class="top"><div class="wrap">
-<a class="brand" href="{up}index.html"><span class="avatar avatar-sm" aria-hidden="true">РП</span>Роман Понуров</a>
+<a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
 <div class="nav-group"><span class="nav-label">продакт</span><a href="{up}cv.html">резюме</a><a href="{up}cases/index.html">кейсы</a><a href="{up}projects.html">проекты</a></div>
 <div class="nav-group"><span class="nav-label">наука</span><a href="{up}research.html">исследования</a></div>
@@ -166,7 +166,7 @@ def index_page(posts: list[dict], page: int = 1) -> str:
 <div class="cloud" aria-label="Теги">{tag_cloud(items, "")}</div>
 
 <section class="hero-home">
-<span class="avatar avatar-lg" aria-hidden="true">РП</span>
+<img class="avatar avatar-lg" src="assets/avatar.jpg" width="160" height="160" alt="Роман Понуров">
 <div>
 <h1>Роман Понуров</h1>
 <p class="roles"><a href="cv.html">менеджер продукта</a>, <a href="tags/{tag_slug('преподавание')}.html">преподаватель</a> и <a href="research.html">исследователь ИИ в управлении</a></p>
