@@ -44,6 +44,7 @@ a:hover { text-decoration-thickness: 2px; }
   margin: 0 0 32px;
 }
 .lead { font-size: clamp(19px, 2.1vw, 24px); line-height: 1.5; max-width: 40ch; margin: 0; }
+.cv-link { margin: 24px 0 0; font-size: 18px; font-weight: 500; }
 .lead + .lead { margin-top: 16px; color: var(--muted); font-size: 19px; max-width: 52ch; }
 
 /* Реестр результатов: главный акцент страницы */

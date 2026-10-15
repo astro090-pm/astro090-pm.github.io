@@ -77,6 +77,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <a href="{up}index.html#ai">AI-проекты</a>
 <a href="{up}index.html#research">Исследования</a>
 <a href="{up}index.html#contacts">Контакты</a>
+<a href="{up}assets/Ponurov_Roman_CV.pdf">Резюме, PDF</a>
 </nav>
 </div></header>
 <main>
@@ -103,6 +104,7 @@ def index_page() -> str:
 <h1>Роман Понуров</h1>
 <p class="lead">Менеджер продукта. Шесть лет запускаю продукты с нуля и вывожу бизнес из офлайна в онлайн.</p>
 <p class="lead">Работал в фудтехе, телекоме, финтехе и благотворительности — в B2C, B2B, B2E и B2G. Сейчас строю AI-продукты на агентах и исследую ИИ в управлении компанией.</p>
+<p class="cv-link"><a href="assets/Ponurov_Roman_CV.pdf">Скачать резюме, PDF</a></p>
 
 <div class="ledger" aria-label="Результаты">
 <div class="ledger-row"><span class="num">+103%</span><span class="ledger-what">выручки после перезапуска онлайн-доставки продуктов</span><span class="ledger-where"><a href="cases/asia-online.html">Азия Онлайн, 2023–2024</a></span></div>
@@ -173,6 +175,7 @@ def index_page() -> str:
 <a href="https://t.me/astro090">Telegram: @astro090</a>
 <a href="mailto:ponurov.roman@yandex.ru">ponurov.roman@yandex.ru</a>
 <a href="{GITHUB}">GitHub</a>
+<a href="assets/Ponurov_Roman_CV.pdf">Резюме, PDF</a>
 </div>
 </div></section>
 """
