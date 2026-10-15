@@ -103,7 +103,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <header class="top"><div class="wrap">
 <a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
-<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}cv.html">📄 резюме</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}about.html">👋 обо мне</a></div></details>
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}cv.html">📄 резюме</a><a href="{up}cases/index.html">📁 портфолио кейсов</a></div></details>
 <a href="{up}projects.html">проекты</a>
 <details class="menu"><summary>наука</summary><div class="menu-list"><a href="{up}research.html">🎓 исследования</a><a href="{up}study.html">📚 учёба</a>{BOOKS_LINK.format(up=up)}</div></details>
 <a href="{up}agents.html">ИИ-агенты</a>
