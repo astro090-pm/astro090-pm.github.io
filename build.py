@@ -150,12 +150,17 @@ def tag_cloud(items: list[dict], prefix: str) -> str:
 
 
 def feed(posts: list[dict], prefix: str) -> str:
-    return "\n".join(
-        f"""<li class="feed-item"><a class="feed-link" href="{prefix}{p['slug']}.html">
-<span class="feed-meta">{('<span class="feed-cat">' + esc(p['tags'][0]) + '</span>') if p['tags'] else ''}<span>{max(1, round(len(p['body'].split()) / 180))} мин</span><time datetime="{p['date']}">{p['date_h']}</time></span>
-<span class="feed-title">{esc(p['title'])}</span>
-<span class="feed-excerpt">{esc(p['excerpt'])}</span></a></li>"""
-        for p in posts)
+    root = prefix[:-5] if prefix.endswith("blog/") else "../"
+    out = []
+    for p in posts:
+        thumb = f'<img class="feed-thumb" src="{root}{p["cover"]}" alt="" loading="lazy">' if p["cover"] else ""
+        rating = f'<span class="feed-rating"><b>{esc(p["rating"])}</b>/10</span>' if p["rating"] else ""
+        cat = ('<span class="feed-cat">' + esc(p['tags'][0]) + '</span>') if p['tags'] else ''
+        out.append(f"""<li class="feed-item"><a class="feed-link" href="{prefix}{p['slug']}.html">
+<span class="feed-meta">{cat}<span>{max(1, round(len(p['body'].split()) / 180))} мин</span><time datetime="{p['date']}">{p['date_h']}</time></span>
+<span class="feed-row">{thumb}<span class="feed-body"><span class="feed-title">{esc(p['title'])}</span>
+<span class="feed-excerpt">{esc(p['excerpt'])}</span>{rating}</span></span></a></li>""")
+    return "\n".join(out)
 
 
 def pager(page: int, pages: int) -> str:
@@ -432,6 +437,8 @@ def load_posts() -> list[dict]:
             "title": meta["title"], "date": meta["date"], "date_h": f"{d} {MONTHS_GEN[mo - 1]} {y}",
             "tags": [t.strip() for t in meta.get("tags", "").split(",") if t.strip()],
             "stage": meta.get("stage", ""),
+            "cover": meta.get("cover", "") if meta.get("cover") and (ROOT / meta["cover"]).exists() else "",
+            "rating": meta.get("rating", ""),
             "excerpt": text, "body": body,
         })
     return sorted(posts, key=lambda p: p["date"], reverse=True)
@@ -445,6 +452,14 @@ def post_list(posts: list[dict], prefix: str) -> str:
         for p in posts)
 
 
+def book_head(p: dict) -> str:
+    if not (p["cover"] or p["rating"]):
+        return ""
+    img = f'<img class="book-cover" src="../{p["cover"]}" alt="Обложка книги">' if p["cover"] else ""
+    rating = f'<p class="feed-rating book-rating"><b>{esc(p["rating"])}</b>/10 — моя оценка</p>' if p["rating"] else ""
+    return f'<div class="book-head">{img}{rating}</div>'
+
+
 def post_page(p: dict) -> str:
     body_html = markdown.markdown(p["body"], extensions=["tables", "sane_lists"])
     tags = "".join(f'<span class="tag">{esc(t)}</span>' for t in p["tags"])
@@ -453,7 +468,7 @@ def post_page(p: dict) -> str:
 <a class="back" href="index.html">Все посты</a>
 <h1>{esc(p['title'])}</h1>
 <p class="post-meta"><time datetime="{p['date']}">{p['date_h']}</time>{tags}</p>
-<div class="prose">
+{book_head(p)}<div class="prose">
 {body_html}
 </div>
 </div></article>

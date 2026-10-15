@@ -374,3 +374,14 @@ h1, h2, h3, .feed-title, .card-title, .num, .cover-big { font-family: var(--disp
 .stage-links { margin: 0; padding-left: 18px; font-family: var(--sans); font-size: 16px; }
 .stage-links li { margin-bottom: 4px; }
 @media (max-width: 760px) { .stage { grid-template-columns: 40px 1fr; gap: 10px; } .stage-n { font-size: 22px; } }
+
+/* Посты о книгах: обложка в ленте и оценка */
+.feed-row { display: flex; gap: 24px; align-items: flex-start; }
+.feed-body { display: block; min-width: 0; }
+.feed-thumb { width: 96px; height: 140px; object-fit: cover; border-radius: 3px; flex: none; margin-top: 4px; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+.feed-rating { display: block; margin-top: 10px; font: 400 20px/1 var(--sans); color: var(--ink); }
+.feed-rating b { font-size: 36px; font-weight: 500; color: var(--link); }
+.book-head { display: flex; gap: 24px; align-items: flex-end; margin: 0 0 32px; }
+.book-cover { width: 160px; height: auto; border-radius: 4px; box-shadow: 0 6px 24px rgba(0,0,0,.12); }
+.book-rating { margin: 0; }
+@media (max-width: 760px) { .feed-thumb { width: 64px; height: 94px; } .feed-row { gap: 16px; } }
