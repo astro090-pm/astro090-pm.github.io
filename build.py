@@ -42,6 +42,17 @@ CASES = [
      "Участник «Новатор Москвы 2025»"),
 ]
 
+# Метки кейсов: (сферы, модели, обложка: крупная надпись, подпись, цвет)
+TAGS = {
+    "asia-online": (["фудтех", "e-com"], ["B2C"], ("+103%", "выручка", "#F0C24B")),
+    "mts-id": (["телеком", "платформа"], ["B2B2C"], ("10 млн", "пользователей", "#BFD3F2")),
+    "po-sosedstvu": (["фудтех", "e-com"], ["B2C", "B2B"], ("+89%", "заказов B2B", "#F0C24B")),
+    "gazprombank": (["финтех", "AI"], ["B2E"], ("ИИ-агент", "в кредитном анализе", "#C9DDC5")),
+    "dobster": (["благотворительность"], ["B2C"], ("0 → прод", "запуск с нуля", "#E8D3E0")),
+    "granit": (["госсектор"], ["B2G"], ("B2G", "автоматизация процессов", "#D9DCD4")),
+    "bolz": (["шеринг"], ["B2C"], ("2025", "акселератор МИК", "#BFD3F2")),
+}
+
 FONTS = ("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600"
          "&family=Unbounded:wght@600;700&display=swap")
 
@@ -73,7 +84,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <header class="top"><div class="wrap">
 <a class="brand" href="{up}index.html">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
-<a href="{up}index.html#cases">Кейсы</a>
+<a href="{up}cases/index.html">Кейсы</a>
 <a href="{up}index.html#ai">AI-проекты</a>
 <a href="{up}research.html">Исследования</a>
 <a href="{up}index.html#contacts">Контакты</a>
@@ -116,7 +127,7 @@ def index_page() -> str:
 
 <section class="block" id="cases"><div class="wrap">
 <h2>Продуктовые кейсы</h2>
-<p class="intro">Код рабочих проектов принадлежит компаниям, поэтому здесь описания: контекст, что я сделал и к чему это привело.</p>
+<p class="intro">Код рабочих проектов принадлежит компаниям, поэтому здесь описания: контекст, что я сделал и к чему это привело. <a href="cases/index.html">Все кейсы с фильтрами по сферам</a></p>
 <ul class="cases">
 {cases_html}
 </ul>
@@ -194,7 +205,7 @@ def case_page(i: int) -> str:
     nxt = CASES[(i + 1) % len(CASES)]
     body = f"""
 <article class="page"><div class="wrap">
-<a class="back" href="../index.html#cases">Все кейсы</a>
+<a class="back" href="index.html">Все кейсы</a>
 <h1>{esc(case_title(slug))}</h1>
 <div class="prose">
 {body_html}
@@ -203,6 +214,68 @@ def case_page(i: int) -> str:
 </div></article>
 """
     return layout(f"{case_title(slug)} — кейс Романа Понурова", about, body, f"cases/{slug}.html", depth=1)
+
+
+def cases_index_page() -> str:
+    spheres = sorted({t for v in TAGS.values() for t in v[0]})
+    models = sorted({t for v in TAGS.values() for t in v[1]})
+    chips = "".join(f'<button type="button" class="chip" data-tag="{esc(t)}" aria-pressed="false">{esc(t)}</button>'
+                    for t in spheres + models)
+    cards = []
+    for slug, company, years, _kind, about, result in CASES:
+        sph, mod, (big, small, color) = TAGS[slug]
+        tags = " ".join(sph + mod)
+        meta = "".join(f'<span class="tag">{esc(t)}</span>' for t in sph + mod)
+        cards.append(f"""<li class="card" data-tags="{esc(tags)}">
+<a class="cover" href="{slug}.html" style="background:{color}" aria-hidden="true" tabindex="-1">
+<span class="cover-big">{esc(big)}</span><span class="cover-small">{esc(small)}</span></a>
+<p class="card-meta"><span class="card-co">{esc(company)}, {esc(years)}</span>{meta}</p>
+<h2 class="card-title"><a href="{slug}.html">{esc(case_title(slug))}</a></h2>
+<p class="card-about">{esc(about)}</p>
+<p class="card-result">{esc(result)}</p>
+</li>""")
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="../index.html">На главную</a>
+<h1>Портфолио кейсов</h1>
+<p class="intro">Продукты, которые я запускал и развивал за шесть лет: от онлайн-доставки продуктов до авторизации на 10 млн пользователей. По каждому кейсу — контекст, что я сделал и к чему это привело.</p>
+<div class="filters" role="group" aria-label="Фильтр по меткам">
+<button type="button" class="chip" data-tag="" aria-pressed="true">все {len(CASES)}</button>{chips}
+</div>
+<p class="filter-empty" hidden>Под эту метку кейсов нет — выберите другую.</p>
+<ul class="cards">
+{chr(10).join(cards)}
+</ul>
+<nav class="related" aria-label="Другие разделы">
+<h2>Ещё на сайте</h2>
+<ul>
+<li><a href="../index.html#ai">AI-проекты</a> — прототипы с открытым кодом</li>
+<li><a href="../research.html">Исследования и образование</a> — ИИ в управлении компанией</li>
+<li><a href="../assets/Ponurov_Roman_CV.pdf">Резюме, PDF</a></li>
+</ul>
+</nav>
+</div></article>
+<script>
+(() => {{
+  const chips = document.querySelectorAll('.chip');
+  const cards = document.querySelectorAll('.card');
+  const empty = document.querySelector('.filter-empty');
+  chips.forEach(chip => chip.addEventListener('click', () => {{
+    const tag = chip.dataset.tag;
+    chips.forEach(c => c.setAttribute('aria-pressed', String(c === chip)));
+    let shown = 0;
+    cards.forEach(card => {{
+      const on = !tag || card.dataset.tags.split(' ').includes(tag);
+      card.hidden = !on; if (on) shown++;
+    }});
+    empty.hidden = shown > 0;
+  }}));
+}})();
+</script>
+"""
+    return layout("Портфолио кейсов — Роман Понуров",
+                  "Продуктовые кейсы Романа Понурова: e-commerce, телеком, финтех, B2G и собственные проекты.",
+                  body, "cases/", depth=1)
 
 
 def research_page() -> str:
@@ -241,6 +314,8 @@ def research_page() -> str:
 def main() -> None:
     (ROOT / "index.html").write_text(index_page(), encoding="utf-8")
     (ROOT / "research.html").write_text(research_page(), encoding="utf-8")
+    (ROOT / "cases").mkdir(exist_ok=True)
+    (ROOT / "cases" / "index.html").write_text(cases_index_page(), encoding="utf-8")
     (ROOT / "cases").mkdir(exist_ok=True)
     for i, case in enumerate(CASES):
         (ROOT / "cases" / f"{case[0]}.html").write_text(case_page(i), encoding="utf-8")
