@@ -302,3 +302,62 @@ img.avatar { object-fit: cover; background: var(--rule); }
 @media (max-width: 760px) { .menu-list { left: 0; } .nav { gap: 6px 18px; } }
 .about-rule { margin-top: 32px; padding: 16px 20px; border-left: 4px solid var(--marker); background: var(--surface); font-weight: 600; }
 .related-row { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--rule); color: var(--muted); }
+
+/* ===== Стиль в духе минималистичного продуктового блога: белый лист, чёрный текст, Inter ===== */
+:root {
+  --paper: #FFFFFF;
+  --surface: #F6F6F4;
+  --ink: #111111;
+  --muted: #707070;
+  --rule: #EAEAEA;
+  --link: #111111;
+  --marker: #FFE45C;
+  --display: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --text: "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+body { font-size: 18px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+a { text-decoration-color: rgba(17,17,17,.3); }
+a:hover { text-decoration-color: var(--ink); }
+:focus-visible { outline-color: var(--ink); }
+
+.top { border-bottom: 0; }
+.top .wrap { min-height: 76px; }
+.brand { font-weight: 700; font-size: 17px; letter-spacing: -0.01em; }
+.nav, .menu summary { font-size: 16px; }
+.menu[open] summary, .menu summary:hover, .nav a:hover { color: var(--ink); }
+.menu-list { border-radius: 14px; border-color: var(--rule); box-shadow: 0 16px 40px rgba(0,0,0,.08); background: #fff; }
+.menu-list a:hover { background: var(--surface); }
+
+h1, h2, h3, .hero h1, .hero-home h1, .page h1 { letter-spacing: -0.035em; }
+.hero-home h1 { font-weight: 800; }
+.page h1 { font-weight: 800; }
+.block > .wrap > h2, .page h2, .uni-head h2, .project h3 { font-weight: 700; letter-spacing: -0.03em; }
+
+.avatar-lg { box-shadow: none; }
+.roles { color: var(--muted); }
+.roles a { color: var(--ink); }
+.random { background: var(--ink); color: #fff; border-color: var(--ink); font-weight: 600; padding: 13px 22px; }
+.random:hover { background: #333; }
+
+.feed, .cases, .posts, .pubs, .tag-years, .ledger { border-top-color: var(--rule); border-top-width: 1px; }
+.feed-item { border-bottom-color: var(--rule); }
+.feed-link { padding: 28px 0; }
+.feed-meta { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; color: var(--muted); font-size: 14px; margin-bottom: 8px; }
+.feed-link .feed-meta time { display: inline; margin: 0; font-size: 14px; }
+.feed-cat { text-transform: uppercase; letter-spacing: .06em; font-size: 12px; font-weight: 600; color: var(--ink); background: var(--surface); padding: 4px 9px; border-radius: 999px; }
+.feed-title { font-weight: 700; font-size: 26px; letter-spacing: -0.025em; }
+.feed-link:hover .feed-title { color: var(--ink); text-decoration-color: var(--ink); }
+
+.chip, .tag { border-color: var(--rule); background: var(--surface); }
+.chip[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.cover { border-radius: 16px; }
+.project { border-radius: 16px; border: 0; background: var(--surface); }
+.project img, .prose figure img, .uni-logo { border-radius: 10px; }
+.num { background-size: 100% 36%; }
+.uni { border-top-width: 1px; border-top-color: var(--rule); }
+.about-rule { border-left-color: var(--ink); border-radius: 0 10px 10px 0; }
+footer { border-top-color: var(--rule); }
+.tag-link { color: var(--ink); }
+.tag-link:hover { text-decoration: underline; }
+.prose a, .intro a, .card-about a, .cv-link a, .contacts a, .related a, .all-posts a, .back { text-decoration: underline; text-decoration-color: rgba(17,17,17,.3); }
+@media (max-width: 760px) { .feed-title { font-size: 21px; } }

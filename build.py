@@ -53,8 +53,7 @@ TAGS = {
     "bolz": (["шеринг"], ["B2C"], ("2025", "акселератор МИК", "#BFD3F2")),
 }
 
-FONTS = ("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600"
-         "&family=Unbounded:wght@600;700&display=swap")
+FONTS = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
 
 
 import hashlib
@@ -148,7 +147,7 @@ def tag_cloud(items: list[dict], prefix: str) -> str:
 def feed(posts: list[dict], prefix: str) -> str:
     return "\n".join(
         f"""<li class="feed-item"><a class="feed-link" href="{prefix}{p['slug']}.html">
-<time datetime="{p['date']}">{p['date_h']}</time>
+<span class="feed-meta">{('<span class="feed-cat">' + esc(p['tags'][0]) + '</span>') if p['tags'] else ''}<span>{max(1, round(len(p['body'].split()) / 180))} мин</span><time datetime="{p['date']}">{p['date_h']}</time></span>
 <span class="feed-title">{esc(p['title'])}</span>
 <span class="feed-excerpt">{esc(p['excerpt'])}</span></a></li>"""
         for p in posts)
