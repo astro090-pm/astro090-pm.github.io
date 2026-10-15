@@ -119,11 +119,11 @@ def tag_slug(t: str) -> str:
 def all_items(posts: list[dict]) -> list[dict]:
     """Посты и кейсы с метками — для облака тегов, страниц тегов и случайного перехода."""
     items = [{"title": p["title"], "url": f"blog/{p['slug']}.html", "tags": p["tags"], "kind": "пост",
-              "date_h": p["date_h"]} for p in posts]
+              "date_h": p["date_h"], "year": int(p["date"][:4])} for p in posts]
     for slug, company, years, *_ in CASES:
         sph, mod, _cover = TAGS[slug]
         items.append({"title": case_title(slug), "url": f"cases/{slug}.html", "tags": ["продакт"] + sph + mod,
-                      "kind": "кейс", "date_h": f"{company}, {years}"})
+                      "kind": "кейс", "date_h": f"{company}, {years}", "year": int(re.findall(r"\d{4}", years)[0])})
     return items
 
 
@@ -165,7 +165,6 @@ def index_page(posts: list[dict], page: int = 1) -> str:
     urls = ",".join(f'"{it["url"]}"' for it in items)
     body = f"""
 <div class="wrap home">
-<div class="cloud" aria-label="Теги">{tag_cloud(items, "")}</div>
 
 <section class="hero-home">
 <img class="avatar avatar-lg" src="assets/avatar.jpg" width="160" height="160" alt="Роман Понуров">
@@ -267,14 +266,47 @@ def projects_page() -> str:
     return layout("Проекты — Роман Понуров", "AI-проекты Романа Понурова с открытым кодом.", body, "projects.html")
 
 
+TAG_GROUPS = [
+    ("продуктовое", ["продакт", "AI", "платформа", "e-com", "менеджмент"]),
+    ("сферы", ["фудтех", "телеком", "финтех", "благотворительность", "госсектор", "шеринг"]),
+    ("бизнес-модели", ["B2C", "B2B", "B2B2C", "B2E", "B2G"]),
+    ("преподавание и наука", ["преподавание", "исследования"]),
+]
+
+
 def tags_pages(posts: list[dict]) -> dict[str, str]:
     items = all_items(posts)
+    counts = dict(tag_counts(items))
     pages = {}
+    link = lambda t: f'<a class="tag-link" href="{tag_slug(t)}.html">#{esc(t)}<sup>{counts[t]}</sup></a>'
+    groups, used = [], set()
+    for name, tags in TAG_GROUPS:
+        present = sorted((t for t in tags if t in counts), key=lambda t: (-counts[t], t))
+        used.update(present)
+        if present:
+            groups.append(f'<section class="tag-group"><h2>{esc(name)}</h2><p>{" ".join(link(t) for t in present)}</p></section>')
+    rest = sorted((t for t in counts if t not in used), key=lambda t: (-counts[t], t))
+    if rest:
+        groups.append(f'<section class="tag-group"><h2>без категории</h2><p>{" ".join(link(t) for t in rest)}</p></section>')
+    # как развивались темы: по годам — какие метки появлялись в постах и кейсах
+    years = sorted({it["year"] for it in items})
+    rows = []
+    for y in years:
+        yc: dict[str, int] = {}
+        for it in items:
+            if it["year"] == y:
+                for t in it["tags"]:
+                    yc[t] = yc.get(t, 0) + 1
+        top = sorted(yc.items(), key=lambda kv: (-kv[1], kv[0]))
+        rows.append(f'<li><span class="yrs">{y}</span><span>{" ".join(link(t) for t, _ in top)}</span></li>')
     body = f"""
 <article class="page"><div class="wrap">
 <a class="back" href="../index.html">На главную</a>
 <h1>Теги</h1>
-<div class="cloud cloud-big">{tag_cloud(items, "../")}</div>
+{"".join(groups)}
+<section class="tag-group"><h2>как развивались темы</h2>
+<ol class="tag-years">{"".join(rows)}</ol>
+</section>
 </div></article>
 """
     pages["index.html"] = layout("Теги — Роман Понуров", "Все темы: посты и кейсы по меткам.", body, "tags/", depth=1)
