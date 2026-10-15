@@ -100,7 +100,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <header class="top"><div class="wrap">
 <a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
-<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}cv.html">📄 резюме</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}about.html">чтобы лучше понимать Рому</a></div></details>
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}cv.html">📄 резюме</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}about.html">👋 обо мне</a></div></details>
 <details class="menu"><summary>наука</summary><div class="menu-list"><a href="{up}research.html">🎓 исследования</a><a href="{up}study.html">📚 учёба</a>{BOOKS_LINK.format(up=up)}</div></details>
 <a href="{up}agents.html">ИИ-агенты</a>
 <a href="{up}projects.html">проекты</a>
@@ -686,7 +686,7 @@ def about_page() -> str:
     body = """
 <article class="page"><div class="wrap">
 <a class="back" href="index.html">На главную</a>
-<h1>Чтобы лучше понимать Рому</h1>
+<h1>Обо мне</h1>
 <div class="prose about">
 <p>Привет 👋 Эта страница — короткая инструкция по работе со мной. Она для коллег, команды и всех, с кем мы начинаем что-то делать вместе: <b>чтобы меньше времени уходило на притирку и больше — на продукт</b>.</p>
 
@@ -723,7 +723,7 @@ def about_page() -> str:
 <p class="related-row">Ещё обо мне: <a href="cv.html">резюме</a> · <a href="cases/index.html">портфолио кейсов</a> · <a href="research.html">исследования</a> · <a href="agents.html">ИИ-агенты</a></p>
 </div></article>
 """
-    return layout("Чтобы лучше понимать Рому — Роман Понуров", "Как со мной работать: принципы, обратная связь, связь и встречи.", body, "about.html")
+    return layout("Обо мне — Роман Понуров", "Как со мной работать: принципы, обратная связь, связь и встречи.", body, "about.html")
 
 
 def load_books() -> list[dict]:
