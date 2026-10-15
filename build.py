@@ -75,7 +75,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <nav class="nav" aria-label="Разделы">
 <a href="{up}index.html#cases">Кейсы</a>
 <a href="{up}index.html#ai">AI-проекты</a>
-<a href="{up}index.html#research">Исследования</a>
+<a href="{up}research.html">Исследования</a>
 <a href="{up}index.html#contacts">Контакты</a>
 <a href="{up}assets/Ponurov_Roman_CV.pdf">Резюме, PDF</a>
 </nav>
@@ -144,17 +144,6 @@ def index_page() -> str:
 </article>
 </div></section>
 
-<section class="block" id="research"><div class="wrap">
-<h2>Исследования</h2>
-<p class="intro">Аспирантура РАНХиГС, менеджмент, 2024–2027. Тема диссертации — использование искусственного интеллекта для совершенствования системы управления компанией.</p>
-<ul class="pubs">
-<li><span class="when">Март 2026<br>доклад</span><span class="what">Технологические требования к инфраструктуре компании при внедрении искусственного интеллекта<i>CIV Международная научно-практическая конференция «Актуальные вопросы экономических наук и современного менеджмента»</i></span></li>
-<li><span class="when">Декабрь 2025<br>ВАК, К2</span><span class="what">Риски и ограничения применения искусственного интеллекта в управлении компанией<i>Экономика и управление: проблемы, решения</i></span></li>
-<li><span class="when">Сентябрь 2025<br>ВАК, К2</span><span class="what">Современные тенденции использования искусственного интеллекта в корпоративном управлении в период цифровой трансформации<i>Финансовый менеджмент</i></span></li>
-<li><span class="when">Май 2025<br>ВАК, К2</span><span class="what">Характерные особенности применения искусственного интеллекта в менеджменте российских компаний<i>Экономика и управление: проблемы, решения</i></span></li>
-</ul>
-</div></section>
-
 <section class="block" id="path"><div class="wrap">
 <h2>Путь</h2>
 <p class="intro">Из инженерии — в системный анализ, оттуда — в продакт-менеджмент.</p>
@@ -216,12 +205,36 @@ def case_page(i: int) -> str:
     return layout(f"{case_title(slug)} — кейс Романа Понурова", about, body, f"cases/{slug}.html", depth=1)
 
 
+def research_page() -> str:
+    body = """
+<article class="page"><div class="wrap">
+<a class="back" href="index.html">На главную</a>
+<h1>Исследования</h1>
+<p class="intro">Аспирантура РАНХиГС, менеджмент, 2024–2027. Тема диссертации — использование искусственного интеллекта для совершенствования системы управления компанией.</p>
+
+<ul class="pubs">
+<li><span class="when">Март 2026<br>доклад</span><span class="what">Технологические требования к инфраструктуре компании при внедрении искусственного интеллекта<i>CIV Международная научно-практическая конференция «Актуальные вопросы экономических наук и современного менеджмента»</i></span></li>
+<li><span class="when">Декабрь 2025<br>ВАК, К2</span><span class="what">Риски и ограничения применения искусственного интеллекта в управлении компанией<i>Экономика и управление: проблемы, решения</i></span></li>
+<li><span class="when">Сентябрь 2025<br>ВАК, К2</span><span class="what">Современные тенденции использования искусственного интеллекта в корпоративном управлении в период цифровой трансформации<i>Финансовый менеджмент</i></span></li>
+<li><span class="when">Май 2025<br>ВАК, К2</span><span class="what">Характерные особенности применения искусственного интеллекта в менеджменте российских компаний<i>Экономика и управление: проблемы, решения</i></span></li>
+</ul>
+
+
+<p class="intro" style="margin-top:32px">Ранее: магистратура НИУ ВШЭ по корпоративным финансам (2021), выпускная работа — моделирование и оценка эффективности инвестиционных проектов в области цифровой трансформации компании.</p>
+</div></article>
+"""
+    return layout("Исследования — Роман Понуров",
+                  "Исследования об использовании искусственного интеллекта в управлении компанией: публикации и доклады.",
+                  body, "research.html")
+
+
 def main() -> None:
     (ROOT / "index.html").write_text(index_page(), encoding="utf-8")
+    (ROOT / "research.html").write_text(research_page(), encoding="utf-8")
     (ROOT / "cases").mkdir(exist_ok=True)
     for i, case in enumerate(CASES):
         (ROOT / "cases" / f"{case[0]}.html").write_text(case_page(i), encoding="utf-8")
-    print(f"Готово: index.html и {len(CASES)} страниц кейсов")
+    print(f"Готово: index.html, research.html и {len(CASES)} страниц кейсов")
 
 
 if __name__ == "__main__":
