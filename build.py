@@ -460,7 +460,66 @@ def book_head(p: dict) -> str:
     return f'<div class="book-head">{img}{rating}</div>'
 
 
-def post_page(p: dict) -> str:
+def post_thumb(p: dict) -> str:
+    if p["cover"]:
+        return "../" + p["cover"]
+    m = re.search(r'<img src="\.\./([^"]+)"', p["body"])
+    return "../" + m.group(1) if m else ""
+
+
+def short_date(p: dict) -> str:
+    y, mo, d = (int(x) for x in p["date"].split("-"))
+    return f"{d} {MONTHS_SHORT[mo - 1]} {y} г."
+
+
+MONTHS_SHORT = ["янв.", "февр.", "мар.", "апр.", "мая", "июн.", "июл.", "авг.", "сент.", "окт.", "нояб.", "дек."]
+
+
+def post_links(p: dict, posts: list[dict]) -> list[tuple[str, str, str]]:
+    """Связи поста: куда он ссылается внутри сайта и какие посты ссылаются на него."""
+    out = []
+    names = {"agents.html": "ИИ-агенты", "projects.html": "Проекты", "study.html": "Учёба", "research.html": "Исследования",
+             "cv.html": "Резюме", "about.html": "Обо мне", "books.html": "Книги", "cases/index.html": "Портфолио кейсов"}
+    for text, href in re.findall(r"\[([^\]]+)\]\((\.\./[^)]+|[a-z0-9-]+\.html)\)", p["body"]):
+        target = href[3:] if href.startswith("../") else "blog/" + href
+        label = names.get(target)
+        if target.startswith("blog/"):
+            label = next((q["title"] for q in posts if f'blog/{q["slug"]}.html' == target), text)
+        elif target.startswith("cases/") and target != "cases/index.html":
+            label = case_title(target[6:-5]) if target[6:-5] in [c[0] for c in CASES] else text
+        out.append(("→", label or text, "../" + target))
+    for q in posts:
+        if q is not p and re.search(rf"\({re.escape(p['slug'])}\.html\)|/blog/{re.escape(p['slug'])}\.html|\.\./blog/{re.escape(p['slug'])}\.html", q["body"]):
+            out.append(("←", q["title"], f'{q["slug"]}.html'))
+    seen, uniq = set(), []
+    for d, t, u in out:
+        if (d, u) not in seen:
+            seen.add((d, u)); uniq.append((d, t, u))
+    return uniq
+
+
+def post_footer(p: dict, posts: list[dict]) -> str:
+    others = [q for q in posts if q is not p]
+    others.sort(key=lambda q: (-len(set(q["tags"]) & set(p["tags"])), q["date"]), reverse=False)
+    others.sort(key=lambda q: (len(set(q["tags"]) & set(p["tags"])), q["date"]), reverse=True)
+    cards = []
+    for q in others[:4]:
+        th = post_thumb(q)
+        img = f'<img src="{th}" alt="" loading="lazy">' if th else '<span class="rel-ph" aria-hidden="true"></span>'
+        tags = "".join(f'<span class="tag">{esc(t)}</span>' for t in q["tags"][:2])
+        cards.append(f"""<a class="rel-card" href="{q['slug']}.html">{img}<span class="rel-body">
+<span class="rel-title">{esc(q['title'])}</span>
+<span class="rel-meta"><time datetime="{q['date']}">{short_date(q)}</time>{tags}</span></span></a>""")
+    links = post_links(p, posts)
+    rel = f'<section class="related-posts"><h2>Похожие посты</h2><div class="rel-grid">{"".join(cards)}</div></section>' if cards else ""
+    li = "".join(f'<li><span class="dir">{d}</span><a href="{u}">{esc(t)}</a></li>' for d, t, u in links)
+    conn = (f'<details class="pill-btn conn"><summary><span class="tri">▸</span> показать связи поста <span class="cnt">{len(links)}</span></summary>'
+            f'<ul class="conn-list">{li}</ul><p class="conn-hint">→ куда ссылается пост · ← кто ссылается на него</p></details>') if links else ""
+    return f"""{rel}
+<div class="post-actions">{conn}<a class="pill-btn" href="https://t.me/astro090"><span aria-hidden="true">✈</span> обсудить в Telegram</a></div>"""
+
+
+def post_page(p: dict, all_posts: list[dict] | None = None) -> str:
     body_html = markdown.markdown(p["body"], extensions=["tables", "sane_lists"])
     tags = "".join(f'<span class="tag">{esc(t)}</span>' for t in p["tags"])
     body = f"""
@@ -471,6 +530,7 @@ def post_page(p: dict) -> str:
 {book_head(p)}<div class="prose">
 {body_html}
 </div>
+{post_footer(p, all_posts or [])}
 </div></article>
 """
     return layout(f"{p['title']} — Роман Понуров", p["excerpt"][:160], body, f"blog/{p['slug']}.html", depth=1)
@@ -775,7 +835,7 @@ def main() -> None:
         (ROOT / "tags" / name).write_text(html_, encoding="utf-8")
     (ROOT / "blog" / "index.html").write_text(blog_index_page(posts), encoding="utf-8")
     for p in posts:
-        (ROOT / "blog" / f"{p['slug']}.html").write_text(post_page(p), encoding="utf-8")
+        (ROOT / "blog" / f"{p['slug']}.html").write_text(post_page(p, posts), encoding="utf-8")
     (ROOT / "cases" / "index.html").write_text(cases_index_page(), encoding="utf-8")
     for i, case in enumerate(CASES):
         (ROOT / "cases" / f"{case[0]}.html").write_text(case_page(i), encoding="utf-8")
