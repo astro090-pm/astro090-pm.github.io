@@ -89,7 +89,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
 <div class="nav-group"><span class="nav-label">продакт</span><a href="{up}cv.html">резюме</a><a href="{up}cases/index.html">кейсы</a><a href="{up}projects.html">проекты</a></div>
-<div class="nav-group"><span class="nav-label">наука</span><a href="{up}research.html">исследования</a></div>
+<div class="nav-group"><span class="nav-label">наука</span><a href="{up}research.html">исследования</a><a href="{up}study.html">учёба</a></div>
 <div class="nav-group"><span class="nav-label">посты</span><a href="{up}blog/index.html">все посты</a></div>
 <div class="nav-group"><a href="{up}tags/index.html">теги</a></div>
 </nav>
@@ -560,6 +560,39 @@ def research_page() -> str:
                   body, "research.html")
 
 
+STUDY = [
+    ("Сертификаты", [
+        ("Scrum.org", "Professional Scrum Product Owner I (PSPO I)", "Сертификат владельца продукта по Scrum: ценность продукта, бэклог, работа со стейкхолдерами.", "сертификат"),
+        ("Cambridge English", "Business English Certificate (BEC)", "Деловой английский, уровень B1.", "сертификат"),
+    ]),
+    ("Курсы", [
+        ("Pendo.io · 2023", "AI for Product Management", "Как применять ИИ в работе продакт-менеджера и в самих продуктах.", "курс"),
+        ("GoPractice · 2022", "Симулятор управления продуктом", "Продуктовая аналитика и метрики на сквозном кейсе: от гипотезы до решения по данным.", "курс"),
+    ]),
+    ("Акселераторы", [
+        ("Московский инновационный кластер · 2025", "«Академия инноваторов»", "Акселератор с проектом bolz: упаковка идеи, проверка гипотез, питч перед экспертами. Затем — конкурс «Новатор Москвы 2025».", "акселератор"),
+    ]),
+]
+
+
+def study_page() -> str:
+    blocks = []
+    for title, rows in STUDY:
+        lis = "\n".join(
+            f'<li><span class="when">{esc(org)}<br>{esc(kind)}</span><span class="what">{esc(name)}<i>{esc(about)}</i></span></li>'
+            for org, name, about, kind in rows)
+        blocks.append(f'<section class="uni"><div class="uni-head"><h2>{esc(title)}</h2></div><ul class="pubs">\n{lis}\n</ul></section>')
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="index.html">На главную</a>
+<h1>Учёба</h1>
+<p class="intro">Сертификаты, курсы и программы, которые я прошёл помимо университетов. Высшее образование и аспирантура — на странице <a href="research.html">исследований</a>.</p>
+{"".join(blocks)}
+</div></article>
+"""
+    return layout("Учёба — Роман Понуров", "Сертификаты, курсы и акселераторы Романа Понурова.", body, "study.html")
+
+
 def main() -> None:
     posts = load_posts()
     pages = max(1, -(-len(posts) // PER_PAGE))
@@ -568,6 +601,7 @@ def main() -> None:
     (ROOT / "cv.html").write_text(cv_page(), encoding="utf-8")
     (ROOT / "projects.html").write_text(projects_page(), encoding="utf-8")
     (ROOT / "research.html").write_text(research_page(), encoding="utf-8")
+    (ROOT / "study.html").write_text(study_page(), encoding="utf-8")
     for d in ("blog", "cases", "tags"):
         (ROOT / d).mkdir(exist_ok=True)
     for f in (ROOT / "tags").glob("*.html"):
