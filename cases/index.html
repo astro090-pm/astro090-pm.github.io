@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../assets/style.css?v=dbe255d0">
+<link rel="stylesheet" href="../assets/style.css?v=cb62b1b6">
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -36,93 +36,64 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <article class="page"><div class="wrap">
 <a class="back" href="../index.html">На главную</a>
 <h1>Портфолио кейсов</h1>
-<p class="intro">Продукты, которые я запускал и развивал за шесть лет: от онлайн-доставки продуктов до авторизации на 10 млн пользователей. По каждому кейсу — контекст, что я сделал и к чему это привело.</p>
-<div class="filters" role="group" aria-label="Фильтр по меткам">
-<button type="button" class="chip" data-tag="" aria-pressed="true">все 7</button><button type="button" class="chip" data-tag="AI" aria-pressed="false">AI</button><button type="button" class="chip" data-tag="e-com" aria-pressed="false">e-com</button><button type="button" class="chip" data-tag="благотворительность" aria-pressed="false">благотворительность</button><button type="button" class="chip" data-tag="госсектор" aria-pressed="false">госсектор</button><button type="button" class="chip" data-tag="платформа" aria-pressed="false">платформа</button><button type="button" class="chip" data-tag="телеком" aria-pressed="false">телеком</button><button type="button" class="chip" data-tag="финтех" aria-pressed="false">финтех</button><button type="button" class="chip" data-tag="фудтех" aria-pressed="false">фудтех</button><button type="button" class="chip" data-tag="шеринг" aria-pressed="false">шеринг</button><button type="button" class="chip" data-tag="B2B" aria-pressed="false">B2B</button><button type="button" class="chip" data-tag="B2B2C" aria-pressed="false">B2B2C</button><button type="button" class="chip" data-tag="B2C" aria-pressed="false">B2C</button><button type="button" class="chip" data-tag="B2E" aria-pressed="false">B2E</button><button type="button" class="chip" data-tag="B2G" aria-pressed="false">B2G</button>
-</div>
-<p class="filter-empty" hidden>Под эту метку кейсов нет — выберите другую.</p>
+<p class="intro">Продукты, которые я запускал и развивал за шесть лет: в банке, телекоме, ритейле и госсекторе, а также собственные проекты. Каждый кейс открывается отдельно: контекст, что я сделал и к чему это привело.</p>
 <ul class="cards">
-<li class="card" data-tags="фудтех e-com B2C">
+<li class="card case-card">
 <a class="cover" href="asia-online.html" style="background:#F0C24B" aria-hidden="true" tabindex="-1">
 <span class="cover-big">+103%</span><span class="cover-small">выручка</span></a>
-<p class="card-meta"><span class="card-co">Азия Ритейл, 2023–2024</span><span class="tag">фудтех</span><span class="tag">e-com</span><span class="tag">B2C</span></p>
+<p class="card-meta">Азия Ритейл · фудтех · e-com · B2C</p>
 <h2 class="card-title"><a href="asia-online.html">«Азия Онлайн»: перезапуск e-commerce продуктового ритейлера</a></h2>
-<p class="card-about">Перезапуск онлайн-доставки продуктов: приложение, оплата, сборка заказов, партнёрства с Glovo и банком.</p>
-<p class="card-result">Выручка +103%, заказы +67%, отток −24%</p>
 </li>
-<li class="card" data-tags="телеком платформа B2B2C">
+<li class="card case-card">
 <a class="cover" href="mts-id.html" style="background:#BFD3F2" aria-hidden="true" tabindex="-1">
 <span class="cover-big">10 млн</span><span class="cover-small">пользователей</span></a>
-<p class="card-meta"><span class="card-co">МТС, 2021–2023</span><span class="tag">телеком</span><span class="tag">платформа</span><span class="tag">B2B2C</span></p>
+<p class="card-meta">МТС · телеком · платформа · B2B2C</p>
 <h2 class="card-title"><a href="mts-id.html">MTS ID: бесшовная авторизация в экосистеме МТС</a></h2>
-<p class="card-about">Единая бесшовная авторизация в продуктах экосистемы и переход с монолита на микросервисы.</p>
-<p class="card-result">Подключены 9 флагманских продуктов и МТС Банк, бесшовные входы +23%</p>
 </li>
-<li class="card" data-tags="фудтех e-com B2C B2B">
+<li class="card case-card">
 <a class="cover" href="po-sosedstvu.html" style="background:#F0C24B" aria-hidden="true" tabindex="-1">
 <span class="cover-big">+89%</span><span class="cover-small">заказов B2B</span></a>
-<p class="card-meta"><span class="card-co">По соседству, 2022–2024</span><span class="tag">фудтех</span><span class="tag">e-com</span><span class="tag">B2C</span><span class="tag">B2B</span></p>
+<p class="card-meta">По соседству · фудтех · e-com · B2C · B2B</p>
 <h2 class="card-title"><a href="po-sosedstvu.html">«По соседству»: вывод офлайн-магазина в онлайн</a></h2>
-<p class="card-about">Вывод офлайн-магазина в онлайн с внешней командой и небольшим бюджетом.</p>
-<p class="card-result">B2B: заказы +89%, средний чек +71%, выручка +58%</p>
 </li>
-<li class="card" data-tags="финтех AI B2E">
+<li class="card case-card">
 <a class="cover" href="gazprombank.html" style="background:#C9DDC5" aria-hidden="true" tabindex="-1">
 <span class="cover-big">ИИ-агент</span><span class="cover-small">в кредитном анализе</span></a>
-<p class="card-meta"><span class="card-co">Газпромбанк, с 2024</span><span class="tag">финтех</span><span class="tag">AI</span><span class="tag">B2E</span></p>
+<p class="card-meta">Газпромбанк · финтех · AI · B2E</p>
 <h2 class="card-title"><a href="gazprombank.html">Сервис кредитного анализа компаний с ИИ-агентом (B2E)</a></h2>
-<p class="card-about">Внутренний сервис кредитного анализа компаний с ИИ-агентом: от концепции и защиты бюджета до запуска.</p>
-<p class="card-result">Запущен с нуля в промышленную эксплуатацию</p>
 </li>
-<li class="card" data-tags="благотворительность B2C">
+<li class="card case-card">
 <a class="cover" href="dobster.html" style="background:#E8D3E0" aria-hidden="true" tabindex="-1">
 <span class="cover-big">0 → прод</span><span class="cover-small">запуск с нуля</span></a>
-<p class="card-meta"><span class="card-co">Добстер, 2022–2023</span><span class="tag">благотворительность</span><span class="tag">B2C</span></p>
+<p class="card-meta">Добстер · благотворительность · B2C</p>
 <h2 class="card-title"><a href="dobster.html">«Добстер»: платформа благотворительных услуг</a></h2>
-<p class="card-about">Платформа благотворительных услуг: концепция, мокапы, команда, запуск.</p>
-<p class="card-result">Запущена с нуля до продакшена</p>
 </li>
-<li class="card" data-tags="госсектор B2G">
+<li class="card case-card">
 <a class="cover" href="granit.html" style="background:#D9DCD4" aria-hidden="true" tabindex="-1">
 <span class="cover-big">B2G</span><span class="cover-small">автоматизация процессов</span></a>
-<p class="card-meta"><span class="card-co">Концерн ГРАНИТ, 2019–2021</span><span class="tag">госсектор</span><span class="tag">B2G</span></p>
+<p class="card-meta">Концерн ГРАНИТ · госсектор · B2G</p>
 <h2 class="card-title"><a href="granit.html">Автоматизация процессов государственного департамента (B2G)</a></h2>
-<p class="card-about">Автоматизация процессов государственного департамента; путь из системного аналитика в продакты.</p>
-<p class="card-result">Сервис запущен с нуля</p>
 </li>
-<li class="card" data-tags="шеринг B2C">
+<li class="card case-card" hidden>
 <a class="cover" href="bolz.html" style="background:#BFD3F2" aria-hidden="true" tabindex="-1">
 <span class="cover-big">2025</span><span class="cover-small">акселератор МИК</span></a>
-<p class="card-meta"><span class="card-co">Собственный проект, 2025</span><span class="tag">шеринг</span><span class="tag">B2C</span></p>
+<p class="card-meta">Собственный проект · шеринг · B2C</p>
 <h2 class="card-title"><a href="bolz.html">bolz: агрегатор шеринг-сервисов</a></h2>
-<p class="card-about">Агрегатор шеринг-сервисов в акселераторе Московского инновационного кластера.</p>
-<p class="card-result">Участник «Новатор Москвы 2025»</p>
 </li>
 </ul>
-<nav class="related" aria-label="Другие разделы">
-<h2>Ещё на сайте</h2>
-<ul>
-<li><a href="../projects.html">Проекты</a> — AI-прототипы с открытым кодом</li>
-<li><a href="../research.html">Исследования и образование</a> — ИИ в управлении компанией</li>
-<li><a href="../assets/Ponurov_Roman_CV.pdf">Резюме, PDF</a></li>
-</ul>
-</nav>
+<button type="button" class="pill-btn more-btn" id="more">смотреть дальше <span class="cnt">1</span></button>
+<div class="xlinks">
+<a class="xlink" href="../projects.html"><b>Проекты</b><span>что строил сам и зачем — свои продукты и AI-прототипы</span></a>
+<a class="xlink" href="../agents.html"><b>ИИ-агенты</b><span>путь от теории к практике, код и заметки</span></a>
+</div>
 </div></article>
 <script>
 (() => {
-  const chips = document.querySelectorAll('.chip');
-  const cards = document.querySelectorAll('.card');
-  const empty = document.querySelector('.filter-empty');
-  chips.forEach(chip => chip.addEventListener('click', () => {
-    const tag = chip.dataset.tag;
-    chips.forEach(c => c.setAttribute('aria-pressed', String(c === chip)));
-    let shown = 0;
-    cards.forEach(card => {
-      const on = !tag || card.dataset.tags.split(' ').includes(tag);
-      card.hidden = !on; if (on) shown++;
-    });
-    empty.hidden = shown > 0;
-  }));
+  const btn = document.getElementById('more');
+  if (btn) btn.addEventListener('click', () => {
+    document.querySelectorAll('.case-card[hidden]').forEach(c => c.hidden = false);
+    btn.remove();
+  });
 })();
 </script>
 
