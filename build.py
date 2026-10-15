@@ -551,11 +551,13 @@ def blog_index_page(posts: list[dict]) -> str:
 
 
 CASES_SHOWN = 6
+OWN_SLUGS = {"po-sosedstvu", "dobster", "bolz"}  # собственные проекты — на странице «Проекты», не в портфолио
 
 
 def cases_index_page() -> str:
     cards = []
-    for i, (slug, company, years, _kind, about, result) in enumerate(CASES):
+    work = [c for c in CASES if c[0] not in OWN_SLUGS]
+    for i, (slug, company, years, _kind, about, result) in enumerate(work):
         sph, mod, (big, small, color) = TAGS[slug]
         meta = " · ".join([company] + sph + mod)
         hidden = " hidden" if i >= CASES_SHOWN else ""
@@ -565,14 +567,14 @@ def cases_index_page() -> str:
 <p class="card-meta">{esc(meta)}</p>
 <h2 class="card-title"><a href="{slug}.html">{esc(case_title(slug))}</a></h2>
 </li>""")
-    more = len(CASES) - CASES_SHOWN
+    more = len(work) - CASES_SHOWN
     more_btn = (f'<button type="button" class="pill-btn more-btn" id="more">смотреть дальше <span class="cnt">{more}</span></button>'
                 if more > 0 else "")
     body = f"""
 <article class="page"><div class="wrap">
 <a class="back" href="../index.html">На главную</a>
 <h1>Портфолио кейсов</h1>
-<p class="intro">Продукты, которые я запускал и развивал за шесть лет: в банке, телекоме, ритейле и госсекторе, а также собственные проекты. Каждый кейс открывается отдельно: контекст, что я сделал и к чему это привело.</p>
+<p class="intro">Продукты, которые я запускал и развивал на основной работе: в банке, телекоме, ритейле и госсекторе. Каждый кейс открывается отдельно: контекст, что я сделал и к чему это привело. Собственные продукты — на странице <a href="../projects.html">«Проекты»</a>.</p>
 <ul class="cards">
 {chr(10).join(cards)}
 </ul>
