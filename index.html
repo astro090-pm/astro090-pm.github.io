@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=b82d066f">
+<link rel="stylesheet" href="assets/style.css?v=d864a4e0">
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -21,6 +21,7 @@
 <nav class="nav" aria-label="Разделы">
 <details class="menu"><summary>продакт</summary><div class="menu-list"><a href="cv.html">📄 резюме</a><a href="cases/index.html">📁 портфолио кейсов</a><a href="about.html">чтобы лучше понимать Рому</a></div></details>
 <details class="menu"><summary>наука</summary><div class="menu-list"><a href="research.html">🎓 исследования</a><a href="study.html">📚 учёба</a></div></details>
+<a href="agents.html">ИИ-агенты</a>
 <a href="projects.html">проекты</a>
 <a href="blog/index.html">посты</a>
 <a href="tags/index.html">теги</a>
@@ -49,6 +50,10 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <span class="feed-meta"><span class="feed-cat">преподавание</span><span>2 мин</span><time datetime="2026-10-16">16 октября 2026</time></span>
 <span class="feed-title">Читаю курс по ИТ-менеджменту в университете</span>
 <span class="feed-excerpt">Этой осенью я веду курс «ИТ-менеджмент» для студентов первого курса: семь лекций по вторникам, с 13 октября по 24 ноября. Первая лекция уже прошла.</span></a></li>
+<li class="feed-item"><a class="feed-link" href="blog/put-v-ii-agenty.html">
+<span class="feed-meta"><span class="feed-cat">ИИ-агенты</span><span>1 мин</span><time datetime="2026-10-16">16 октября 2026</time></span>
+<span class="feed-title">Начинаю рассказывать свой путь в ИИ-агентах</span>
+<span class="feed-excerpt">Открываю на сайте раздел «ИИ-агенты». В нём я буду по шагам рассказывать, как изучаю агентов: от теории к практике.</span></a></li>
 <li class="feed-item"><a class="feed-link" href="blog/bolz-akselerator.html">
 <span class="feed-meta"><span class="feed-cat">продакт</span><span>1 мин</span><time datetime="2025-09-30">30 сентября 2025</time></span>
 <span class="feed-title">Прошёл акселератор «Академия инноваторов» с проектом bolz</span>
@@ -64,7 +69,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 </div>
 <script>
 document.getElementById('random').addEventListener('click', () => {
-  const urls = ["blog/lekcii-it-menedzhment.html","blog/bolz-akselerator.html","blog/ocenka-mts.html","cases/asia-online.html","cases/mts-id.html","cases/po-sosedstvu.html","cases/gazprombank.html","cases/dobster.html","cases/granit.html","cases/bolz.html"];
+  const urls = ["blog/lekcii-it-menedzhment.html","blog/put-v-ii-agenty.html","blog/bolz-akselerator.html","blog/ocenka-mts.html","cases/asia-online.html","cases/mts-id.html","cases/po-sosedstvu.html","cases/gazprombank.html","cases/dobster.html","cases/granit.html","cases/bolz.html"];
   location.href = urls[Math.floor(Math.random() * urls.length)];
 });
 </script>

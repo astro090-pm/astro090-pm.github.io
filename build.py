@@ -93,6 +93,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <nav class="nav" aria-label="Разделы">
 <details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}cv.html">📄 резюме</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}about.html">чтобы лучше понимать Рому</a></div></details>
 <details class="menu"><summary>наука</summary><div class="menu-list"><a href="{up}research.html">🎓 исследования</a><a href="{up}study.html">📚 учёба</a>{BOOKS_LINK.format(up=up)}</div></details>
+<a href="{up}agents.html">ИИ-агенты</a>
 <a href="{up}projects.html">проекты</a>
 <a href="{up}blog/index.html">посты</a>
 <a href="{up}tags/index.html">теги</a>
@@ -430,6 +431,7 @@ def load_posts() -> list[dict]:
             "slug": f.stem[11:] if re.match(r"\d{4}-\d{2}-\d{2}-", f.stem) else f.stem,
             "title": meta["title"], "date": meta["date"], "date_h": f"{d} {MONTHS_GEN[mo - 1]} {y}",
             "tags": [t.strip() for t in meta.get("tags", "").split(",") if t.strip()],
+            "stage": meta.get("stage", ""),
             "excerpt": text, "body": body,
         })
     return sorted(posts, key=lambda p: p["date"], reverse=True)
@@ -680,6 +682,62 @@ def books_page(books: list[dict], posts: list[dict]) -> str:
     return layout("Книги — Роман Понуров", "Книги о продукте, ИИ и менеджменте, которые читает Роман Понуров, и рецензии на них.", body, "books.html")
 
 
+WP = GITHUB + "/weekend-planner"
+AGENT_STAGES = [
+    # (номер, название, что это, практика: [(подпись, ссылка)], статус)
+    (1, "Как устроены LLM", "Токены, контекст, температура, почему модель «галлюцинирует» и как писать промпты, которые работают стабильно.", [], "теория"),
+    (2, "Структурированный ответ и инструменты", "Модель отвечает не текстом, а JSON по схеме и сама решает, какой инструмент вызвать: погоду, афишу, поиск.",
+     [("схемы ответов и цикл вызова инструментов в Планировщике", WP + "/tree/main/weekend_agent/agents")], "есть практика"),
+    (3, "Агентный цикл", "Агент сам планирует шаги, вызывает инструменты, проверяет результат и решает, что делать дальше. Где нужен агент, а где хватит обычного сценария.",
+     [("разведчик, планировщик и критик", WP + "/tree/main/weekend_agent/agents")], "есть практика"),
+    (4, "MCP — протокол инструментов", "Стандартный способ подключить к модели внешние инструменты и данные, чтобы не писать интеграцию заново под каждого агента.",
+     [("собственный MCP-сервер с четырьмя инструментами", WP + "/blob/main/weekend_agent/mcp_server.py")], "есть практика"),
+    (5, "Мультиагентность и A2A", "Несколько агентов с разными ролями договариваются между собой по протоколу Agent-to-Agent.",
+     [("агенты Планировщика общаются по A2A", WP + "/tree/main/weekend_agent/a2a")], "есть практика"),
+    (6, "Браузерные агенты", "Агент открывает страницы, читает и действует на сайте там, где нет API.",
+     [("браузерный инструмент разведчика", WP + "/blob/main/weekend_agent/tools/providers.py")], "есть практика"),
+    (7, "Оркестрация и восстановление", "Что делать, когда инструмент упал, модель ответила мусором или зациклилась: повторы, запасные модели, проверки, ограничение шагов.",
+     [("повторы и запасные провайдеры", WP + "/blob/main/weekend_agent/resilience.py")], "есть практика"),
+    (8, "Эвалы", "Как измерить качество агента: набор кейсов, автоматические проверки, сравнение версий до и после изменений.",
+     [("32 эвал-кейса", WP + "/tree/main/evals")], "есть практика"),
+    (9, "Продуктовые метрики агента", "Agent-native метрики: доля задач, решённых без человека, стоимость и время ответа, возвраты и оценки пользователей.",
+     [("воронка, retention и оценки в боте", WP + "/blob/main/weekend_agent/analytics/metrics.py")], "есть практика"),
+    (10, "Память и RAG", "Как агенту помнить пользователя и опираться на свои документы, а не только на знания модели.", [], "впереди"),
+    (11, "Наблюдаемость и безопасность", "Трейсы, логи и стоимость каждого шага; защита от prompt injection и опасных действий.", [], "впереди"),
+    (12, "Агент в продакшене", "Запуск на реальных пользователях: A/B-тесты, мониторинг качества, экономика агента.", [], "впереди"),
+]
+
+
+def agents_page(posts: list[dict]) -> str:
+    ap = [p for p in posts if "ИИ-агенты" in p["tags"]]
+    general = [p for p in ap if not p["stage"]]
+    stages = []
+    for n, name, what, practice, status in AGENT_STAGES:
+        sp = [p for p in ap if p["stage"] == str(n)]
+        prac = "".join(f'<li>Практика: <a href="{u}">{esc(t)}</a></li>' for t, u in practice)
+        notes = "".join(f'<li>Пост: <a href="blog/{p["slug"]}.html">{esc(p["title"])}</a></li>' for p in sp)
+        links = f'<ul class="stage-links">{prac}{notes}</ul>' if prac or notes else ""
+        cls = {"есть практика": "done", "впереди": "next"}.get(status, "theory")
+        stages.append(f"""<li class="stage stage-{cls}"><span class="stage-n">{n:02d}</span><div>
+<h3>{esc(name)} <span class="stage-status">{esc(status)}</span></h3>
+<p>{esc(what)}</p>{links}</div></li>""")
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="index.html">На главную</a>
+<h1>ИИ-агенты</h1>
+<p class="intro">Здесь я рассказываю свой путь в ИИ-агентах: от теории к практике. Каждый этап — что это такое, где я это попробовал руками и что понял. Главный полигон — <a href="projects.html">Планировщик выходных</a>, агентный Telegram-бот с открытым кодом.</p>
+
+{('<h2>Последние заметки</h2><ul class="feed">' + feed(general + [p for p in ap if p["stage"]], "blog/") + '</ul>') if ap else ''}
+
+<h2 class="stages-head">Карта пути</h2>
+<ol class="stages">
+{"".join(stages)}
+</ol>
+</div></article>
+"""
+    return layout("ИИ-агенты — Роман Понуров", "Путь изучения ИИ-агентов от теории к практике: LLM, инструменты, MCP, A2A, эвалы, метрики.", body, "agents.html")
+
+
 def main() -> None:
     posts = load_posts()
     pages = max(1, -(-len(posts) // PER_PAGE))
@@ -690,6 +748,7 @@ def main() -> None:
     (ROOT / "research.html").write_text(research_page(), encoding="utf-8")
     (ROOT / "study.html").write_text(study_page(), encoding="utf-8")
     (ROOT / "about.html").write_text(about_page(), encoding="utf-8")
+    (ROOT / "agents.html").write_text(agents_page(posts), encoding="utf-8")
     books = load_books()
     if books:
         (ROOT / "books.html").write_text(books_page(books, posts), encoding="utf-8")

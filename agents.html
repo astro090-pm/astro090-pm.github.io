@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ИИ-агенты — Роман Понуров</title>
+<meta name="description" content="Путь изучения ИИ-агентов от теории к практике: LLM, инструменты, MCP, A2A, эвалы, метрики.">
+<link rel="canonical" href="https://astro090-pm.github.io/agents.html">
+<meta property="og:title" content="ИИ-агенты — Роман Понуров">
+<meta property="og:description" content="Путь изучения ИИ-агентов от теории к практике: LLM, инструменты, MCP, A2A, эвалы, метрики.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="assets/style.css?v=d864a4e0">
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="index.html"><img class="avatar avatar-sm" src="assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
+<nav class="nav" aria-label="Разделы">
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="cv.html">📄 резюме</a><a href="cases/index.html">📁 портфолио кейсов</a><a href="about.html">чтобы лучше понимать Рому</a></div></details>
+<details class="menu"><summary>наука</summary><div class="menu-list"><a href="research.html">🎓 исследования</a><a href="study.html">📚 учёба</a></div></details>
+<a href="agents.html">ИИ-агенты</a>
+<a href="projects.html">проекты</a>
+<a href="blog/index.html">посты</a>
+<a href="tags/index.html">теги</a>
+</nav>
+<script>
+document.addEventListener('click', e => document.querySelectorAll('details.menu[open]').forEach(d => { if (!d.contains(e.target)) d.open = false; }));
+document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => { if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => { if (o !== d) o.open = false; }); }));
+</script>
+</div></header>
+<main>
+
+<article class="page"><div class="wrap">
+<a class="back" href="index.html">На главную</a>
+<h1>ИИ-агенты</h1>
+<p class="intro">Здесь я рассказываю свой путь в ИИ-агентах: от теории к практике. Каждый этап — что это такое, где я это попробовал руками и что понял. Главный полигон — <a href="projects.html">Планировщик выходных</a>, агентный Telegram-бот с открытым кодом.</p>
+
+<h2>Последние заметки</h2><ul class="feed"><li class="feed-item"><a class="feed-link" href="blog/put-v-ii-agenty.html">
+<span class="feed-meta"><span class="feed-cat">ИИ-агенты</span><span>1 мин</span><time datetime="2026-10-16">16 октября 2026</time></span>
+<span class="feed-title">Начинаю рассказывать свой путь в ИИ-агентах</span>
+<span class="feed-excerpt">Открываю на сайте раздел «ИИ-агенты». В нём я буду по шагам рассказывать, как изучаю агентов: от теории к практике.</span></a></li></ul>
+
+<h2 class="stages-head">Карта пути</h2>
+<ol class="stages">
+<li class="stage stage-theory"><span class="stage-n">01</span><div>
+<h3>Как устроены LLM <span class="stage-status">теория</span></h3>
+<p>Токены, контекст, температура, почему модель «галлюцинирует» и как писать промпты, которые работают стабильно.</p></div></li><li class="stage stage-done"><span class="stage-n">02</span><div>
+<h3>Структурированный ответ и инструменты <span class="stage-status">есть практика</span></h3>
+<p>Модель отвечает не текстом, а JSON по схеме и сама решает, какой инструмент вызвать: погоду, афишу, поиск.</p><ul class="stage-links"><li>Практика: <a href="https://github.com/astro090-pm/weekend-planner/tree/main/weekend_agent/agents">схемы ответов и цикл вызова инструментов в Планировщике</a></li></ul></div></li><li class="stage stage-done"><span class="stage-n">03</span><div>
+<h3>Агентный цикл <span class="stage-status">есть практика</span></h3>
+<p>Агент сам планирует шаги, вызывает инструменты, проверяет результат и решает, что делать дальше. Где нужен агент, а где хватит обычного сценария.</p><ul class="stage-links"><li>Практика: <a href="https://github.com/astro090-pm/weekend-planner/tree/main/weekend_agent/agents">разведчик, планировщик и критик</a></li></ul></div></li><li class="stage stage-done"><span class="stage-n">04</span><div>
+<h3>MCP — протокол инструментов <span class="stage-status">есть практика</span></h3>
+<p>Стандартный способ подключить к модели внешние инструменты и данные, чтобы не писать интеграцию заново под каждого агента.</p><ul class="stage-links"><li>Практика: <a href="https://github.com/astro090-pm/weekend-planner/blob/main/weekend_agent/mcp_server.py">собственный MCP-сервер с четырьмя инструментами</a></li></ul></div></li><li class="stage stage-done"><span class="stage-n">05</span><div>
+<h3>Мультиагентность и A2A <span class="stage-status">есть практика</span></h3>
+<p>Несколько агентов с разными ролями договариваются между собой по протоколу Agent-to-Agent.</p><ul class="stage-links"><li>Практика: <a href="https://github.com/astro090-pm/weekend-planner/tree/main/weekend_agent/a2a">агенты Планировщика общаются по A2A</a></li></ul></div></li><li class="stage stage-done"><span class="stage-n">06</span><div>
+<h3>Браузерные агенты <span class="stage-status">есть практика</span></h3>
+<p>Агент открывает страницы, читает и действует на сайте там, где нет API.</p><ul class="stage-links"><li>Практика: <a href="https://github.com/astro090-pm/weekend-planner/blob/main/weekend_agent/tools/providers.py">браузерный инструмент разведчика</a></li></ul></div></li><li class="stage stage-done"><span class="stage-n">07</span><div>
+<h3>Оркестрация и восстановление <span class="stage-status">есть практика</span></h3>
+<p>Что делать, когда инструмент упал, модель ответила мусором или зациклилась: повторы, запасные модели, проверки, ограничение шагов.</p><ul class="stage-links"><li>Практика: <a href="https://github.com/astro090-pm/weekend-planner/blob/main/weekend_agent/resilience.py">повторы и запасные провайдеры</a></li></ul></div></li><li class="stage stage-done"><span class="stage-n">08</span><div>
+<h3>Эвалы <span class="stage-status">есть практика</span></h3>
+<p>Как измерить качество агента: набор кейсов, автоматические проверки, сравнение версий до и после изменений.</p><ul class="stage-links"><li>Практика: <a href="https://github.com/astro090-pm/weekend-planner/tree/main/evals">32 эвал-кейса</a></li></ul></div></li><li class="stage stage-done"><span class="stage-n">09</span><div>
+<h3>Продуктовые метрики агента <span class="stage-status">есть практика</span></h3>
+<p>Agent-native метрики: доля задач, решённых без человека, стоимость и время ответа, возвраты и оценки пользователей.</p><ul class="stage-links"><li>Практика: <a href="https://github.com/astro090-pm/weekend-planner/blob/main/weekend_agent/analytics/metrics.py">воронка, retention и оценки в боте</a></li></ul></div></li><li class="stage stage-next"><span class="stage-n">10</span><div>
+<h3>Память и RAG <span class="stage-status">впереди</span></h3>
+<p>Как агенту помнить пользователя и опираться на свои документы, а не только на знания модели.</p></div></li><li class="stage stage-next"><span class="stage-n">11</span><div>
+<h3>Наблюдаемость и безопасность <span class="stage-status">впереди</span></h3>
+<p>Трейсы, логи и стоимость каждого шага; защита от prompt injection и опасных действий.</p></div></li><li class="stage stage-next"><span class="stage-n">12</span><div>
+<h3>Агент в продакшене <span class="stage-status">впереди</span></h3>
+<p>Запуск на реальных пользователях: A/B-тесты, мониторинг качества, экономика агента.</p></div></li>
+</ol>
+</div></article>
+
+</main>
+<footer><div class="wrap foot">
+© 2026 Роман Понуров · <a href="mailto:ponurov.roman@yandex.ru">email</a> · <a href="https://t.me/astro090">telegram</a> · все права защищены
+</div></footer>
+</body>
+</html>
