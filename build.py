@@ -647,7 +647,7 @@ def research_page() -> str:
 </section>
 
 <section class="uni">
-<div class="uni-head"><h2><img class="uni-logo" src="assets/uni/mei.png" width="136" height="64" alt="">НИУ МЭИ</h2><p class="uni-meta">Электротехника<br>Москва, 2008–2015</p></div>
+<div class="uni-head"><h2><img class="uni-logo" src="assets/uni/mei.png" width="136" height="64" alt="">НИУ МЭИ</h2><p class="uni-meta">Магистратура, электротехника<br>Москва, 2008–2015</p></div>
 <p class="uni-topic">Инженерная база, с которой начался путь: испытания и обслуживание электрооборудования, затем продажи технических решений.</p>
 </section>
 </div></article>
