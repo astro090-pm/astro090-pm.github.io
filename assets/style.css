@@ -428,3 +428,59 @@ details[open] .tri { transform: rotate(90deg); }
 .xlink:hover b { color: var(--link); }
 @media (max-width: 760px) { .xlinks { grid-template-columns: 1fr; } }
 .case-card .card-title, .case-card .card-title a { font: 500 21px/1.3 var(--sans); }
+
+/* Кнопки поиска и темы в шапке */
+.tools { display: inline-flex; gap: 6px; margin-left: 6px; }
+.icon-btn { display: inline-grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--card-rule); background: transparent; color: var(--ink); cursor: pointer; }
+.icon-btn:hover { border-color: var(--ink); }
+.i-sun { display: none; }
+#theme-toggle[aria-pressed="true"] .i-sun { display: block; }
+#theme-toggle[aria-pressed="true"] .i-moon { display: none; }
+
+/* Окно поиска */
+.no-scroll { overflow: hidden; }
+.search-wrap { position: fixed; inset: 0; z-index: 100; background: rgba(20, 20, 20, .35); display: flex; justify-content: center; align-items: flex-start; padding: 10vh 16px 16px; }
+.search-wrap[hidden] { display: none; }
+.search-box { width: min(640px, 100%); background: var(--paper); border: 1px solid var(--card-rule); border-radius: 16px; box-shadow: 0 24px 60px rgba(0,0,0,.2); overflow: hidden; font-family: var(--sans); }
+.search-input { width: 100%; box-sizing: border-box; border: 0; border-bottom: 1px solid var(--rule); padding: 18px 20px; font: 400 19px var(--sans); background: transparent; color: var(--ink); outline: none; }
+.search-list { list-style: none; margin: 0; padding: 6px; max-height: 56vh; overflow: auto; }
+.search-list a { display: block; padding: 10px 14px; border-radius: 10px; color: var(--ink); font-weight: 400; }
+.search-list a:hover { text-decoration: none; }
+.search-list li.on a { background: var(--surface); }
+.search-kind { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-right: 8px; }
+.search-title { font-weight: 600; font-size: 17px; }
+.search-snip { display: block; color: var(--muted); font-size: 14px; margin-top: 3px; line-height: 1.45; }
+.search-snip mark { background: var(--marker); color: inherit; border-radius: 2px; padding: 0 1px; }
+.search-empty { padding: 14px; color: var(--muted); }
+.search-hint { margin: 0; padding: 10px 20px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 13px; }
+
+/* ===== Тёмная тема: явный выбор или системная настройка ===== */
+:root[data-theme="dark"] {
+  --paper: #161514; --surface: #201F1D; --card-rule: #33312D; --ink: #ECE9E3; --muted: #A39E95;
+  --rule: #2E2C29; --link: #F0A04B; --marker: #6B4A1F;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #161514; --surface: #201F1D; --card-rule: #33312D; --ink: #ECE9E3; --muted: #A39E95;
+    --rule: #2E2C29; --link: #F0A04B; --marker: #6B4A1F;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] .menu-list, :root[data-theme="dark"] .rel-card, :root[data-theme="dark"] .xlink, :root[data-theme="dark"] .chip,
+:root[data-theme="dark"] .tag, :root[data-theme="dark"] .stat, :root[data-theme="dark"] .cnt { background: var(--surface); }
+:root[data-theme="dark"] .random, :root[data-theme="dark"] .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+:root[data-theme="dark"] .stage-done .stage-status { background: #3A2A16; color: #F0B56E; }
+:root[data-theme="dark"] .cover { filter: saturate(.8) brightness(.88); }
+:root[data-theme="dark"] .uni-logo, :root[data-theme="dark"] .project img { background: #fff; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .menu-list, :root:not([data-theme="light"]) .rel-card, :root:not([data-theme="light"]) .xlink,
+  :root:not([data-theme="light"]) .chip, :root:not([data-theme="light"]) .tag, :root:not([data-theme="light"]) .stat,
+  :root:not([data-theme="light"]) .cnt { background: var(--surface); }
+  :root:not([data-theme="light"]) .random, :root:not([data-theme="light"]) .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  :root:not([data-theme="light"]) .stage-done .stage-status { background: #3A2A16; color: #F0B56E; }
+  :root:not([data-theme="light"]) .cover { filter: saturate(.8) brightness(.88); }
+}
+.cover, .cover .cover-big, .cover .cover-small { color: #141414; }
+:root[data-theme="dark"] .rel-ph { background: linear-gradient(135deg, #2A2825, #1E1D1B 60%, #2F2C28); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .rel-ph { background: linear-gradient(135deg, #2A2825, #1E1D1B 60%, #2F2C28); } }

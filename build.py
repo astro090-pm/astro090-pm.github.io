@@ -58,6 +58,7 @@ FONTS = ("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;60
 
 
 import hashlib
+JS_V = hashlib.md5((Path(__file__).parent / "assets" / "site.js").read_bytes()).hexdigest()[:8]
 CSS_V = hashlib.md5((Path(__file__).parent / "assets" / "style.css").read_bytes()).hexdigest()[:8]
 
 
@@ -95,6 +96,8 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
 <link rel="stylesheet" href="{up}assets/style.css?v={CSS_V}">
+<script>try{{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}}catch(e){{}}</script>
+<script src="{up}assets/site.js?v={JS_V}" defer data-root="{up}"></script>
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -106,6 +109,10 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <a href="{up}projects.html">проекты</a>
 <a href="{up}blog/index.html">посты</a>
 <a href="{up}tags/index.html">теги</a>
+<span class="tools">
+<button type="button" class="icon-btn" id="search-open" aria-label="Поиск по сайту" title="Поиск (/)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+<button type="button" class="icon-btn" id="theme-toggle" aria-label="Переключить тёмную тему" title="Тёмная тема"><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</span>
 </nav>
 <script>
 document.addEventListener('click', e => document.querySelectorAll('details.menu[open]').forEach(d => {{ if (!d.contains(e.target)) d.open = false; }}));
@@ -821,6 +828,26 @@ def agents_page(posts: list[dict]) -> str:
     return layout("ИИ-агенты — Роман Понуров", "Путь изучения ИИ-агентов от теории к практике: LLM, инструменты, MCP, A2A, эвалы, метрики.", body, "agents.html")
 
 
+def build_search_index() -> None:
+    """search.json: заголовок, адрес, раздел и текст каждой страницы — для поиска в браузере."""
+    import json
+    kinds = {"blog": "пост", "cases": "кейс"}
+    items = []
+    for f in sorted(ROOT.rglob("*.html")):
+        rel = f.relative_to(ROOT).as_posix()
+        if rel.startswith(("tags/", "content/", "tools/")) or re.match(r"page\d+\.html$", rel) or rel in ("blog/index.html", "index.html"):
+            continue
+        html_ = f.read_text(encoding="utf-8")
+        title = html.unescape(re.search(r"<title>(.*?)</title>", html_).group(1)).replace(" — Роман Понуров", "").replace(" — кейс Романа Понурова", "")
+        main_ = re.search(r"<main>(.*)</main>", html_, re.S).group(1)
+        main_ = re.sub(r"<(script|style|nav)\b.*?</\1>", " ", main_, flags=re.S)
+        main_ = re.sub(r'<section class="related-posts">.*?</section>|<div class="post-actions">.*?</div>|<a class="back"[^>]*>.*?</a>|<p class="post-meta">.*?</p>', " ", main_, flags=re.S)
+        text = html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", main_))).strip()
+        kind = kinds.get(rel.split("/")[0], "страница") if "/" in rel else "страница"
+        items.append({"t": title, "u": rel, "k": kind, "x": text[:6000]})
+    (ROOT / "search.json").write_text(json.dumps(items, ensure_ascii=False), encoding="utf-8")
+
+
 def main() -> None:
     posts = load_posts()
     pages = max(1, -(-len(posts) // PER_PAGE))
@@ -847,6 +874,7 @@ def main() -> None:
     (ROOT / "cases" / "index.html").write_text(cases_index_page(), encoding="utf-8")
     for i, case in enumerate(CASES):
         (ROOT / "cases" / f"{case[0]}.html").write_text(case_page(i), encoding="utf-8")
+    build_search_index()
     print(f"Готово: главная, {len(posts)} пост(ов), {len(CASES)} кейсов, резюме, проекты, исследования, теги")
 
 
