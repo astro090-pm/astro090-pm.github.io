@@ -452,3 +452,4 @@ footer { margin-top: 96px; border-top: 1px solid var(--rule); color: var(--muted
 .cover-small { font-family: var(--sans); }
 @media (max-width: 1180px) { .grid { gap: 0 48px; } }
 @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+.page h1, .hero h1 { overflow-wrap: anywhere; hyphens: auto; }
