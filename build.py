@@ -497,7 +497,7 @@ def research_page() -> str:
 <h1>Исследования и образование</h1>
 
 <section class="uni">
-<div class="uni-head"><h2>РАНХиГС</h2><p class="uni-meta">Аспирантура, менеджмент<br>Москва, 2024–2027</p></div>
+<div class="uni-head"><h2><img class="uni-logo" src="assets/uni/ranepa.png" width="35" height="64" alt="">РАНХиГС</h2><p class="uni-meta">Аспирантура, менеджмент<br>Москва, 2024–2027</p></div>
 <p class="uni-topic">Диссертация: «Использование искусственного интеллекта для совершенствования системы управления компанией».</p>
 <ul class="pubs">
 <li><span class="when">Март 2026<br>доклад</span><span class="what">Технологические требования к инфраструктуре компании при внедрении искусственного интеллекта<i>CIV Международная научно-практическая конференция «Актуальные вопросы экономических наук и современного менеджмента»</i></span></li>
@@ -508,12 +508,12 @@ def research_page() -> str:
 </section>
 
 <section class="uni">
-<div class="uni-head"><h2>НИУ ВШЭ</h2><p class="uni-meta">Магистратура, корпоративные финансы<br>Москва, 2018–2021</p></div>
+<div class="uni-head"><h2><img class="uni-logo" src="assets/uni/hse.png" width="64" height="64" alt="">НИУ ВШЭ</h2><p class="uni-meta">Магистратура, корпоративные финансы<br>Москва, 2018–2021</p></div>
 <p class="uni-topic">Выпускная работа: «Моделирование и оценка эффективности инвестиционных проектов в области цифровой трансформации компании».</p>
 </section>
 
 <section class="uni">
-<div class="uni-head"><h2>НИУ МЭИ</h2><p class="uni-meta">Электротехника<br>Москва, 2008–2015</p></div>
+<div class="uni-head"><h2><img class="uni-logo" src="assets/uni/mei.png" width="136" height="64" alt="">НИУ МЭИ</h2><p class="uni-meta">Электротехника<br>Москва, 2008–2015</p></div>
 <p class="uni-topic">Инженерная база, с которой начался путь: испытания и обслуживание электрооборудования, затем продажи технических решений.</p>
 </section>
 </div></article>

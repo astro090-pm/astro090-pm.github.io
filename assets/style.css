@@ -180,7 +180,7 @@ section.block { padding: 88px 0 0; }
 /* Университеты */
 .uni { padding: 40px 0; border-top: 2px solid var(--ink); }
 .uni + .uni { margin-top: 24px; }
-.uni-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; flex-wrap: wrap; margin-bottom: 16px; }
+.uni-head { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 16px; }
 .uni-head h2 { font: 600 clamp(26px, 3.2vw, 36px)/1.15 var(--display); letter-spacing: -0.02em; margin: 0; }
 .uni-meta { margin: 0; color: var(--muted); font-size: 16px; text-align: right; }
 .uni-topic { max-width: var(--measure); margin: 0 0 24px; }
@@ -276,3 +276,8 @@ img.avatar { object-fit: cover; background: var(--rule); }
 .tag-years { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
 .tag-years li { display: grid; grid-template-columns: 80px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--rule); line-height: 1.9; }
 .tag-years .yrs { color: var(--muted); font-size: 16px; }
+.uni-head h2 { display: flex; align-items: center; gap: 16px; }
+.uni-logo { height: 64px; width: auto; border-radius: 6px; background: #fff; padding: 6px; box-sizing: content-box; border: 1px solid var(--rule); }
+.prose figure { margin: 24px 0; }
+.prose figure img { border-radius: 6px; border: 1px solid var(--rule); }
+.prose figcaption { color: var(--muted); font-size: 15px; margin-top: 8px; }
