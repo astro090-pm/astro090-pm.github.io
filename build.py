@@ -874,6 +874,18 @@ def agents_page(posts: list[dict]) -> str:
     return layout("ИИ-агенты — Роман Понуров", "Путь изучения ИИ-агентов от теории к практике: LLM, инструменты, MCP, A2A, эвалы, метрики.", body, "agents.html")
 
 
+def clean_index_links() -> None:
+    """Ссылки вида …/index.html → …/ : в адресной строке будет astro090-pm.github.io/, а не /index.html."""
+    for f in ROOT.rglob("*.html"):
+        if "content" in f.parts or "tools" in f.parts:
+            continue
+        t = f.read_text(encoding="utf-8")
+        n = re.sub(r'href="((?:\.\./)*)index\.html"', lambda m: f'href="{m.group(1) or "./"}"', t)
+        n = re.sub(r'href="([^":#]+/)index\.html"', r'href="\1"', n)
+        if n != t:
+            f.write_text(n, encoding="utf-8")
+
+
 def build_search_index() -> None:
     """search.json: заголовок, адрес, раздел и текст каждой страницы — для поиска в браузере."""
     import json
@@ -920,6 +932,7 @@ def main() -> None:
     (ROOT / "cases" / "index.html").write_text(cases_index_page(), encoding="utf-8")
     for i, case in enumerate(CASES):
         (ROOT / "cases" / f"{case[0]}.html").write_text(case_page(i), encoding="utf-8")
+    clean_index_links()
     build_search_index()
     print(f"Готово: главная, {len(posts)} пост(ов), {len(CASES)} кейсов, резюме, проекты, исследования, теги")
 
