@@ -40,3 +40,8 @@ To attract donors and helpers we created a programme for companies — "talk abo
 ## What this case shows
 
 A full launch in the social sector, where users are not the most digital audience and every transaction closes three sides at once.
+
+## What I learned
+
+- When three parties close a deal, each one's journey has to be designed separately. The hardest journey is the client's — an elderly person's.
+- Attracting donors and helpers is a product in itself: that's how the partnership programme appeared.

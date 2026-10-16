@@ -55,3 +55,9 @@ The retailer's online channel was underperforming: the app had poor ratings, ord
 ## What this case shows
 
 A full product relaunch where growth came from product (app, payments), operations (picking, call centre, assortment), channels (Glovo, banking app) and team (Agile, KPIs) at the same time.
+
+## What I learned
+
+- Growth came not from the app alone but from working on product, operations, channels and the team at the same time. A redesign on its own would have hit the limits of order picking and cancellations.
+- Operations are part of the product: the picker app and call-centre scripts affected customers as much as the new interface.
+- Partner channels (Glovo, M-Bank) gave access to an audience without our own marketing.

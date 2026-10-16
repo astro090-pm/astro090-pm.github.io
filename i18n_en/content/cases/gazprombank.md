@@ -20,4 +20,9 @@
 
 Launching an internal product in a large bank: from concept and budget approval to production.
 
+## What I learned
+
+- An internal product also has to be “sold”: I defended the concept and budget before development started.
+- A service with an AI agent starts with customer interviews and the process, not with choosing a model.
+
 _Product details are not disclosed: this is my current employer._

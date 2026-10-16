@@ -43,3 +43,9 @@ An offline store needed an online channel for consumers and corporate clients. R
 ## What this case shows
 
 Building a product from scratch as a founder: from concept to a working sales channel with a limited budget and an external team.
+
+## What I learned
+
+- On a small budget it's faster to launch on a ready-made platform with an external team than to build your own.
+- The main measured growth came from B2B: a separate account for companies with prices and stock levels.
+- Online and offline processes (picking, delivery, pick-up) have to be designed together.

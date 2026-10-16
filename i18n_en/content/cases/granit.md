@@ -27,3 +27,8 @@
 ## What this case shows
 
 A strong analytical foundation: moving into product management through systems analysis, requirements and process work in a complex B2G environment.
+
+## What I learned
+
+- Systems analysis taught me to understand the process first (BPMN, requirements) and only then propose a solution. It remains my core habit in product management.
+- In B2G with 50 users, alignment with stakeholders matters more than scale.

@@ -31,3 +31,9 @@ An ecosystem has many products, and every extra login step loses users. MTS ID l
 ## What this case shows
 
 A platform product at scale: working with many internal consumer teams, architectural change (monolith → microservices) and ecosystem-level product metrics.
+
+## What I learned
+
+- A platform's value grows with every connected service, so the main work is integrations with consumer teams, not new features.
+- Moving from a monolith to microservices was part of the product work, not just an engineering task.
+- An ecosystem-level metric — the share of seamless logins — shows a platform's value better than the number of integrations.

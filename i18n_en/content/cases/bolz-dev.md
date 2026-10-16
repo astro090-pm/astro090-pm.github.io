@@ -38,3 +38,8 @@ We designed two scenarios — a marketplace ("find a housewarming gift under $10
 ## What this case shows
 
 A product at the core of the agent layer: MCP, agent tools, outcome-based evaluation and product metrics for agentic scenarios.
+
+## What I learned
+
+- Agent quality should be measured by the completed action (a paid order), not by the text of the answer.
+- The value has to be framed for three sides at once: services, agents and users.

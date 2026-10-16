@@ -42,3 +42,9 @@ bolz embeds into other apps via WebView: users rent any sharing service without 
 ## What came next
 
 We saw users increasingly arrive via AI assistants rather than apps — which led to [bolz.dev](bolz-dev.html), an MCP connector for real-world actions by AI agents.
+
+## What I learned
+
+- Embedding into partners' apps lets you grow without a marketing budget, but the cycle with each partner is long: half a year passed from partnership approval to production.
+- It's better to start with one type of sharing (power banks) than with all of them at once.
+- We noticed users increasingly come through AI assistants — and bolz.dev grew out of that.
