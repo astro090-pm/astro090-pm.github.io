@@ -585,3 +585,7 @@ a.feed-link:hover, a.feed-link:hover * { text-decoration: none; }
 .deck-card .card-meta { font: 400 14px var(--sans); color: var(--muted); }
 .deck-card .card-title, .deck-card .card-title a { font: 500 21px/1.3 var(--sans); }
 .flyers { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; } .flyers figure { margin: 0; } @media (max-width: 560px) { .flyers { grid-template-columns: 1fr; } }
+.feed-link.conf { cursor: default; }
+.feed-link.conf .feed-title { color: var(--ink); text-decoration: none; }
+.feed-link.conf .feed-title:hover { color: var(--link); }
+.conf-links { display: block; margin-top: 10px; font: 400 15px var(--sans); }

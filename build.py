@@ -109,7 +109,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <nav class="nav" aria-label="Разделы">
 <details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}decks.html">🎞 презентации</a></div></details>
 <a href="{up}projects.html">проекты</a>
-<details class="menu"><summary>знания</summary><div class="menu-list"><a href="{up}research.html">🔬 исследования</a><a href="{up}study.html">🎓 образование</a>{BOOKS_LINK.format(up=up)}</div></details>
+<details class="menu"><summary>знания</summary><div class="menu-list"><a href="{up}research.html">🔬 исследования</a><a href="{up}conferences.html">🎤 конференции</a><a href="{up}study.html">🎓 образование</a>{BOOKS_LINK.format(up=up)}</div></details>
 <a href="{up}agents.html">ИИ-агенты</a>
 <a href="{up}blog/index.html">посты</a>
 <a href="{up}tags/index.html">теги</a>
@@ -544,7 +544,7 @@ def post_links(p: dict, posts: list[dict]) -> list[tuple[str, str, str]]:
     """Связи поста: куда он ссылается внутри сайта и какие посты ссылаются на него."""
     out = []
     names = {"agents.html": "ИИ-агенты", "projects.html": "Проекты", "study.html": "Образование", "research.html": "Исследования",
-             "cv.html": "Резюме", "decks.html": "Презентации", "about.html": "Обо мне", "books.html": "Книги", "cases/index.html": "Портфолио кейсов"}
+             "cv.html": "Резюме", "conferences.html": "Конференции", "decks.html": "Презентации", "about.html": "Обо мне", "books.html": "Книги", "cases/index.html": "Портфолио кейсов"}
     for text, href in re.findall(r"\[([^\]]+)\]\((\.\./[^)]+|[a-z0-9-]+\.html)\)", p["body"]):
         target = href[3:] if href.startswith("../") else "blog/" + href
         label = names.get(target)
@@ -980,6 +980,43 @@ def decks_page() -> str:
     return layout("Презентации — Роман Понуров", "Питчи bolz.dev и bolz.tech, партнёрская программа «Добстера» и лекция по ИТ-менеджменту — в PDF.", body, "decks.html")
 
 
+CONFS = [
+    # (дата, город, конференция, доклад, ссылка на публикацию, слаг поста, картинка)
+    ("10 сентября 2026", "Пенза", "XVI Международная научно-практическая конференция «Развитие современной науки и образования: актуальные вопросы, достижения и инновации»",
+     "Организационная готовность российских компаний к внедрению искусственного интеллекта в систему менеджмента: барьеры и направления развития",
+     "https://naukaip.ru/wp-content/uploads/2026/09/MK-2774.pdf", "doklad-gotovnost-kompanij", "assets/posts/talk-3.png"),
+    ("7 сентября 2026", "Новосибирск", "CX Международная научно-практическая конференция «Актуальные вопросы экономических наук и современного менеджмента»",
+     "Организационно-управленческие механизмы снижения рисков применения искусственного интеллекта в банковском менеджменте",
+     "https://sibac.info/conf/economy/cx/430396", "doklad-riski-ii-banki", "assets/posts/talk-2.png"),
+    ("4 марта 2026", "Новосибирск", "CIV Международная научно-практическая конференция «Актуальные вопросы экономических наук и современного менеджмента»",
+     "Технологические требования к инфраструктуре компании при внедрении искусственного интеллекта",
+     "https://sibac.info/conf/economy/civ/403674", "doklad-infrastruktura-ii", "assets/posts/talk-1.png"),
+]
+
+
+def conferences_page() -> str:
+    items = "\n".join(f"""<li class="feed-item"><div class="feed-link conf">
+<span class="feed-meta"><span class="feed-cat">{esc(city)}</span><time>{esc(date)}</time></span>
+<span class="feed-row"><img class="feed-thumb" src="{img}" alt="" loading="lazy"><span class="feed-body">
+<a class="feed-title" href="blog/{slug}.html">{esc(title)}</a>
+<span class="feed-excerpt">{esc(conf)}</span>
+<span class="conf-links"><a href="blog/{slug}.html">тезисы доклада</a> · <a href="{url}" target="_blank" rel="noopener">публикация в сборнике</a></span>
+</span></span></div></li>""" for date, city, conf, title, url, slug, img in CONFS)
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="./">На главную</a>
+<h1>Конференции</h1>
+<p class="intro">Выступаю с докладами об искусственном интеллекте в управлении компанией — по материалам диссертации в РАНХиГС. Все доклады опубликованы в сборниках международных научно-практических конференций.</p>
+<div class="res-stats"><div><b>{len(CONFS)}</b>доклада на международных конференциях</div><div><b>2026</b>год первых выступлений</div></div>
+<ul class="feed">
+{items}
+</ul>
+<p class="related-row">Статьи в журналах ВАК и тема диссертации — на странице <a href="research.html">исследований</a>.</p>
+</div></article>
+"""
+    return layout("Конференции — Роман Понуров", "Доклады Романа Понурова на международных научно-практических конференциях об ИИ в управлении компанией.", body, "conferences.html")
+
+
 def main() -> None:
     posts = load_posts()
     pages = max(1, -(-len(posts) // PER_PAGE))
@@ -990,6 +1027,7 @@ def main() -> None:
     (ROOT / "research.html").write_text(research_page(posts), encoding="utf-8")
     (ROOT / "study.html").write_text(study_page(), encoding="utf-8")
     (ROOT / "about.html").write_text(about_page(), encoding="utf-8")
+    (ROOT / "conferences.html").write_text(conferences_page(), encoding="utf-8")
     (ROOT / "decks.html").write_text(decks_page(), encoding="utf-8")
     (ROOT / "agents.html").write_text(agents_page(posts), encoding="utf-8")
     books = load_books()
