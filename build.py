@@ -336,6 +336,8 @@ def projects_page() -> str:
     return layout("Проекты — Роман Понуров", "AI-проекты Романа Понурова с открытым кодом.", body, "projects.html")
 
 
+TAG_EMOJI = {"продакт": "💼 ", "ИИ-агенты": "🤖 ", "книги": "📚 ", "преподавание": "🎓 ", "исследования": "🔬 ", "финтех": "🏦 ", "фудтех": "🛒 ", "телеком": "📡 "}
+
 TAG_GROUPS = [
     ("продуктовое", ["продакт", "AI", "ИИ-агенты", "платформа", "e-com", "менеджмент", "книги"]),
     ("сферы", ["фудтех", "телеком", "финтех", "благотворительность", "госсектор", "шеринг"]),
@@ -348,16 +350,19 @@ def tags_pages(posts: list[dict]) -> dict[str, str]:
     items = all_items(posts)
     counts = dict(tag_counts(items))
     pages = {}
-    link = lambda t: f'<a class="tag-link" href="{tag_slug(t)}.html">#{esc(t)}<sup>{counts[t]}</sup></a>'
+    lo, hi = min(counts.values()), max(counts.values())
+    size = lambda n: round(22 + (n - lo) / max(1, hi - lo) * 18)  # 22–40px: чем больше материалов, тем крупнее
+    link = lambda t: (f'<a class="tag-link" href="{tag_slug(t)}.html" style="font-size:{size(counts[t])}px">'
+                      f'{TAG_EMOJI.get(t, "")}{esc(t)} <span>{counts[t]}</span></a>')
     groups, used = [], set()
-    for name, tags in TAG_GROUPS:
+    for i, (name, tags) in enumerate(TAG_GROUPS):
         present = sorted((t for t in tags if t in counts), key=lambda t: (-counts[t], t))
         used.update(present)
         if present:
-            groups.append(f'<section class="tag-group"><h2>{esc(name)}</h2><p>{" ".join(link(t) for t in present)}</p></section>')
+            groups.append(f'<section class="tag-group g{i}"><h2>{esc(name)}</h2><p>{"".join(link(t) for t in present)}</p></section>')
     rest = sorted((t for t in counts if t not in used), key=lambda t: (-counts[t], t))
     if rest:
-        groups.append(f'<section class="tag-group"><h2>без категории</h2><p>{" ".join(link(t) for t in rest)}</p></section>')
+        groups.append(f'<section class="tag-group gx"><h2>без категории</h2><p>{"".join(link(t) for t in rest)}</p></section>')
     # как развивались темы: по годам — какие метки появлялись в постах и кейсах
     years = sorted({it["year"] for it in items})
     rows = []

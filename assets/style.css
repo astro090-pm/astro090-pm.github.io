@@ -526,3 +526,15 @@ a.pg-btn:hover { border-color: var(--link); text-decoration: none; }
 @media (max-width: 760px) { .pg-btn, .pg-now { font-size: 15px; } .pg-btn { padding: 10px 12px; } }
 .feed-item:last-child { border-bottom: 0; }
 .page .feed-page-h, .feed-page-h { font: 600 clamp(32px, 4vw, 44px)/1.1 var(--display); margin: 48px 0 24px; }
+
+/* Страница тегов как у референса: цветные подписи групп, крупные жирные метки, размер — по числу материалов */
+.tag-group { margin: 0 0 36px; }
+.page .tag-group h2 { font: 600 15px/1 var(--sans); text-transform: uppercase; letter-spacing: .08em; margin: 0 0 14px; color: var(--muted); }
+.tag-group.g0 h2 { color: #3B5BDB; } .tag-group.g1 h2 { color: #D9822B; } .tag-group.g2 h2 { color: #C2255C; } .tag-group.g3 h2 { color: #7048E8; }
+.tag-group p { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: baseline; line-height: 1.2; }
+.tag-link { margin: 0; color: var(--ink); font-family: var(--sans); font-weight: 600; letter-spacing: -0.01em; text-decoration: none; padding-bottom: 6px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.tag-link span { color: var(--muted); font-weight: 400; font-size: .62em; margin-left: 2px; }
+.tag-link:hover { color: var(--link); border-bottom-color: var(--link); text-decoration: none; }
+.tag-years .tag-link { font-size: 18px !important; padding-bottom: 2px; }
+.tag-years li > span:last-child { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+:root[data-theme="dark"] .tag-group.g0 h2 { color: #748FFC; } :root[data-theme="dark"] .tag-group.g2 h2 { color: #F06595; } :root[data-theme="dark"] .tag-group.g3 h2 { color: #9775FA; }
