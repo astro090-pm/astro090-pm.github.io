@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /tools/
-Disallow: /content/
-Disallow: /i18n_en/
-
-Sitemap: https://astro090-pm.github.io/sitemap.xml

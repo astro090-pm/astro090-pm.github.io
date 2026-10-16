@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Роман Понуров — от бизнес-задачи до работающего ИИ-продукта</title>
-<meta name="description" content="Роман Понуров: продуктовое управление, прикладной ИИ и инженерная практика. Проекты, исследования, путь в ИИ, материалы для студентов.">
+<title>Роман Понуров — менеджер продукта</title>
+<meta name="description" content="Роман Понуров: менеджер продукта, преподаватель, исследователь ИИ в управлении. Посты, кейсы, проекты.">
 <link rel="canonical" href="https://astro090-pm.github.io/">
-<meta property="og:title" content="Роман Понуров — от бизнес-задачи до работающего ИИ-продукта">
-<meta property="og:description" content="Роман Понуров: продуктовое управление, прикладной ИИ и инженерная практика. Проекты, исследования, путь в ИИ, материалы для студентов.">
+<meta property="og:title" content="Роман Понуров — менеджер продукта">
+<meta property="og:description" content="Роман Понуров: менеджер продукта, преподаватель, исследователь ИИ в управлении. Посты, кейсы, проекты.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://astro090-pm.github.io/">
 <meta property="og:site_name" content="Роман Понуров">
@@ -22,22 +22,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=8d07f23d">
+<link rel="stylesheet" href="assets/style.css?v=09de2b55">
 <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="assets/site.js?v=f2bb86bd" defer data-root=""></script>
 </head>
 <body>
-<a class="skip" href="#main">Перейти к содержимому</a>
 <header class="top"><div class="wrap">
 <a class="brand" href="./"><img class="avatar avatar-sm" src="assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
-<details class="menu"><summary>путь в ИИ</summary><div class="menu-list"><a href="agents.html">🤖 мой путь в ИИ</a><a href="skills.html">🧰 ИИ-скиллы</a></div></details>
-<a href="coaching.html">коучинг</a>
-<a href="students.html">студентам</a>
-<details class="menu"><summary>проекты</summary><div class="menu-list"><a href="projects.html">🚀 проекты</a><a href="projects/weekend-planner.html">🗓 Планировщик выходных</a><a href="cases/">📁 портфолио кейсов</a><a href="decks.html">🎞 презентации</a></div></details>
-<details class="menu"><summary>исследования</summary><div class="menu-list"><a href="research.html">🔬 статьи и исследования</a><a href="conferences.html">🎤 конференции</a><a href="study.html">🎓 образование</a><a href="books.html">📚 книги</a></div></details>
-<details class="menu"><summary>обо мне</summary><div class="menu-list"><a href="about.html">👋 обо мне</a><a href="now.html">⏱ сейчас</a><a href="timeline.html">🗓 хронология</a><a href="assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="tools.html">🧰 инструментарий</a></div></details>
-<details class="menu"><summary>посты</summary><div class="menu-list"><a href="blog/">📝 все посты</a><a href="tags/">🏷 теги</a></div></details>
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="about.html">👋 обо мне</a><a href="now.html">⏱ сейчас</a><a href="timeline.html">🗓 хронология</a><a href="assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="cases/">📁 портфолио кейсов</a><a href="decks.html">🎞 презентации</a><a href="tools.html">🧰 инструментарий</a></div></details>
+<a href="projects.html">проекты</a>
+<details class="menu"><summary>знания</summary><div class="menu-list"><a href="research.html">🔬 исследования</a><a href="conferences.html">🎤 конференции</a><a href="study.html">🎓 образование</a><a href="books.html">📚 книги</a></div></details>
+<details class="menu"><summary>ИИ</summary><div class="menu-list"><a href="agents.html">🤖 ИИ-агенты</a><a href="skills.html">🧰 ИИ-скиллы</a></div></details>
+<a href="blog/">посты</a>
+<a href="tags/">теги</a>
 </nav>
 <span class="tools">
 <a class="icon-btn lang" href="en/" title="English version" hreflang="en">EN</a>
@@ -49,16 +47,16 @@ document.addEventListener('click', e => document.querySelectorAll('details.menu[
 document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => { if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => { if (o !== d) o.open = false; }); }));
 </script>
 </div></header>
-<main id="main" tabindex="-1">
+<main>
 
 <div class="wrap home">
 
-<section class="hero-brand" aria-labelledby="hero-h">
-<p class="kicker">Product Management · Applied AI · Engineering</p>
-<p class="hero-name"><img class="avatar" src="assets/avatar-sm.jpg" width="48" height="48" alt="">Роман Понуров</p>
-<h1 id="hero-h">От бизнес-задачи до работающего ИИ-продукта.</h1>
-<p class="hero-lead">Я занимаюсь продуктовыми задачами, исследую применение искусственного интеллекта и создаю прикладные решения — от проверки гипотез до работающих прототипов.</p>
-<p class="hero-cta"><a class="btn btn-main" href="projects.html">Смотреть проекты</a><a class="btn" href="research.html">Читать исследования</a></p>
+<section class="hero-home">
+<img class="avatar avatar-lg" src="assets/avatar.jpg" width="160" height="160" alt="Роман Понуров">
+<div>
+<h1>Роман Понуров</h1>
+<p class="roles"><a href="cv.html">менеджер продукта</a>, <a href="tags/prepodavanie.html">начинающий преподаватель</a>, <a href="research.html">исследую ИИ в управлении компанией</a></p>
+</div>
 </section>
 
 <section class="results" aria-label="Ключевые результаты">
@@ -67,7 +65,6 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <a class="res" href="cases/po-sosedstvu.html"><b data-count="89" data-prefix="+" data-suffix="%">+89%</b><span>заказов B2B после выхода в онлайн</span></a>
 <a class="res" href="timeline.html"><b data-count="4">4</b><span>продукта запустил с нуля</span></a>
 </section>
-<section class="dirs" aria-labelledby="dirs-h"><h2 id="dirs-h" class="sec-h">Направления</h2><div class="xlinks xlinks-3"><a class="xlink" href="agents.html"><b>Мой путь в ИИ</b><span>От продакта к AI Product Engineer: дорожная карта, проекты, дневник практики.</span></a><a class="xlink" href="coaching.html"><b>Мой путь в коучинге</b><span>Маршрут к профессиональным стандартам ICF. Сейчас — этап планирования.</span></a><a class="xlink" href="students.html"><b>Студентам</b><span>Учебный маршрут по AI Product Engineering и формат практических материалов.</span></a></div></section>
 <section class="year" aria-label="Год в цифрах"><div class="yr-head"><h2>Год в цифрах</h2><div class="yr-tabs"><button type="button" class="yr-tab" data-y="2026" aria-pressed="true">2026</button><button type="button" class="yr-tab" data-y="2025" aria-pressed="false">2025</button></div></div><div class="yr-grid" data-y="2026"><a class="yr-cell" href="blog/lekcii-it-menedzhment.html"><b>1</b><span>курс читаю в университете</span></a><a class="yr-cell" href="projects.html"><b>1</b><span>AI-прототип с открытым кодом</span></a><a class="yr-cell" href="conferences.html"><b>3</b><span>доклада</span></a><a class="yr-cell" href="books.html"><b>1</b><span>книга</span></a><a class="yr-cell" href="blog/"><b>7</b><span>постов</span></a></div><div class="yr-grid" data-y="2025" hidden><a class="yr-cell" href="projects.html"><b>2</b><span>стартапа: bolz.tech и bolz.dev</span></a><a class="yr-cell" href="research.html"><b>3</b><span>статьи ВАК</span></a><a class="yr-cell" href="study.html"><b>4</b><span>курса и программы</span></a><a class="yr-cell" href="blog/"><b>5</b><span>постов</span></a></div></section>
 <script>document.querySelectorAll('.yr-tab').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('.yr-tab').forEach(x => x.setAttribute('aria-pressed', String(x === b))); document.querySelectorAll('.yr-grid').forEach(g => g.hidden = g.dataset.y !== b.dataset.y); }));</script>
 <section aria-label="Лента постов">

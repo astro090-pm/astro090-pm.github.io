@@ -12,7 +12,7 @@ PIO = "https://github.com/piofant/skills"
 SP = "https://github.com/obra/superpowers"
 
 TG = {"product": "product", "books": "books", "agents": "AI agents", "research": "research",
-      "article": "journal article", "conference": "conference", "coaching": "coaching"}
+      "article": "journal article", "conference": "conference"}
 
 CASES = [
     ("asia-online", "Asia Retail", "2023–2024", "B2C, ~600K users",
@@ -387,17 +387,15 @@ def layout(ctx):
 <script src="{up}assets/site.js?v={ctx['JS_V']}" defer data-root="{up}"></script>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
 <header class="top"><div class="wrap">
 <a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Roman Ponurov</a>
 <nav class="nav" aria-label="Sections">
-<details class="menu"><summary>path into AI</summary><div class="menu-list"><a href="{up}agents.html">🤖 my path into AI</a><a href="{up}skills.html">🧰 AI skills</a></div></details>
-<a href="{up}coaching.html">coaching</a>
-<a href="{up}students.html">students</a>
-<details class="menu"><summary>projects</summary><div class="menu-list"><a href="{up}projects.html">🚀 projects</a><a href="{up}projects/weekend-planner.html">🗓 Weekend Planner</a><a href="{up}cases/index.html">📁 case portfolio</a><a href="{up}decks.html">🎞 decks</a></div></details>
-<details class="menu"><summary>research</summary><div class="menu-list"><a href="{up}research.html">🔬 articles and research</a><a href="{up}conferences.html">🎤 conferences</a><a href="{up}study.html">🎓 education</a>{PATCH["BOOKS_LINK"].format(up=up)}</div></details>
-<details class="menu"><summary>about</summary><div class="menu-list"><a href="{up}about.html">👋 about me</a><a href="{up}now.html">⏱ now</a><a href="{up}timeline.html">🗓 timeline</a><a href="{up}assets/Ponurov_Roman_CV_EN.pdf" target="_blank" rel="noopener">📄 CV (PDF)</a><a href="{up}tools.html">🧰 toolkit</a></div></details>
-<details class="menu"><summary>posts</summary><div class="menu-list"><a href="{up}blog/index.html">📝 all posts</a><a href="{up}tags/index.html">🏷 tags</a></div></details>
+<details class="menu"><summary>product</summary><div class="menu-list"><a href="{up}about.html">👋 about me</a><a href="{up}now.html">⏱ now</a><a href="{up}timeline.html">🗓 timeline</a><a href="{up}assets/Ponurov_Roman_CV_EN.pdf" target="_blank" rel="noopener">📄 CV (PDF)</a><a href="{up}cases/index.html">📁 case portfolio</a><a href="{up}decks.html">🎞 decks</a><a href="{up}tools.html">🧰 toolkit</a></div></details>
+<a href="{up}projects.html">projects</a>
+<details class="menu"><summary>knowledge</summary><div class="menu-list"><a href="{up}research.html">🔬 research</a><a href="{up}conferences.html">🎤 conferences</a><a href="{up}study.html">🎓 education</a>{PATCH["BOOKS_LINK"].format(up=up)}</div></details>
+<details class="menu"><summary>AI</summary><div class="menu-list"><a href="{up}agents.html">🤖 AI agents</a><a href="{up}skills.html">🧰 AI skills</a></div></details>
+<a href="{up}blog/index.html">posts</a>
+<a href="{up}tags/index.html">tags</a>
 </nav>
 <span class="tools">
 <a class="icon-btn lang" href="{root}{ru_path}" title="Russian version" hreflang="ru">RU</a>
@@ -409,7 +407,7 @@ document.addEventListener('click', e => document.querySelectorAll('details.menu[
 document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => {{ if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => {{ if (o !== d) o.open = false; }}); }}));
 </script>
 </div></header>
-<main id="main" tabindex="-1">
+<main>
 {body}
 </main>
 <footer><div class="wrap foot">

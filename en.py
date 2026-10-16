@@ -36,7 +36,6 @@ def build(ctx):
     B.heat_block = heat_block
     B.year_stats = D.year_stats(B)
     B.layout = D.layout(ctx)
-    B.LANG = "en"
     import en_pages
     en_pages.install(B)
 
@@ -57,9 +56,6 @@ def build(ctx):
     pages["conferences.html"] = B.conferences_page()
     pages["decks.html"] = B.decks_page()
     pages["agents.html"] = B.agents_page(posts)
-    pages["coaching.html"] = B.coaching_page(posts)
-    pages["students.html"] = B.students_page()
-    pages["projects/weekend-planner.html"] = B.wp_case_page()
     books = B.load_books()
     if books:
         pages["books.html"] = B.books_page(books, posts)
@@ -120,7 +116,7 @@ def search_index(pages):
             continue
         t = re.search(r"<title>(.*?)</title>", h)
         title = (t.group(1) if t else path).replace(" — Roman Ponurov", "")
-        main = re.search(r"<main[^>]*>(.*)</main>", h, re.S)
+        main = re.search(r"<main>(.*)</main>", h, re.S)
         body = main.group(1) if main else ""
         body = re.sub(r"<(script|style|nav)\b.*?</\1>", " ", body, flags=re.S)
         body = re.sub(r'<section class="related-posts">.*?</section>|<div class="post-actions">.*?</div>|<a class="back"[^>]*>.*?</a>|<p class="post-meta">.*?</p>', " ", body, flags=re.S)
