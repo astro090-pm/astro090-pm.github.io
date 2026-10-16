@@ -674,7 +674,6 @@ def research_page(posts: list[dict]) -> str:
 <div class="res-stats">
 <div><b>3</b>статьи в журналах ВАК</div>
 <div><b>3</b>доклада на международных конференциях</div>
-<div><b>2027</b>защита диссертации</div>
 </div>
 
 <h2>Какие вопросы меня интересуют</h2>

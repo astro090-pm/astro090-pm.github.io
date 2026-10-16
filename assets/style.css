@@ -576,3 +576,5 @@ a.feed-link:hover, a.feed-link:hover * { text-decoration: none; }
 @media (max-width: 760px) { .res-stats { grid-template-columns: 1fr; } .res-card { padding: 18px; } .res-topic { font-size: 19px; } }
 .page h2.edu-head { font: 600 15px/1 var(--sans); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 56px 0 8px; }
 .page h2.edu-head:first-of-type { margin-top: 40px; }
+.res-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 600px; }
+@media (max-width: 760px) { .res-stats { grid-template-columns: 1fr; } }
