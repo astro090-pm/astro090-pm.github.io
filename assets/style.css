@@ -658,3 +658,30 @@ a.feed-link:hover, a.feed-link:hover * { text-decoration: none; }
 .tl-title a { color: var(--ink); }
 .tl-title a:hover { color: var(--link); }
 .tl-about { margin: 0; font-size: 16px; color: var(--muted); }
+
+/* Путь по годам — диаграмма Ганта */
+.gantt { margin: 8px 0 44px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.g-inner { position: relative; min-width: 900px; padding: 0 0 30px 150px; }
+.g-grid { position: absolute; left: 150px; right: 0; top: 0; bottom: 30px; pointer-events: none; }
+.g-grid i { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--rule); }
+.g-now { position: absolute; top: -6px; bottom: 0; width: 2px; background: var(--link); }
+.g-now::before { content: "сейчас"; position: absolute; top: -18px; left: -20px; font: 600 11px var(--sans); color: var(--link); text-transform: uppercase; letter-spacing: .06em; }
+.gl { display: flex; align-items: flex-start; margin: 0 0 14px -150px; position: relative; }
+.gl-name { width: 150px; flex: none; padding: 5px 12px 0 0; font: 600 14px var(--sans); color: var(--muted); }
+.gl-bars { position: relative; flex: 1; }
+.gb { position: absolute; height: 24px; color: #141414; font: 500 12px/24px var(--sans); white-space: nowrap; transition: transform .15s; }
+.gb::before { content: ""; position: absolute; inset: 0; border-radius: 6px; background: var(--c); opacity: .9; transform-origin: left center; }
+.gb span { position: relative; padding: 0 8px; display: inline-block; }
+.gb.narrow span { position: absolute; left: 100%; padding: 0 6px; color: var(--ink); }
+a.gb:hover { transform: translateY(-2px); text-decoration: none; z-index: 3; }
+a.gb:hover::before { opacity: 1; box-shadow: 0 6px 16px rgba(0,0,0,.15); }
+.g-ticks { position: absolute; left: 150px; right: 0; bottom: 0; height: 20px; }
+.g-ticks span { position: absolute; transform: translateX(-50%); font: 400 12px var(--sans); color: var(--muted); }
+.g-inner { min-width: 1060px; }
+@media (prefers-reduced-motion: no-preference) {
+  .gb::before { animation: grow .8s cubic-bezier(.2,.7,.2,1) both; }
+  .gb span { animation: fadein .4s .5s both; }
+  @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+}
+/* end-gantt */

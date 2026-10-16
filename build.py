@@ -1307,6 +1307,58 @@ TIMELINE = [
 TL_TYPES = [("работа", "💼"), ("проект", "🚀"), ("наука", "🔬"), ("учёба", "🎓"), ("преподавание", "🧑‍🏫"), ("достижение", "🏅")]
 
 
+GANTT = [
+    ("Работа", "#7C9BEA", [
+        ("Агрегат-Привод", 2014.5, 2014.9, ""), ("Мосэнерго", 2014.95, 2015.9, ""),
+        ("Лайтхаус", 2017.25, 2019.2, "blog/pervyj-sajt-lighthouse.html"),
+        ("Концерн ГРАНИТ", 2019.6, 2021.8, "cases/granit.html"), ("МТС", 2021.8, 2023.4, "cases/mts-id.html"),
+        ("Азия Ритейл", 2023.3, 2024.25, "cases/asia-online.html"), ("Газпромбанк", 2024.3, 2026.85, "cases/gazprombank.html"),
+    ]),
+    ("Свои проекты", "#E8956A", [
+        ("По соседству", 2022.6, 2024.9, "cases/po-sosedstvu.html"), ("Добстер", 2022.85, 2023.8, "cases/dobster.html"),
+        ("bolz.tech", 2023.8, 2025.8, "cases/bolz-tech.html"), ("bolz.dev", 2025.6, 2026.85, "cases/bolz-dev.html"),
+        ("Планировщик", 2026.75, 2026.85, "projects.html"),
+    ]),
+    ("Образование", "#9BB8A4", [
+        ("НИУ МЭИ", 2008.7, 2015.5, "study.html"), ("НИУ ВШЭ", 2018.7, 2021.5, "blog/magisterskaya-vshe.html"),
+        ("РАНХиГС, аспирантура", 2024.7, 2027.5, "research.html"),
+    ]),
+    ("Наука и лекции", "#A98BEA", [
+        ("3 статьи ВАК", 2025.4, 2025.95, "research.html"), ("3 доклада", 2026.15, 2026.72, "conferences.html"),
+        ("Курс в университете", 2026.76, 2026.9, "blog/lekcii-it-menedzhment.html"),
+    ]),
+]
+
+
+def gantt_block() -> str:
+    y0, y1 = 2014, 2029
+    pos = lambda y: (y - y0) / (y1 - y0) * 100
+    lanes = []
+    for name, color, bars in GANTT:
+        # раскладываем пересекающиеся полосы по подстрокам
+        rows: list[float] = []
+        items = []
+        for title, a, b, url in sorted(bars, key=lambda x: x[1]):
+            a_ = max(a, y0)
+            occ = max(b, a_ + (len(title) * 7 + 22) / 1060 * (y1 - y0)) + 0.1  # конец полосы или подписи
+            r = next((i for i, end in enumerate(rows) if end <= a_), None)
+            if r is None:
+                rows.append(occ); r = len(rows) - 1
+            else:
+                rows[r] = occ
+            tag = "a" if url else "span"
+            href = f' href="{url}"' if url else ""
+            a2 = max(a, y0)
+            w = max(pos(b) - pos(a2), .6)
+            narrow = " narrow" if w / 100 * 910 < len(title) * 7 + 16 else ""
+            items.append(f'<{tag}{href} class="gb{narrow}" style="left:{pos(a2):.2f}%;width:{w:.2f}%;top:{r * 30}px;--c:{color}" title="{esc(title)}"><span>{esc(title)}</span></{tag}>')
+        lanes.append(f'<div class="gl"><div class="gl-name">{esc(name)}</div><div class="gl-bars" style="height:{len(rows) * 30}px">{"".join(items)}</div></div>')
+    ticks = "".join(f'<span style="left:{pos(y):.2f}%">{y}</span>' for y in range(y0, y1))
+    grid = "".join(f'<i style="left:{pos(y):.2f}%"></i>' for y in range(y0, y1 + 1))
+    now = f'<b class="g-now" style="left:{pos(2026.79):.2f}%" title="сейчас"></b>'
+    return f'<section class="gantt" aria-label="Путь по годам"><div class="g-inner"><div class="g-grid">{grid}{now}</div>{"".join(lanes)}<div class="g-ticks">{ticks}</div></div></section>'
+
+
 def timeline_page() -> str:
     icons = dict(TL_TYPES)
     def year(d):
@@ -1325,6 +1377,7 @@ def timeline_page() -> str:
 <a class="back" href="./">На главную</a>
 <h1>Хронология</h1>
 <p class="intro">Весь путь на одной странице — от инженера на испытательной станции до AI-продакта, исследователя и преподавателя. Свежее сверху.</p>
+{gantt_block()}
 <div class="filters" role="group" aria-label="Фильтр">{chips}</div>
 <ol class="tl">{"".join(rows)}</ol>
 </div></article>
