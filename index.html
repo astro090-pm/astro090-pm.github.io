@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=2af8eeec">
+<link rel="stylesheet" href="assets/style.css?v=eda1d9bd">
 <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="assets/site.js?v=f4e4570a" defer data-root=""></script>
 </head>
@@ -30,7 +30,7 @@
 <header class="top"><div class="wrap">
 <a class="brand" href="./"><img class="avatar avatar-sm" src="assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
-<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="about.html">👋 обо мне</a><a href="assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="cases/">📁 портфолио кейсов</a><a href="decks.html">🎞 презентации</a></div></details>
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="about.html">👋 обо мне</a><a href="now.html">⏱ сейчас</a><a href="assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="cases/">📁 портфолио кейсов</a><a href="decks.html">🎞 презентации</a><a href="tools.html">🧰 инструментарий</a></div></details>
 <a href="projects.html">проекты</a>
 <details class="menu"><summary>знания</summary><div class="menu-list"><a href="research.html">🔬 исследования</a><a href="conferences.html">🎤 конференции</a><a href="study.html">🎓 образование</a><a href="books.html">📚 книги</a></div></details>
 <details class="menu"><summary>ИИ</summary><div class="menu-list"><a href="agents.html">🤖 ИИ-агенты</a><a href="skills.html">🧰 ИИ-скиллы</a></div></details>
@@ -59,6 +59,8 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 </div>
 </section>
 
+<section class="year" aria-label="Год в цифрах"><div class="yr-head"><h2>Год в цифрах</h2><div class="yr-tabs"><button type="button" class="yr-tab" data-y="2026" aria-pressed="true">2026</button><button type="button" class="yr-tab" data-y="2025" aria-pressed="false">2025</button></div></div><div class="yr-grid" data-y="2026"><a class="yr-cell" href="blog/lekcii-it-menedzhment.html"><b>1</b><span>курс читаю в университете</span></a><a class="yr-cell" href="projects.html"><b>1</b><span>AI-прототип с открытым кодом</span></a><a class="yr-cell" href="conferences.html"><b>3</b><span>доклада</span></a><a class="yr-cell" href="books.html"><b>1</b><span>книга</span></a><a class="yr-cell" href="blog/"><b>7</b><span>постов</span></a></div><div class="yr-grid" data-y="2025" hidden><a class="yr-cell" href="projects.html"><b>2</b><span>стартапа: bolz.tech и bolz.dev</span></a><a class="yr-cell" href="research.html"><b>3</b><span>статьи ВАК</span></a><a class="yr-cell" href="study.html"><b>4</b><span>курса и программы</span></a><a class="yr-cell" href="blog/"><b>5</b><span>постов</span></a></div></section>
+<script>document.querySelectorAll('.yr-tab').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('.yr-tab').forEach(x => x.setAttribute('aria-pressed', String(x === b))); document.querySelectorAll('.yr-grid').forEach(g => g.hidden = g.dataset.y !== b.dataset.y); }));</script>
 <section aria-label="Лента постов">
 <ul class="feed">
 <li class="feed-item"><a class="feed-link" href="blog/intervyu-ii-v-banke.html">

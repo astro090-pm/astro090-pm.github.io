@@ -72,6 +72,8 @@ def esc(s: str) -> str:
 
 BOOKS_LINK = '<a href="{up}books.html">📚 книги</a>' if (ROOT / "content" / "books.txt").exists() and any(l.strip() and not l.lstrip().startswith("#") for l in (ROOT / "content" / "books.txt").read_text(encoding="utf-8").splitlines()) else ""
 
+MEDIA_LINK = '<a href="{up}media.html">🎧 медиатека</a>' if (ROOT / "content" / "media.txt").exists() and any(l.strip() and not l.lstrip().startswith("#") for l in (ROOT / "content" / "media.txt").read_text(encoding="utf-8").splitlines()) else ""
+
 
 def layout(title: str, description: str, body: str, path: str, depth: int = 0) -> str:
     up = "../" * depth
@@ -107,9 +109,9 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <header class="top"><div class="wrap">
 <a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
-<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}decks.html">🎞 презентации</a></div></details>
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}now.html">⏱ сейчас</a><a href="{up}assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}decks.html">🎞 презентации</a><a href="{up}tools.html">🧰 инструментарий</a></div></details>
 <a href="{up}projects.html">проекты</a>
-<details class="menu"><summary>знания</summary><div class="menu-list"><a href="{up}research.html">🔬 исследования</a><a href="{up}conferences.html">🎤 конференции</a><a href="{up}study.html">🎓 образование</a>{BOOKS_LINK.format(up=up)}</div></details>
+<details class="menu"><summary>знания</summary><div class="menu-list"><a href="{up}research.html">🔬 исследования</a><a href="{up}conferences.html">🎤 конференции</a><a href="{up}study.html">🎓 образование</a>{BOOKS_LINK.format(up=up)}{MEDIA_LINK.format(up=up)}</div></details>
 <details class="menu"><summary>ИИ</summary><div class="menu-list"><a href="{up}agents.html">🤖 ИИ-агенты</a><a href="{up}skills.html">🧰 ИИ-скиллы</a></div></details>
 <a href="{up}blog/index.html">посты</a>
 <a href="{up}tags/index.html">теги</a>
@@ -213,6 +215,7 @@ def index_page(posts: list[dict], page: int = 1) -> str:
 
 {hero if page == 1 else '<h1 class="feed-page-h">Посты — страница ' + str(page) + '</h1>'}
 
+{year_block(posts) if page == 1 else ""}
 <section aria-label="Лента постов">
 <ul class="feed">
 {feed(chunk, "blog/")}
@@ -565,7 +568,7 @@ def post_links(p: dict, posts: list[dict]) -> list[tuple[str, str, str]]:
     """Связи поста: куда он ссылается внутри сайта и какие посты ссылаются на него."""
     out = []
     names = {"agents.html": "ИИ-агенты", "projects.html": "Проекты", "study.html": "Образование", "research.html": "Исследования",
-             "cv.html": "Резюме", "skills.html": "ИИ-скиллы", "conferences.html": "Конференции", "decks.html": "Презентации", "about.html": "Обо мне", "books.html": "Книги", "cases/index.html": "Портфолио кейсов"}
+             "cv.html": "Резюме", "now.html": "Сейчас", "tools.html": "Инструментарий", "skills.html": "ИИ-скиллы", "conferences.html": "Конференции", "decks.html": "Презентации", "about.html": "Обо мне", "books.html": "Книги", "cases/index.html": "Портфолио кейсов"}
     for text, href in re.findall(r"\[([^\]]+)\]\((\.\./[^)]+|[a-z0-9-]+\.html)\)", p["body"]):
         target = href[3:] if href.startswith("../") else "blog/" + href
         label = names.get(target)
@@ -1116,6 +1119,157 @@ def skills_page() -> str:
     return layout("ИИ-скиллы — Роман Понуров", f"Рабочий набор из {total} ИИ-скиллов продакта: презентации, исследования, тексты, агенты, разработка.", body, "skills.html")
 
 
+def year_stats(posts: list[dict], year: int) -> list[tuple[str, int, str]]:
+    """Год в цифрах: считается из постов (теги) и раздела «Образование»."""
+    ys = [p for p in posts if p["date"].startswith(str(year))]
+    tag = lambda t: sum(t in p["tags"] for p in ys)
+    courses = sum(str(year) in org for title, rows in STUDY for org, *_ in rows if title in ("Курсы", "Акселераторы и конкурсы"))
+    rows = [
+        ("доклада" if tag("конференция") in (2, 3, 4) else "докладов" if tag("конференция") != 1 else "доклад", tag("конференция"), "conferences.html"),
+        ("статьи ВАК" if tag("научная статья") in (2, 3, 4) else "статей ВАК" if tag("научная статья") != 1 else "статья ВАК", tag("научная статья"), "research.html"),
+        ("курса и программы" if courses in (2, 3, 4) else "курсов и программ" if courses != 1 else "курс", courses, "study.html"),
+        ("книга" if tag("книги") == 1 else "книги" if tag("книги") in (2, 3, 4) else "книг", tag("книги"), "books.html"),
+        ("поста" if len(ys) in (2, 3, 4) else "постов" if len(ys) != 1 else "пост", len(ys), "blog/"),
+    ]
+    if year == 2026:
+        rows.insert(0, ("курс читаю в университете", 1, "blog/lekcii-it-menedzhment.html"))
+        rows.insert(1, ("AI-прототип с открытым кодом", 1, "projects.html"))
+    if year == 2025:
+        rows.insert(0, ("стартапа: bolz.tech и bolz.dev", 2, "projects.html"))
+    return [r for r in rows if r[1]]
+
+
+def year_block(posts: list[dict], prefix: str = "") -> str:
+    tabs, panes = [], []
+    for i, y in enumerate((2026, 2025)):
+        cells = "".join(f'<a class="yr-cell" href="{prefix}{u}"><b>{n}</b><span>{esc(l)}</span></a>' for l, n, u in year_stats(posts, y))
+        tabs.append(f'<button type="button" class="yr-tab" data-y="{y}" aria-pressed="{str(i == 0).lower()}">{y}</button>')
+        panes.append(f'<div class="yr-grid" data-y="{y}"{"" if i == 0 else " hidden"}>{cells}</div>')
+    return f"""<section class="year" aria-label="Год в цифрах"><div class="yr-head"><h2>Год в цифрах</h2><div class="yr-tabs">{"".join(tabs)}</div></div>{"".join(panes)}</section>
+<script>document.querySelectorAll('.yr-tab').forEach(b => b.addEventListener('click', () => {{ document.querySelectorAll('.yr-tab').forEach(x => x.setAttribute('aria-pressed', String(x === b))); document.querySelectorAll('.yr-grid').forEach(g => g.hidden = g.dataset.y !== b.dataset.y); }}));</script>"""
+
+
+TOOLKIT = [
+    ("Исследование пользователей", [
+        ("CustDev и глубинные интервью", "Проверка проблемы до разработки.", "Газпромбанк, MTS ID, «Азия Онлайн», опрос 200 пользователей bolz.tech, интервью для диссертации"),
+        ("Jobs To Be Done", "Формулирую, ради какой «работы» пользователь приходит в продукт.", ""),
+        ("UX-тестирование", "Смотрю, где пользователь спотыкается, до релиза.", ""),
+    ]),
+    ("Приоритизация и стратегия", [
+        ("ICE и RICE", "Сравниваю гипотезы по эффекту, уверенности и затратам.", ""),
+        ("Роадмап и бэклог", "Связываю цели бизнеса с планом релизов.", "все продукты, от ГРАНИТа до Газпромбанка"),
+        ("Концепция и бюджет продукта", "Защищаю продукт перед стейкхолдерами до старта разработки.", "Газпромбанк, MTS ID"),
+    ]),
+    ("Метрики и эксперименты", [
+        ("Продуктовые метрики и воронки", "Конверсия, отток, retention, доля заказов из приложения.", "«Азия Онлайн»: +103% выручки, −24% оттока"),
+        ("Юнит-экономика", "CAC, LTV, средний чек, окупаемость канала.", "«первые 100 платящих» и PMF bolz.tech"),
+        ("A/B-тесты", "Проверяю изменения на части аудитории.", "курс GoPractice, лекция «Эксперименты и экономика»"),
+        ("SQL", "Сам достаю данные для метрик.", "симулятор GoPractice"),
+    ]),
+    ("Процессы и требования", [
+        ("BPMN", "Описываю бизнес-процессы как есть и как будет.", "Концерн ГРАНИТ, «По соседству»"),
+        ("User stories и спецификации", "Ставлю задачи разработке так, чтобы их можно было проверить.", "ГРАНИТ, MTS ID"),
+        ("Agile и KPI команды", "Выстраиваю ритм работы и измеримые цели.", "реструктуризация e-com в «Азия Ритейл»"),
+    ]),
+    ("ИИ и агенты", [
+        ("LLM-агенты", "Агентный цикл: план, вызов инструментов, проверка, повтор.", "Планировщик выходных, сервис с ИИ-агентом в банке"),
+        ("MCP и A2A", "Протоколы инструментов и общения агентов.", "MCP-сервер Планировщика, bolz.dev"),
+        ("Эвалы", "Оцениваю агента по результату действия, а не по тексту.", "32 эвал-кейса Планировщика, bolz.dev"),
+        ("Claude Code, Cursor, API LLM", "Собираю прототипы сам: OpenAI-совместимые модели, GigaChat.", "Планировщик выходных, этот сайт"),
+        ("n8n", "Автоматизации без кода.", ""),
+    ]),
+    ("Сервисы", [
+        ("Figma и Miro", "Мокапы, CJM, схемы процессов.", "все продукты"),
+        ("Git и GitHub", "Код прототипов и портфолио.", "github.com/astro090-pm"),
+        ("1С-Битрикс, Битрикс24, Яндекс Метрика", "Запуск и аналитика сайтов.", "«По соседству», Лайтхаус Технолоджиз"),
+    ]),
+]
+
+
+def toolkit_page() -> str:
+    blocks = []
+    for title, rows in TOOLKIT:
+        lis = "".join(f'<li class="skill"><b>{esc(n)}</b><span>{esc(d)}</span>' + (f'<em>Где применял: {esc(w)}</em>' if w else '') + '</li>' for n, d, w in rows)
+        blocks.append(f'<section class="skill-group"><h2>{esc(title)} <span class="cnt">{len(rows)}</span></h2><ul class="skills">{lis}</ul></section>')
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="./">На главную</a>
+<h1>Инструментарий</h1>
+<p class="intro">Фреймворки и инструменты, которыми я реально пользуюсь, — и где именно применял каждый.</p>
+{"".join(blocks)}
+<p class="related-row">ИИ-скиллы для агентов — на отдельной <a href="skills.html">странице</a>.</p>
+</div></article>
+"""
+    return layout("Инструментарий — Роман Понуров", "Фреймворки и инструменты продакта Романа Понурова и где он их применял.", body, "tools.html")
+
+
+def now_page(posts: list[dict]) -> str:
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="./">На главную</a>
+<h1>Сейчас</h1>
+<p class="post-meta">Обновлено 16 октября 2026</p>
+<div class="prose now">
+<p>Чем я занят в эти недели. Страницу обновляю раз в месяц — идея <a href="https://nownownow.com/about" target="_blank" rel="noopener">now-страниц</a> Дерека Сиверса.</p>
+
+<h2>🧑‍💼 Работа</h2>
+<p>Старший менеджер продукта в Газпромбанке: развиваю внутренний сервис кредитного анализа компаний с ИИ-агентом.</p>
+
+<h2>🎓 Преподаю</h2>
+<p>Веду курс <a href="blog/lekcii-it-menedzhment.html">«ИТ-менеджмент»</a> для первокурсников: семь лекций по вторникам до 24 ноября. Студенты в командах запускают свой сервис — от команды и MVP до метрик.</p>
+
+<h2>🔬 Исследую</h2>
+<p>Пишу диссертацию в РАНХиГС об ИИ в управлении компанией. Только что закончил серию интервью для кейс-стади — <a href="blog/intervyu-ii-v-banke.html">итоги здесь</a>. В сентябре выступил на двух международных конференциях.</p>
+
+<h2>🤖 Строю</h2>
+<p>Развиваю <a href="projects.html">Планировщик выходных</a> — агентный Telegram-бот с MCP-сервером, агентами по A2A и эвалами — и рассказываю свой <a href="agents.html">путь в ИИ-агентах</a>.</p>
+
+<h2>📚 Читаю</h2>
+<p>Перечитываю <a href="blog/vdohnovlennye-kagan.html">«Вдохновлённых»</a> Марти Кагана.</p>
+</div>
+{year_block(posts)}
+</div></article>
+"""
+    return layout("Сейчас — Роман Понуров", "Чем Роман Понуров занят сейчас: работа, преподавание, исследование, проекты, чтение.", body, "now.html")
+
+
+MEDIA_KINDS = [("podcasts", "🎧 Подкасты"), ("videos", "🎬 Лекции и видео"), ("reading", "📡 Кого читаю")]
+
+
+def load_media() -> dict[str, list[dict]]:
+    """content/media.txt: раздел | название | автор/канал | что вынес | ссылка. Раздел: podcasts, videos, reading."""
+    f = ROOT / "content" / "media.txt"
+    out: dict[str, list[dict]] = {k: [] for k, _ in MEDIA_KINDS}
+    if f.exists():
+        for line in f.read_text(encoding="utf-8").splitlines():
+            if not line.strip() or line.lstrip().startswith("#"):
+                continue
+            p = [x.strip() for x in line.split("|")] + [""] * 5
+            if p[0] in out:
+                out[p[0]].append({"title": p[1], "who": p[2], "note": p[3], "url": p[4]})
+    return out
+
+
+def media_page(media: dict[str, list[dict]]) -> str:
+    blocks = []
+    for k, title in MEDIA_KINDS:
+        if not media[k]:
+            continue
+        lis = "".join(
+            f'<li class="skill"><b>' + (f'<a href="{esc(m["url"])}" target="_blank" rel="noopener">{esc(m["title"])}</a>' if m["url"] else esc(m["title"]))
+            + f'</b><span>{esc(m["who"])}</span>' + (f'<em>{esc(m["note"])}</em>' if m["note"] else "") + "</li>" for m in media[k])
+        blocks.append(f'<section class="skill-group"><h2>{title} <span class="cnt">{len(media[k])}</span></h2><ul class="skills">{lis}</ul></section>')
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="./">На главную</a>
+<h1>Медиатека</h1>
+<p class="intro">Что я слушаю, смотрю и читаю о продукте, ИИ и управлении — и что из этого вынес. Книги — на <a href="books.html">отдельной странице</a>.</p>
+{"".join(blocks)}
+</div></article>
+"""
+    return layout("Медиатека — Роман Понуров", "Подкасты, лекции и авторы, которых слушает и читает Роман Понуров.", body, "media.html")
+
+
 def main() -> None:
     posts = load_posts()
     pages = max(1, -(-len(posts) // PER_PAGE))
@@ -1126,6 +1280,11 @@ def main() -> None:
     (ROOT / "research.html").write_text(research_page(posts), encoding="utf-8")
     (ROOT / "study.html").write_text(study_page(), encoding="utf-8")
     (ROOT / "about.html").write_text(about_page(), encoding="utf-8")
+    (ROOT / "tools.html").write_text(toolkit_page(), encoding="utf-8")
+    media = load_media()
+    if any(media.values()):
+        (ROOT / "media.html").write_text(media_page(media), encoding="utf-8")
+    (ROOT / "now.html").write_text(now_page(posts), encoding="utf-8")
     (ROOT / "skills.html").write_text(skills_page(), encoding="utf-8")
     (ROOT / "conferences.html").write_text(conferences_page(), encoding="utf-8")
     (ROOT / "decks.html").write_text(decks_page(), encoding="utf-8")

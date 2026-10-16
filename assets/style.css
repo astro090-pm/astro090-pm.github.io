@@ -628,3 +628,20 @@ a.feed-link:hover, a.feed-link:hover * { text-decoration: none; }
 #evo-year { -webkit-appearance: none; appearance: none; height: 6px; border-radius: 999px; background: linear-gradient(90deg, #7C9BEA, #E8956A, #E59BB8, #A98BEA); }
 #evo-year::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--ink); border: 3px solid var(--paper); cursor: pointer; }
 #evo-year::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--ink); border: 3px solid var(--paper); cursor: pointer; }
+
+/* Год в цифрах */
+.year { margin: 8px 0 48px; }
+.yr-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.page .year h2, .year h2 { font: 600 15px/1 var(--sans); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0; }
+.yr-tabs { display: flex; gap: 6px; }
+.yr-tab { font: 500 14px var(--sans); padding: 6px 12px; border-radius: 999px; border: 1px solid var(--card-rule); background: transparent; color: var(--ink); cursor: pointer; }
+.yr-tab[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.yr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.yr-grid[hidden] { display: none; }
+.yr-cell { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border: 1px solid var(--card-rule); border-radius: 12px; color: var(--ink); font-weight: 400; background: var(--surface); }
+.yr-cell:hover { border-color: var(--link); text-decoration: none; }
+.yr-cell b { font: 600 30px/1 var(--display); color: var(--link); }
+.yr-cell span { font: 400 14px/1.3 var(--sans); color: var(--muted); }
+.skill em { font: 400 13px/1.4 var(--sans); color: var(--ink); font-style: normal; border-top: 1px solid var(--rule); padding-top: 8px; margin-top: 4px; }
+.now h2 { font-size: 22px; margin-top: 32px; }
+.now + .year { margin-top: 48px; }
