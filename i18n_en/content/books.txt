@@ -1,0 +1,2 @@
+# Books: Topic | Title | Author | Why useful | review post slug
+Product | Inspired: How to Create Tech Products Customers Love | Marty Cagan | A map of the PM profession: four risks, Discovery and Delivery, missionary teams | vdohnovlennye-kagan

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI skills — Roman Ponurov</title>
+<meta name="description" content="A working set of 28 AI skills for a product manager: presentations, research, writing, agents, development.">
+<link rel="canonical" href="https://astro090-pm.github.io/en/skills.html">
+<link rel="alternate" hreflang="ru" href="https://astro090-pm.github.io/skills.html">
+<link rel="alternate" hreflang="en" href="https://astro090-pm.github.io/en/skills.html">
+<meta property="og:title" content="AI skills — Roman Ponurov">
+<meta property="og:description" content="A working set of 28 AI skills for a product manager: presentations, research, writing, agents, development.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://astro090-pm.github.io/en/skills.html">
+<meta property="og:site_name" content="Roman Ponurov">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://astro090-pm.github.io/assets/og-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Roman Ponurov, product manager: +103% e-com revenue, 10M MTS ID users, 4 products launched from scratch">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://astro090-pm.github.io/assets/og-en.png">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css?v=09de2b55">
+<script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<script src="../assets/site.js?v=f2bb86bd" defer data-root=""></script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="./"><img class="avatar avatar-sm" src="../assets/avatar-sm.jpg" width="34" height="34" alt="">Roman Ponurov</a>
+<nav class="nav" aria-label="Sections">
+<details class="menu"><summary>product</summary><div class="menu-list"><a href="about.html">👋 about me</a><a href="now.html">⏱ now</a><a href="timeline.html">🗓 timeline</a><a href="../assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 CV (PDF, Russian)</a><a href="cases/">📁 case portfolio</a><a href="decks.html">🎞 decks</a><a href="tools.html">🧰 toolkit</a></div></details>
+<a href="projects.html">projects</a>
+<details class="menu"><summary>knowledge</summary><div class="menu-list"><a href="research.html">🔬 research</a><a href="conferences.html">🎤 conferences</a><a href="study.html">🎓 education</a><a href="books.html">📚 books</a></div></details>
+<details class="menu"><summary>AI</summary><div class="menu-list"><a href="agents.html">🤖 AI agents</a><a href="skills.html">🧰 AI skills</a></div></details>
+<a href="blog/">posts</a>
+<a href="tags/">tags</a>
+</nav>
+<span class="tools">
+<a class="icon-btn lang" href="../skills.html" title="Russian version" hreflang="ru">RU</a>
+<button type="button" class="icon-btn" id="search-open" aria-label="Search the site" title="Search (/)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+<button type="button" class="icon-btn" id="theme-toggle" aria-label="Toggle dark theme" title="Dark theme"><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</span>
+<script>
+document.addEventListener('click', e => document.querySelectorAll('details.menu[open]').forEach(d => { if (!d.contains(e.target)) d.open = false; }));
+document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => { if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => { if (o !== d) o.open = false; }); }));
+</script>
+</div></header>
+<main>
+
+<article class="page"><div class="wrap">
+<a class="back" href="./">Home</a>
+<h1>AI skills</h1>
+<p class="intro">Skills are instruction packages for an AI agent (Claude Code and compatible tools) that teach it to do a specific job well: a presentation, research, a market analysis, test-driven code. This is my working set — 28 skills grouped by product management tasks.</p>
+<p class="intro">The set is based on the open collection <a href="https://github.com/piofant/skills" target="_blank" rel="noopener">piofant/skills</a> by Vova Lutsenko, which also includes skills by other authors (superpowers, agent-teams, humanizer-ru, Deep-Research and frontend-design by Anthropic). I gave them my own names based on the task; the “source” link leads to the author.</p>
+<pre class="install"><code>npx skills add piofant/skills</code></pre>
+<section class="skill-group"><h2>📊 Presentations and documents <span class="cnt">5</span></h2><ul class="skills"><li class="skill"><b>Dark presentation</b><span>Minimalist slides on a dark background where every headline is a conclusion, not a topic.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Investor pitch</b><span>A deck for investors: problem, solution, market, traction, team.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Consulting report</b><span>Consulting-style slides, reports and PDFs from plain Markdown.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Product case</b><span>A case breakdown from problem statement to a finished presentation.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Academic paper</b><span>Defences, research talks and reports following Russian academic standards (GOST).</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li></ul></section><section class="skill-group"><h2>🔎 Research and analytics <span class="cnt">4</span></h2><ul class="skills"><li class="skill"><b>Deep research</b><span>Research from a blank page to a summary report with sources.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Market analysis</b><span>A market through the SCPR and MECE frameworks, TAM/SAM/SOM sizing, RICE prioritisation.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>NotebookLM notebook</b><span>Working with sources in NotebookLM: notes, podcasts, summaries.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Material breakdown</b><span>Breaks a talk or article into layers: facts, meaning, conclusions, what to do.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li></ul></section><section class="skill-group"><h2>✍️ Writing <span class="cnt">3</span></h2><ul class="skills"><li class="skill"><b>Natural text editor</b><span>Removes bureaucratic and “machine” phrasing from Russian text.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Writing in someone&#x27;s voice</b><span>Writes in a specific author&#x27;s style from samples of their texts.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Academic writing</b><span>Texts for committees: from a motivation letter to a dissertation defence.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li></ul></section><section class="skill-group"><h2>🗂 Personal context <span class="cnt">5</span></h2><ul class="skills"><li class="skill"><b>Telegram context</b><span>Pulls the relevant conversation from Telegram chats into the work.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Calendar</b><span>Knows the week&#x27;s schedule: meetings, times, places.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Google Drive search</b><span>Finds the right file on Drive and brings it into the work.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Semantic blog search</b><span>Remembers all posts and finds them by meaning, not by keywords.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Audio transcription</b><span>Transcribes voice messages and meeting recordings locally.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li></ul></section><section class="skill-group"><h2>🤖 Agents and task management <span class="cnt">5</span></h2><ul class="skills"><li class="skill"><b>Finding and installing skills</b><span>Finds a suitable skill and connects it right away.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Loop until done</b><span>Repeats a task in a loop until it is finished.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Agent team</b><span>Assembles a team of agents with reviewers for a single feature.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Structured thinking</b><span>Thinks a question through slowly and step by step when the answer isn&#x27;t obvious.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Expert debate</b><span>Pits several experts&#x27; positions against each other until they reach a shared conclusion.</span><a href="https://github.com/piofant/skills" target="_blank" rel="noopener">source</a></li></ul></section><section class="skill-group"><h2>🛠 Development <span class="cnt">6</span></h2><ul class="skills"><li class="skill"><b>Requirements discovery</b><span>Won&#x27;t let coding start until it&#x27;s clear what we&#x27;re building and why.</span><a href="https://github.com/obra/superpowers" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Plan and execute</b><span>A step-by-step plan, handing tasks to agents and execution.</span><a href="https://github.com/obra/superpowers" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Test-driven development</b><span>Test first, then code; on failure it looks for the cause, not the symptom.</span><a href="https://github.com/obra/superpowers" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Code review</b><span>Sends code for review, works through comments and gets the branch merged.</span><a href="https://github.com/obra/superpowers" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Interface design</b><span>Interfaces with a deliberate visual approach instead of a template.</span><a href="https://github.com/anthropics/skills" target="_blank" rel="noopener">source</a></li><li class="skill"><b>Creating skills</b><span>Helps write a new skill and understand existing ones.</span><a href="https://github.com/obra/superpowers" target="_blank" rel="noopener">source</a></li></ul></section>
+<p class="related-row">How I build agents myself — see <a href="agents.html">AI agents</a>.</p>
+</div></article>
+
+</main>
+<footer><div class="wrap foot">
+© 2026 Roman Ponurov · <a href="mailto:ponurov.roman@yandex.ru">email</a> · <a href="https://t.me/astro090">telegram</a> · <a href="https://www.linkedin.com/in/roman-ponurov-bb3b81a6/">linkedin</a> · all rights reserved
+</div></footer>
+</body>
+</html>

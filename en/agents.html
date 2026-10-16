@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI agents — Roman Ponurov</title>
+<meta name="description" content="Learning AI agents from theory to practice: LLMs, tools, MCP, A2A, evals, metrics.">
+<link rel="canonical" href="https://astro090-pm.github.io/en/agents.html">
+<link rel="alternate" hreflang="ru" href="https://astro090-pm.github.io/agents.html">
+<link rel="alternate" hreflang="en" href="https://astro090-pm.github.io/en/agents.html">
+<meta property="og:title" content="AI agents — Roman Ponurov">
+<meta property="og:description" content="Learning AI agents from theory to practice: LLMs, tools, MCP, A2A, evals, metrics.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://astro090-pm.github.io/en/agents.html">
+<meta property="og:site_name" content="Roman Ponurov">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://astro090-pm.github.io/assets/og-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Roman Ponurov, product manager: +103% e-com revenue, 10M MTS ID users, 4 products launched from scratch">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://astro090-pm.github.io/assets/og-en.png">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css?v=09de2b55">
+<script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<script src="../assets/site.js?v=f2bb86bd" defer data-root=""></script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="./"><img class="avatar avatar-sm" src="../assets/avatar-sm.jpg" width="34" height="34" alt="">Roman Ponurov</a>
+<nav class="nav" aria-label="Sections">
+<details class="menu"><summary>product</summary><div class="menu-list"><a href="about.html">👋 about me</a><a href="now.html">⏱ now</a><a href="timeline.html">🗓 timeline</a><a href="../assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 CV (PDF, Russian)</a><a href="cases/">📁 case portfolio</a><a href="decks.html">🎞 decks</a><a href="tools.html">🧰 toolkit</a></div></details>
+<a href="projects.html">projects</a>
+<details class="menu"><summary>knowledge</summary><div class="menu-list"><a href="research.html">🔬 research</a><a href="conferences.html">🎤 conferences</a><a href="study.html">🎓 education</a><a href="books.html">📚 books</a></div></details>
+<details class="menu"><summary>AI</summary><div class="menu-list"><a href="agents.html">🤖 AI agents</a><a href="skills.html">🧰 AI skills</a></div></details>
+<a href="blog/">posts</a>
+<a href="tags/">tags</a>
+</nav>
+<span class="tools">
+<a class="icon-btn lang" href="../agents.html" title="Russian version" hreflang="ru">RU</a>
+<button type="button" class="icon-btn" id="search-open" aria-label="Search the site" title="Search (/)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+<button type="button" class="icon-btn" id="theme-toggle" aria-label="Toggle dark theme" title="Dark theme"><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</span>
+<script>
+document.addEventListener('click', e => document.querySelectorAll('details.menu[open]').forEach(d => { if (!d.contains(e.target)) d.open = false; }));
+document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => { if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => { if (o !== d) o.open = false; }); }));
+</script>
+</div></header>
+<main>
+
+<article class="page"><div class="wrap">
+<a class="back" href="./">Home</a>
+<h1>AI agents</h1>
+<p class="intro">Here I document my path into AI agents, from theory to practice. Each stage covers what it is, where I tried it hands-on and what I learned. My main testing ground is <a href="projects.html">Weekend Planner</a>, an open-source agentic Telegram bot.</p>
+
+<h2>Latest notes</h2><ul class="feed"><li class="feed-item"><a class="feed-link" href="blog/put-v-ii-agenty.html">
+<span class="feed-meta"><span class="feed-cat">AI agents</span><span>1 min</span><time datetime="2026-10-16">16 October 2026</time></span>
+<span class="feed-row"><img class="feed-thumb" src="../assets/posts/agents.jpg" alt="" loading="lazy"><span class="feed-body"><span class="feed-title">Starting to document my path into AI agents</span>
+<span class="feed-excerpt">I&#x27;m opening the AI agents section. In it I&#x27;ll describe step by step how I learn agents: from theory to practice.</span></span></span></a></li>
+<li class="feed-item"><a class="feed-link" href="blog/statya-tendencii-ii.html">
+<span class="feed-meta"><span class="feed-cat">journal article</span><span>1 min</span><time datetime="2025-09-23">23 September 2025</time></span>
+<span class="feed-row"><img class="feed-thumb" src="../assets/posts/en/vak-2.png" alt="" loading="lazy"><span class="feed-body"><span class="feed-title">Article on AI trends in corporate governance — from generative models to agents</span>
+<span class="feed-excerpt">My second article was published in the journal &quot;Financial Management&quot; (no. 10, 2025) — &quot;Current trends in the use of artificial intelligence in corporate governance during digital transformation&quot;.</span></span></span></a></li>
+<li class="feed-item"><a class="feed-link" href="blog/bolz-dev-mcp.html">
+<span class="feed-meta"><span class="feed-cat">startup</span><span>2 min</span><time datetime="2025-08-31">31 August 2025</time></span>
+<span class="feed-row"><img class="feed-thumb" src="../assets/posts/en/bolz-dev.png" alt="" loading="lazy"><span class="feed-body"><span class="feed-title">bolz.dev — an MCP connector that lets AI agents take real-world actions</span>
+<span class="feed-excerpt">In August 2025 we built the MVP of bolz.dev — a Model Context Protocol platform that lets AI agents not just recommend but finish the job: find, book and pay for real services.</span></span></span></a></li></ul>
+
+<h2 class="stages-head">Roadmap</h2>
+<div class="metro"><svg viewBox="0 0 1048 165" width="1048" height="165" role="img" aria-label="Stages completed: 12 of 12"><line x1="62" y1="80" x2="986" y2="80" class="m-done"/><line x1="986" y1="80" x2="986" y2="80" class="m-todo"/><a href="#stage-1" class="m-st done"><title>01. How LLMs work — theory</title><circle cx="62" cy="80" r="10"/><text x="62" y="84" class="m-num">1</text><text x="62" y="42" class="m-lab">How LLMs</text><text x="62" y="56" class="m-lab">work</text></a><a href="#stage-2" class="m-st done"><title>02. Structured output and tools — practised</title><circle cx="146" cy="80" r="10"/><text x="146" y="84" class="m-num">2</text><text x="146" y="114" class="m-lab">Structured output</text><text x="146" y="128" class="m-lab">and tools</text></a><a href="#stage-3" class="m-st done"><title>03. The agent loop — practised</title><circle cx="230" cy="80" r="10"/><text x="230" y="84" class="m-num">3</text><text x="230" y="42" class="m-lab">The agent</text><text x="230" y="56" class="m-lab">loop</text></a><a href="#stage-4" class="m-st done"><title>04. MCP — the tool protocol — practised</title><circle cx="314" cy="80" r="10"/><text x="314" y="84" class="m-num">4</text><text x="314" y="114" class="m-lab">MCP the</text><text x="314" y="128" class="m-lab">tool protocol</text></a><a href="#stage-5" class="m-st done"><title>05. Multi-agent systems and A2A — practised</title><circle cx="398" cy="80" r="10"/><text x="398" y="84" class="m-num">5</text><text x="398" y="42" class="m-lab">Multi-agent systems</text><text x="398" y="56" class="m-lab">and A2A</text></a><a href="#stage-6" class="m-st done"><title>06. Browser agents — practised</title><circle cx="482" cy="80" r="10"/><text x="482" y="84" class="m-num">6</text><text x="482" y="114" class="m-lab">Browser</text><text x="482" y="128" class="m-lab">agents</text></a><a href="#stage-7" class="m-st done"><title>07. Orchestration and recovery — practised</title><circle cx="566" cy="80" r="10"/><text x="566" y="84" class="m-num">7</text><text x="566" y="42" class="m-lab">Orchestration and</text><text x="566" y="56" class="m-lab">recovery</text></a><a href="#stage-8" class="m-st done"><title>08. Evals — practised</title><circle cx="650" cy="80" r="10"/><text x="650" y="84" class="m-num">8</text><text x="650" y="114" class="m-lab">Evals</text></a><a href="#stage-9" class="m-st done"><title>09. Agent product metrics — practised</title><circle cx="734" cy="80" r="10"/><text x="734" y="84" class="m-num">9</text><text x="734" y="42" class="m-lab">Agent product</text><text x="734" y="56" class="m-lab">metrics</text></a><a href="#stage-10" class="m-st done"><title>10. Memory and RAG — ahead</title><circle cx="818" cy="80" r="10"/><text x="818" y="84" class="m-num">10</text><text x="818" y="114" class="m-lab">Memory and</text><text x="818" y="128" class="m-lab">RAG</text></a><a href="#stage-11" class="m-st done"><title>11. Observability and safety — ahead</title><circle cx="902" cy="80" r="10"/><text x="902" y="84" class="m-num">11</text><text x="902" y="42" class="m-lab">Observability and</text><text x="902" y="56" class="m-lab">safety</text></a><a href="#stage-12" class="m-st done"><title>12. Agent in production — ahead</title><circle cx="986" cy="80" r="10"/><text x="986" y="84" class="m-num">12</text><text x="986" y="114" class="m-lab">Agent in</text><text x="986" y="128" class="m-lab">production</text></a></svg></div>
+<ol class="stages">
+<li class="stage stage-theory" id="stage-1"><span class="stage-n">01</span><div>
+<h3>How LLMs work <span class="stage-status">theory</span></h3>
+<p>Tokens, context, temperature, why a model “hallucinates” and how to write prompts that work reliably.</p></div></li><li class="stage stage-theory" id="stage-2"><span class="stage-n">02</span><div>
+<h3>Structured output and tools <span class="stage-status">practised</span></h3>
+<p>The model answers not with text but with JSON following a schema, and decides itself which tool to call: weather, events, search.</p><ul class="stage-links"><li>Practice: <a href="https://github.com/astro090-pm/weekend-planner/tree/main/weekend_agent/agents">response schemas and the tool-calling loop in Weekend Planner</a></li></ul></div></li><li class="stage stage-theory" id="stage-3"><span class="stage-n">03</span><div>
+<h3>The agent loop <span class="stage-status">practised</span></h3>
+<p>The agent plans its steps, calls tools, checks the result and decides what to do next. Where you need an agent and where a plain script is enough.</p><ul class="stage-links"><li>Practice: <a href="https://github.com/astro090-pm/weekend-planner/tree/main/weekend_agent/agents">scout, planner and critic</a></li></ul></div></li><li class="stage stage-theory" id="stage-4"><span class="stage-n">04</span><div>
+<h3>MCP — the tool protocol <span class="stage-status">practised</span></h3>
+<p>A standard way to connect external tools and data to a model, so you don&#x27;t rewrite the integration for every agent.</p><ul class="stage-links"><li>Practice: <a href="https://github.com/astro090-pm/weekend-planner/blob/main/weekend_agent/mcp_server.py">my own MCP server with four tools</a></li><li>Practice: <a href="cases/bolz-dev.html">bolz.dev — an MCP connector for real agent actions</a></li><li>Post: <a href="blog/bolz-dev-mcp.html">bolz.dev — an MCP connector that lets AI agents take real-world actions</a></li></ul></div></li><li class="stage stage-theory" id="stage-5"><span class="stage-n">05</span><div>
+<h3>Multi-agent systems and A2A <span class="stage-status">practised</span></h3>
+<p>Several agents with different roles negotiate with each other over the Agent-to-Agent protocol.</p><ul class="stage-links"><li>Practice: <a href="https://github.com/astro090-pm/weekend-planner/tree/main/weekend_agent/a2a">Weekend Planner agents talk over A2A</a></li></ul></div></li><li class="stage stage-theory" id="stage-6"><span class="stage-n">06</span><div>
+<h3>Browser agents <span class="stage-status">practised</span></h3>
+<p>The agent opens pages, reads them and acts on a website where there is no API.</p><ul class="stage-links"><li>Practice: <a href="https://github.com/astro090-pm/weekend-planner/blob/main/weekend_agent/tools/providers.py">the scout&#x27;s browser tool</a></li></ul></div></li><li class="stage stage-theory" id="stage-7"><span class="stage-n">07</span><div>
+<h3>Orchestration and recovery <span class="stage-status">practised</span></h3>
+<p>What to do when a tool fails, the model returns garbage or loops: retries, fallback models, checks, step limits.</p><ul class="stage-links"><li>Practice: <a href="https://github.com/astro090-pm/weekend-planner/blob/main/weekend_agent/resilience.py">retries and fallback providers</a></li></ul></div></li><li class="stage stage-theory" id="stage-8"><span class="stage-n">08</span><div>
+<h3>Evals <span class="stage-status">practised</span></h3>
+<p>How to measure agent quality: a set of cases, automated checks, comparing versions before and after a change.</p><ul class="stage-links"><li>Practice: <a href="https://github.com/astro090-pm/weekend-planner/tree/main/evals">32 eval cases</a></li></ul></div></li><li class="stage stage-theory" id="stage-9"><span class="stage-n">09</span><div>
+<h3>Agent product metrics <span class="stage-status">practised</span></h3>
+<p>Agent-native metrics: share of tasks solved without a human, cost and response time, retention and user ratings.</p><ul class="stage-links"><li>Practice: <a href="https://github.com/astro090-pm/weekend-planner/blob/main/weekend_agent/analytics/metrics.py">funnel, retention and ratings in the bot</a></li></ul></div></li><li class="stage stage-theory" id="stage-10"><span class="stage-n">10</span><div>
+<h3>Memory and RAG <span class="stage-status">ahead</span></h3>
+<p>How an agent remembers the user and relies on its own documents, not just the model&#x27;s knowledge.</p></div></li><li class="stage stage-theory" id="stage-11"><span class="stage-n">11</span><div>
+<h3>Observability and safety <span class="stage-status">ahead</span></h3>
+<p>Traces, logs and the cost of every step; protection against prompt injection and dangerous actions.</p></div></li><li class="stage stage-theory" id="stage-12"><span class="stage-n">12</span><div>
+<h3>Agent in production <span class="stage-status">ahead</span></h3>
+<p>Launching to real users: A/B tests, quality monitoring, agent economics.</p></div></li>
+</ol>
+</div></article>
+
+</main>
+<footer><div class="wrap foot">
+© 2026 Roman Ponurov · <a href="mailto:ponurov.roman@yandex.ru">email</a> · <a href="https://t.me/astro090">telegram</a> · <a href="https://www.linkedin.com/in/roman-ponurov-bb3b81a6/">linkedin</a> · all rights reserved
+</div></footer>
+</body>
+</html>

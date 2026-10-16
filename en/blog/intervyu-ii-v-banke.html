@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What holds AI back in management — findings from interviews at a large bank — Roman Ponurov</title>
+<meta name="description" content="For the empirical part of my PhD I ran a series of semi-structured interviews inside a large Russian bank. The question is simple: how does AI actually get buil">
+<link rel="canonical" href="https://astro090-pm.github.io/en/blog/intervyu-ii-v-banke.html">
+<link rel="alternate" hreflang="ru" href="https://astro090-pm.github.io/blog/intervyu-ii-v-banke.html">
+<link rel="alternate" hreflang="en" href="https://astro090-pm.github.io/en/blog/intervyu-ii-v-banke.html">
+<meta property="og:title" content="What holds AI back in management — findings from interviews at a large bank — Roman Ponurov">
+<meta property="og:description" content="For the empirical part of my PhD I ran a series of semi-structured interviews inside a large Russian bank. The question is simple: how does AI actually get buil">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://astro090-pm.github.io/en/blog/intervyu-ii-v-banke.html">
+<meta property="og:site_name" content="Roman Ponurov">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://astro090-pm.github.io/assets/og-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Roman Ponurov, product manager: +103% e-com revenue, 10M MTS ID users, 4 products launched from scratch">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://astro090-pm.github.io/assets/og-en.png">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../assets/style.css?v=09de2b55">
+<script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<script src="../../assets/site.js?v=f2bb86bd" defer data-root="../"></script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="../"><img class="avatar avatar-sm" src="../../assets/avatar-sm.jpg" width="34" height="34" alt="">Roman Ponurov</a>
+<nav class="nav" aria-label="Sections">
+<details class="menu"><summary>product</summary><div class="menu-list"><a href="../about.html">👋 about me</a><a href="../now.html">⏱ now</a><a href="../timeline.html">🗓 timeline</a><a href="../../assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 CV (PDF, Russian)</a><a href="../cases/">📁 case portfolio</a><a href="../decks.html">🎞 decks</a><a href="../tools.html">🧰 toolkit</a></div></details>
+<a href="../projects.html">projects</a>
+<details class="menu"><summary>knowledge</summary><div class="menu-list"><a href="../research.html">🔬 research</a><a href="../conferences.html">🎤 conferences</a><a href="../study.html">🎓 education</a><a href="../books.html">📚 books</a></div></details>
+<details class="menu"><summary>AI</summary><div class="menu-list"><a href="../agents.html">🤖 AI agents</a><a href="../skills.html">🧰 AI skills</a></div></details>
+<a href="../blog/">posts</a>
+<a href="../tags/">tags</a>
+</nav>
+<span class="tools">
+<a class="icon-btn lang" href="../../blog/intervyu-ii-v-banke.html" title="Russian version" hreflang="ru">RU</a>
+<button type="button" class="icon-btn" id="search-open" aria-label="Search the site" title="Search (/)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+<button type="button" class="icon-btn" id="theme-toggle" aria-label="Toggle dark theme" title="Dark theme"><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</span>
+<script>
+document.addEventListener('click', e => document.querySelectorAll('details.menu[open]').forEach(d => { if (!d.contains(e.target)) d.open = false; }));
+document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => { if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => { if (o !== d) o.open = false; }); }));
+</script>
+</div></header>
+<main>
+
+<article class="page"><div class="wrap">
+<a class="back" href="./">All posts</a>
+<h1>What holds AI back in management — findings from interviews at a large bank</h1>
+<p class="post-meta"><time datetime="2026-10-16">16 October 2026</time><a class="tag" href="../tags/research.html">research</a><a class="tag" href="../tags/ai-in-management.html">AI in management</a><a class="tag" href="../tags/fintech.html">fintech</a></p>
+<div class="prose">
+<p>For the empirical part of my PhD I ran a series of semi-structured interviews inside a large Russian bank. The question is simple: how does AI actually get built into a company's management system — and what gets in the way? Below are generalised findings, without the bank's name, people's names or internal figures.</p>
+<h2>The case</h2>
+<p><strong>Object.</strong> A large Russian bank with a wide branch network, moving from isolated pilots to systematic use of AI.</p>
+<p><strong>Who I interviewed.</strong> Four groups of respondents:</p>
+<ul>
+<li>product and project managers who implement AI initiatives;</li>
+<li>specialists from the AI technology centre;</li>
+<li>top management;</li>
+<li>employees who use AI tools in their work.</li>
+</ul>
+<p><strong>How.</strong> One interview guide: a common block for everyone and a specialised block per role. Interviews are anonymised, key quotes extracted, answers coded into a thematic matrix — which themes repeat across groups.</p>
+<h2>How AI is governed</h2>
+<ul>
+<li><strong>A dedicated structure above departments.</strong> There's an AI centre with its own strategy and a data management function next to it. Strategic goals and adoption KPIs are set at the top and cascade down to department heads.</li>
+<li><strong>Initiatives come from the business.</strong> A unit brings a problem; together with the AI centre it's turned into an AI task with a target metric. Business units have "AI advocates" — people who know the processes and understand what AI can and can't do.</li>
+<li><strong>Selection by three criteria:</strong> economic effect, data readiness and process repeatability. If the effect is large but the data isn't ready, the initiative becomes "preparatory": fix data and processes first, then pilot.</li>
+<li><strong>Accountability stays with the business.</strong> If AI scoring is built into the lending process, the risk manager owns the decision. AI is a tool, not the accountable party.</li>
+</ul>
+<h2>Where AI already works</h2>
+<p>Maturity differs a lot by area. Classic machine learning has long been in production: anti-fraud, scoring, speech analytics in the contact centre. Generative AI is moving from pilots to scale: internal assistants for staff, document summarisation, drafts of analytical reports. Agentic systems are at an early pilot stage.</p>
+<h2>Five barriers</h2>
+<ol>
+<li><strong>Process, not the model.</strong> The most common answer: the blocker isn't model accuracy but the lack of a business process where the output becomes a step rather than "one more dashboard for reference". It's an organisational problem, and it's slow to fix because it touches people's areas of responsibility.</li>
+<li><strong>Data.</strong> In a pilot the data is pulled by hand; production needs an automated pipeline — and it turns out sources update at the wrong frequency and have no availability guarantees.</li>
+<li><strong>People and trust.</strong> Employees either blindly trust the model's suggestion — making its error their error — or ignore it. A tool can be technically available for months while only a small share of staff use it. Plus a shortage of specialists and dependence on a few experts.</li>
+<li><strong>Line managers.</strong> Adoption hinges on line managers: if they don't understand what AI can and can't do, "pseudo-AI" initiatives appear and real opportunities are missed.</li>
+<li><strong>Regulation and security.</strong> Customers' personal data rules out external models — you need a closed environment, which limits model choice. Final decisions need explainability and a fallback: why the model decided this and how to challenge it. Models drift with the portfolio and the economy and need constant monitoring.</li>
+</ol>
+<h2>Takeaways</h2>
+<ul>
+<li><strong>Autonomous AI-based management decisions are unacceptable in a bank today.</strong> The model is an adviser: it collects and structures information, highlights risks, double-checks data. The decision stays with a human.</li>
+<li><strong>A gap between the model and the decision is normal, not a failure.</strong> The model optimises one objective; a management decision balances several, some of which can't be formalised.</li>
+<li><strong>Start narrow.</strong> An example from the interviews: instead of a churn model for the whole portfolio, it was launched for one segment and one channel where data and a retention process already existed. A smaller but measurable and fast effect — and the right to scale.</li>
+<li><strong>If you change one thing</strong> — build AI literacy into line managers' planning and create a single platform of reusable components so a new initiative launches in weeks, not months.</li>
+</ul>
+<h2>What it means for a product manager</h2>
+<p>Almost all barriers are product problems, not technical ones: which process the output plugs into, who owns it, how users know when to trust the model, which metric defines success. I follow the same principles building a service with an AI agent at work and in my <a href="../agents.html">own AI projects</a>.</p>
+<p>More about the PhD on the <a href="../research.html">research</a> page. I wrote about AI risks in banks in an <a href="statya-riski-ii.html">article</a> and a <a href="doklad-riski-ii-banki.html">talk</a>.</p>
+</div>
+<section class="related-posts"><h2>Related posts</h2><div class="rel-grid"><a class="rel-card" href="doklad-riski-ii-banki.html"><img src="../../assets/posts/en/talk-2.png" alt="" loading="lazy"><span class="rel-body">
+<span class="rel-title">Talk on how a bank can reduce AI risks — from accountability to a roadmap</span>
+<span class="rel-meta"><time datetime="2026-09-07">7 Sep 2026</time><span class="tag">conference</span><span class="tag">AI in management</span></span></span></a><a class="rel-card" href="statya-riski-ii.html"><img src="../../assets/posts/en/vak-3.png" alt="" loading="lazy"><span class="rel-body">
+<span class="rel-title">Article on the risks and limits of AI in management — the case of banks</span>
+<span class="rel-meta"><time datetime="2025-12-15">15 Dec 2025</time><span class="tag">journal article</span><span class="tag">AI in management</span></span></span></a><a class="rel-card" href="magisterskaya-vshe.html"><img src="../../assets/posts/hse.jpg" alt="" loading="lazy"><span class="rel-body">
+<span class="rel-title">My HSE master&#x27;s thesis — how to tell whether digital transformation will pay off</span>
+<span class="rel-meta"><time datetime="2021-06-30">30 Jun 2021</time><span class="tag">research</span><span class="tag">fintech</span></span></span></a><a class="rel-card" href="doklad-gotovnost-kompanij.html"><img src="../../assets/posts/en/talk-3.png" alt="" loading="lazy"><span class="rel-body">
+<span class="rel-title">Talk in Penza — are Russian companies ready for AI in management?</span>
+<span class="rel-meta"><time datetime="2026-09-10">10 Sep 2026</time><span class="tag">conference</span><span class="tag">AI in management</span></span></span></a></div></section>
+<div class="post-actions"><details class="pill-btn conn"><summary><span class="tri">▸</span> show post connections <span class="cnt">4</span></summary><ul class="conn-list"><li><span class="dir">→</span><a href="../agents.html">AI agents</a></li><li><span class="dir">→</span><a href="../research.html">Research</a></li><li><span class="dir">→</span><a href="../blog/statya-riski-ii.html">Article on the risks and limits of AI in management — the case of banks</a></li><li><span class="dir">→</span><a href="../blog/doklad-riski-ii-banki.html">Talk on how a bank can reduce AI risks — from accountability to a roadmap</a></li></ul><p class="conn-hint">→ what this post links to · ← what links to it</p></details></div>
+</div></article>
+
+</main>
+<footer><div class="wrap foot">
+© 2026 Roman Ponurov · <a href="mailto:ponurov.roman@yandex.ru">email</a> · <a href="https://t.me/astro090">telegram</a> · <a href="https://www.linkedin.com/in/roman-ponurov-bb3b81a6/">linkedin</a> · all rights reserved
+</div></footer>
+</body>
+</html>

@@ -1,3 +1,4 @@
+const EN = document.documentElement.lang === 'en';
 /* Солнечная диаграмма тем: внутреннее кольцо — группы, внешнее — теги; размер — сколько раз тег встречался до выбранного года. */
 (() => {
   const D = window.EVO, svg = document.getElementById('sun');
@@ -54,9 +55,9 @@
     });
     svg.appendChild(el('circle', { r: R0 - 4, class: 'sb-c' }));
     const n1 = el('text', { y: 4, 'text-anchor': 'middle', class: 'sb-n' }); n1.textContent = items.length; svg.appendChild(n1);
-    const n2 = el('text', { y: 28, 'text-anchor': 'middle', class: 'sb-s' }); n2.textContent = `материалов · ${year}`; svg.appendChild(n2);
+    const n2 = el('text', { y: 28, 'text-anchor': 'middle', class: 'sb-s' }); n2.textContent = EN ? `items · ${year}` : `материалов · ${year}`; svg.appendChild(n2);
     const tagsN = Object.keys(cnt).length;
-    sum.innerHTML = `<b>${tagsN}</b> ${plural(tagsN, 'тег', 'тега', 'тегов')} · <b>${items.length}</b> ${plural(items.length, 'материал', 'материала', 'материалов')} · <b>${year}</b> г.`;
+    sum.innerHTML = EN ? `<b>${tagsN}</b> ${tagsN === 1 ? 'tag' : 'tags'} · <b>${items.length}</b> ${items.length === 1 ? 'item' : 'items'} · <b>${year}</b>` : `<b>${tagsN}</b> ${plural(tagsN, 'тег', 'тега', 'тегов')} · <b>${items.length}</b> ${plural(items.length, 'материал', 'материала', 'материалов')} · <b>${year}</b> г.`;
   }
   slider.addEventListener('input', () => draw(+slider.value));
   let timer = null;
