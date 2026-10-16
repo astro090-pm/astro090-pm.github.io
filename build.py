@@ -347,6 +347,11 @@ TAG_GROUPS = [
 ]
 
 
+def plural(n: int, one: str, few: str, many: str) -> str:
+    form = one if n % 10 == 1 and n % 100 != 11 else few if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14 else many
+    return f"{n} {form}"
+
+
 def tags_pages(posts: list[dict]) -> dict[str, str]:
     items = all_items(posts)
     counts = dict(tag_counts(items))
@@ -386,22 +391,31 @@ def tags_pages(posts: list[dict]) -> dict[str, str]:
 </div></article>
 """
     pages["index.html"] = layout("Теги — Роман Понуров", "Все темы: посты и кейсы по меткам.", body, "tags/", depth=1)
+    case_by_slug = {c[0]: c for c in CASES}
     for t, n in tag_counts(items):
-        rows = "\n".join(
-            f'<li class="feed-item"><a class="feed-link" href="../{it["url"]}"><time>{esc(it["kind"])} · {esc(it["date_h"])}</time>'
-            f'<span class="feed-title">{esc(it["title"])}</span></a></li>'
-            for it in items if t in it["tags"])
+        tposts = [p for p in posts if t in p["tags"]]
+        tcases = [c for c in CASES if t in (["продакт"] + TAGS[c[0]][0] + TAGS[c[0]][1])]
+        case_rows = "\n".join(
+            f"""<li class="feed-item"><a class="feed-link" href="../cases/{slug}.html">
+<span class="feed-meta"><span class="feed-cat">кейс</span><span>{esc(company)}, {esc(years)}</span></span>
+<span class="feed-row"><span class="tag-cover" style="background:{TAGS[slug][2][2]}"><b>{esc(TAGS[slug][2][0])}</b></span><span class="feed-body"><span class="feed-title">{esc(case_title(slug))}</span>
+<span class="feed-excerpt">{esc(about)}</span></span></span></a></li>"""
+            for slug, company, years, _k, about, _r in tcases)
+        posts_h = f'<ul class="feed">{feed(tposts, "../blog/")}</ul>' if tposts else ""
+        cases_h = (f'<h2 class="tag-sub">Кейсы <span>{len(tcases)}</span></h2><ul class="feed">{case_rows}</ul>' if tcases else "")
+        count = []
+        if tposts: count.append(plural(len(tposts), "пост", "поста", "постов"))
+        if tcases: count.append(plural(len(tcases), "кейс", "кейса", "кейсов"))
         body = f"""
-<article class="page"><div class="wrap">
+<article class="page"><div class="wrap tag-page">
 <a class="back" href="index.html">Все теги</a>
-<h1>{esc(t)}</h1>
-<p class="intro">{n} материал(ов) с этой меткой.</p>
-<ul class="feed">
-{rows}
-</ul>
+<h1>#{esc(t)}</h1>
+<p class="tag-count">{" · ".join(count)}</p>
+{posts_h}
+{cases_h}
 </div></article>
 """
-        pages[f"{tag_slug(t)}.html"] = layout(f"{t} — Роман Понуров", f"Посты и кейсы с меткой «{t}».", body,
+        pages[f"{tag_slug(t)}.html"] = layout(f"#{t} — Роман Понуров", f"Посты и кейсы с меткой «{t}».", body,
                                               f"tags/{tag_slug(t)}.html", depth=1)
     return pages
 
@@ -547,7 +561,7 @@ def post_footer(p: dict, posts: list[dict]) -> str:
 
 def post_page(p: dict, all_posts: list[dict] | None = None) -> str:
     body_html = markdown.markdown(p["body"], extensions=["tables", "sane_lists"])
-    tags = "".join(f'<span class="tag">{esc(t)}</span>' for t in p["tags"])
+    tags = "".join(f'<a class="tag" href="../tags/{tag_slug(t)}.html">{esc(t)}</a>' for t in p["tags"])
     body = f"""
 <article class="page"><div class="wrap">
 <a class="back" href="index.html">Все посты</a>
