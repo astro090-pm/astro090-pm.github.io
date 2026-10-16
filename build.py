@@ -66,7 +66,7 @@ def esc(s: str) -> str:
     return html.escape(s, quote=True)
 
 
-BOOKS_LINK = '<a href="{up}books.html">📖 книги</a>' if (ROOT / "content" / "books.txt").exists() and any(l.strip() and not l.lstrip().startswith("#") for l in (ROOT / "content" / "books.txt").read_text(encoding="utf-8").splitlines()) else ""
+BOOKS_LINK = '<a href="{up}books.html">📚 книги</a>' if (ROOT / "content" / "books.txt").exists() and any(l.strip() and not l.lstrip().startswith("#") for l in (ROOT / "content" / "books.txt").read_text(encoding="utf-8").splitlines()) else ""
 
 
 def layout(title: str, description: str, body: str, path: str, depth: int = 0) -> str:
@@ -105,7 +105,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <nav class="nav" aria-label="Разделы">
 <details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}cv.html">📄 резюме</a><a href="{up}cases/index.html">📁 портфолио кейсов</a></div></details>
 <a href="{up}projects.html">проекты</a>
-<details class="menu"><summary>наука</summary><div class="menu-list"><a href="{up}research.html">🎓 исследования</a><a href="{up}study.html">📚 учёба</a>{BOOKS_LINK.format(up=up)}</div></details>
+<details class="menu"><summary>знания</summary><div class="menu-list"><a href="{up}research.html">🔬 исследования</a><a href="{up}study.html">🎓 образование</a>{BOOKS_LINK.format(up=up)}</div></details>
 <a href="{up}agents.html">ИИ-агенты</a>
 <a href="{up}blog/index.html">посты</a>
 <a href="{up}tags/index.html">теги</a>
@@ -255,7 +255,7 @@ def cv_page() -> str:
 <li><span class="yrs">2023–2024</span>Руководитель электронной коммерции — Азия Ритейл</li>
 <li class="now"><span class="yrs">с 2024</span>Старший менеджер продукта — Газпромбанк</li>
 </ol>
-<p class="intro" style="margin-top:24px">Образование — на странице <a href="research.html">исследований</a>.</p>
+<p class="intro" style="margin-top:24px">Образование — на <a href="study.html">отдельной странице</a>, научная работа — в <a href="research.html">исследованиях</a>.</p>
 </div></section>
 
 <section class="block" id="contacts"><div class="wrap">
@@ -534,7 +534,7 @@ MONTHS_SHORT = ["янв.", "февр.", "мар.", "апр.", "мая", "июн.
 def post_links(p: dict, posts: list[dict]) -> list[tuple[str, str, str]]:
     """Связи поста: куда он ссылается внутри сайта и какие посты ссылаются на него."""
     out = []
-    names = {"agents.html": "ИИ-агенты", "projects.html": "Проекты", "study.html": "Учёба", "research.html": "Исследования",
+    names = {"agents.html": "ИИ-агенты", "projects.html": "Проекты", "study.html": "Образование", "research.html": "Исследования",
              "cv.html": "Резюме", "about.html": "Обо мне", "books.html": "Книги", "cases/index.html": "Портфолио кейсов"}
     for text, href in re.findall(r"\[([^\]]+)\]\((\.\./[^)]+|[a-z0-9-]+\.html)\)", p["body"]):
         target = href[3:] if href.startswith("../") else "blog/" + href
@@ -655,15 +655,35 @@ def cases_index_page() -> str:
                   body, "cases/", depth=1)
 
 
-def research_page() -> str:
-    body = """
+def research_page(posts: list[dict]) -> str:
+    notes = [p for p in posts if "исследования" in p["tags"]]
+    body = f"""
 <article class="page"><div class="wrap">
 <a class="back" href="index.html">На главную</a>
-<h1>Исследования и образование</h1>
+<h1>Исследования</h1>
+<p class="intro">Изучаю, как искусственный интеллект меняет управление компанией: не отдельные задачи, а саму систему — планирование, принятие решений, контроль и коммуникации. Это продолжение моей работы продактом: днём я делаю сервис с ИИ-агентом в банке, а в исследовании разбираюсь, почему такие проекты в одних компаниях работают, а в других нет.</p>
 
-<section class="uni">
-<div class="uni-head"><h2><img class="uni-logo" src="assets/uni/ranepa.png" width="35" height="64" alt="">РАНХиГС</h2><p class="uni-meta">Аспирантура, менеджмент<br>Москва, 2024–2027</p></div>
-<p class="uni-topic">Диссертация: «Использование искусственного интеллекта для совершенствования системы управления компанией».</p>
+<div class="res-card">
+<img class="uni-logo" src="assets/uni/ranepa.png" width="35" height="64" alt="">
+<div>
+<p class="res-kicker">Аспирантура РАНХиГС · 2024–2027 · кафедра теории и систем отраслевого управления</p>
+<p class="res-topic">«Использование искусственного интеллекта для совершенствования системы управления компанией»</p>
+</div>
+</div>
+
+<div class="res-stats">
+<div><b>3</b>статьи в журналах ВАК</div>
+<div><b>3</b>доклада на международных конференциях</div>
+<div><b>2027</b>защита диссертации</div>
+</div>
+
+<h2>Какие вопросы меня интересуют</h2>
+<ul class="res-q">
+<li>В каких управленческих процессах ИИ действительно даёт эффект, а где это мода.</li>
+<li>Какие риски и ограничения он приносит — от качества данных до ответственности за решение.</li>
+<li>Что компании нужно подготовить заранее: данные, инфраструктуру, людей и правила.</li>
+</ul>
+
 <h3 class="pubs-head">Статьи в журналах ВАК <span>3</span></h3>
 <ul class="pubs">
 <li><span class="when">Декабрь 2025</span><span class="what"><a href="https://s-lib.com/issues/eiu_2025_10_v13_a28/">Риски и ограничения применения искусственного интеллекта в управлении компанией</a><i>Экономика и управление: проблемы, решения</i></span></li>
@@ -676,21 +696,12 @@ def research_page() -> str:
 <li><span class="when">Сентябрь 2026</span><span class="what"><a href="https://sibac.info/conf/economy/cx/430396">Организационно-управленческие механизмы снижения рисков применения искусственного интеллекта в банковском менеджменте</a><i>CX Международная научно-практическая конференция «Актуальные вопросы экономических наук и современного менеджмента», Новосибирск</i></span></li>
 <li><span class="when">Март 2026</span><span class="what"><a href="https://sibac.info/conf/economy/civ/403674">Технологические требования к инфраструктуре компании при внедрении искусственного интеллекта</a><i>CIV Международная научно-практическая конференция «Актуальные вопросы экономических наук и современного менеджмента», Новосибирск</i></span></li>
 </ul>
-</section>
 
-<section class="uni">
-<div class="uni-head"><h2><img class="uni-logo" src="assets/uni/hse.png" width="64" height="64" alt="">НИУ ВШЭ</h2><p class="uni-meta">Магистратура, корпоративные финансы<br>Москва, 2018–2021</p></div>
-<p class="uni-topic">Выпускная работа: «Моделирование и оценка эффективности инвестиционных проектов в области цифровой трансформации компании».</p>
-</section>
-
-<section class="uni">
-<div class="uni-head"><h2><img class="uni-logo" src="assets/uni/mei.png" width="136" height="64" alt="">НИУ МЭИ</h2><p class="uni-meta">Магистратура, электротехника<br>Москва, 2008–2015</p></div>
-<p class="uni-topic">Инженерная база, с которой начался путь: испытания и обслуживание электрооборудования, затем продажи технических решений.</p>
-</section>
+{('<h2 class="res-notes">Заметки об исследованиях</h2><ul class="feed">' + feed(notes, "blog/") + '</ul>') if notes else ''}
 </div></article>
 """
-    return layout("Исследования и образование — Роман Понуров",
-                  "Исследования об использовании искусственного интеллекта в управлении компанией и образование.",
+    return layout("Исследования — Роман Понуров",
+                  "Исследования Романа Понурова: ИИ в управлении компанией — статьи ВАК и доклады на международных конференциях.",
                   body, "research.html")
 
 
@@ -727,12 +738,27 @@ def study_page() -> str:
     body = f"""
 <article class="page"><div class="wrap">
 <a class="back" href="index.html">На главную</a>
-<h1>Учёба</h1>
-<p class="intro">Сертификаты, курсы и программы, которые я прошёл помимо университетов. Высшее образование и аспирантура — на странице <a href="research.html">исследований</a>.</p>
+<h1>Образование</h1>
+<p class="intro">Три университета — инженерия, финансы, менеджмент — и всё, чему я учился помимо них: сертификаты, курсы, акселератор и независимая оценка.</p>
+<h2 class="edu-head">Высшее образование</h2>
+<section class="uni">
+<div class="uni-head"><h2><img class="uni-logo" src="assets/uni/ranepa.png" width="35" height="64" alt="">РАНХиГС</h2><p class="uni-meta">Аспирантура, менеджмент<br>Москва, 2024–2027</p></div>
+<p class="uni-topic">Кафедра теории и систем отраслевого управления. Диссертация: «Использование искусственного интеллекта для совершенствования системы управления компанией» — подробно на странице <a href="research.html">исследований</a>.</p>
+</section>
+<section class="uni">
+<div class="uni-head"><h2><img class="uni-logo" src="assets/uni/hse.png" width="64" height="64" alt="">НИУ ВШЭ</h2><p class="uni-meta">Магистратура, корпоративные финансы<br>Москва, 2018–2021</p></div>
+<p class="uni-topic">Выпускная работа: «Моделирование и оценка эффективности инвестиционных проектов в области цифровой трансформации компании».</p>
+</section>
+
+<section class="uni">
+<div class="uni-head"><h2><img class="uni-logo" src="assets/uni/mei.png" width="136" height="64" alt="">НИУ МЭИ</h2><p class="uni-meta">Магистратура, электротехника<br>Москва, 2008–2015</p></div>
+<p class="uni-topic">Инженерная база, с которой начался путь: испытания и обслуживание электрооборудования, затем продажи технических решений.</p>
+</section>
+<h2 class="edu-head">Дополнительное обучение</h2>
 {"".join(blocks)}
 </div></article>
 """
-    return layout("Учёба — Роман Понуров", "Сертификаты, курсы и акселераторы Романа Понурова.", body, "study.html")
+    return layout("Образование — Роман Понуров", "Образование Романа Понурова: РАНХиГС, НИУ ВШЭ, НИУ МЭИ, сертификаты, курсы и акселераторы.", body, "study.html")
 
 
 def about_page() -> str:
@@ -913,7 +939,7 @@ def main() -> None:
         (ROOT / ("index.html" if n == 1 else f"page{n}.html")).write_text(index_page(posts, n), encoding="utf-8")
     (ROOT / "cv.html").write_text(cv_page(), encoding="utf-8")
     (ROOT / "projects.html").write_text(projects_page(), encoding="utf-8")
-    (ROOT / "research.html").write_text(research_page(), encoding="utf-8")
+    (ROOT / "research.html").write_text(research_page(posts), encoding="utf-8")
     (ROOT / "study.html").write_text(study_page(), encoding="utf-8")
     (ROOT / "about.html").write_text(about_page(), encoding="utf-8")
     (ROOT / "agents.html").write_text(agents_page(posts), encoding="utf-8")

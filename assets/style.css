@@ -561,3 +561,18 @@ a.feed-link:hover, a.feed-link:hover * { text-decoration: none; }
 .page .co-tags h2 { font: 600 15px/1 var(--sans); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 16px; }
 .co-tags p { display: flex; flex-wrap: wrap; gap: 12px 18px; margin: 0; }
 .co-tags .tag-link { font-size: 20px; }
+
+/* Исследования */
+.res-card { display: flex; gap: 20px; align-items: center; padding: 24px 28px; background: var(--surface); border: 1px solid var(--card-rule); border-radius: 14px; margin: 8px 0 20px; max-width: 900px; }
+.res-kicker { margin: 0 0 6px; font: 400 15px/1.4 var(--sans); color: var(--muted); }
+.res-topic { margin: 0; font: 500 22px/1.35 var(--display); }
+.res-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 900px; margin-bottom: 48px; }
+.res-stats div { padding: 18px 20px; border: 1px solid var(--card-rule); border-radius: 12px; font: 400 15px/1.35 var(--sans); color: var(--muted); }
+.res-stats b { display: block; font: 600 34px/1.1 var(--display); color: var(--link); margin-bottom: 4px; }
+.res-q { max-width: var(--measure); margin: 0 0 40px; padding-left: 22px; }
+.res-q li { margin-bottom: 8px; }
+.page h2.res-notes, .page h2.edu-head { margin-top: 56px; }
+.page h2.edu-head + .uni { border-top: 0; padding-top: 16px; }
+@media (max-width: 760px) { .res-stats { grid-template-columns: 1fr; } .res-card { padding: 18px; } .res-topic { font-size: 19px; } }
+.page h2.edu-head { font: 600 15px/1 var(--sans); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 56px 0 8px; }
+.page h2.edu-head:first-of-type { margin-top: 40px; }
