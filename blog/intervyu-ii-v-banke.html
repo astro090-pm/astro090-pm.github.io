@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Что мешает ИИ в управлении — итоги интервью в крупном банке — Роман Понуров</title>
+<meta name="description" content="Для эмпирической части диссертации я провёл серию полуструктурированных интервью внутри крупного российского банка. Вопрос простой: как ИИ на самом деле встраив">
+<link rel="canonical" href="https://astro090-pm.github.io/blog/intervyu-ii-v-banke.html">
+<meta property="og:title" content="Что мешает ИИ в управлении — итоги интервью в крупном банке — Роман Понуров">
+<meta property="og:description" content="Для эмпирической части диссертации я провёл серию полуструктурированных интервью внутри крупного российского банка. Вопрос простой: как ИИ на самом деле встраив">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://astro090-pm.github.io/blog/intervyu-ii-v-banke.html">
+<meta property="og:site_name" content="Роман Понуров">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:image" content="https://astro090-pm.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Роман Понуров — менеджер продукта: +103% выручки e-com, 10 млн пользователей MTS ID, 4 продукта с нуля">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://astro090-pm.github.io/assets/og.png">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css?v=7d0e6929">
+<script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<script src="../assets/site.js?v=f4e4570a" defer data-root="../"></script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="../"><img class="avatar avatar-sm" src="../assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
+<nav class="nav" aria-label="Разделы">
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="../about.html">👋 обо мне</a><a href="../assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="../cases/">📁 портфолио кейсов</a><a href="../decks.html">🎞 презентации</a></div></details>
+<a href="../projects.html">проекты</a>
+<details class="menu"><summary>знания</summary><div class="menu-list"><a href="../research.html">🔬 исследования</a><a href="../conferences.html">🎤 конференции</a><a href="../study.html">🎓 образование</a><a href="../books.html">📚 книги</a></div></details>
+<a href="../agents.html">ИИ-агенты</a>
+<a href="../blog/">посты</a>
+<a href="../tags/">теги</a>
+</nav>
+<span class="tools">
+<button type="button" class="icon-btn" id="search-open" aria-label="Поиск по сайту" title="Поиск (/)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+<button type="button" class="icon-btn" id="theme-toggle" aria-label="Переключить тёмную тему" title="Тёмная тема"><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</span>
+<script>
+document.addEventListener('click', e => document.querySelectorAll('details.menu[open]').forEach(d => { if (!d.contains(e.target)) d.open = false; }));
+document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => { if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => { if (o !== d) o.open = false; }); }));
+</script>
+</div></header>
+<main>
+
+<article class="page"><div class="wrap">
+<a class="back" href="./">Все посты</a>
+<h1>Что мешает ИИ в управлении — итоги интервью в крупном банке</h1>
+<p class="post-meta"><time datetime="2026-10-16">16 октября 2026</time><a class="tag" href="../tags/issledovaniya.html">исследования</a><a class="tag" href="../tags/ii-v-upravlenii.html">ИИ в управлении</a><a class="tag" href="../tags/finteh.html">финтех</a></p>
+<div class="prose">
+<p>Для эмпирической части диссертации я провёл серию полуструктурированных интервью внутри крупного российского банка. Вопрос простой: как ИИ на самом деле встраивается в систему управления компанией — и что этому мешает. Ниже — обобщённые итоги, без названия банка, имён и внутренних цифр.</p>
+<h2>Кейс</h2>
+<p><strong>Объект.</strong> Крупный российский банк с большой филиальной сетью, который переходит от точечных пилотов к системному применению ИИ.</p>
+<p><strong>Кого я опрашивал.</strong> Четыре группы респондентов:</p>
+<ul>
+<li>менеджеры продуктов и проектов, которые внедряют ИИ-инициативы;</li>
+<li>специалисты центра технологий ИИ;</li>
+<li>топ-менеджмент;</li>
+<li>сотрудники, которые используют ИИ-инструменты в работе.</li>
+</ul>
+<p><strong>Как.</strong> Единый гайд: общий блок для всех и специализированный блок под каждую роль. Интервью обезличены, ключевые цитаты выписаны, ответы сведены в тематическую матрицу — какие темы повторяются у разных групп.</p>
+<h2>Как устроено управление ИИ</h2>
+<ul>
+<li><strong>Отдельная структура выше подразделений.</strong> Есть центр ИИ с собственной стратегией, рядом — функция управления данными. Стратегические цели и KPI внедрения задаются сверху и каскадом спускаются до руководителей подразделений.</li>
+<li><strong>Инициативы приходят от бизнеса.</strong> Подразделение приносит проблему, вместе с центром ИИ её переводят в ИИ-задачу с целевой метрикой. В бизнес-блоках есть «адвокаты ИИ» — люди, которые знают процессы и понимают, что ИИ может и чего не может.</li>
+<li><strong>Отбор по трём критериям:</strong> экономический эффект, готовность данных и повторяемость процесса. Если эффект большой, а данные не готовы — инициатива получает статус «подготовительной»: сначала чинят данные и процессы, потом пилот.</li>
+<li><strong>Ответственность остаётся у бизнеса.</strong> Если ИИ-скоринг встроен в кредитный процесс, за решение отвечает риск-менеджер. ИИ — инструмент, а не субъект ответственности.</li>
+</ul>
+<h2>Где ИИ уже работает</h2>
+<p>Зрелость сильно разная по направлениям. Классическое машинное обучение давно в промышленной эксплуатации: антифрод, скоринг, речевая аналитика в контакт-центре. Генеративный ИИ переходит от пилотов к масштабированию: внутренние ассистенты для сотрудников, саммаризация документов, черновики аналитических заключений. Агентные системы — на ранней стадии пилотов.</p>
+<h2>Пять барьеров</h2>
+<ol>
+<li><strong>Процесс, а не модель.</strong> Самый частый ответ: тормоз — не точность модели, а отсутствие бизнес-процесса, куда результат встраивается как шаг, а не как «ещё один дашборд для справки». Это организационная проблема, и решается она медленно, потому что затрагивает зоны ответственности людей.</li>
+<li><strong>Данные.</strong> На пилоте данные вытягивают вручную, в продакшене нужен автоматический пайплайн — и выясняется, что источники обновляются не с той частотой и у них нет гарантий доступности.</li>
+<li><strong>Люди и доверие.</strong> Сотрудники либо слепо доверяют подсказке модели — и тогда её ошибка становится их ошибкой, — либо игнорируют её. Инструмент может быть технически доступен месяцами, а пользуется им малая доля сотрудников. Плюс дефицит специалистов и зависимость от узких экспертов.</li>
+<li><strong>Руководители.</strong> Внедрение упирается в линейных руководителей: если они не понимают, что ИИ может и чего не может, рождаются «псевдо-ИИ» инициативы, а реальные возможности не используются.</li>
+<li><strong>Регулятор и безопасность.</strong> Персональные данные клиентов исключают внешние модели — нужен закрытый контур, а это ограничивает выбор моделей. В финальных решениях нужны объяснимость и запасной путь: почему модель так решила и как это оспорить. Модели дрейфуют вместе с портфелем и экономикой, их нужно постоянно мониторить.</li>
+</ol>
+<h2>Итоги</h2>
+<ul>
+<li><strong>Автономные управленческие решения на базе ИИ в банке сейчас неприемлемы.</strong> Модель — советник: собирает и систематизирует информацию, подсвечивает риски, перепроверяет данные. Решение остаётся за человеком.</li>
+<li><strong>Расхождение модели и решения — норма, а не провал.</strong> Модель оптимизирует одну целевую функцию, управленческое решение балансирует несколько, и часть из них не формализуется.</li>
+<li><strong>Лучше начинать узко.</strong> Пример из интервью: вместо модели оттока на весь портфель запустили её на одном сегменте и одном канале, где данные и процесс удержания уже были. Эффект скромнее, но измеримый и быстрый — и даёт право масштабироваться.</li>
+<li><strong>Если менять что-то одно</strong> — встроить ИИ-грамотность в планирование линейных руководителей и сделать единую платформу переиспользуемых компонентов, чтобы новая инициатива запускалась за недели, а не месяцы.</li>
+</ul>
+<h2>Что это значит для продакта</h2>
+<p>Почти все барьеры — продуктовые, а не технические: в какой процесс встраивается результат, кто за него отвечает, как пользователь поймёт, когда доверять модели, по какой метрике судить об успехе. Этим же я руководствуюсь, когда делаю сервис с ИИ-агентом на работе и <a href="../agents.html">свои AI-проекты</a>.</p>
+<p>Подробнее о диссертации — на странице <a href="../research.html">«Исследования»</a>. О рисках ИИ в банке я писал в <a href="statya-riski-ii.html">статье</a> и <a href="doklad-riski-ii-banki.html">докладе</a>.</p>
+</div>
+<section class="related-posts"><h2>Похожие посты</h2><div class="rel-grid"><a class="rel-card" href="doklad-riski-ii-banki.html"><img src="../assets/posts/talk-2.png" alt="" loading="lazy"><span class="rel-body">
+<span class="rel-title">Доклад о том, как банку снижать риски ИИ — от ответственности до дорожной карты</span>
+<span class="rel-meta"><time datetime="2026-09-07">7 сент. 2026 г.</time><span class="tag">исследования</span><span class="tag">ИИ в управлении</span></span></span></a><a class="rel-card" href="statya-riski-ii.html"><img src="../assets/posts/vak-3.png" alt="" loading="lazy"><span class="rel-body">
+<span class="rel-title">Статья о рисках и ограничениях ИИ в управлении — на примере банков</span>
+<span class="rel-meta"><time datetime="2025-12-15">15 дек. 2025 г.</time><span class="tag">исследования</span><span class="tag">ИИ в управлении</span></span></span></a><a class="rel-card" href="doklad-gotovnost-kompanij.html"><img src="../assets/posts/talk-3.png" alt="" loading="lazy"><span class="rel-body">
+<span class="rel-title">Доклад в Пензе — готовы ли российские компании к ИИ в менеджменте</span>
+<span class="rel-meta"><time datetime="2026-09-10">10 сент. 2026 г.</time><span class="tag">исследования</span><span class="tag">ИИ в управлении</span></span></span></a><a class="rel-card" href="doklad-infrastruktura-ii.html"><img src="../assets/posts/talk-1.png" alt="" loading="lazy"><span class="rel-body">
+<span class="rel-title">Доклад на международной конференции — что нужно компании, чтобы ИИ работал</span>
+<span class="rel-meta"><time datetime="2026-03-04">4 мар. 2026 г.</time><span class="tag">исследования</span><span class="tag">ИИ в управлении</span></span></span></a></div></section>
+<div class="post-actions"><details class="pill-btn conn"><summary><span class="tri">▸</span> показать связи поста <span class="cnt">4</span></summary><ul class="conn-list"><li><span class="dir">→</span><a href="../agents.html">ИИ-агенты</a></li><li><span class="dir">→</span><a href="../research.html">Исследования</a></li><li><span class="dir">→</span><a href="../blog/statya-riski-ii.html">Статья о рисках и ограничениях ИИ в управлении — на примере банков</a></li><li><span class="dir">→</span><a href="../blog/doklad-riski-ii-banki.html">Доклад о том, как банку снижать риски ИИ — от ответственности до дорожной карты</a></li></ul><p class="conn-hint">→ куда ссылается пост · ← кто ссылается на него</p></details></div>
+</div></article>
+
+</main>
+<footer><div class="wrap foot">
+© 2026 Роман Понуров · <a href="mailto:ponurov.roman@yandex.ru">email</a> · <a href="https://t.me/astro090">telegram</a> · все права защищены
+</div></footer>
+</body>
+</html>
