@@ -2,7 +2,7 @@
 title: bolz.dev — MCP-коннектор, через который ИИ-агенты совершают реальные действия
 date: 2025-08-31
 thumb: assets/posts/bolz-dev.png
-tags: ИИ-агенты, AI, продакт
+tags: стартап, ИИ-агенты, AI
 stage: 4
 ---
 
