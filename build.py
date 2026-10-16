@@ -109,7 +109,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <header class="top"><div class="wrap">
 <a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
-<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}now.html">⏱ сейчас</a><a href="{up}assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}decks.html">🎞 презентации</a><a href="{up}tools.html">🧰 инструментарий</a></div></details>
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}now.html">⏱ сейчас</a><a href="{up}timeline.html">🗓 хронология</a><a href="{up}assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}decks.html">🎞 презентации</a><a href="{up}tools.html">🧰 инструментарий</a></div></details>
 <a href="{up}projects.html">проекты</a>
 <details class="menu"><summary>знания</summary><div class="menu-list"><a href="{up}research.html">🔬 исследования</a><a href="{up}conferences.html">🎤 конференции</a><a href="{up}study.html">🎓 образование</a>{BOOKS_LINK.format(up=up)}{MEDIA_LINK.format(up=up)}</div></details>
 <details class="menu"><summary>ИИ</summary><div class="menu-list"><a href="{up}agents.html">🤖 ИИ-агенты</a><a href="{up}skills.html">🧰 ИИ-скиллы</a></div></details>
@@ -568,7 +568,7 @@ def post_links(p: dict, posts: list[dict]) -> list[tuple[str, str, str]]:
     """Связи поста: куда он ссылается внутри сайта и какие посты ссылаются на него."""
     out = []
     names = {"agents.html": "ИИ-агенты", "projects.html": "Проекты", "study.html": "Образование", "research.html": "Исследования",
-             "cv.html": "Резюме", "now.html": "Сейчас", "tools.html": "Инструментарий", "skills.html": "ИИ-скиллы", "conferences.html": "Конференции", "decks.html": "Презентации", "about.html": "Обо мне", "books.html": "Книги", "cases/index.html": "Портфолио кейсов"}
+             "cv.html": "Резюме", "timeline.html": "Хронология", "now.html": "Сейчас", "tools.html": "Инструментарий", "skills.html": "ИИ-скиллы", "conferences.html": "Конференции", "decks.html": "Презентации", "about.html": "Обо мне", "books.html": "Книги", "cases/index.html": "Портфолио кейсов"}
     for text, href in re.findall(r"\[([^\]]+)\]\((\.\./[^)]+|[a-z0-9-]+\.html)\)", p["body"]):
         target = href[3:] if href.startswith("../") else "blog/" + href
         label = names.get(target)
@@ -1270,6 +1270,78 @@ def media_page(media: dict[str, list[dict]]) -> str:
     return layout("Медиатека — Роман Понуров", "Подкасты, лекции и авторы, которых слушает и читает Роман Понуров.", body, "media.html")
 
 
+TIMELINE = [
+    # (дата, тип, событие, подробность, ссылка)
+    ("2008–2015", "учёба", "НИУ МЭИ, магистратура", "Электротехника, электромеханика и электротехнологии.", "study.html"),
+    ("2014", "учёба", "НИУ ВШЭ: «Переводчик в сфере профессиональных коммуникаций»", "Профессиональный английский.", "study.html"),
+    ("июль 2014", "работа", "Инженер по испытанию электрических машин — Агрегат-Привод", "Первая работа: лаборатория электрических машин.", ""),
+    ("декабрь 2014", "работа", "Инженер по ремонту электрооборудования — Мосэнерго", "Обслуживание оборудования электростанций до 10 кВ.", ""),
+    ("апрель 2017", "работа", "Ведущий инженер по продажам — Лайтхаус Технолоджиз", "Промышленное оборудование: тендеры, технико-коммерческие предложения, клиенты.", ""),
+    ("август 2018", "работа", "Менеджер по развитию бизнеса — Лайтхаус Технолоджиз", "Первый продуктовый опыт: с нуля сделал сайт компании, внедрил Битрикс24.", "blog/pervyj-sajt-lighthouse.html"),
+    ("2018–2021", "учёба", "НИУ ВШЭ, магистратура «Корпоративные финансы»", "Выпускная работа об оценке проектов цифровой трансформации.", "blog/magisterskaya-vshe.html"),
+    ("август 2019", "работа", "Ведущий системный аналитик — Концерн ГРАНИТ", "BPMN, требования, прототипы интерфейсов, тестирование.", "cases/granit.html"),
+    ("ноябрь 2020", "работа", "Менеджер продукта — Концерн ГРАНИТ", "Сервис автоматизации госдепартамента (B2G) с нуля до промышленной эксплуатации.", "cases/granit.html"),
+    ("октябрь 2021", "работа", "Менеджер продукта MTS ID — МТС", "Бесшовная авторизация в 9 флагманских продуктах для ~10 млн пользователей, +23% бесшовных входов.", "cases/mts-id.html"),
+    ("2022", "учёба", "GoPractice: симулятор управления продуктом на основе данных", "Продуктовая аналитика и метрики.", "study.html"),
+    ("апрель 2022", "достижение", "Независимая оценка Assessty в МТС — грейд Middle", "Сильнее всего — создание новых продуктов в условиях неопределённости.", "blog/ocenka-mts.html"),
+    ("август 2022", "проект", "Сооснователь «По соседству»", "Вывел офлайн-магазин в онлайн: B2B-заказы +89%, средний чек +71%.", "cases/po-sosedstvu.html"),
+    ("ноябрь 2022", "проект", "Сооснователь «Добстер»", "Благотворительная платформа: от идеи до продакшена.", "cases/dobster.html"),
+    ("2023", "учёба", "Google: основы интернет-маркетинга", "Каналы привлечения и веб-аналитика.", "study.html"),
+    ("апрель 2023", "работа", "Руководитель e-commerce — Азия Ритейл", "Перезапуск «Азия Онлайн»: выручка +103%, заказы +67%, отток −24%.", "cases/asia-online.html"),
+    ("октябрь 2023", "проект", "Сооснователь и CPO bolz.tech", "Экосистема шеринг-сервисов в одном окне; к декабрю 2024 — шеринг пауэрбанков в продакшене.", "cases/bolz-tech.html"),
+    ("апрель 2024", "работа", "Старший менеджер продукта — Газпромбанк", "Сервис кредитного анализа компаний с ИИ-агентом: с нуля до промышленной эксплуатации.", "cases/gazprombank.html"),
+    ("2024", "учёба", "Pendo.io: AI for Product Management", "Как применять ИИ в работе продакта и в продуктах.", "study.html"),
+    ("2024", "наука", "Поступил в аспирантуру РАНХиГС", "Тема: использование ИИ для совершенствования системы управления компанией.", "research.html"),
+    ("май 2025", "наука", "Первая статья ВАК", "«Характерные особенности применения ИИ в менеджменте российских компаний».", "blog/statya-ii-v-menedzhmente.html"),
+    ("июнь–сентябрь 2025", "достижение", "Акселератор «Академия инноваторов» МИК и конкурс «Новатор Москвы 2025»", "С проектом bolz.tech.", "blog/bolz-akselerator.html"),
+    ("2025", "учёба", "ProductDo и GoPractice: техническая база и SQL для продакта", "Архитектура, API, SQL-аналитика.", "study.html"),
+    ("август 2025", "проект", "Сооснователь и CPO bolz.dev — MVP", "MCP-коннектор, через который ИИ-агенты совершают реальные действия.", "cases/bolz-dev.html"),
+    ("сентябрь 2025", "наука", "Вторая статья ВАК", "«Современные тенденции использования ИИ в корпоративном управлении».", "blog/statya-tendencii-ii.html"),
+    ("декабрь 2025", "наука", "Третья статья ВАК", "«Риски и ограничения применения ИИ в управлении компанией».", "blog/statya-riski-ii.html"),
+    ("март 2026", "наука", "Первый доклад на международной конференции", "Требования к инфраструктуре компании при внедрении ИИ, Новосибирск.", "blog/doklad-infrastruktura-ii.html"),
+    ("сентябрь 2026", "наука", "Ещё два доклада: Новосибирск и Пенза", "Снижение рисков ИИ в банках; организационная готовность компаний к ИИ.", "conferences.html"),
+    ("октябрь 2026", "преподавание", "Начал читать курс «ИТ-менеджмент» в университете", "Семь лекций для первокурсников, командные кейсы и итоговый проект.", "blog/lekcii-it-menedzhment.html"),
+    ("октябрь 2026", "проект", "AI-прототип «Планировщик выходных»", "Агенты по A2A, свой MCP-сервер, браузерный агент, 32 эвал-кейса.", "projects.html"),
+    ("октябрь 2026", "наука", "Серия интервью для кейс-стади диссертации", "Как ИИ встраивается в управление крупного банка.", "blog/intervyu-ii-v-banke.html"),
+]
+TL_TYPES = [("работа", "💼"), ("проект", "🚀"), ("наука", "🔬"), ("учёба", "🎓"), ("преподавание", "🧑‍🏫"), ("достижение", "🏅")]
+
+
+def timeline_page() -> str:
+    icons = dict(TL_TYPES)
+    def year(d):
+        return re.findall(r"\d{4}", d)[0]
+    rows, last = [], None
+    for d, t, title, about, url in reversed(TIMELINE):
+        y = year(d)
+        if y != last:
+            rows.append(f'<li class="tl-year" data-y="{y}">{y}</li>'); last = y
+        name = f'<a href="{url}">{esc(title)}</a>' if url else esc(title)
+        rows.append(f'<li class="tl-item" data-t="{t}"><span class="tl-dot" aria-hidden="true">{icons[t]}</span><div><p class="tl-meta">{esc(d)} · {esc(t)}</p><p class="tl-title">{name}</p><p class="tl-about">{esc(about)}</p></div></li>')
+    chips = '<button type="button" class="chip" data-f="" aria-pressed="true">всё</button>' + "".join(
+        f'<button type="button" class="chip" data-f="{t}" aria-pressed="false">{i} {t}</button>' for t, i in TL_TYPES)
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="./">На главную</a>
+<h1>Хронология</h1>
+<p class="intro">Весь путь на одной странице — от инженера на испытательной станции до AI-продакта, исследователя и преподавателя. Свежее сверху.</p>
+<div class="filters" role="group" aria-label="Фильтр">{chips}</div>
+<ol class="tl">{"".join(rows)}</ol>
+</div></article>
+<script>
+(() => {{
+  const chips = document.querySelectorAll('.filters .chip'), items = document.querySelectorAll('.tl-item'), years = document.querySelectorAll('.tl-year');
+  chips.forEach(c => c.addEventListener('click', () => {{
+    chips.forEach(x => x.setAttribute('aria-pressed', String(x === c)));
+    items.forEach(i => i.hidden = !!c.dataset.f && i.dataset.t !== c.dataset.f);
+    years.forEach(y => {{ let n = y.nextElementSibling, any = false; while (n && !n.classList.contains('tl-year')) {{ if (!n.hidden) any = true; n = n.nextElementSibling; }} y.hidden = !any; }});
+  }}));
+}})();
+</script>
+"""
+    return layout("Хронология — Роман Понуров", "Путь Романа Понурова с 2014 года: работа, проекты, наука, учёба, преподавание.", body, "timeline.html")
+
+
 def main() -> None:
     posts = load_posts()
     pages = max(1, -(-len(posts) // PER_PAGE))
@@ -1280,6 +1352,7 @@ def main() -> None:
     (ROOT / "research.html").write_text(research_page(posts), encoding="utf-8")
     (ROOT / "study.html").write_text(study_page(), encoding="utf-8")
     (ROOT / "about.html").write_text(about_page(), encoding="utf-8")
+    (ROOT / "timeline.html").write_text(timeline_page(), encoding="utf-8")
     (ROOT / "tools.html").write_text(toolkit_page(), encoding="utf-8")
     media = load_media()
     if any(media.values()):
