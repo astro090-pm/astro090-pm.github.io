@@ -685,3 +685,70 @@ a.gb:hover::before { opacity: 1; box-shadow: 0 6px 16px rgba(0,0,0,.15); }
   @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
 }
 /* end-gantt */
+
+/* Счётчики результатов на главной */
+.results { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 0 0 28px; }
+.res { display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 14px; background: var(--ink); color: var(--paper); font-weight: 400; }
+.res:hover { text-decoration: none; transform: translateY(-2px); }
+.res b { font: 700 38px/1 var(--display); letter-spacing: -.02em; color: #F6B26B; font-variant-numeric: tabular-nums; }
+.res span { font: 400 14px/1.35 var(--sans); opacity: .8; }
+@media (max-width: 760px) { .results { grid-template-columns: 1fr 1fr; } .res b { font-size: 30px; } }
+
+/* Метро ИИ-агентов */
+.metro { overflow-x: auto; margin: 8px 0 28px; -webkit-overflow-scrolling: touch; }
+.metro svg { display: block; }
+.m-done { stroke: var(--link); stroke-width: 8; stroke-linecap: round; }
+.m-todo { stroke: var(--rule); stroke-width: 8; stroke-linecap: round; stroke-dasharray: 2 12; }
+.m-st circle { stroke-width: 3; }
+.m-st.done circle { fill: var(--link); stroke: var(--paper); }
+.m-st.here circle { fill: var(--paper); stroke: var(--link); }
+.m-st.todo circle { fill: var(--paper); stroke: var(--rule); }
+.m-num { font: 700 10px var(--sans); text-anchor: middle; fill: #fff; }
+.m-st.here .m-num, .m-st.todo .m-num { fill: var(--muted); }
+.m-lab { font: 500 11px var(--sans); text-anchor: middle; fill: var(--ink); }
+.m-st.todo .m-lab { fill: var(--muted); }
+.m-here { font: 700 11px var(--sans); text-anchor: middle; fill: var(--link); text-transform: uppercase; letter-spacing: .08em; }
+.m-pulse { fill: none !important; stroke: var(--link) !important; stroke-width: 2 !important; }
+@media (prefers-reduced-motion: no-preference) {
+  .m-pulse { animation: pulse 1.6s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes pulse { from { transform: scale(.6); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
+}
+a.m-st:hover circle { stroke-width: 5; }
+html { scroll-behavior: smooth; }
+
+/* География и тепловая карта */
+.tl-two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 0 0 40px; }
+.tl-card { border: 1px solid var(--card-rule); border-radius: 14px; padding: 18px 20px; background: var(--surface); min-width: 0; }
+.page .tl-card h2 { font: 600 15px/1 var(--sans); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 12px; }
+.geo { width: 100%; height: auto; display: block; }
+.geo-g { stroke: var(--rule); stroke-width: 1; }
+.geo-arc { fill: none; stroke: var(--link); stroke-width: 1.5; stroke-dasharray: 4 5; opacity: .7; }
+.geo-pin circle { fill: var(--link); stroke: var(--paper); stroke-width: 3; }
+.geo-pin text { font: 600 13px var(--sans); text-anchor: middle; fill: var(--ink); }
+.geo-pin:hover circle { fill: var(--ink); }
+.geo-leg { list-style: none; margin: 10px 0 0; padding: 0; font: 400 13px/1.45 var(--sans); color: var(--muted); }
+.geo-leg b { color: var(--ink); font-weight: 600; }
+.hm { display: grid; gap: 4px; }
+.hm-row { display: grid; grid-template-columns: 40px repeat(12, 1fr); gap: 4px; align-items: center; }
+.hm-row span { font: 400 12px var(--sans); color: var(--muted); }
+.hm-head em { font: 400 11px var(--sans); color: var(--muted); font-style: normal; text-align: center; }
+.hm i, .hm-leg i { display: block; aspect-ratio: 1; border-radius: 3px; background: var(--rule); }
+.hm-leg i { display: inline-block; width: 11px; vertical-align: -1px; margin: 0 1px; }
+.h1 { background: #F6D8B0 !important; } .h2 { background: #F0B56E !important; } .h3 { background: #E8913F !important; } .h4 { background: #C76B12 !important; }
+.hm-leg { font: 400 13px var(--sans); color: var(--muted); margin: 12px 0 0; }
+@media (max-width: 860px) { .tl-two { grid-template-columns: 1fr; } }
+
+/* Созвездие навыков */
+.const { margin: 8px 0 44px; }
+.page .const h2 { font-size: 24px; margin: 0 0 4px; }
+.const-wrap { overflow-x: auto; }
+#const { display: block; max-width: 100%; height: auto; min-width: 640px; }
+.cs-l { fill: none; stroke: var(--rule); stroke-width: 1.4; transition: stroke .2s, opacity .2s; }
+.cs-p circle { fill: var(--link); } .cs-s circle { fill: var(--muted); }
+.cs-p text { font: 600 14px var(--sans); fill: var(--ink); cursor: pointer; }
+.cs-s text { font: 400 13px var(--sans); fill: var(--ink); }
+.cs-p { cursor: pointer; }
+#const.focus .cs-l { opacity: .15; } #const.focus .cs-l.on { opacity: 1; stroke: var(--link); stroke-width: 2.2; }
+#const.focus .cs-s, #const.focus .cs-p { opacity: .35; } #const.focus .cs-s.on, #const.focus .cs-p.on { opacity: 1; }
+#const.focus .cs-s.on circle { fill: var(--link); }
+.cs-p:focus { outline: none; } .cs-p:focus-visible text { text-decoration: underline; }

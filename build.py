@@ -137,6 +137,12 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 
 
 PER_PAGE = 10
+RESULTS_STRIP = """<section class="results" aria-label="Ключевые результаты">
+<a class="res" href="cases/asia-online.html"><b data-count="103" data-prefix="+" data-suffix="%">+103%</b><span>выручки после перезапуска e-commerce</span></a>
+<a class="res" href="cases/mts-id.html"><b data-count="10" data-suffix=" млн">10 млн</b><span>пользователей MTS ID в 9 продуктах МТС</span></a>
+<a class="res" href="cases/po-sosedstvu.html"><b data-count="89" data-prefix="+" data-suffix="%">+89%</b><span>заказов B2B после выхода в онлайн</span></a>
+<a class="res" href="timeline.html"><b data-count="4">4</b><span>продукта запустил с нуля</span></a>
+</section>"""
 
 
 def tag_slug(t: str) -> str:
@@ -215,6 +221,7 @@ def index_page(posts: list[dict], page: int = 1) -> str:
 
 {hero if page == 1 else '<h1 class="feed-page-h">Посты — страница ' + str(page) + '</h1>'}
 
+{RESULTS_STRIP if page == 1 else ""}
 {year_block(posts) if page == 1 else ""}
 <section aria-label="Лента постов">
 <ul class="feed">
@@ -908,6 +915,32 @@ AGENT_STAGES = [
 ]
 
 
+def metro_block() -> str:
+    n = len(AGENT_STAGES)
+    gap, x0, y = 84, 62, 80
+    w = x0 * 2 + gap * (n - 1)
+    cur = next((i for i, st in enumerate(AGENT_STAGES) if st[4] == "впереди"), n)
+    parts = [f'<line x1="{x0}" y1="{y}" x2="{x0 + gap * (cur - 1)}" y2="{y}" class="m-done"/>',
+             f'<line x1="{x0 + gap * (cur - 1)}" y1="{y}" x2="{x0 + gap * (n - 1)}" y2="{y}" class="m-todo"/>']
+    for i, (num, name, _w, _p, status) in enumerate(AGENT_STAGES):
+        cx = x0 + gap * i
+        cls = "m-st done" if i < cur else ("m-st here" if i == cur else "m-st todo")
+        words = name.replace(" — ", " ").split()
+        half = (len(words) + 1) // 2
+        l1, l2 = " ".join(words[:half]), " ".join(words[half:])
+        if i % 2 == 0:
+            labs = (f'<text x="{cx}" y="{y - 38}" class="m-lab">{esc(l1)}</text>' if l2 else "") + f'<text x="{cx}" y="{y - 24}" class="m-lab">{esc(l2 or l1)}</text>'
+        else:
+            labs = f'<text x="{cx}" y="{y + 34}" class="m-lab">{esc(l1)}</text>' + (f'<text x="{cx}" y="{y + 48}" class="m-lab">{esc(l2)}</text>' if l2 else "")
+        parts.append(f'<a href="#stage-{num}" class="{cls}"><title>{num:02d}. {esc(name)} — {esc(status)}</title>'
+                     + (f'<circle cx="{cx}" cy="{y}" r="17" class="m-pulse"/>' if i == cur else "")
+                     + f'<circle cx="{cx}" cy="{y}" r="10"/><text x="{cx}" y="{y + 4}" class="m-num">{num}</text>'
+                     + labs
+                     + "</a>")
+    parts.append(f'<text x="{x0 + gap * cur}" y="{y + 72}" class="m-here">вы здесь</text>' if cur < n else "")
+    return f'<div class="metro"><svg viewBox="0 0 {w} 165" width="{w}" height="165" role="img" aria-label="Пройдено этапов: {cur} из {n}">{"".join(parts)}</svg></div>'
+
+
 def agents_page(posts: list[dict]) -> str:
     ap = [p for p in posts if "ИИ-агенты" in p["tags"]]
     general = [p for p in ap if not p["stage"]]
@@ -918,7 +951,7 @@ def agents_page(posts: list[dict]) -> str:
         notes = "".join(f'<li>Пост: <a href="blog/{p["slug"]}.html">{esc(p["title"])}</a></li>' for p in sp)
         links = f'<ul class="stage-links">{prac}{notes}</ul>' if prac or notes else ""
         cls = {"есть практика": "done", "впереди": "next"}.get(status, "theory")
-        stages.append(f"""<li class="stage stage-{cls}"><span class="stage-n">{n:02d}</span><div>
+        stages.append(f"""<li class="stage stage-{cls}" id="stage-{n}"><span class="stage-n">{n:02d}</span><div>
 <h3>{esc(name)} <span class="stage-status">{esc(status)}</span></h3>
 <p>{esc(what)}</p>{links}</div></li>""")
     body = f"""
@@ -930,6 +963,7 @@ def agents_page(posts: list[dict]) -> str:
 {('<h2>Последние заметки</h2><ul class="feed">' + feed(general + [p for p in ap if p["stage"]], "blog/") + '</ul>') if ap else ''}
 
 <h2 class="stages-head">Карта пути</h2>
+{metro_block()}
 <ol class="stages">
 {"".join(stages)}
 </ol>
@@ -1186,6 +1220,41 @@ TOOLKIT = [
 ]
 
 
+CONST_PROJECTS = [
+    ("Газпромбанк", ["Газпромбанк", "банке"]), ("MTS ID", ["MTS ID"]), ("«Азия Онлайн»", ["Азия"]), ("ГРАНИТ", ["ГРАНИТ"]),
+    ("«По соседству»", ["По соседству"]), ("bolz.tech", ["bolz.tech"]), ("bolz.dev", ["bolz.dev"]),
+    ("Планировщик", ["Планировщик"]), ("Диссертация и курсы", ["диссертац", "GoPractice", "лекция"]), ("Лайтхаус", ["Лайтхаус"]),
+]
+
+
+def constellation() -> str:
+    skills = [(n, w) for _, rows in TOOLKIT for n, _d, w in rows if w]
+    links = [(pi, si) for si, (_, w) in enumerate(skills) for pi, (_, keys) in enumerate(CONST_PROJECTS) if any(k in w for k in keys)]
+    used_p = sorted({p for p, _ in links})
+    W, rowp, rows_ = 760, 34, 28
+    H = max(len(used_p) * rowp, len(skills) * rows_) + 40
+    py = {p: 20 + i * (H - 40) / max(1, len(used_p) - 1) for i, p in enumerate(used_p)}
+    sy = {i: 20 + i * (H - 40) / max(1, len(skills) - 1) for i in range(len(skills))}
+    lx, rx = 190, W - 230
+    paths = "".join(f'<path d="M{lx},{py[p]:.0f} C{(lx + rx) / 2:.0f},{py[p]:.0f} {(lx + rx) / 2:.0f},{sy[si]:.0f} {rx},{sy[si]:.0f}" class="cs-l" data-p="{p}" data-s="{si}"/>' for p, si in links)
+    pn = "".join(f'<g class="cs-p" data-p="{p}" tabindex="0"><circle cx="{lx}" cy="{py[p]:.0f}" r="6"/><text x="{lx - 14}" y="{py[p] + 4:.0f}" text-anchor="end">{esc(CONST_PROJECTS[p][0])}</text></g>' for p in used_p)
+    sn = "".join(f'<g class="cs-s" data-s="{i}"><circle cx="{rx}" cy="{sy[i]:.0f}" r="4"/><text x="{rx + 12}" y="{sy[i] + 4:.0f}">{esc(n)}</text></g>' for i, (n, _) in enumerate(skills))
+    return f"""<section class="const"><h2>Созвездие: где какие навыки</h2><p class="hm-leg">Наведите или нажмите на проект — подсветятся навыки, которые в нём пригодились.</p>
+<div class="const-wrap"><svg viewBox="0 0 {W} {H}" width="{W}" height="{H:.0f}" id="const" role="img" aria-label="Связи проектов и навыков">{paths}{pn}{sn}</svg></div></section>
+<script>
+(() => {{
+  const svg = document.getElementById('const'); if (!svg) return;
+  const ls = svg.querySelectorAll('.cs-l'), ps = svg.querySelectorAll('.cs-p'), ss = svg.querySelectorAll('.cs-s');
+  let locked = null;
+  const on = p => {{ svg.classList.toggle('focus', p !== null);
+    const sk = new Set(); ls.forEach(l => {{ const a = l.dataset.p === p; l.classList.toggle('on', a); if (a) sk.add(l.dataset.s); }});
+    ps.forEach(n => n.classList.toggle('on', n.dataset.p === p)); ss.forEach(n => n.classList.toggle('on', sk.has(n.dataset.s))); }};
+  ps.forEach(n => {{ n.addEventListener('mouseenter', () => locked === null && on(n.dataset.p)); n.addEventListener('mouseleave', () => locked === null && on(null));
+    n.addEventListener('click', () => {{ locked = locked === n.dataset.p ? null : n.dataset.p; on(locked); }}); }});
+}})();
+</script>"""
+
+
 def toolkit_page() -> str:
     blocks = []
     for title, rows in TOOLKIT:
@@ -1196,6 +1265,7 @@ def toolkit_page() -> str:
 <a class="back" href="./">На главную</a>
 <h1>Инструментарий</h1>
 <p class="intro">Фреймворки и инструменты, которыми я реально пользуюсь, — и где именно применял каждый.</p>
+{constellation()}
 {"".join(blocks)}
 <p class="related-row">ИИ-скиллы для агентов — на отдельной <a href="skills.html">странице</a>.</p>
 </div></article>
@@ -1359,6 +1429,53 @@ def gantt_block() -> str:
     return f'<section class="gantt" aria-label="Путь по годам"><div class="g-inner"><div class="g-grid">{grid}{now}</div>{"".join(lanes)}<div class="g-ticks">{ticks}</div></div></section>'
 
 
+GEO = [
+    # (город, долгота, широта, что было, ссылка)
+    ("Москва", 37.6, 55.75, "Работа в МТС, ГРАНИТе, Газпромбанке; МЭИ, ВШЭ, РАНХиГС; свои стартапы", "timeline.html"),
+    ("Бишкек", 74.6, 42.87, "«Азия Ритейл»: перезапуск e-commerce, +103% выручки", "cases/asia-online.html"),
+    ("Новосибирск", 82.9, 55.0, "Два доклада на международных конференциях, 2026", "conferences.html"),
+    ("Пенза", 45.0, 53.2, "Доклад на международной конференции, 2026", "conferences.html"),
+]
+
+
+def geo_block() -> str:
+    lon0, lon1, lat0, lat1 = 30, 90, 40, 60
+    W, H = 520, 260
+    X = lambda lo: (lo - lon0) / (lon1 - lon0) * (W - 60) + 30
+    Y = lambda la: (lat1 - la) / (lat1 - lat0) * (H - 60) + 30
+    grid = "".join(f'<line x1="{X(lo):.0f}" y1="20" x2="{X(lo):.0f}" y2="{H - 20}" class="geo-g"/>' for lo in range(30, 91, 10))
+    grid += "".join(f'<line x1="20" y1="{Y(la):.0f}" x2="{W - 20}" y2="{Y(la):.0f}" class="geo-g"/>' for la in range(40, 61, 5))
+    mx, my = X(GEO[0][1]), Y(GEO[0][2])
+    arcs = "".join(f'<path d="M{mx:.0f},{my:.0f} Q{(mx + X(lo)) / 2:.0f},{min(my, Y(la)) - 40:.0f} {X(lo):.0f},{Y(la):.0f}" class="geo-arc"/>' for _, lo, la, *_ in GEO[1:])
+    pins = "".join(f'<a href="{u}" class="geo-pin"><title>{esc(c)}: {esc(t)}</title><circle cx="{X(lo):.0f}" cy="{Y(la):.0f}" r="{9 if i == 0 else 6}"/>'
+                   f'<text x="{X(lo):.0f}" y="{Y(la) - 14:.0f}">{esc(c)}</text></a>' for i, (c, lo, la, t, u) in enumerate(GEO))
+    legend = "".join(f'<li><b>{esc(c)}</b> — {esc(t)}</li>' for c, _, _, t, _ in GEO)
+    return f'<section class="tl-card"><h2>География</h2><svg viewBox="0 0 {W} {H}" class="geo" role="img" aria-label="Города: {", ".join(g[0] for g in GEO)}">{grid}{arcs}{pins}</svg><ul class="geo-leg">{legend}</ul></section>'
+
+
+MONTHS_NOM = {m: i + 1 for i, m in enumerate(["январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"])}
+
+
+def heat_block() -> str:
+    cnt: dict[tuple[int, int], int] = {}
+    for d, *_ in TIMELINE:
+        m = re.match(r"([а-я]+)(?:–[а-я]+)? (\d{4})", d)
+        if m and m.group(1) in MONTHS_NOM:
+            k = (int(m.group(2)), MONTHS_NOM[m.group(1)]); cnt[k] = cnt.get(k, 0) + 1
+    for f in (ROOT / "content" / "posts").glob("*.md"):
+        mm = re.match(r"(\d{4})-(\d{2})", f.name)
+        if mm:
+            k = (int(mm.group(1)), int(mm.group(2))); cnt[k] = cnt.get(k, 0) + 1
+    years = range(2019, 2027)
+    mx = max(cnt.values()) if cnt else 1
+    rows = []
+    for y in years:
+        cells = "".join(f'<i class="h{min(4, -(-cnt.get((y, m), 0) * 4 // mx)) if cnt.get((y, m)) else 0}" title="{m:02d}.{y}: {cnt.get((y, m), 0)}"></i>' for m in range(1, 13))
+        rows.append(f'<div class="hm-row"><span>{y}</span>{cells}</div>')
+    head = '<div class="hm-row hm-head"><span></span>' + "".join(f"<em>{l}</em>" for l in "ЯФМАМИИАСОНД") + "</div>"
+    return f'<section class="tl-card"><h2>Насыщенность по месяцам</h2><div class="hm">{head}{"".join(rows)}</div><p class="hm-leg">меньше <i class="h1"></i><i class="h2"></i><i class="h3"></i><i class="h4"></i> больше · события и посты</p></section>'
+
+
 def timeline_page() -> str:
     icons = dict(TL_TYPES)
     def year(d):
@@ -1378,6 +1495,10 @@ def timeline_page() -> str:
 <h1>Хронология</h1>
 <p class="intro">Весь путь на одной странице — от инженера на испытательной станции до AI-продакта, исследователя и преподавателя. Свежее сверху.</p>
 {gantt_block()}
+<div class="tl-two">
+{geo_block()}
+{heat_block()}
+</div>
 <div class="filters" role="group" aria-label="Фильтр">{chips}</div>
 <ol class="tl">{"".join(rows)}</ol>
 </div></article>
