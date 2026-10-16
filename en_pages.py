@@ -64,7 +64,8 @@ def install(B):
 <p class="intro">The code is open.</p>
 <article class="project">
 <div>
-<h3>Weekend Planner</h3>
+<p class="card-meta">{B.brand.badge("proto", "en")} MVP — October 2026, not yet launched to users</p>
+<h3><a href="projects/weekend-planner.html">Weekend Planner</a></h3>
 <p>A Telegram bot that builds an hour-by-hour weekend plan in a minute: it checks the weather, events and places, stays within budget and takes the children's ages into account.</p>
 <ul>
 <li>Three agents — planner, scout and critic — talk over the A2A protocol</li>
@@ -72,7 +73,7 @@ def install(B):
 <li>The model only chooses options — names, prices and times are filled in by code</li>
 <li>32 eval cases and product metrics: activation, retention, ratings</li>
 </ul>
-<p><a href="{GITHUB}/weekend-planner">Code and description on GitHub</a></p>
+<p><a href="projects/weekend-planner.html">Full case</a> · <a href="{GITHUB}/weekend-planner">code on GitHub</a></p>
 </div>
 <figure>
 <img src="assets/weekend-planner-arch.png" width="1344" height="960" alt="Diagram: the user writes to the Telegram bot, which passes the request to the planner; the planner calls the scout and the critic over A2A; the scout gets weather, events and places through the MCP server and reads pages with a browser.">

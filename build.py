@@ -13,6 +13,10 @@ from pathlib import Path
 
 import markdown
 
+import brand
+
+LANG = "ru"  # английская сборка подменяет на "en"
+
 ROOT = Path(__file__).parent
 SITE_URL = "https://astro090-pm.github.io"
 GITHUB = "https://github.com/astro090-pm"
@@ -106,15 +110,17 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <script src="{up}assets/site.js?v={JS_V}" defer data-root="{up}"></script>
 </head>
 <body>
+<a class="skip" href="#main">Перейти к содержимому</a>
 <header class="top"><div class="wrap">
 <a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
-<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}now.html">⏱ сейчас</a><a href="{up}timeline.html">🗓 хронология</a><a href="{up}assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}decks.html">🎞 презентации</a><a href="{up}tools.html">🧰 инструментарий</a></div></details>
-<a href="{up}projects.html">проекты</a>
-<details class="menu"><summary>знания</summary><div class="menu-list"><a href="{up}research.html">🔬 исследования</a><a href="{up}conferences.html">🎤 конференции</a><a href="{up}study.html">🎓 образование</a>{BOOKS_LINK.format(up=up)}{MEDIA_LINK.format(up=up)}</div></details>
-<details class="menu"><summary>ИИ</summary><div class="menu-list"><a href="{up}agents.html">🤖 ИИ-агенты</a><a href="{up}skills.html">🧰 ИИ-скиллы</a></div></details>
-<a href="{up}blog/index.html">посты</a>
-<a href="{up}tags/index.html">теги</a>
+<details class="menu"><summary>путь в ИИ</summary><div class="menu-list"><a href="{up}agents.html">🤖 мой путь в ИИ</a><a href="{up}skills.html">🧰 ИИ-скиллы</a></div></details>
+<a href="{up}coaching.html">коучинг</a>
+<a href="{up}students.html">студентам</a>
+<details class="menu"><summary>проекты</summary><div class="menu-list"><a href="{up}projects.html">🚀 проекты</a><a href="{up}projects/weekend-planner.html">🗓 Планировщик выходных</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}decks.html">🎞 презентации</a></div></details>
+<details class="menu"><summary>исследования</summary><div class="menu-list"><a href="{up}research.html">🔬 статьи и исследования</a><a href="{up}conferences.html">🎤 конференции</a><a href="{up}study.html">🎓 образование</a>{BOOKS_LINK.format(up=up)}{MEDIA_LINK.format(up=up)}</div></details>
+<details class="menu"><summary>обо мне</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}now.html">⏱ сейчас</a><a href="{up}timeline.html">🗓 хронология</a><a href="{up}assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="{up}tools.html">🧰 инструментарий</a></div></details>
+<details class="menu"><summary>посты</summary><div class="menu-list"><a href="{up}blog/index.html">📝 все посты</a><a href="{up}tags/index.html">🏷 теги</a></div></details>
 </nav>
 <span class="tools">
 <a class="icon-btn lang" href="{up}en/{path}" title="English version" hreflang="en">EN</a>
@@ -126,7 +132,7 @@ document.addEventListener('click', e => document.querySelectorAll('details.menu[
 document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => {{ if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => {{ if (o !== d) o.open = false; }}); }}));
 </script>
 </div></header>
-<main>
+<main id="main" tabindex="-1">
 {body}
 </main>
 <footer><div class="wrap foot">
@@ -139,7 +145,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 
 # Канонические имена тегов, на которые опирается логика (английская версия подменяет их)
 TG = {"product": "продакт", "books": "книги", "agents": "ИИ-агенты", "research": "исследования",
-      "article": "научная статья", "conference": "конференция"}
+      "article": "научная статья", "conference": "конференция", "coaching": "коучинг"}
 PER_PAGE = 10
 RESULTS_STRIP = """<section class="results" aria-label="Ключевые результаты">
 <a class="res" href="cases/asia-online.html"><b data-count="103" data-prefix="+" data-suffix="%">+103%</b><span>выручки после перезапуска e-commerce</span></a>
@@ -208,13 +214,7 @@ def pager(page: int, pages: int) -> str:
 
 
 def index_page(posts: list[dict], page: int = 1) -> str:
-    hero = f"""<section class="hero-home">
-<img class="avatar avatar-lg" src="assets/avatar.jpg" width="160" height="160" alt="Роман Понуров">
-<div>
-<h1>Роман Понуров</h1>
-<p class="roles"><a href="cv.html">менеджер продукта</a>, <a href="tags/{tag_slug('преподавание')}.html">начинающий преподаватель</a>, <a href="research.html">исследую ИИ в управлении компанией</a></p>
-</div>
-</section>"""
+    hero = brand.hero(LANG)
     items = all_items(posts)
     pages = max(1, -(-len(posts) // PER_PAGE))
     chunk = posts[(page - 1) * PER_PAGE: page * PER_PAGE]
@@ -225,6 +225,7 @@ def index_page(posts: list[dict], page: int = 1) -> str:
 {hero if page == 1 else '<h1 class="feed-page-h">Посты — страница ' + str(page) + '</h1>'}
 
 {RESULTS_STRIP if page == 1 else ""}
+{brand.directions(LANG) if page == 1 else ""}
 {year_block(posts) if page == 1 else ""}
 <section aria-label="Лента постов">
 <ul class="feed">
@@ -241,8 +242,8 @@ document.getElementById('random')?.addEventListener('click', () => {{
 }});
 </script>
 """
-    return layout("Роман Понуров — менеджер продукта",
-                  "Роман Понуров: менеджер продукта, преподаватель, исследователь ИИ в управлении. Посты, кейсы, проекты.",
+    return layout("Роман Понуров — от бизнес-задачи до работающего ИИ-продукта",
+                  "Роман Понуров: продуктовое управление, прикладной ИИ и инженерная практика. Проекты, исследования, путь в ИИ, материалы для студентов.",
                   body, "" if page == 1 else f"page{page}.html")
 
 
@@ -315,6 +316,7 @@ def own_cards() -> str:
         out.append(f"""<li class="card">
 <a class="cover" href="cases/{slug}.html" style="background:{color}" tabindex="-1" aria-hidden="true"><span class="cover-big">{esc(big)}</span><span class="cover-small">{esc(small)}</span></a>
 <p class="card-meta"><span class="card-co">{esc(role)}</span></p>
+<p class="card-meta">{brand.badge(brand.OWN_STATUS[slug], LANG)} {esc(brand.OWN_STATUS_NOTE[LANG][slug])}</p>
 <h3 class="card-title"><a href="cases/{slug}.html">{esc(name)}</a></h3>
 <p class="card-about">{esc(about)}</p>
 <p class="card-result">{esc(result)}</p>
@@ -339,7 +341,8 @@ def projects_page() -> str:
 <p class="intro">Код открыт.</p>
 <article class="project">
 <div>
-<h3>Планировщик выходных</h3>
+<p class="card-meta">{brand.badge("proto", LANG)} MVP — октябрь 2026, на пользователях ещё не запускался</p>
+<h3><a href="projects/weekend-planner.html">Планировщик выходных</a></h3>
 <p>Telegram-бот, который за минуту собирает план выходных по часам: смотрит погоду, афишу и места, укладывается в бюджет и учитывает возраст детей.</p>
 <ul>
 <li>Три агента: планировщик, разведчик и критик общаются по протоколу A2A</li>
@@ -347,7 +350,7 @@ def projects_page() -> str:
 <li>Модель только выбирает варианты — названия, цены и время подставляет код</li>
 <li>32 эвал-кейса и продуктовые метрики: activation, возвраты, оценки</li>
 </ul>
-<p><a href="{GITHUB}/weekend-planner">Код и описание на GitHub</a></p>
+<p><a href="projects/weekend-planner.html">Подробный кейс</a> · <a href="{GITHUB}/weekend-planner">код на GitHub</a></p>
 </div>
 <figure>
 <img src="assets/weekend-planner-arch.png" width="1344" height="960" alt="Схема: пользователь пишет в Telegram-бот, тот передаёт запрос планировщику; планировщик по A2A обращается к разведчику и критику; разведчик через MCP-сервер получает погоду, афишу, места и читает страницы браузером.">
@@ -577,7 +580,7 @@ MONTHS_SHORT = ["янв.", "февр.", "мар.", "апр.", "мая", "июн.
 def post_links(p: dict, posts: list[dict]) -> list[tuple[str, str, str]]:
     """Связи поста: куда он ссылается внутри сайта и какие посты ссылаются на него."""
     out = []
-    names = {"agents.html": "ИИ-агенты", "projects.html": "Проекты", "study.html": "Образование", "research.html": "Исследования",
+    names = {"agents.html": "Мой путь в ИИ", "coaching.html": "Мой путь в коучинге", "students.html": "Студентам", "projects.html": "Проекты", "study.html": "Образование", "research.html": "Исследования",
              "cv.html": "Резюме", "timeline.html": "Хронология", "now.html": "Сейчас", "tools.html": "Инструментарий", "skills.html": "ИИ-скиллы", "conferences.html": "Конференции", "decks.html": "Презентации", "about.html": "Обо мне", "books.html": "Книги", "cases/index.html": "Портфолио кейсов"}
     for text, href in re.findall(r"\[([^\]]+)\]\((\.\./[^)]+|[a-z0-9-]+\.html)\)", p["body"]):
         target = href[3:] if href.startswith("../") else "blog/" + href
@@ -945,6 +948,7 @@ def metro_block() -> str:
 
 
 def agents_page(posts: list[dict]) -> str:
+    """«Мой путь в ИИ»: адрес agents.html сохранён, страница расширена по ТЗ."""
     ap = [p for p in posts if TG["agents"] in p["tags"]]
     general = [p for p in ap if not p["stage"]]
     stages = []
@@ -953,26 +957,84 @@ def agents_page(posts: list[dict]) -> str:
         prac = "".join(f'<li>Практика: <a href="{u}">{esc(t)}</a></li>' for t, u in practice)
         notes = "".join(f'<li>Пост: <a href="blog/{p["slug"]}.html">{esc(p["title"])}</a></li>' for p in sp)
         links = f'<ul class="stage-links">{prac}{notes}</ul>' if prac or notes else ""
-        cls = {"есть практика": "done", "впереди": "next"}.get(status, "theory")
+        cls = {"есть практика": "done", "practised": "done", "впереди": "next", "ahead": "next"}.get(status, "theory")
         stages.append(f"""<li class="stage stage-{cls}" id="stage-{n}"><span class="stage-n">{n:02d}</span><div>
 <h3>{esc(name)} <span class="stage-status">{esc(status)}</span></h3>
 <p>{esc(what)}</p>{links}</div></li>""")
+    log = ('<ul class="feed">' + feed(general + [p for p in ap if p["stage"]], "blog/") + '</ul>') if ap else ""
+    T = brand.AI[LANG]
     body = f"""
 <article class="page"><div class="wrap">
 <a class="back" href="index.html">На главную</a>
-<h1>ИИ-агенты</h1>
-<p class="intro">Здесь я рассказываю свой путь в ИИ-агентах: от теории к практике. Каждый этап — что это такое, где я это попробовал руками и что понял. Главный полигон — <a href="projects.html">Планировщик выходных</a>, агентный Telegram-бот с открытым кодом.</p>
-
-{('<h2>Последние заметки</h2><ul class="feed">' + feed(general + [p for p in ap if p["stage"]], "blog/") + '</ul>') if ap else ''}
-
-<h2 class="stages-head">Карта пути</h2>
-{metro_block()}
-<ol class="stages">
-{"".join(stages)}
-</ol>
+<h1>{esc(T["title"])}</h1>
+{brand.ai_top(LANG)}
+{brand.ai_log_head(LANG)}
+{log}
+{brand.ai_bottom(LANG, metro_block() + '<ol class="stages">' + "".join(stages) + '</ol>')}
 </div></article>
 """
-    return layout("ИИ-агенты — Роман Понуров", "Путь изучения ИИ-агентов от теории к практике: LLM, инструменты, MCP, A2A, эвалы, метрики.", body, "agents.html")
+    return layout(T["title"] + " — Роман Понуров", "Путь от продакт-менеджера к AI Product Engineer: дорожная карта компетенций, проекты, дневник практики и карта пути в ИИ-агентах.", body, "agents.html")
+
+
+def coaching_page(posts: list[dict]) -> str:
+    cp = [p for p in posts if TG.get("coaching", "коучинг") in p["tags"]]
+    T = brand.COACH[LANG]
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="index.html">На главную</a>
+<h1>{esc(T["title"])}</h1>
+{brand.coaching_body(LANG, feed(cp, "blog/") if cp else "")}
+</div></article>
+"""
+    return layout(T["title"] + " — Роман Понуров", T["desc"], body, "coaching.html")
+
+
+def students_page() -> str:
+    T = brand.STU[LANG]
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="index.html">На главную</a>
+<h1>{esc(T["title"])}</h1>
+{brand.students_body(LANG)}
+</div></article>
+"""
+    return layout(T["title"] + " — Роман Понуров", T["desc"], body, "students.html")
+
+
+def wp_case_page() -> str:
+    T = brand.WPC[LANG]
+    return layout(T["title"] + " — Роман Понуров", T["desc"], brand.wp_case_body(LANG), "projects/weekend-planner.html", depth=1)
+
+
+def not_found_page() -> str:
+    body = """
+<article class="page"><div class="wrap">
+<h1>Страница не найдена</h1>
+<p class="intro">Такой страницы нет — возможно, адрес изменился. Начните с <a href="/">главной</a>, посмотрите <a href="/projects.html">проекты</a> или воспользуйтесь поиском (клавиша «/»).</p>
+<p class="intro" lang="en">Page not found. Go to the <a href="/en/">English home page</a>.</p>
+</div></article>
+"""
+    return layout("Страница не найдена — Роман Понуров", "Страница не найдена.", body, "404.html")
+
+
+def absolute_links(h: str) -> str:
+    """404 открывается по любому адресу, поэтому ссылки в ней — от корня сайта."""
+    h = re.sub(r'(href|src)="(?!https?:|mailto:|#|/|data:)([^"]*)"', r'\1="/\2"', h)
+    return h.replace('data-root=""', 'data-root="/"').replace('href="/en/404.html"', 'href="/en/"')
+
+
+def write_sitemap() -> None:
+    """sitemap.xml и robots.txt: все HTML-страницы, кроме служебных."""
+    urls = []
+    for f in sorted(ROOT.rglob("*.html")):
+        rel = f.relative_to(ROOT).as_posix()
+        if rel.startswith(("content/", "tools/", "i18n_en/")) or rel in ("404.html", "cases/bolz.html") or "/node_modules/" in rel:
+            continue
+        rel = re.sub(r"(^|/)index\.html$", r"\1", rel)
+        urls.append(f"  <url><loc>{SITE_URL}/{rel}</loc></url>")
+    (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+                                      + "\n".join(urls) + "\n</urlset>\n", encoding="utf-8")
+    (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /tools/\nDisallow: /content/\nDisallow: /i18n_en/\n\nSitemap: {SITE_URL}/sitemap.xml\n", encoding="utf-8")
 
 
 def clean_index_links() -> None:
@@ -994,11 +1056,11 @@ def build_search_index() -> None:
     items = []
     for f in sorted(ROOT.rglob("*.html")):
         rel = f.relative_to(ROOT).as_posix()
-        if rel.startswith(("tags/", "content/", "tools/", "en/")) or re.match(r"page\d+\.html$", rel) or rel in ("blog/index.html", "index.html", "cases/bolz.html"):
+        if rel.startswith(("tags/", "content/", "tools/", "en/")) or re.match(r"page\d+\.html$", rel) or rel in ("blog/index.html", "index.html", "cases/bolz.html", "404.html"):
             continue
         html_ = f.read_text(encoding="utf-8")
         title = html.unescape(re.search(r"<title>(.*?)</title>", html_).group(1)).replace(" — Роман Понуров", "").replace(" — кейс Романа Понурова", "")
-        main_ = re.search(r"<main>(.*)</main>", html_, re.S).group(1)
+        main_ = re.search(r"<main[^>]*>(.*)</main>", html_, re.S).group(1)
         main_ = re.sub(r"<(script|style|nav)\b.*?</\1>", " ", main_, flags=re.S)
         main_ = re.sub(r'<section class="related-posts">.*?</section>|<div class="post-actions">.*?</div>|<a class="back"[^>]*>.*?</a>|<p class="post-meta">.*?</p>', " ", main_, flags=re.S)
         text = html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", main_))).strip()
@@ -1539,6 +1601,11 @@ def main() -> None:
     (ROOT / "conferences.html").write_text(conferences_page(), encoding="utf-8")
     (ROOT / "decks.html").write_text(decks_page(), encoding="utf-8")
     (ROOT / "agents.html").write_text(agents_page(posts), encoding="utf-8")
+    (ROOT / "coaching.html").write_text(coaching_page(posts), encoding="utf-8")
+    (ROOT / "students.html").write_text(students_page(), encoding="utf-8")
+    (ROOT / "projects").mkdir(exist_ok=True)
+    (ROOT / "projects" / "weekend-planner.html").write_text(wp_case_page(), encoding="utf-8")
+    (ROOT / "404.html").write_text(absolute_links(not_found_page()), encoding="utf-8")
     books = load_books()
     if books:
         (ROOT / "books.html").write_text(books_page(books, posts), encoding="utf-8")
@@ -1559,6 +1626,7 @@ def main() -> None:
     en.build({"SITE_URL": SITE_URL, "FONTS": FONTS, "CSS_V": CSS_V, "JS_V": JS_V})
     clean_index_links()
     build_search_index()
+    write_sitemap()
     print(f"Готово: главная, {len(posts)} пост(ов), {len(CASES)} кейсов, резюме, проекты, исследования, теги")
 
 

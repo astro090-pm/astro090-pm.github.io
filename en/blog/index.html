@@ -24,20 +24,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../../assets/style.css?v=09de2b55">
+<link rel="stylesheet" href="../../assets/style.css?v=8d07f23d">
 <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="../../assets/site.js?v=f2bb86bd" defer data-root="../"></script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="top"><div class="wrap">
 <a class="brand" href="../"><img class="avatar avatar-sm" src="../../assets/avatar-sm.jpg" width="34" height="34" alt="">Roman Ponurov</a>
 <nav class="nav" aria-label="Sections">
-<details class="menu"><summary>product</summary><div class="menu-list"><a href="../about.html">👋 about me</a><a href="../now.html">⏱ now</a><a href="../timeline.html">🗓 timeline</a><a href="../../assets/Ponurov_Roman_CV_EN.pdf" target="_blank" rel="noopener">📄 CV (PDF)</a><a href="../cases/">📁 case portfolio</a><a href="../decks.html">🎞 decks</a><a href="../tools.html">🧰 toolkit</a></div></details>
-<a href="../projects.html">projects</a>
-<details class="menu"><summary>knowledge</summary><div class="menu-list"><a href="../research.html">🔬 research</a><a href="../conferences.html">🎤 conferences</a><a href="../study.html">🎓 education</a><a href="../books.html">📚 books</a></div></details>
-<details class="menu"><summary>AI</summary><div class="menu-list"><a href="../agents.html">🤖 AI agents</a><a href="../skills.html">🧰 AI skills</a></div></details>
-<a href="../blog/">posts</a>
-<a href="../tags/">tags</a>
+<details class="menu"><summary>path into AI</summary><div class="menu-list"><a href="../agents.html">🤖 my path into AI</a><a href="../skills.html">🧰 AI skills</a></div></details>
+<a href="../coaching.html">coaching</a>
+<a href="../students.html">students</a>
+<details class="menu"><summary>projects</summary><div class="menu-list"><a href="../projects.html">🚀 projects</a><a href="../projects/weekend-planner.html">🗓 Weekend Planner</a><a href="../cases/">📁 case portfolio</a><a href="../decks.html">🎞 decks</a></div></details>
+<details class="menu"><summary>research</summary><div class="menu-list"><a href="../research.html">🔬 articles and research</a><a href="../conferences.html">🎤 conferences</a><a href="../study.html">🎓 education</a><a href="../books.html">📚 books</a></div></details>
+<details class="menu"><summary>about</summary><div class="menu-list"><a href="../about.html">👋 about me</a><a href="../now.html">⏱ now</a><a href="../timeline.html">🗓 timeline</a><a href="../../assets/Ponurov_Roman_CV_EN.pdf" target="_blank" rel="noopener">📄 CV (PDF)</a><a href="../tools.html">🧰 toolkit</a></div></details>
+<details class="menu"><summary>posts</summary><div class="menu-list"><a href="../blog/">📝 all posts</a><a href="../tags/">🏷 tags</a></div></details>
 </nav>
 <span class="tools">
 <a class="icon-btn lang" href="../../blog/" title="Russian version" hreflang="ru">RU</a>
@@ -49,7 +51,7 @@ document.addEventListener('click', e => document.querySelectorAll('details.menu[
 document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => { if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => { if (o !== d) o.open = false; }); }));
 </script>
 </div></header>
-<main>
+<main id="main" tabindex="-1">
 
 <article class="page"><div class="wrap">
 <a class="back" href="../">Home</a>

@@ -22,20 +22,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=09de2b55">
+<link rel="stylesheet" href="assets/style.css?v=8d07f23d">
 <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="assets/site.js?v=f2bb86bd" defer data-root=""></script>
 </head>
 <body>
+<a class="skip" href="#main">Перейти к содержимому</a>
 <header class="top"><div class="wrap">
 <a class="brand" href="./"><img class="avatar avatar-sm" src="assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
-<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="about.html">👋 обо мне</a><a href="now.html">⏱ сейчас</a><a href="timeline.html">🗓 хронология</a><a href="assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="cases/">📁 портфолио кейсов</a><a href="decks.html">🎞 презентации</a><a href="tools.html">🧰 инструментарий</a></div></details>
-<a href="projects.html">проекты</a>
-<details class="menu"><summary>знания</summary><div class="menu-list"><a href="research.html">🔬 исследования</a><a href="conferences.html">🎤 конференции</a><a href="study.html">🎓 образование</a><a href="books.html">📚 книги</a></div></details>
-<details class="menu"><summary>ИИ</summary><div class="menu-list"><a href="agents.html">🤖 ИИ-агенты</a><a href="skills.html">🧰 ИИ-скиллы</a></div></details>
-<a href="blog/">посты</a>
-<a href="tags/">теги</a>
+<details class="menu"><summary>путь в ИИ</summary><div class="menu-list"><a href="agents.html">🤖 мой путь в ИИ</a><a href="skills.html">🧰 ИИ-скиллы</a></div></details>
+<a href="coaching.html">коучинг</a>
+<a href="students.html">студентам</a>
+<details class="menu"><summary>проекты</summary><div class="menu-list"><a href="projects.html">🚀 проекты</a><a href="projects/weekend-planner.html">🗓 Планировщик выходных</a><a href="cases/">📁 портфолио кейсов</a><a href="decks.html">🎞 презентации</a></div></details>
+<details class="menu"><summary>исследования</summary><div class="menu-list"><a href="research.html">🔬 статьи и исследования</a><a href="conferences.html">🎤 конференции</a><a href="study.html">🎓 образование</a><a href="books.html">📚 книги</a></div></details>
+<details class="menu"><summary>обо мне</summary><div class="menu-list"><a href="about.html">👋 обо мне</a><a href="now.html">⏱ сейчас</a><a href="timeline.html">🗓 хронология</a><a href="assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="tools.html">🧰 инструментарий</a></div></details>
+<details class="menu"><summary>посты</summary><div class="menu-list"><a href="blog/">📝 все посты</a><a href="tags/">🏷 теги</a></div></details>
 </nav>
 <span class="tools">
 <a class="icon-btn lang" href="en/projects.html" title="English version" hreflang="en">EN</a>
@@ -47,7 +49,7 @@ document.addEventListener('click', e => document.querySelectorAll('details.menu[
 document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => { if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => { if (o !== d) o.open = false; }); }));
 </script>
 </div></header>
-<main>
+<main id="main" tabindex="-1">
 
 <article class="page"><div class="wrap">
 <a class="back" href="./">На главную</a>
@@ -59,6 +61,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <li class="card">
 <a class="cover" href="cases/po-sosedstvu.html" style="background:#F0C24B" tabindex="-1" aria-hidden="true"><span class="cover-big">+89%</span><span class="cover-small">заказов B2B</span></a>
 <p class="card-meta"><span class="card-co">Сооснователь и менеджер продукта · 2022–2024</span></p>
+<p class="card-meta"><span class="st st-off">Участие завершено</span> моё участие — 2022–2024</p>
 <h3 class="card-title"><a href="cases/po-sosedstvu.html">«По соседству»</a></h3>
 <p class="card-about">Вывел офлайн-магазин продуктов в онлайн: интернет-магазин с доставкой для частных и корпоративных клиентов. Концепция, процессы, команда внешних исполнителей, запуск на 1С-Битрикс.</p>
 <p class="card-result">B2B: заказы +89%, средний чек +71%, выручка +58%</p>
@@ -67,6 +70,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <li class="card">
 <a class="cover" href="cases/dobster.html" style="background:#E8D3E0" tabindex="-1" aria-hidden="true"><span class="cover-big">0 → прод</span><span class="cover-small">запуск с нуля</span></a>
 <p class="card-meta"><span class="card-co">Сооснователь и менеджер продукта · 2022–2023</span></p>
+<p class="card-meta"><span class="st st-off">Участие завершено</span> моё участие — 2022–2023</p>
 <h3 class="card-title"><a href="cases/dobster.html">«Добстер»</a></h3>
 <p class="card-about">Бесплатная помощь пожилым, людям с инвалидностью, ветеранам и многодетным: уборка, ремонт, няни, сиделки. Платформа сводит заказчика, исполнителя и благотворителя, который оплачивает работу.</p>
 <p class="card-result">Запущен с нуля до продакшена</p>
@@ -75,6 +79,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <li class="card">
 <a class="cover" href="cases/bolz-dev.html" style="background:#C9E8D5" tabindex="-1" aria-hidden="true"><span class="cover-big">MCP</span><span class="cover-small">действия для ИИ-агентов</span></a>
 <p class="card-meta"><span class="card-co">Сооснователь, CPO · 2025</span></p>
+<p class="card-meta"><span class="st st-mid">Прототип</span> MVP — август 2025</p>
 <h3 class="card-title"><a href="cases/bolz-dev.html">bolz.dev</a></h3>
 <p class="card-about">MCP-коннектор, через который ИИ-агенты сами совершают реальные действия: находят, бронируют и оплачивают сервисы без перехода по ссылкам.</p>
 <p class="card-result">MVP в августе 2025; сценарии маркетплейса и такси</p>
@@ -83,6 +88,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <li class="card">
 <a class="cover" href="cases/bolz-tech.html" style="background:#BFD3F2" tabindex="-1" aria-hidden="true"><span class="cover-big">B2B2C</span><span class="cover-small">шеринг в одном окне</span></a>
 <p class="card-meta"><span class="card-co">Сооснователь, CPO · 2023–2025</span></p>
+<p class="card-meta"><span class="st st-off">Участие завершено</span> моё участие — 2023–2025</p>
 <h3 class="card-title"><a href="cases/bolz-tech.html">bolz.tech</a></h3>
 <p class="card-about">Экосистема шеринг-сервисов в одном окне: самокаты, велосипеды, авто и пауэрбанки внутри приложений партнёров — без установки и регистрации.</p>
 <p class="card-result">Пауэрбанки в продакшене; МТС Юрент и ГетЭнерджи; МИК и «Новатор Москвы 2025»</p>
@@ -94,7 +100,8 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <p class="intro">Код открыт.</p>
 <article class="project">
 <div>
-<h3>Планировщик выходных</h3>
+<p class="card-meta"><span class="st st-mid">Прототип</span> MVP — октябрь 2026, на пользователях ещё не запускался</p>
+<h3><a href="projects/weekend-planner.html">Планировщик выходных</a></h3>
 <p>Telegram-бот, который за минуту собирает план выходных по часам: смотрит погоду, афишу и места, укладывается в бюджет и учитывает возраст детей.</p>
 <ul>
 <li>Три агента: планировщик, разведчик и критик общаются по протоколу A2A</li>
@@ -102,7 +109,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <li>Модель только выбирает варианты — названия, цены и время подставляет код</li>
 <li>32 эвал-кейса и продуктовые метрики: activation, возвраты, оценки</li>
 </ul>
-<p><a href="https://github.com/astro090-pm/weekend-planner">Код и описание на GitHub</a></p>
+<p><a href="projects/weekend-planner.html">Подробный кейс</a> · <a href="https://github.com/astro090-pm/weekend-planner">код на GitHub</a></p>
 </div>
 <figure>
 <img src="assets/weekend-planner-arch.png" width="1344" height="960" alt="Схема: пользователь пишет в Telegram-бот, тот передаёт запрос планировщику; планировщик по A2A обращается к разведчику и критику; разведчик через MCP-сервер получает погоду, афишу, места и читает страницы браузером.">
