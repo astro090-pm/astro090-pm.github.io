@@ -103,7 +103,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <header class="top"><div class="wrap">
 <a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
-<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}cv.html">📄 резюме</a><a href="{up}cases/index.html">📁 портфолио кейсов</a></div></details>
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="{up}cases/index.html">📁 портфолио кейсов</a></div></details>
 <a href="{up}projects.html">проекты</a>
 <details class="menu"><summary>знания</summary><div class="menu-list"><a href="{up}research.html">🔬 исследования</a><a href="{up}study.html">🎓 образование</a>{BOOKS_LINK.format(up=up)}</div></details>
 <a href="{up}agents.html">ИИ-агенты</a>
@@ -799,7 +799,7 @@ def about_page() -> str:
 <p><b>Встречи.</b> У встречи должна быть цель и итог: в конце фиксируем, кто что делает и к какому сроку.</p>
 <p class="about-rule">Если сомневаетесь, писать мне или нет, — пишите.</p>
 </div>
-<p class="related-row">Ещё обо мне: <a href="cv.html">резюме</a> · <a href="cases/index.html">портфолио кейсов</a> · <a href="research.html">исследования</a> · <a href="agents.html">ИИ-агенты</a></p>
+<p class="related-row">Ещё обо мне: <a href="assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">резюме (PDF)</a> · <a href="cases/index.html">портфолио кейсов</a> · <a href="research.html">исследования</a> · <a href="agents.html">ИИ-агенты</a></p>
 </div></article>
 """
     return layout("Обо мне — Роман Понуров", "Как со мной работать: принципы, обратная связь, связь и встречи.", body, "about.html")
