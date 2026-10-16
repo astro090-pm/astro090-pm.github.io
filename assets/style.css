@@ -599,3 +599,5 @@ a.feed-link:hover, a.feed-link:hover * { text-decoration: none; }
 .skill a { font: 400 13px var(--sans); }
 :root[data-theme="dark"] .skill { background: var(--surface); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .skill { background: var(--surface); } }
+.own-skills .skill { border-color: var(--link); }
+.page h2.skills-sub { margin: 48px 0 14px; }
