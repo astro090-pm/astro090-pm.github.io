@@ -535,7 +535,7 @@ def post_footer(p: dict, posts: list[dict]) -> str:
     conn = (f'<details class="pill-btn conn"><summary><span class="tri">▸</span> показать связи поста <span class="cnt">{len(links)}</span></summary>'
             f'<ul class="conn-list">{li}</ul><p class="conn-hint">→ куда ссылается пост · ← кто ссылается на него</p></details>') if links else ""
     return f"""{rel}
-<div class="post-actions">{conn}<a class="pill-btn" href="https://t.me/astro090"><span aria-hidden="true">✈</span> обсудить в Telegram</a></div>"""
+{('<div class="post-actions">' + conn + '</div>') if conn else ''}"""
 
 
 def post_page(p: dict, all_posts: list[dict] | None = None) -> str:
