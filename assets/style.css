@@ -557,3 +557,7 @@ a.tag { text-decoration: none; color: var(--ink); }
 a.tag:hover { border-color: var(--link); color: var(--link); }
 @media (max-width: 760px) { .tag-cover { width: 84px; height: 84px; padding: 8px; } .tag-cover b { font-size: 16px; } }
 a.feed-link:hover, a.feed-link:hover * { text-decoration: none; }
+.co-tags { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--rule); }
+.page .co-tags h2 { font: 600 15px/1 var(--sans); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 16px; }
+.co-tags p { display: flex; flex-wrap: wrap; gap: 12px 18px; margin: 0; }
+.co-tags .tag-link { font-size: 20px; }

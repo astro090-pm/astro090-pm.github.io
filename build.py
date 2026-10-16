@@ -352,6 +352,21 @@ def plural(n: int, one: str, few: str, many: str) -> str:
     return f"{n} {form}"
 
 
+def co_tags(t: str, items: list[dict]) -> str:
+    """Другие теги, которые встречаются вместе с этим, — сколько раз."""
+    co: dict[str, int] = {}
+    for it in items:
+        if t in it["tags"]:
+            for o in it["tags"]:
+                if o != t:
+                    co[o] = co.get(o, 0) + 1
+    if not co:
+        return ""
+    top = sorted(co.items(), key=lambda kv: (-kv[1], kv[0]))[:12]
+    links = "".join(f'<a class="tag-link" href="{tag_slug(o)}.html">{TAG_EMOJI.get(o, "")}{esc(o)} <span>{n}</span></a>' for o, n in top)
+    return f'<section class="co-tags"><h2>Другие теги, которые встречаются здесь</h2><p>{links}</p></section>'
+
+
 def tags_pages(posts: list[dict]) -> dict[str, str]:
     items = all_items(posts)
     counts = dict(tag_counts(items))
@@ -413,6 +428,7 @@ def tags_pages(posts: list[dict]) -> dict[str, str]:
 <p class="tag-count">{" · ".join(count)}</p>
 {posts_h}
 {cases_h}
+{co_tags(t, items)}
 </div></article>
 """
         pages[f"{tag_slug(t)}.html"] = layout(f"#{t} — Роман Понуров", f"Посты и кейсы с меткой «{t}».", body,
