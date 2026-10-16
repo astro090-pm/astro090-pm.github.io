@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>«Добстер»: платформа благотворительных услуг — кейс Романа Понурова</title>
-<meta name="description" content="Платформа благотворительных услуг: концепция, мокапы, команда, запуск.">
+<meta name="description" content="Бесплатная помощь пожилым и людям с инвалидностью: платформа сводит заказчика, исполнителя и благотворителя.">
 <link rel="canonical" href="https://astro090-pm.github.io/cases/dobster.html">
 <meta property="og:title" content="«Добстер»: платформа благотворительных услуг — кейс Романа Понурова">
-<meta property="og:description" content="Платформа благотворительных услуг: концепция, мокапы, команда, запуск.">
+<meta property="og:description" content="Бесплатная помощь пожилым и людям с инвалидностью: платформа сводит заказчика, исполнителя и благотворителя.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://astro090-pm.github.io/cases/dobster.html">
 <meta property="og:site_name" content="Роман Понуров">
@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../assets/style.css?v=66287b88">
+<link rel="stylesheet" href="../assets/style.css?v=4239e609">
 <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="../assets/site.js?v=f4e4570a" defer data-root="../"></script>
 </head>
@@ -63,7 +63,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <tbody>
 <tr>
 <td><strong>Продукт</strong></td>
-<td>платформа благотворительных услуг, web + adaptive (B2C)</td>
+<td>платформа, где пожилые люди, люди с инвалидностью, ветераны и многодетные семьи бесплатно получают помощь по дому и услуги специалистов, web + adaptive (B2C)</td>
 </tr>
 <tr>
 <td><strong>Стадия</strong></td>
@@ -73,17 +73,42 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <td><strong>Стек</strong></td>
 <td>Python, React</td>
 </tr>
+<tr>
+<td><strong>Сайт</strong></td>
+<td>dobster.ru</td>
+</tr>
 </tbody>
 </table>
+<h2>Идея: «Помощь прямо в руки»</h2>
+<p>Человек, которому нужна помощь, оставляет заявку на сайте — и получает её бесплатно: уборку и домашние дела, мелкий ремонт, няню или репетитора, сиделку, профессиональные ремонтные и строительные работы.</p>
+<p>Платформа соединяет три стороны:</p>
+<ul>
+<li><strong>заказчика</strong> — того, кому нужна помощь;</li>
+<li><strong>исполнителя</strong> — волонтёра или специалиста, который её оказывает;</li>
+<li><strong>благотворителя</strong> — того, кто оплачивает работу, если исполнитель работает не бесплатно.</li>
+</ul>
+<h2>Путь заказчика</h2>
+<ol>
+<li>Регистрация на сайте в роли заказчика.</li>
+<li>Создание задания с подробным описанием помощи.</li>
+<li>Поиск исполнителя — от 2 дней до 2 недель, в зависимости от сложности и свободных исполнителей.</li>
+<li>Уведомление о найденном исполнителе и подтверждение, что заказчик готов принять помощь.</li>
+<li>Если исполнитель просит оплату — поиск благотворителя, который возьмёт её на себя (тоже от 2 дней до 2 недель).</li>
+<li>Помощь оказывается, как только исполнитель найден и оплата подтверждена.</li>
+<li>Заказчик подтверждает выполнение и оставляет отзыв.</li>
+</ol>
+<div class="flyers"><figure><img src="../assets/posts/dobster-1.jpg" width="877" height="987" alt="Листовка «Добстер»: помощь прямо в руки — бесплатная помощь по дому, ремонт, няни, сиделки для пенсионеров, людей с инвалидностью, ветеранов и многодетных."><figcaption>Листовка для заказчиков: что можно получить</figcaption></figure><figure><img src="../assets/posts/dobster-2.jpg" width="877" height="987" alt="Листовка «Добстер»: простая инструкция из семи шагов для получения помощи."><figcaption>Листовка для заказчиков: семь шагов к помощи</figcaption></figure></div>
+
 <h2>Что я сделал</h2>
 <ul>
 <li>Создал концепцию продукта и роадмап.</li>
+<li>Спроектировал модель с тремя ролями и путь заказчика — так, чтобы им мог пройти пожилой человек: заявка, подтверждение, отзыв.</li>
 <li>Разработал мокапы.</li>
 <li>Собрал команду.</li>
 <li>Запустил продукт в продакшен.</li>
 </ul>
 <h2>Что этот кейс показывает</h2>
-<p>Полный цикл запуска нового продукта в социальной сфере: от идеи и прототипа до работающего сервиса.</p>
+<p>Полный цикл запуска продукта в социальной сфере, где пользователь — не самая цифровая аудитория, а сделку закрывают сразу три стороны: тот, кому нужна помощь, тот, кто помогает, и тот, кто платит.</p>
 <p class="next-case">Следующий кейс: <a href="granit.html">Автоматизация процессов государственного департамента (B2G)</a></p>
 </div>
 </div></article>
