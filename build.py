@@ -224,7 +224,6 @@ def index_page(posts: list[dict], page: int = 1) -> str:
 
 {hero if page == 1 else '<h1 class="feed-page-h">Посты — страница ' + str(page) + '</h1>'}
 
-{RESULTS_STRIP if page == 1 else ""}
 {year_block(posts) if page == 1 else ""}
 <section aria-label="Лента постов">
 <ul class="feed">

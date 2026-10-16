@@ -59,12 +59,6 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 </div>
 </section>
 
-<section class="results" aria-label="Ключевые результаты">
-<a class="res" href="cases/asia-online.html"><b data-count="103" data-prefix="+" data-suffix="%">+103%</b><span>выручки после перезапуска e-commerce</span></a>
-<a class="res" href="cases/mts-id.html"><b data-count="10" data-suffix=" млн">10 млн</b><span>пользователей MTS ID в 9 продуктах МТС</span></a>
-<a class="res" href="cases/po-sosedstvu.html"><b data-count="89" data-prefix="+" data-suffix="%">+89%</b><span>заказов B2B после выхода в онлайн</span></a>
-<a class="res" href="timeline.html"><b data-count="4">4</b><span>продукта запустил с нуля</span></a>
-</section>
 <section class="year" aria-label="Год в цифрах"><div class="yr-head"><h2>Год в цифрах</h2><div class="yr-tabs"><button type="button" class="yr-tab" data-y="2026" aria-pressed="true">2026</button><button type="button" class="yr-tab" data-y="2025" aria-pressed="false">2025</button></div></div><div class="yr-grid" data-y="2026"><a class="yr-cell" href="blog/lekcii-it-menedzhment.html"><b>1</b><span>курс читаю в университете</span></a><a class="yr-cell" href="projects.html"><b>1</b><span>AI-прототип с открытым кодом</span></a><a class="yr-cell" href="conferences.html"><b>3</b><span>доклада</span></a><a class="yr-cell" href="books.html"><b>1</b><span>книга</span></a><a class="yr-cell" href="blog/"><b>7</b><span>постов</span></a></div><div class="yr-grid" data-y="2025" hidden><a class="yr-cell" href="projects.html"><b>2</b><span>стартапа: bolz.tech и bolz.dev</span></a><a class="yr-cell" href="research.html"><b>3</b><span>статьи ВАК</span></a><a class="yr-cell" href="study.html"><b>4</b><span>курса и программы</span></a><a class="yr-cell" href="blog/"><b>5</b><span>постов</span></a></div></section>
 <script>document.querySelectorAll('.yr-tab').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('.yr-tab').forEach(x => x.setAttribute('aria-pressed', String(x === b))); document.querySelectorAll('.yr-grid').forEach(g => g.hidden = g.dataset.y !== b.dataset.y); }));</script>
 <section aria-label="Лента постов">
