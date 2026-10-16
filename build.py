@@ -1085,13 +1085,8 @@ def skills_page() -> str:
 <article class="page"><div class="wrap">
 <a class="back" href="./">На главную</a>
 <h1>ИИ-скиллы</h1>
-<p class="intro">Скиллы — это пакеты инструкций для ИИ-агента (Claude Code и совместимых), которые учат его делать конкретную работу хорошо: презентацию, исследование, разбор рынка, код по тестам. Здесь три скилла, которые я написал сам, и рабочий набор из {total} скиллов, сгруппированных по задачам продакта.</p>
+<p class="intro">Скиллы — это пакеты инструкций для ИИ-агента (Claude Code и совместимых), которые учат его делать конкретную работу хорошо: презентацию, исследование, разбор рынка, код по тестам. Здесь мой рабочий набор — {total} скиллов, сгруппированных по задачам продакта.</p>
 <p class="intro">Основа набора — открытая коллекция <a href="{PIO}" target="_blank" rel="noopener">piofant/skills</a> Вовы Луценко, в которую входят и скиллы других авторов (superpowers, agent-teams, humanizer-ru, Deep-Research и frontend-design от Anthropic). Названия я дал свои, по смыслу задачи; ссылка «источник» ведёт к автору.</p>
-<section class="skill-group own-skills"><h2>⭐ Мои скиллы <span class="cnt">{len(OWN_SKILLS)}</span></h2>
-<p class="intro">Написал сам под свою работу продакта — и пользуюсь ими, когда собираю этот сайт и готовлюсь к собеседованиям.</p>
-<ul class="skills">{"".join(f'<li class="skill"><b>{esc(n)}</b><span>{esc(d)}</span><a href="{GITHUB}/astro090-pm.github.io/blob/main/skills/{slug}/SKILL.md" target="_blank" rel="noopener">SKILL.md на GitHub</a></li>' for slug, n, d in OWN_SKILLS)}</ul>
-</section>
-<h2 class="skills-sub">Набор, которым пользуюсь</h2>
 <pre class="install"><code>npx skills add piofant/skills</code></pre>
 {"".join(blocks)}
 <p class="related-row">Как я сам строю агентов — в разделе <a href="agents.html">«ИИ-агенты»</a>.</p>
