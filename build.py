@@ -490,10 +490,43 @@ def case_title(slug: str) -> str:
     return _titles[slug]
 
 
+CASE_LBL = {"tldr": "Коротко", "role": "Роль", "where": "Где", "when": "Когда", "task": "Задача", "result": "Главный результат"}
+
+
+def _inline_md(t: str) -> str:
+    return re.sub(r"^<p>|</p>$", "", markdown.markdown(t.strip()))
+
+
+def case_summary(text: str, about: str, result: str) -> tuple[str, str]:
+    """Выжимка в начале кейса: роль, где и когда, задача, главный результат и строки таблицы из .md.
+    Возвращает (HTML карточки, текст кейса без строки роли и таблицы)."""
+    m = re.match(r"\s*\*\*(.+?)\*\*\s*·\s*(.+?)\s*·\s*(.+?)\n((?:\s*\n)?(?:\|.*\n)+)", text)
+    if not m:
+        return "", text
+    role, where, when, table = m.groups()
+    rows = []
+    for line in table.strip().splitlines():
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) == 2 and cells[0].startswith("**"):
+            rows.append((cells[0].strip("*"), cells[1]))
+    res_row = next(((k, v) for k, v in rows if re.match(r"(Главный результат|Key result)", k)), None)
+    res_html = _inline_md(res_row[1]) if res_row else esc(result)
+    res_note = re.search(r"\(([^)]+)\)", res_row[0]).group(1) if res_row and "(" in res_row[0] else ""
+    facts = "".join(f'<div><dt>{esc(k)}</dt><dd>{_inline_md(v)}</dd></div>' for k, v in rows if (k, v) != res_row)
+    L = CASE_LBL
+    card = f"""<section class="tldr" aria-label="{L['tldr']}">
+<p class="tldr-res"><span class="tldr-lab">{L['result']}{('<span class="tldr-note"> · ' + esc(res_note) + '</span>') if res_note else ''}</span>{res_html}</p>
+<dl class="tldr-meta"><div><dt>{L['role']}</dt><dd>{esc(role)}</dd></div><div><dt>{L['where']}</dt><dd>{esc(where)}</dd></div><div><dt>{L['when']}</dt><dd>{esc(when)}</dd></div></dl>
+<dl class="tldr-facts">{facts}</dl>
+</section>"""
+    return card, text[m.end():]
+
+
 def case_page(i: int) -> str:
     slug, company, years, kind, about, _result = CASES[i]
     text = (ROOT / "content" / "cases" / f"{slug}.md").read_text(encoding="utf-8")
     text = re.sub(r"^#\s+.+\n", "", text, count=1)
+    summary, text = case_summary(text, about, _result)
     # GitHub допускает список сразу после строки текста, python-markdown — только после пустой строки.
     text = re.sub(r"(?m)^(?!- |\d+\. )(.+)\n(?=- |\d+\. )", r"\1\n\n", text)
     body_html = markdown.markdown(text, extensions=["tables", "sane_lists"])
@@ -502,6 +535,7 @@ def case_page(i: int) -> str:
 <article class="page"><div class="wrap">
 <a class="back" href="index.html">Все кейсы</a>
 <h1>{esc(case_title(slug))}</h1>
+{summary}
 <div class="prose">
 {body_html}
 <p class="next-case">Следующий кейс: <a href="{nxt[0]}.html">{esc(case_title(nxt[0]))}</a></p>
