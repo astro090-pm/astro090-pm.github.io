@@ -169,7 +169,8 @@ def feed(posts: list[dict], prefix: str) -> str:
     root = prefix[:-5] if prefix.endswith("blog/") else "../"
     out = []
     for p in posts:
-        thumb = f'<img class="feed-thumb" src="{root}{p["cover"]}" alt="" loading="lazy">' if p["cover"] else ""
+        pic = p["cover"] or p["thumb"]
+        thumb = f'<img class="feed-thumb" src="{root}{pic}" alt="" loading="lazy">' if pic else ""
         rating = f'<span class="feed-rating"><b>{esc(p["rating"])}</b>/10</span>' if p["rating"] else ""
         cat = ('<span class="feed-cat">' + esc(p['tags'][0]) + '</span>') if p['tags'] else ''
         out.append(f"""<li class="feed-item"><a class="feed-link" href="{prefix}{p['slug']}.html">
@@ -463,6 +464,7 @@ def load_posts() -> list[dict]:
             "stage": meta.get("stage", ""),
             "cover": meta.get("cover", "") if meta.get("cover") and (ROOT / meta["cover"]).exists() else "",
             "rating": meta.get("rating", ""),
+            "thumb": meta.get("thumb", "") if meta.get("thumb") and (ROOT / meta["thumb"]).exists() else "",
             "excerpt": text, "body": body,
         })
     return sorted(posts, key=lambda p: p["date"], reverse=True)
@@ -485,8 +487,8 @@ def book_head(p: dict) -> str:
 
 
 def post_thumb(p: dict) -> str:
-    if p["cover"]:
-        return "../" + p["cover"]
+    if p["cover"] or p["thumb"]:
+        return "../" + (p["cover"] or p["thumb"])
     m = re.search(r'<img src="\.\./([^"]+)"', p["body"])
     return "../" + m.group(1) if m else ""
 

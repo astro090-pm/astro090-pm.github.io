@@ -538,3 +538,9 @@ a.pg-btn:hover { border-color: var(--link); text-decoration: none; }
 .tag-years .tag-link { font-size: 18px !important; padding-bottom: 2px; }
 .tag-years li > span:last-child { display: flex; flex-wrap: wrap; gap: 8px 18px; }
 :root[data-theme="dark"] .tag-group.g0 h2 { color: #748FFC; } :root[data-theme="dark"] .tag-group.g2 h2 { color: #F06595; } :root[data-theme="dark"] .tag-group.g3 h2 { color: #9775FA; }
+
+/* Картинка поста в ленте — справа, как у референса */
+.feed-row { gap: 32px; }
+.feed-thumb { order: 2; width: 152px; height: 152px; object-fit: cover; object-position: center; border-radius: 2px; margin-top: 2px; box-shadow: none; }
+.feed-body { flex: 1; }
+@media (max-width: 760px) { .feed-thumb { width: 84px; height: 84px; } .feed-row { gap: 16px; } }

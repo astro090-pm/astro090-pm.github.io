@@ -1,6 +1,7 @@
 ---
 title: Начинаю рассказывать свой путь в ИИ-агентах
 date: 2026-10-16
+thumb: assets/posts/agents.jpg
 tags: ИИ-агенты, AI, продакт
 ---
 

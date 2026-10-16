@@ -1,6 +1,7 @@
 ---
 title: «Вдохновлённые» Марти Кагана: главное о продакт-менеджменте
 date: 2026-10-16
+thumb: assets/posts/kagan.png
 tags: книги, продакт
 cover: assets/books/inspired.jpg
 rating: 10
