@@ -11,7 +11,7 @@ def install(B):
 <h1>Résumé</h1>
 <p class="lead">Product manager. For six years I've been launching products from scratch and taking businesses from offline to online.</p>
 <p class="lead">I've worked in foodtech, telecom, fintech and charity — in B2C, B2B, B2E and B2G. Today I build AI products and research AI in company management.</p>
-<p class="cv-link"><a href="assets/Ponurov_Roman_CV.pdf">Download the CV, PDF (in Russian)</a></p>
+<p class="cv-link"><a href="assets/Ponurov_Roman_CV_EN.pdf">Download the CV, PDF</a></p>
 <div class="ledger" aria-label="Results">
 <div class="ledger-row"><span class="num">+103%</span><span class="ledger-what">revenue after relaunching online grocery delivery</span><span class="ledger-where"><a href="cases/asia-online.html">Asia Online, 2023–2024</a></span></div>
 <div class="ledger-row"><span class="num">10M</span><span class="ledger-what">users sign in to 9 MTS products with a single account</span><span class="ledger-where"><a href="cases/mts-id.html">MTS ID, 2021–2023</a></span></div>
@@ -202,7 +202,7 @@ def install(B):
 <p><b>Meetings.</b> A meeting needs a goal and an outcome: at the end we write down who does what and by when.</p>
 <p class="about-rule">If you're unsure whether to message me — message me.</p>
 </div>
-<p class="related-row">More about me: <a href="assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">CV (PDF, Russian)</a> · <a href="cases/index.html">case portfolio</a> · <a href="research.html">research</a> · <a href="agents.html">AI agents</a></p>
+<p class="related-row">More about me: <a href="assets/Ponurov_Roman_CV_EN.pdf" target="_blank" rel="noopener">CV (PDF)</a> · <a href="cases/index.html">case portfolio</a> · <a href="research.html">research</a> · <a href="agents.html">AI agents</a></p>
 </div></article>
 """
         return B.layout("About me — Roman Ponurov", "How to work with me: principles, feedback, communication and meetings.", body, "about.html")

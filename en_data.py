@@ -390,7 +390,7 @@ def layout(ctx):
 <header class="top"><div class="wrap">
 <a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Roman Ponurov</a>
 <nav class="nav" aria-label="Sections">
-<details class="menu"><summary>product</summary><div class="menu-list"><a href="{up}about.html">👋 about me</a><a href="{up}now.html">⏱ now</a><a href="{up}timeline.html">🗓 timeline</a><a href="{up}assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 CV (PDF, Russian)</a><a href="{up}cases/index.html">📁 case portfolio</a><a href="{up}decks.html">🎞 decks</a><a href="{up}tools.html">🧰 toolkit</a></div></details>
+<details class="menu"><summary>product</summary><div class="menu-list"><a href="{up}about.html">👋 about me</a><a href="{up}now.html">⏱ now</a><a href="{up}timeline.html">🗓 timeline</a><a href="{up}assets/Ponurov_Roman_CV_EN.pdf" target="_blank" rel="noopener">📄 CV (PDF)</a><a href="{up}cases/index.html">📁 case portfolio</a><a href="{up}decks.html">🎞 decks</a><a href="{up}tools.html">🧰 toolkit</a></div></details>
 <a href="{up}projects.html">projects</a>
 <details class="menu"><summary>knowledge</summary><div class="menu-list"><a href="{up}research.html">🔬 research</a><a href="{up}conferences.html">🎤 conferences</a><a href="{up}study.html">🎓 education</a>{PATCH["BOOKS_LINK"].format(up=up)}</div></details>
 <details class="menu"><summary>AI</summary><div class="menu-list"><a href="{up}agents.html">🤖 AI agents</a><a href="{up}skills.html">🧰 AI skills</a></div></details>
