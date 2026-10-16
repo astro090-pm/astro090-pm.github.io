@@ -107,7 +107,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <header class="top"><div class="wrap">
 <a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
-<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="{up}cases/index.html">📁 портфолио кейсов</a></div></details>
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}decks.html">🎞 презентации</a></div></details>
 <a href="{up}projects.html">проекты</a>
 <details class="menu"><summary>знания</summary><div class="menu-list"><a href="{up}research.html">🔬 исследования</a><a href="{up}study.html">🎓 образование</a>{BOOKS_LINK.format(up=up)}</div></details>
 <a href="{up}agents.html">ИИ-агенты</a>
@@ -542,7 +542,7 @@ def post_links(p: dict, posts: list[dict]) -> list[tuple[str, str, str]]:
     """Связи поста: куда он ссылается внутри сайта и какие посты ссылаются на него."""
     out = []
     names = {"agents.html": "ИИ-агенты", "projects.html": "Проекты", "study.html": "Образование", "research.html": "Исследования",
-             "cv.html": "Резюме", "about.html": "Обо мне", "books.html": "Книги", "cases/index.html": "Портфолио кейсов"}
+             "cv.html": "Резюме", "decks.html": "Презентации", "about.html": "Обо мне", "books.html": "Книги", "cases/index.html": "Портфолио кейсов"}
     for text, href in re.findall(r"\[([^\]]+)\]\((\.\./[^)]+|[a-z0-9-]+\.html)\)", p["body"]):
         target = href[3:] if href.startswith("../") else "blog/" + href
         label = names.get(target)
@@ -644,7 +644,7 @@ def cases_index_page() -> str:
 {more_btn}
 <div class="xlinks">
 <a class="xlink" href="../projects.html"><b>Проекты</b><span>что строил сам и зачем — свои продукты и AI-прототипы</span></a>
-<a class="xlink" href="../agents.html"><b>ИИ-агенты</b><span>путь от теории к практике, код и заметки</span></a>
+<a class="xlink" href="../decks.html"><b>Презентации</b><span>питчи bolz.dev и bolz.tech, лекция по ИТ-менеджменту</span></a>
 </div>
 </div></article>
 <script>
@@ -938,6 +938,40 @@ def build_search_index() -> None:
     (ROOT / "search.json").write_text(json.dumps(items, ensure_ascii=False), encoding="utf-8")
 
 
+DECKS = [
+    ("bolz-dev-pitch.pdf", "dev-cover.jpg", "bolz.dev — MCP-коннектор для ИИ-агентов", "питч · 2025 · EN · 11 слайдов",
+     "Проблема с трёх сторон — сервисы, агенты, пользователи, — решение на MCP, сценарии маркетплейса и такси, конкуренты, go-to-market и роадмап.",
+     "cases/bolz-dev.html"),
+    ("bolz-tech-pitch.pdf", "tech-cover.jpg", "bolz.tech — экосистема шеринг-сервисов", "питч · 2025 · RU · 12 слайдов",
+     "B2B2C-модель через WebView, путь пользователя, опрос 200 респондентов, архитектура, объём рынка, бизнес-модель, конкуренты и юнит-экономика.",
+     "cases/bolz-tech.html"),
+    ("it-management-lecture-1.pdf", "lec-cover.jpg", "ИТ-менеджмент. Лекция 1", "учёба · октябрь 2026 · RU · 61 слайд",
+     "Введение в ИТ-менеджмент: роли в команде, жизненный цикл продукта, Waterfall и Agile, метрики DORA, продакт и проджект, путь к AI-продакту и кейс для команд.",
+     "blog/lekcii-it-menedzhment.html"),
+]
+
+
+def decks_page() -> str:
+    cards = "\n".join(f"""<li class="card deck-card">
+<a class="deck-cover" href="assets/decks/{f}" target="_blank" rel="noopener"><img src="assets/decks/{c}" alt="Первый слайд: {esc(t)}" loading="lazy"></a>
+<p class="card-meta">{esc(meta)}</p>
+<h2 class="card-title"><a href="assets/decks/{f}" target="_blank" rel="noopener">{esc(t)}</a></h2>
+<p class="card-about">{esc(about)}</p>
+<p class="card-about"><a href="assets/decks/{f}" target="_blank" rel="noopener">Открыть PDF</a> · <a href="{rel}">{"кейс" if rel.startswith("cases") else "пост"}</a></p>
+</li>""" for f, c, t, meta, about, rel in DECKS)
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="./">На главную</a>
+<h1>Презентации</h1>
+<p class="intro">Питчи собственных продуктов и учебные материалы. Каждая открывается целиком в PDF.</p>
+<ul class="cards">
+{cards}
+</ul>
+</div></article>
+"""
+    return layout("Презентации — Роман Понуров", "Питчи bolz.dev и bolz.tech и лекция по ИТ-менеджменту — в PDF.", body, "decks.html")
+
+
 def main() -> None:
     posts = load_posts()
     pages = max(1, -(-len(posts) // PER_PAGE))
@@ -948,6 +982,7 @@ def main() -> None:
     (ROOT / "research.html").write_text(research_page(posts), encoding="utf-8")
     (ROOT / "study.html").write_text(study_page(), encoding="utf-8")
     (ROOT / "about.html").write_text(about_page(), encoding="utf-8")
+    (ROOT / "decks.html").write_text(decks_page(), encoding="utf-8")
     (ROOT / "agents.html").write_text(agents_page(posts), encoding="utf-8")
     books = load_books()
     if books:
