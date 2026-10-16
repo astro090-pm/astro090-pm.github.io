@@ -578,3 +578,4 @@ a.feed-link:hover, a.feed-link:hover * { text-decoration: none; }
 .page h2.edu-head:first-of-type { margin-top: 40px; }
 .res-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 600px; }
 @media (max-width: 760px) { .res-stats { grid-template-columns: 1fr; } }
+.cards.own .card-title, .cards.own .card-title a { font: 500 21px/1.3 var(--sans); }

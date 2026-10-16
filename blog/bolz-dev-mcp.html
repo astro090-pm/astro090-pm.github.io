@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>bolz.dev — MCP-коннектор, через который ИИ-агенты совершают реальные действия — Роман Понуров</title>
+<meta name="description" content="В августе 2025 года мы собрали MVP bolz.dev — платформы на Model Context Protocol, через которую ИИ-агенты не просто советуют, а доводят дело до конца: находят,">
+<link rel="canonical" href="https://astro090-pm.github.io/blog/bolz-dev-mcp.html">
+<meta property="og:title" content="bolz.dev — MCP-коннектор, через который ИИ-агенты совершают реальные действия — Роман Понуров">
+<meta property="og:description" content="В августе 2025 года мы собрали MVP bolz.dev — платформы на Model Context Protocol, через которую ИИ-агенты не просто советуют, а доводят дело до конца: находят,">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://astro090-pm.github.io/blog/bolz-dev-mcp.html">
+<meta property="og:site_name" content="Роман Понуров">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:image" content="https://astro090-pm.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Роман Понуров — менеджер продукта: +103% выручки e-com, 10 млн пользователей MTS ID, 4 продукта с нуля">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://astro090-pm.github.io/assets/og.png">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../assets/style.css?v=b660f3ac">
+<script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<script src="../assets/site.js?v=f4e4570a" defer data-root="../"></script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="../"><img class="avatar avatar-sm" src="../assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
+<nav class="nav" aria-label="Разделы">
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="../about.html">👋 обо мне</a><a href="../assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="../cases/">📁 портфолио кейсов</a></div></details>
+<a href="../projects.html">проекты</a>
+<details class="menu"><summary>знания</summary><div class="menu-list"><a href="../research.html">🔬 исследования</a><a href="../study.html">🎓 образование</a><a href="../books.html">📚 книги</a></div></details>
+<a href="../agents.html">ИИ-агенты</a>
+<a href="../blog/">посты</a>
+<a href="../tags/">теги</a>
+</nav>
+<span class="tools">
+<button type="button" class="icon-btn" id="search-open" aria-label="Поиск по сайту" title="Поиск (/)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+<button type="button" class="icon-btn" id="theme-toggle" aria-label="Переключить тёмную тему" title="Тёмная тема"><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</span>
+<script>
+document.addEventListener('click', e => document.querySelectorAll('details.menu[open]').forEach(d => { if (!d.contains(e.target)) d.open = false; }));
+document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => { if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => { if (o !== d) o.open = false; }); }));
+</script>
+</div></header>
+<main>
+
+<article class="page"><div class="wrap">
+<a class="back" href="./">Все посты</a>
+<h1>bolz.dev — MCP-коннектор, через который ИИ-агенты совершают реальные действия</h1>
+<p class="post-meta"><time datetime="2025-08-31">31 августа 2025</time><a class="tag" href="../tags/ii-agenty.html">ИИ-агенты</a><a class="tag" href="../tags/ai.html">AI</a><a class="tag" href="../tags/prodakt.html">продакт</a></p>
+<div class="prose">
+<p>В августе 2025 года мы собрали MVP bolz.dev — платформы на Model Context Protocol, через которую ИИ-агенты не просто советуют, а доводят дело до конца: находят, бронируют и оплачивают реальные сервисы.</p>
+<h2>Проблема</h2>
+<p>Агенты отлично ищут, но почти всегда в конце отправляют пользователя по ссылке на сайт — «дальше сами». Лучшие модели справляются с реальными задачами меньше чем в половине случаев (бенчмарк MCP-Universe). Купить авиабилет через ИИ-агента сегодня дольше, чем самому: агент повторяет действия человека — поиск, ссылки, формы.</p>
+<p>С другой стороны — сервисы: большинство компаний рискуют вообще не попасть в ответы агентов и потерять клиентов.</p>
+<h2>Решение</h2>
+<p>Bolz Connector стоит между агентами и сервисами:</p>
+<ul>
+<li>сервис подключается один раз — через плагин, веб-интерфейс или REST API;</li>
+<li>агент получает нормализованные данные, живые цены и функции «найти / забронировать / подтвердить / вернуть / оплатить»;</li>
+<li>пользователь проходит путь «запрос → оплата → готово» в одном диалоге.</li>
+</ul>
+<p>Мы проработали два сценария: маркетплейс («найди подарок на новоселье до $100») и такси («вызови комфорт и объедь пробки»).</p>
+<h2>Как мерить качество</h2>
+<p>Главный урок: для такого агента недостаточно оценивать ответ модели. Успех — это совершённое действие: оплаченный заказ, вызванная машина, купленный билет. Поэтому мы закладывали execution-based эвалы — проверку по результату, а не по тексту.</p>
+<h2>Почему это важно для меня</h2>
+<p>bolz.dev — продолжение bolz.tech, экосистемы шеринг-сервисов: мы увидели, что пользователь всё чаще приходит через ИИ-ассистента, а не через приложение. А для меня это ещё и самый прямой опыт в агентном слое: MCP, инструменты агента, эвалы и метрики агентного сценария. Этот же подход я потом повторил в <a href="../projects.html">Планировщике выходных</a>.</p>
+<p>Подробнее — в кейсе <a href="../cases/bolz-dev.html">bolz.dev</a> и в разделе <a href="../agents.html">«ИИ-агенты»</a>.</p>
+</div>
+<section class="related-posts"><h2>Похожие посты</h2><div class="rel-grid"><a class="rel-card" href="put-v-ii-agenty.html"><img src="../assets/posts/agents.jpg" alt="" loading="lazy"><span class="rel-body">
+<span class="rel-title">Начинаю рассказывать свой путь в ИИ-агентах</span>
+<span class="rel-meta"><time datetime="2026-10-16">16 окт. 2026 г.</time><span class="tag">ИИ-агенты</span><span class="tag">AI</span></span></span></a><a class="rel-card" href="lekcii-it-menedzhment.html"><img src="../assets/posts/lekcii.jpg" alt="" loading="lazy"><span class="rel-body">
+<span class="rel-title">Читаю курс по ИТ-менеджменту в университете</span>
+<span class="rel-meta"><time datetime="2026-10-16">16 окт. 2026 г.</time><span class="tag">преподавание</span><span class="tag">менеджмент</span></span></span></a><a class="rel-card" href="vdohnovlennye-kagan.html"><img src="../assets/posts/kagan.png" alt="" loading="lazy"><span class="rel-body">
+<span class="rel-title">«Вдохновлённые» Марти Кагана: главное о продакт-менеджменте</span>
+<span class="rel-meta"><time datetime="2026-10-16">16 окт. 2026 г.</time><span class="tag">книги</span><span class="tag">продакт</span></span></span></a><a class="rel-card" href="bolz-akselerator.html"><img src="../assets/posts/bolz.png" alt="" loading="lazy"><span class="rel-body">
+<span class="rel-title">Прошёл акселератор «Академия инноваторов» с проектом bolz.tech</span>
+<span class="rel-meta"><time datetime="2025-09-30">30 сент. 2025 г.</time><span class="tag">продакт</span><span class="tag">шеринг</span></span></span></a></div></section>
+<div class="post-actions"><details class="pill-btn conn"><summary><span class="tri">▸</span> показать связи поста <span class="cnt">4</span></summary><ul class="conn-list"><li><span class="dir">→</span><a href="../projects.html">Проекты</a></li><li><span class="dir">→</span><a href="../cases/bolz-dev.html">bolz.dev: MCP-коннектор, через который ИИ-агенты совершают реальные действия</a></li><li><span class="dir">→</span><a href="../agents.html">ИИ-агенты</a></li><li><span class="dir">←</span><a href="bolz-akselerator.html">Прошёл акселератор «Академия инноваторов» с проектом bolz.tech</a></li></ul><p class="conn-hint">→ куда ссылается пост · ← кто ссылается на него</p></details></div>
+</div></article>
+
+</main>
+<footer><div class="wrap foot">
+© 2026 Роман Понуров · <a href="mailto:ponurov.roman@yandex.ru">email</a> · <a href="https://t.me/astro090">telegram</a> · все права защищены
+</div></footer>
+</body>
+</html>
