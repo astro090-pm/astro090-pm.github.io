@@ -394,7 +394,21 @@ def tags_pages(posts: list[dict]) -> dict[str, str]:
     if rest:
         groups.append(f'<section class="tag-group gx"><h2>без категории</h2><p>{"".join(link(t) for t in rest)}</p></section>')
     # как развивались темы: по годам — какие метки появлялись в постах и кейсах
+    import json
     years = sorted({it["year"] for it in items})
+    palette = ["#7C9BEA", "#E8956A", "#E59BB8", "#A98BEA", "#9BB8A4"]
+    evo_groups = []
+    used2 = set()
+    for i, (name, tags) in enumerate(TAG_GROUPS):
+        present = [t for t in tags if t in counts]
+        used2.update(present)
+        if present:
+            evo_groups.append({"name": {"преподавание и наука": "наука", "бизнес-модели": "модели"}.get(name, name), "color": palette[i % len(palette)], "tags": present})
+    rest2 = [t for t in counts if t not in used2]
+    if rest2:
+        evo_groups.append({"name": "без категории", "color": palette[4], "tags": rest2})
+    evo_data = {"groups": evo_groups, "items": [{"y": it["year"], "t": it["tags"]} for it in items],
+                "links": {t: f"{tag_slug(t)}.html" for t in counts}}
     rows = []
     for y in years:
         yc: dict[str, int] = {}
@@ -409,9 +423,16 @@ def tags_pages(posts: list[dict]) -> dict[str, str]:
 <a class="back" href="../index.html">На главную</a>
 <h1>Теги</h1>
 {"".join(groups)}
-<section class="tag-group"><h2>как развивались темы</h2>
-<ol class="tag-years">{"".join(rows)}</ol>
-</section>
+<details class="evo" open><summary>📊 как развивались темы <span class="evo-arrow">↑</span></summary>
+<div class="evo-box">
+<svg id="sun" viewBox="-330 -300 660 600" role="img" aria-label="Темы постов и кейсов по годам"></svg>
+<div class="evo-ctrl"><button type="button" id="evo-play" aria-label="Проиграть по годам">▶</button>
+<div class="evo-track"><input type="range" id="evo-year" min="{years[0]}" max="{years[-1]}" value="{years[-1]}" step="1" aria-label="Год"><div class="evo-ticks">{"".join(f"<span>{y}</span>" for y in range(years[0], years[-1] + 1))}</div></div></div>
+<p class="evo-sum" id="evo-sum"></p>
+</div>
+</details>
+<script>window.EVO = {json.dumps(evo_data, ensure_ascii=False)};</script>
+<script src="../assets/sunburst.js?v={CSS_V}"></script>
 </div></article>
 """
     pages["index.html"] = layout("Теги — Роман Понуров", "Все темы: посты и кейсы по меткам.", body, "tags/", depth=1)
