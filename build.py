@@ -110,7 +110,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}decks.html">🎞 презентации</a></div></details>
 <a href="{up}projects.html">проекты</a>
 <details class="menu"><summary>знания</summary><div class="menu-list"><a href="{up}research.html">🔬 исследования</a><a href="{up}conferences.html">🎤 конференции</a><a href="{up}study.html">🎓 образование</a>{BOOKS_LINK.format(up=up)}</div></details>
-<a href="{up}agents.html">ИИ-агенты</a>
+<details class="menu"><summary>ИИ</summary><div class="menu-list"><a href="{up}agents.html">🤖 ИИ-агенты</a><a href="{up}skills.html">🧰 ИИ-скиллы</a></div></details>
 <a href="{up}blog/index.html">посты</a>
 <a href="{up}tags/index.html">теги</a>
 </nav>
@@ -544,7 +544,7 @@ def post_links(p: dict, posts: list[dict]) -> list[tuple[str, str, str]]:
     """Связи поста: куда он ссылается внутри сайта и какие посты ссылаются на него."""
     out = []
     names = {"agents.html": "ИИ-агенты", "projects.html": "Проекты", "study.html": "Образование", "research.html": "Исследования",
-             "cv.html": "Резюме", "conferences.html": "Конференции", "decks.html": "Презентации", "about.html": "Обо мне", "books.html": "Книги", "cases/index.html": "Портфолио кейсов"}
+             "cv.html": "Резюме", "skills.html": "ИИ-скиллы", "conferences.html": "Конференции", "decks.html": "Презентации", "about.html": "Обо мне", "books.html": "Книги", "cases/index.html": "Портфолио кейсов"}
     for text, href in re.findall(r"\[([^\]]+)\]\((\.\./[^)]+|[a-z0-9-]+\.html)\)", p["body"]):
         target = href[3:] if href.startswith("../") else "blog/" + href
         label = names.get(target)
@@ -1023,6 +1023,71 @@ def conferences_page() -> str:
     return layout("Конференции — Роман Понуров", "Доклады Романа Понурова на международных научно-практических конференциях об ИИ в управлении компанией.", body, "conferences.html")
 
 
+PIO = "https://github.com/piofant/skills"
+SKILL_GROUPS = [
+    ("Презентации и документы", "📊", [
+        ("Тёмная презентация", "Минималистичные слайды на тёмном фоне, где каждый заголовок — вывод, а не тема.", PIO),
+        ("Инвестиционный питч", "Презентация для инвесторов: проблема, решение, рынок, трекшн, команда.", PIO),
+        ("Консалтинговый отчёт", "Слайды, отчёты и PDF в консалтинговом стиле из обычного Markdown.", PIO),
+        ("Продуктовый кейс", "Разбор кейса от постановки проблемы до готовой презентации.", PIO),
+        ("Академическая работа", "Защиты, научные доклады и отчёты по ГОСТу.", PIO),
+    ]),
+    ("Исследования и аналитика", "🔎", [
+        ("Глубокое исследование", "Исследование от чистого листа до сводного отчёта с источниками.", PIO),
+        ("Анализ рынка", "Рынок по фреймворкам SCPR и MECE, оценка TAM/SAM/SOM, приоритизация RICE.", PIO),
+        ("Блокнот NotebookLM", "Работа с источниками в NotebookLM: конспекты, подкасты, выжимки.", PIO),
+        ("Разбор материала", "Раскладывает доклад или статью по слоям: факты, смыслы, выводы, что делать.", PIO),
+    ]),
+    ("Тексты", "✍️", [
+        ("Редактор живого текста", "Убирает канцелярит и «машинность» из русского текста.", PIO),
+        ("Текст чужим голосом", "Пишет в стиле конкретного автора по образцам его текстов.", PIO),
+        ("Академические тексты", "Тексты для комиссий: от мотивационного письма до защиты диссертации.", PIO),
+    ]),
+    ("Личный контекст", "🗂", [
+        ("Контекст из Telegram", "Подтягивает нужную переписку из Telegram-чатов в работу.", PIO),
+        ("Календарь", "Знает расписание недели: встречи, время, места.", PIO),
+        ("Поиск по Google Диску", "Находит нужный файл на Диске и приносит его в работу.", PIO),
+        ("Семантический поиск по блогу", "Помнит все посты и находит их по смыслу, а не по словам.", PIO),
+        ("Расшифровка аудио", "Локально расшифровывает голосовые и записи встреч.", PIO),
+    ]),
+    ("Агенты и управление задачами", "🤖", [
+        ("Поиск и установка скиллов", "Находит подходящий скилл и сразу подключает его.", PIO),
+        ("Цикл до результата", "Повторяет задачу в цикле, пока она не будет доведена до конца.", PIO),
+        ("Команда агентов", "Собирает команду агентов с ревьюерами под одну фичу.", PIO),
+        ("Структурное размышление", "Долго и последовательно продумывает вопрос, когда ответ неочевиден.", PIO),
+        ("Дебаты экспертов", "Сталкивает позиции нескольких экспертов, пока они не придут к общему выводу.", PIO),
+    ]),
+    ("Разработка", "🛠", [
+        ("Проработка требований", "Не даёт начать код, пока не ясно, что и зачем строим.", "https://github.com/obra/superpowers"),
+        ("План и исполнение", "Пошаговый план, раздача задач агентам и выполнение.", "https://github.com/obra/superpowers"),
+        ("Разработка через тесты", "Сначала тест, потом код; при ошибке ищет причину, а не симптом.", "https://github.com/obra/superpowers"),
+        ("Код-ревью", "Отправляет код на ревью, разбирает замечания и доводит ветку до слияния.", "https://github.com/obra/superpowers"),
+        ("Дизайн интерфейсов", "Интерфейсы с осмысленным визуальным решением вместо шаблона.", "https://github.com/anthropics/skills"),
+        ("Создание скиллов", "Помогает написать новый скилл и разобраться в существующих.", "https://github.com/obra/superpowers"),
+    ]),
+]
+
+
+def skills_page() -> str:
+    total = sum(len(g[2]) for g in SKILL_GROUPS)
+    blocks = []
+    for title, icon, items in SKILL_GROUPS:
+        cards = "".join(f'<li class="skill"><b>{esc(n)}</b><span>{esc(d)}</span><a href="{u}" target="_blank" rel="noopener">источник</a></li>' for n, d, u in items)
+        blocks.append(f'<section class="skill-group"><h2>{icon} {esc(title)} <span class="cnt">{len(items)}</span></h2><ul class="skills">{cards}</ul></section>')
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="./">На главную</a>
+<h1>ИИ-скиллы</h1>
+<p class="intro">Скиллы — это пакеты инструкций для ИИ-агента (Claude Code и совместимых), которые учат его делать конкретную работу хорошо: презентацию, исследование, разбор рынка, код по тестам. Здесь мой рабочий набор — {total} скиллов, сгруппированных по задачам продакта.</p>
+<p class="intro">Основа набора — открытая коллекция <a href="{PIO}" target="_blank" rel="noopener">piofant/skills</a> Вовы Луценко, в которую входят и скиллы других авторов (superpowers, agent-teams, humanizer-ru, Deep-Research и frontend-design от Anthropic). Названия я дал свои, по смыслу задачи; ссылка «источник» ведёт к автору.</p>
+<pre class="install"><code>npx skills add piofant/skills</code></pre>
+{"".join(blocks)}
+<p class="related-row">Как я сам строю агентов — в разделе <a href="agents.html">«ИИ-агенты»</a>.</p>
+</div></article>
+"""
+    return layout("ИИ-скиллы — Роман Понуров", f"Рабочий набор из {total} ИИ-скиллов продакта: презентации, исследования, тексты, агенты, разработка.", body, "skills.html")
+
+
 def main() -> None:
     posts = load_posts()
     pages = max(1, -(-len(posts) // PER_PAGE))
@@ -1033,6 +1098,7 @@ def main() -> None:
     (ROOT / "research.html").write_text(research_page(posts), encoding="utf-8")
     (ROOT / "study.html").write_text(study_page(), encoding="utf-8")
     (ROOT / "about.html").write_text(about_page(), encoding="utf-8")
+    (ROOT / "skills.html").write_text(skills_page(), encoding="utf-8")
     (ROOT / "conferences.html").write_text(conferences_page(), encoding="utf-8")
     (ROOT / "decks.html").write_text(decks_page(), encoding="utf-8")
     (ROOT / "agents.html").write_text(agents_page(posts), encoding="utf-8")
