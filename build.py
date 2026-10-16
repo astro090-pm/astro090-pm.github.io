@@ -212,7 +212,8 @@ def index_page(posts: list[dict], page: int = 1) -> str:
 <img class="avatar avatar-lg" src="assets/avatar.jpg" width="160" height="160" alt="Роман Понуров">
 <div>
 <h1>Роман Понуров</h1>
-<p class="roles"><a href="cv.html">менеджер продукта</a>, <a href="tags/{tag_slug('преподавание')}.html">начинающий преподаватель</a>, <a href="research.html">исследую ИИ в управлении компанией</a></p>
+<p class="tagline">Продакт, который сам собирает ИИ-продукты и изучает, как ИИ меняет управление.</p>
+<p class="roles"><a href="cv.html">менеджер продукта</a> · <a href="tags/{tag_slug('преподавание')}.html">начинающий преподаватель</a> · <a href="research.html">исследую ИИ в управлении компанией</a></p>
 </div>
 </section>"""
     items = all_items(posts)
@@ -241,7 +242,7 @@ document.getElementById('random')?.addEventListener('click', () => {{
 </script>
 """
     return layout("Роман Понуров — менеджер продукта",
-                  "Роман Понуров: менеджер продукта, преподаватель, исследователь ИИ в управлении. Посты, кейсы, проекты.",
+                  "Роман Понуров — продакт, который сам собирает ИИ-продукты и изучает, как ИИ меняет управление. Посты, кейсы, проекты.",
                   body, "" if page == 1 else f"page{page}.html")
 
 

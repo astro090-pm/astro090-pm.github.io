@@ -754,3 +754,7 @@ html { scroll-behavior: smooth; }
 .cs-p:focus { outline: none; } .cs-p:focus-visible text { text-decoration: underline; }
 .icon-btn.lang { font: 600 13px var(--sans); text-decoration: none; color: var(--ink); } .icon-btn.lang:hover { color: var(--link); }
 .page h2.own-ai { margin-top: 56px; }
+
+/* Главная: одна фраза о себе под именем, роли — ниже мелко */
+.hero-home .tagline { font: 500 clamp(21px, 2.6vw, 28px)/1.3 var(--display); letter-spacing: -0.01em; color: var(--ink); max-width: 30ch; margin: 0 0 14px; }
+.hero-home .roles { font-size: 17px; margin: 0; }

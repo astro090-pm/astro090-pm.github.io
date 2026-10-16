@@ -64,7 +64,6 @@
 "← свежее": "← newer",
 "старее →": "older →",
 "Все посты →": "All posts →",
-"Роман Понуров: менеджер продукта, преподаватель, исследователь ИИ в управлении. Посты, кейсы, проекты.": "Roman Ponurov: product manager, lecturer, researcher of AI in management. Posts, cases, projects.",
 "Лента постов": "Post feed",
 "Страницы ленты": "Feed pages",
 "Подробнее о кейсе": "Read the case",
@@ -120,5 +119,7 @@
 "href=\"tags/.html\"",
 "href=\"tags/teaching.html\""
 ]
-]
+],
+"Продакт, который сам собирает ИИ-продукты и изучает, как ИИ меняет управление.": "A product manager who builds AI products hands-on and studies how AI changes management.",
+"Роман Понуров — продакт, который сам собирает ИИ-продукты и изучает, как ИИ меняет управление. Посты, кейсы, проекты.": "Roman Ponurov — a product manager who builds AI products hands-on and studies how AI changes management. Posts, cases, projects."
 }
