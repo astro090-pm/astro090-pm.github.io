@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>bolz.dev: an MCP connector that lets AI agents take real-world actions — Roman Ponurov</title>
+<meta name="description" content="bolz.dev: an MCP connector that lets AI agents take real-world actions">
+<link rel="canonical" href="https://astro090-pm.github.io/en/cases/bolz-dev.html">
+<link rel="alternate" hreflang="ru" href="https://astro090-pm.github.io/cases/bolz-dev.html">
+<link rel="alternate" hreflang="en" href="https://astro090-pm.github.io/en/cases/bolz-dev.html">
+<meta property="og:title" content="bolz.dev: an MCP connector that lets AI agents take real-world actions — Roman Ponurov">
+<meta property="og:description" content="bolz.dev: an MCP connector that lets AI agents take real-world actions">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://astro090-pm.github.io/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="../../assets/style.css?v=09de2b55">
+<script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<script src="../../assets/site.js?v=073f80e6" defer data-root="../../"></script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="../../en/"><img class="avatar avatar-sm" src="../../assets/avatar-sm.jpg" width="34" height="34" alt="">Roman Ponurov</a>
+<nav class="nav" aria-label="Sections">
+<a href="../../en/">about</a>
+<a href="../../en/cases/">case studies</a>
+<a href="../../en/projects.html">projects</a>
+<a href="../../en/research.html">research</a>
+<a href="../../assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">CV (RU)</a>
+</nav>
+<span class="tools">
+<a class="icon-btn lang" href="../../cases/bolz-dev.html" title="Русская версия" hreflang="ru">RU</a>
+<button type="button" class="icon-btn" id="theme-toggle" aria-label="Toggle dark theme"><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</span>
+</div></header>
+<main>
+
+<article class="page"><div class="wrap">
+<a class="back" href="./">All case studies</a>
+<h1>bolz.dev: an MCP connector that lets AI agents take real-world actions</h1>
+<div class="prose">
+<p><strong>Co-founder &amp; CPO</strong> · bolz.dev · 2025 (startup)</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Product</strong></td>
+<td>a Model Context Protocol (MCP) platform: services connect once, and AI agents find, book and pay for them on the user's behalf</td>
+</tr>
+<tr>
+<td><strong>Stage</strong></td>
+<td>MVP built in August 2025</td>
+</tr>
+<tr>
+<td><strong>Models</strong></td>
+<td>B2B (services and e-commerce) and B2C (AI assistant users)</td>
+</tr>
+<tr>
+<td><strong>Predecessor</strong></td>
+<td><a href="bolz-tech.html">bolz.tech</a> — sharing ecosystem</td>
+</tr>
+</tbody>
+</table>
+<h2>Problem</h2>
+<p>AI agents can search and recommend, but rarely finish the job:</p>
+<ul>
+<li><strong>Agents:</strong> almost always send the user to a website link to complete the action; the best models succeed at real-world tasks less than half the time (MCP-Universe benchmark).</li>
+<li><strong>Services:</strong> most companies risk not appearing in agent answers at all.</li>
+<li><strong>Users:</strong> buying a flight via an AI agent today takes longer than doing it yourself — the agent imitates a human: search, links, forms.</li>
+</ul>
+<h2>Solution</h2>
+<p>Bolz Connector sits between agents and services:</p>
+<ul>
+<li>services connect once via plugins, a web interface or REST API;</li>
+<li>agents get normalised JSON, live prices and functions "search / reserve / confirm / refund / pay";</li>
+<li>users go from request to payment in a single conversation.</li>
+</ul>
+<p>We designed two scenarios — a marketplace ("find a housewarming gift under $100") and taxi ("call a Comfort car, avoid traffic"). Quality is measured with execution-based evals: success is a completed action, not a model's answer.</p>
+<h2>What I did as CPO</h2>
+<ul>
+<li>Framed the problem from three sides — services, agents, users — and the value proposition for each.</li>
+<li>Designed user flows from chat request to confirmed payment.</li>
+<li>Described the architecture: agent → MCP server with service connectors → action → result check.</li>
+<li>Analysed competitors: direct (Notte, Firecrawl) and indirect (Google's own AI services, Grab, Loman.ai).</li>
+<li>Built the go-to-market: connector in Claude and ChatGPT, API integrations, sandbox and tutorials for developers.</li>
+</ul>
+<h2>What this case shows</h2>
+<p>A product at the core of the agent layer: MCP, agent tools, outcome-based evaluation and product metrics for agentic scenarios.</p>
+<p class="next-case">Next case: <a href="bolz-tech.html">bolz.tech: all sharing services in one window</a></p>
+</div>
+</div></article>
+
+</main>
+<footer><div class="wrap foot">
+© 2026 Roman Ponurov · <a href="mailto:ponurov.roman@yandex.ru">email</a> · <a href="https://t.me/astro090">telegram</a> · <a href="https://www.linkedin.com/in/roman-ponurov-bb3b81a6/">linkedin</a> · all rights reserved
+</div></footer>
+</body>
+</html>

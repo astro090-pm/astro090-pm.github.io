@@ -752,3 +752,5 @@ html { scroll-behavior: smooth; }
 #const.focus .cs-s, #const.focus .cs-p { opacity: .35; } #const.focus .cs-s.on, #const.focus .cs-p.on { opacity: 1; }
 #const.focus .cs-s.on circle { fill: var(--link); }
 .cs-p:focus { outline: none; } .cs-p:focus-visible text { text-decoration: underline; }
+.icon-btn.lang { font: 600 13px var(--sans); text-decoration: none; color: var(--ink); } .icon-btn.lang:hover { color: var(--link); }
+.page h2.own-ai { margin-top: 56px; }

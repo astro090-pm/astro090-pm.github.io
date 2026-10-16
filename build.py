@@ -117,6 +117,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <a href="{up}tags/index.html">теги</a>
 </nav>
 <span class="tools">
+<a class="icon-btn lang" href="{up}en/" title="English version" hreflang="en">EN</a>
 <button type="button" class="icon-btn" id="search-open" aria-label="Поиск по сайту" title="Поиск (/)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
 <button type="button" class="icon-btn" id="theme-toggle" aria-label="Переключить тёмную тему" title="Тёмная тема"><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
 </span>
@@ -990,7 +991,7 @@ def build_search_index() -> None:
     items = []
     for f in sorted(ROOT.rglob("*.html")):
         rel = f.relative_to(ROOT).as_posix()
-        if rel.startswith(("tags/", "content/", "tools/")) or re.match(r"page\d+\.html$", rel) or rel in ("blog/index.html", "index.html", "cases/bolz.html"):
+        if rel.startswith(("tags/", "content/", "tools/", "en/")) or re.match(r"page\d+\.html$", rel) or rel in ("blog/index.html", "index.html", "cases/bolz.html"):
             continue
         html_ = f.read_text(encoding="utf-8")
         title = html.unescape(re.search(r"<title>(.*?)</title>", html_).group(1)).replace(" — Роман Понуров", "").replace(" — кейс Романа Понурова", "")
@@ -1551,6 +1552,8 @@ def main() -> None:
     (ROOT / "cases" / "bolz.html").write_text('<!doctype html><meta charset="utf-8"><title>bolz.tech</title><meta http-equiv="refresh" content="0; url=bolz-tech.html"><link rel="canonical" href="bolz-tech.html"><a href="bolz-tech.html">bolz.tech</a>', encoding="utf-8")
     for i, case in enumerate(CASES):
         (ROOT / "cases" / f"{case[0]}.html").write_text(case_page(i), encoding="utf-8")
+    import en
+    en.build({"SITE_URL": SITE_URL, "FONTS": FONTS, "CSS_V": CSS_V, "JS_V": JS_V})
     clean_index_links()
     build_search_index()
     print(f"Готово: главная, {len(posts)} пост(ов), {len(CASES)} кейсов, резюме, проекты, исследования, теги")
