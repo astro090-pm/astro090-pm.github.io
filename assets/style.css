@@ -894,3 +894,5 @@ html { scroll-behavior: smooth; }
 .cl-seg[style*="left:8"]::after, .cl-seg[style*="left:9"]::after { left: auto; right: 0; }
 .orb-ring li { width: 0; height: 0; } .orb-ring a { width: max-content; }
 .hero-home .orb { margin-right: 36px; } @media (max-width: 760px) { .hero-home .orb { margin-right: 0; } }
+@media (max-width: 760px) { .hero-home .orb { margin: 0 auto; } }
+@media (max-width: 760px) { .hero-home { overflow-x: clip; } }
