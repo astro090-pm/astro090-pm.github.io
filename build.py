@@ -1664,7 +1664,7 @@ def orbit_avatar(src: str = "assets/avatar.jpg") -> str:
   const on = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', String(on));
   img.src = on ? b.dataset.then : b.dataset.now; cap.hidden = !on; }));</script>""") if then else ""
     return f"""<div class="orb">
-<svg class="orb-paths" viewBox="-150 -150 300 300" aria-hidden="true"><ellipse class="op1" rx="140" ry="58" transform="rotate(-16)"/><ellipse class="op2" rx="128" ry="40" transform="rotate(28)"/><circle class="op-dot" r="3.5"><animateMotion dur="9s" repeatCount="indefinite" path="M128,0 A128,40 0 1,1 -128,0 A128,40 0 1,1 128,0" rotate="0"/></circle></svg>
+<svg class="orb-paths" viewBox="-150 -150 300 300" aria-hidden="true"><ellipse class="op1" rx="140" ry="58" transform="rotate(-16)"/></svg>
 <span class="orb-glow" aria-hidden="true"></span>
 <img class="orb-photo" src="{src}" width="160" height="160" alt="Роман Понуров">
 <ul class="orb-ring" aria-label="{esc(CAREER_LBL["sections"])}">{tags}</ul>

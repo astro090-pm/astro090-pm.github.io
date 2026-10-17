@@ -920,3 +920,4 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { .op-dot { display: none; } }
 @media (max-width: 760px) { .orb-glow { width: 150px; height: 150px; } }
 @media (max-width: 420px) { .orb-glow { width: 136px; height: 136px; } }
+.orb-glow { opacity: .22; filter: blur(18px); }
