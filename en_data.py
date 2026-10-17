@@ -98,7 +98,8 @@ STUDY = [
     ]),
     ("Courses", [
         ("ProductDo · 2025", "Technical knowledge for product managers", "Architecture, APIs, databases and integrations — to speak the same language as engineers.", "course"),
-        ("GoPractice · 2025", "SQL simulator for product analytics", "SQL queries for product metrics: funnels, cohorts, retention.", "course"),
+        ("GoPractice · 2025", "SQL simulator for product analytics", "SQL queries for product metrics: funnels, cohorts, retention. 402 practical assignments; certificate dated 29 April 2025.", "course",
+         {"img": "assets/certs/gopractice-sql-2025.jpg", "verify": "https://gopractice.ru/course/sql/certificate/gq9lmuju"}),
         ("Pendo.io · 2024", "AI for Product Management", "How to apply AI in product management work and in the products themselves.", "course"),
         ("Google · 2023", "Fundamentals of digital marketing", "Acquisition channels, search and contextual ads, web analytics. Exam passed on 23 July 2023; the programme is endorsed by IAB Europe.", "course",
          {"img": "assets/certs/google-marketing-2023.jpg", "verify": "https://learndigital.withgoogle.com/link/1ol24okmw3k"}),
