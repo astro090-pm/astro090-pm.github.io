@@ -943,3 +943,13 @@ html { scroll-behavior: smooth; }
 .pdfp-msg { color: #eee; font: 400 15px var(--sans); text-align: center; margin: 40px 0; }
 .pdfp-pages .pdfp-frame { flex: 1; min-height: 80vh; border: 0; }
 @media (max-width: 760px) { .pdfp-box { width: 100vw; } .pdfp-open { display: none; } .pdfp-head { padding-left: 14px; } .pdfp-pages { padding: 8px; gap: 8px; } }
+
+/* География на всю ширину: карта слева, подписи справа */
+.tl-one { max-width: none; }
+.geo-wrap { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(220px, 1fr); gap: 20px 32px; align-items: center; }
+.geo-card .geo-leg { margin: 0; font-size: 15px; line-height: 1.5; }
+.geo-card .geo-leg li { padding: 10px 0; border-bottom: 1px solid var(--card-rule); }
+.geo-card .geo-leg li:last-child { border-bottom: 0; }
+.geo-pin text { font-size: 15px; }
+@media (max-width: 860px) { .geo-wrap { grid-template-columns: 1fr; } .geo-pin text { font-size: 26px; } .geo-pin circle { r: 11; } }
+@media (max-width: 860px) { .geo-pin text { font-size: 36px; } .geo-arc { stroke-width: 3; } }

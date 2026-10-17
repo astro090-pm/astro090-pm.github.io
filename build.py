@@ -1569,8 +1569,8 @@ GEO = [
 
 
 def geo_block() -> str:
-    lon0, lon1, lat0, lat1 = 30, 90, 20, 60
-    W, H = 520, 330
+    lon0, lon1, lat0, lat1 = 28, 92, 20, 62
+    W, H = 760, 380
     X = lambda lo: (lo - lon0) / (lon1 - lon0) * (W - 60) + 30
     Y = lambda la: (lat1 - la) / (lat1 - lat0) * (H - 60) + 30
     grid = "".join(f'<line x1="{X(lo):.0f}" y1="20" x2="{X(lo):.0f}" y2="{H - 20}" class="geo-g"/>' for lo in range(30, 91, 10))
@@ -1580,7 +1580,7 @@ def geo_block() -> str:
     pins = "".join(f'<a href="{u}" class="geo-pin"><title>{esc(c)}: {esc(t)}</title><circle cx="{X(lo):.0f}" cy="{Y(la):.0f}" r="{9 if i == 0 else 6}"/>'
                    f'<text x="{X(lo):.0f}" y="{Y(la) - 14:.0f}">{esc(c)}</text></a>' for i, (c, lo, la, t, u) in enumerate(GEO))
     legend = "".join(f'<li><b>{esc(c)}</b> — {esc(t)}</li>' for c, _, _, t, _ in GEO)
-    return f'<section class="tl-card"><h2>География</h2><svg viewBox="0 0 {W} {H}" class="geo" role="img" aria-label="Города: {", ".join(g[0] for g in GEO)}">{grid}{arcs}{pins}</svg><ul class="geo-leg">{legend}</ul></section>'
+    return f'<section class="tl-card geo-card"><h2>География</h2><div class="geo-wrap"><svg viewBox="0 0 {W} {H}" class="geo" role="img" aria-label="Города: {", ".join(g[0] for g in GEO)}">{grid}{arcs}{pins}</svg><ul class="geo-leg">{legend}</ul></div></section>'
 
 
 MONTHS_NOM = {m: i + 1 for i, m in enumerate(["январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"])}
