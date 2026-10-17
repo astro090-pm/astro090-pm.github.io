@@ -206,6 +206,46 @@ def pager(page: int, pages: int) -> str:
     return f'<nav class="pager" aria-label="Страницы ленты">{newer}<span class="pg-now">страница {page} / {pages}</span>{older}</nav>'
 
 
+# Шапка главной: «агент» отвечает, кто такой Роман, и карточка «Сейчас»
+AGENT = {"q": "кто такой Роман?", "label": "Ответы о Романе", "lines": [
+    ("строит в банке сервис с ИИ-агентом", "cases/gazprombank.html"),
+    ("пишет диссертацию об ИИ в управлении компанией", "research.html"),
+    ("читает первокурсникам курс по ИТ-менеджменту", "blog/lekcii-it-menedzhment.html"),
+    ("собрал агентного Telegram-бота с открытым кодом", "projects.html"),
+    ("сделал в Дубае MCP-коннектор для ИИ-агентов", "cases/bolz-dev.html"),
+    ("запустил 4 продукта с нуля", "cases/index.html"),
+]}
+NOW_CARD = {"title": "Сейчас", "updated": "обновлено 16 октября 2026", "more": "подробнее", "items": [
+    ("🧑‍💼", "Работа", "развиваю сервис кредитного анализа с ИИ-агентом в Газпромбанке", "cases/gazprombank.html"),
+    ("🎓", "Преподаю", "курс «ИТ-менеджмент», лекции по вторникам до 24 ноября", "blog/lekcii-it-menedzhment.html"),
+    ("🔬", "Исследую", "закончил серию интервью для кейс-стади диссертации", "blog/intervyu-ii-v-banke.html"),
+    ("🤖", "Строю", "Планировщик выходных — агентный Telegram-бот", "projects.html"),
+]}
+
+
+def agent_line() -> str:
+    import json
+    first_t, first_u = AGENT["lines"][0]
+    data = esc(json.dumps([[t, u] for t, u in AGENT["lines"]], ensure_ascii=False))
+    return (f'<p class="agent" data-lines="{data}" aria-label="{esc(AGENT["label"])}"><span class="agent-q">› {esc(AGENT["q"])}</span> '
+            f'<a class="agent-a" href="{first_u}" aria-live="polite">{esc(first_t)}</a><span class="agent-caret" aria-hidden="true"></span></p>'
+            """<script>(() => { const el = document.querySelector('.agent'); if (!el) return;
+  const a = el.querySelector('.agent-a'), lines = JSON.parse(el.dataset.lines);
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches; let i = 0;
+  const type = (t, k = 0) => { a.textContent = t.slice(0, k); if (k < t.length) setTimeout(() => type(t, k + 1), 28); };
+  setInterval(() => { if (document.hidden) return; i = (i + 1) % lines.length; a.href = lines[i][1];
+    if (calm) a.textContent = lines[i][0]; else type(lines[i][0]); }, 4200);
+})();</script>""")
+
+
+def now_card() -> str:
+    C = NOW_CARD
+    items = "".join(f'<a class="now-it" href="{u}"><span class="now-ic" aria-hidden="true">{ic}</span><span><b>{esc(k)}</b>{esc(t)}</span></a>' for ic, k, t, u in C["items"])
+    return (f'<section class="now-card" aria-labelledby="now-h"><div class="now-head"><h2 id="now-h">{esc(C["title"])}</h2>'
+            f'<span class="now-upd">{esc(C["updated"])}</span><a class="now-more" href="now.html">{esc(C["more"])} →</a></div>'
+            f'<div class="now-grid">{items}</div></section>')
+
+
 def index_page(posts: list[dict], page: int = 1) -> str:
     hero = f"""<section class="hero-home">
 <img class="avatar avatar-lg" src="assets/avatar.jpg" width="160" height="160" alt="Роман Понуров">
@@ -213,8 +253,10 @@ def index_page(posts: list[dict], page: int = 1) -> str:
 <h1>Роман Понуров</h1>
 <p class="tagline">Продакт, который сам собирает ИИ-продукты и изучает, как ИИ меняет управление.</p>
 <p class="roles"><a href="cv.html">менеджер продукта</a> · <a href="tags/{tag_slug('преподавание')}.html">начинающий преподаватель</a> · <a href="research.html">исследую ИИ в управлении компанией</a></p>
+{agent_line()}
 </div>
-</section>"""
+</section>
+{now_card()}"""
     items = all_items(posts)
     pages = max(1, -(-len(posts) // PER_PAGE))
     chunk = posts[(page - 1) * PER_PAGE: page * PER_PAGE]

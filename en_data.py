@@ -355,6 +355,21 @@ PROJECTS_TEXT = {"title": "Projects", "intro": "Things I launched myself — as 
                  "links": [("cases/index.html", "Cases", "product problems at my main jobs and how I solved them", "linear-gradient(135deg,#5BC0F8,#3D8BEA)"),
                            ("agents.html", "AI agents", "my path from theory to practice: LLMs, MCP, A2A, evals", "linear-gradient(135deg,#F4A259,#E0603A)")]}
 
+AGENT = {"q": "who is Roman?", "label": "Answers about Roman", "lines": [
+    ("builds a service with an AI agent at a bank", "cases/gazprombank.html"),
+    ("is writing a PhD on AI in company management", "research.html"),
+    ("teaches IT management to first-year students", "blog/lekcii-it-menedzhment.html"),
+    ("built an open-source agentic Telegram bot", "projects.html"),
+    ("co-built an MCP connector for AI agents in Dubai", "cases/bolz-dev.html"),
+    ("launched 4 products from scratch", "cases/index.html"),
+]}
+NOW_CARD = {"title": "Now", "updated": "updated 16 October 2026", "more": "more", "items": [
+    ("🧑‍💼", "Work", "developing a credit analysis service with an AI agent at Gazprombank", "cases/gazprombank.html"),
+    ("🎓", "Teaching", "an IT Management course, lectures on Tuesdays until 24 November", "blog/lekcii-it-menedzhment.html"),
+    ("🔬", "Research", "finished a series of interviews for my dissertation case study", "blog/intervyu-ii-v-banke.html"),
+    ("🤖", "Building", "Weekend Planner, an agentic Telegram bot", "projects.html"),
+]}
+
 PATCH = {k: v for k, v in globals().items() if k.isupper() and k not in ("HERE", "GITHUB", "WP", "PIO", "SP")}
 PATCH["BOOKS_LINK"] = '<a href="{up}books.html">📚 books</a>'
 PATCH["MEDIA_LINK"] = ""
