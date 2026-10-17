@@ -820,3 +820,4 @@ html { scroll-behavior: smooth; }
 .cert-thumb img { display: block; width: 120px; height: auto; border: 1px solid var(--card-rule); border-radius: 6px; background: #fff; }
 .cert-thumb:hover img { border-color: var(--ink); }
 .cert-links { font: 400 14px/1.4 var(--sans); }
+.cert-thumb img[src$=".png"] { width: 84px; border: 0; background: transparent; }
