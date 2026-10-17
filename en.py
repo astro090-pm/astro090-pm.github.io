@@ -53,6 +53,8 @@ def build(ctx):
     pages["tools.html"] = B.toolkit_page()
     pages["now.html"] = B.now_page(posts)
     pages["skills.html"] = B.skills_page()
+    pages["sql.html"] = B.sql_page(posts)
+    pages["calc.html"] = B.calc_page()
     pages["conferences.html"] = B.conferences_page()
     pages["agents.html"] = B.agents_page(posts)
     media = B.load_media()

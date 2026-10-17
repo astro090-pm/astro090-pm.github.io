@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../../assets/style.css?v=4c58530a">
+<link rel="stylesheet" href="../../assets/style.css?v=226d5734">
 <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="../../assets/site.js?v=122f7508" defer data-root="../"></script>
 </head>
@@ -32,7 +32,7 @@
 <header class="top"><div class="wrap">
 <a class="brand" href="../"><img class="avatar avatar-sm" src="../../assets/avatar-sm.jpg" width="34" height="34" alt="">Roman Ponurov</a>
 <nav class="nav" aria-label="Sections">
-<details class="menu"><summary>product</summary><div class="menu-list"><a href="../about.html">👋 about me</a><a href="../now.html">⏱ now</a><a href="../timeline.html">🗓 timeline</a><a href="../../assets/Ponurov_Roman_CV_EN.pdf" target="_blank" rel="noopener">📄 CV (PDF)</a><a href="../cases/">📁 case portfolio</a><a href="../tools.html">🧰 toolkit</a></div></details>
+<details class="menu"><summary>product</summary><div class="menu-list"><a href="../about.html">👋 about me</a><a href="../now.html">⏱ now</a><a href="../timeline.html">🗓 timeline</a><a href="../../assets/Ponurov_Roman_CV_EN.pdf" target="_blank" rel="noopener">📄 CV (PDF)</a><a href="../cases/">📁 case portfolio</a><a href="../tools.html">🧰 toolkit</a><a href="../sql.html">🗄 SQL sandbox</a><a href="../calc.html">🧮 calculators</a></div></details>
 <a href="../projects.html">projects</a>
 <details class="menu"><summary>knowledge</summary><div class="menu-list"><a href="../research.html">🔬 research</a><a href="../conferences.html">🎤 conferences</a><a href="../study.html">🎓 education</a><a href="../books.html">📚 books</a><a href="../media.html">🎧 podcasts</a></div></details>
 <details class="menu"><summary>AI</summary><div class="menu-list"><a href="../agents.html">🤖 AI agents</a><a href="../skills.html">🧰 AI skills</a></div></details>
@@ -58,6 +58,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <dl class="tldr-meta"><div><dt>Role</dt><dd>Head of E-commerce (product owner role)</dd></div><div><dt>Where</dt><dd>Asia Retail</dd></div><div><dt>When</dt><dd>April 2023 — April 2024</dd></div></dl>
 <dl class="tldr-facts"><div><dt>Product</dt><dd>online grocery delivery, web + mobile (B2C)</dd></div><div><dt>Audience</dt><dd>~600k users</dd></div><div><dt>Starting point</dt><dd>mobile app rated <strong>1.1</strong> in the App Store</dd></div><div><dt>Stack</dt><dd>Python, React Native, Flutter</dd></div></dl>
 </section>
+
 <div class="prose">
 <h2>Context</h2>
 <p>The retailer's online channel was underperforming: the app had poor ratings, order intake and picking were not set up as processes, and there was no in-house development team. The goal was to turn e-commerce into a real growth channel.</p>
@@ -139,7 +140,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 </tbody>
 </table></details></div><script>(() => { const r = document.currentScript.previousElementSibling; if (!('IntersectionObserver' in window)) return;
   r.classList.add('rv-js'); const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { r.classList.add('in'); io.disconnect(); } }), {threshold: .3}); io.observe(r); })();</script>
-<section class="mtree" aria-label="Metric tree"><h2>Metric tree</h2><p class="mt-note">How the main result breaks down into metrics and which actions moved them. Numbers come from the Results section.</p><div class="mt-wrap"><svg class="mt-svg" aria-hidden="true"></svg><ul class="mt"><li class="mt-l0"><div class="mt-node" tabindex="0"><span class="mt-name">Revenue</span><b class="mt-val">+103%</b></div><ul><li class="mt-l1"><div class="mt-node" tabindex="0"><span class="mt-name">Number of orders</span><b class="mt-val">+67%</b></div><ul><li class="mt-l2"><div class="mt-node" tabindex="0"><span class="mt-name">New users</span><b class="mt-val">+44%</b><span class="mt-lever"><i>levers:</i> Glovo integration, storefront in the M-Bank app, app redesign</span></div></li><li class="mt-l2"><div class="mt-node" tabindex="0"><span class="mt-name">Active customers</span><b class="mt-val">+31%</b></div></li><li class="mt-l2"><div class="mt-node" tabindex="0"><span class="mt-name">Customer churn</span><b class="mt-val">−24%</b></div></li><li class="mt-l2"><div class="mt-node" tabindex="0"><span class="mt-name">Purchase conversion</span><b class="mt-val">+17%</b><span class="mt-lever"><i>levers:</i> online payment, redesign, ordering via the call center</span></div></li><li class="mt-l2"><div class="mt-node" tabindex="0"><span class="mt-name">Order cancellations</span><b class="mt-val">−15%</b><span class="mt-lever"><i>levers:</i> the Picker app, up-to-date prices and stock</span></div></li></ul></li><li class="mt-l1"><div class="mt-node" tabindex="0"><span class="mt-name">Average order value</span><b class="mt-val mt-txt">revenue grew faster than orders</b><span class="mt-lever"><i>levers:</i> assortment +2,000 SKUs</span></div></li></ul></li></ul></div></section><script>(() => {
+<section class="mtree" id="metric-tree" aria-label="Metric tree"><h2>Metric tree</h2><p class="mt-note">How the main result breaks down into metrics and which actions moved them. Numbers come from the Results section.</p><div class="mt-wrap"><svg class="mt-svg" aria-hidden="true"></svg><ul class="mt"><li class="mt-l0"><div class="mt-node" tabindex="0"><span class="mt-name">Revenue</span><b class="mt-val">+103%</b></div><ul><li class="mt-l1"><div class="mt-node" tabindex="0"><span class="mt-name">Number of orders</span><b class="mt-val">+67%</b></div><ul><li class="mt-l2"><div class="mt-node" tabindex="0"><span class="mt-name">New users</span><b class="mt-val">+44%</b><span class="mt-lever"><i>levers:</i> Glovo integration, storefront in the M-Bank app, app redesign</span></div></li><li class="mt-l2"><div class="mt-node" tabindex="0"><span class="mt-name">Active customers</span><b class="mt-val">+31%</b></div></li><li class="mt-l2"><div class="mt-node" tabindex="0"><span class="mt-name">Customer churn</span><b class="mt-val">−24%</b></div></li><li class="mt-l2"><div class="mt-node" tabindex="0"><span class="mt-name">Purchase conversion</span><b class="mt-val">+17%</b><span class="mt-lever"><i>levers:</i> online payment, redesign, ordering via the call center</span></div></li><li class="mt-l2"><div class="mt-node" tabindex="0"><span class="mt-name">Order cancellations</span><b class="mt-val">−15%</b><span class="mt-lever"><i>levers:</i> the Picker app, up-to-date prices and stock</span></div></li></ul></li><li class="mt-l1"><div class="mt-node" tabindex="0"><span class="mt-name">Average order value</span><b class="mt-val mt-txt">revenue grew faster than orders</b><span class="mt-lever"><i>levers:</i> assortment +2,000 SKUs</span></div></li></ul></li></ul></div></section><script>(() => {
   const sec = document.currentScript.previousElementSibling, wrap = sec.querySelector('.mt-wrap'), svg = wrap.querySelector('svg');
   const NS = 'http://www.w3.org/2000/svg', nodes = [...wrap.querySelectorAll('.mt-node')];
   const parentNode = n => { const li = n.parentElement.parentElement.closest('li'); return li ? li.querySelector(':scope > .mt-node') : null; };
@@ -170,10 +171,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 })();</script>
 <h2>What this case shows</h2>
 <p>A full product relaunch where growth came from product (app, payments), operations (picking, call centre, assortment), channels (Glovo, banking app) and team (Agile, KPIs) at the same time.</p>
-<section class="miss"><h2>What didn't work</h2>
-<p>There were many hypotheses, and not all of them held up.</p>
-<p><strong>Hypothesis: faster delivery means more orders.</strong> We tested it, and orders did not grow significantly. Delivery speed was not what drove the number of orders; growth came from other levers: channels, conversion and fewer cancellations (see the metric tree).</p>
-</section>
+<section class="exps" id="experiments"><h2>What didn't work</h2><p>There were many hypotheses, and not all of them held up.</p><div class="ex-grid"><article class="ex-card ex-no"><header><span class="ex-tag">experiment #1</span><span class="ex-status">✕ not confirmed</span></header><p class="ex-hyp"><span>Hypothesis</span>If delivery gets faster, the number of orders will grow.</p><dl><div class="ex-row"><dt>Metric</dt><dd>number of orders</dd></div><div class="ex-row"><dt>Result</dt><dd>no significant growth</dd></div></dl></article></div></section>
 <h2>What I learned</h2>
 <ul>
 <li>Growth came not from the app alone but from working on product, operations, channels and the team at the same time. A redesign on its own would have hit the limits of order picking and cancellations.</li>

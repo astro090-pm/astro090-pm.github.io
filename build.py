@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import html
+import json
 import re
 from pathlib import Path
 
@@ -109,7 +110,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <header class="top"><div class="wrap">
 <a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
-<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}now.html">⏱ сейчас</a><a href="{up}timeline.html">🗓 хронология</a><a href="{up}assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}tools.html">🧰 инструментарий</a></div></details>
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}now.html">⏱ сейчас</a><a href="{up}timeline.html">🗓 хронология</a><a href="{up}assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}tools.html">🧰 инструментарий</a><a href="{up}sql.html">🗄 SQL-песочница</a><a href="{up}calc.html">🧮 калькуляторы</a></div></details>
 <a href="{up}projects.html">проекты</a>
 <details class="menu"><summary>знания</summary><div class="menu-list"><a href="{up}research.html">🔬 исследования</a><a href="{up}conferences.html">🎤 конференции</a><a href="{up}study.html">🎓 образование</a>{BOOKS_LINK.format(up=up)}{MEDIA_LINK.format(up=up)}</div></details>
 <details class="menu"><summary>ИИ</summary><div class="menu-list"><a href="{up}agents.html">🤖 ИИ-агенты</a><a href="{up}skills.html">🧰 ИИ-скиллы</a></div></details>
@@ -431,6 +432,26 @@ ROADMAP = {
         ("Официальный SDK A2A", "для прототипа хватило ~150 понятных строк, контракт совпадает со спецификацией"),
         ("LLM-критик сам запускает правки", "LLM-ревью может ошибаться, поэтому только советует; блокируют проверки кодом"),
         ("Привязка к одному провайдеру", "модель меняется строкой в настройках, эвалы сравнивают модели разных компаний")],
+    "jtbd": ("Задача пользователя", "Когда в пятницу думаю, чем занять выходные с ребёнком, хочу за минуту получить план по часам с учётом погоды и бюджета, чтобы не переключаться полчаса между афишей, картами и прогнозом."),
+    "us_h": "User stories",
+    "us_lbl": {"ac": "Критерии приёмки", "m": "Метрика", "done": "сделано", "next": "дальше"},
+    "stories": [
+        ("done", "Как пользователь, которому план не подошёл, я хочу одной кнопкой получить другой вариант или вариант дешевле, чтобы не писать запрос заново.",
+         ["под каждым планом есть кнопки «🔁 Другой вариант» и «💸 Дешевле»", "правку можно написать и обычным текстом", "доработанный план проходит те же проверки, что и первый"],
+         "refine rate — доля доработок от выданных планов"),
+        ("done", "Как родитель, я хочу, чтобы бот учитывал возраст ребёнка и погоду, чтобы не оказаться там, куда ребёнку нельзя, или под дождём.",
+         ["в план попадает только то, что подходит по возрасту", "в дождь — только места под крышей", "это проверяет код, а не модель; есть эвал-кейсы на детей и дождь"],
+         "👍 / (👍 + 👎)"),
+        ("done", "Как пользователь, я хочу получить напоминание в пятницу, чтобы спланировать выходные вовремя.",
+         ["напоминание получают только подписавшиеся", "отправка в пятницу в обед — когда люди думают о выходных"],
+         "CTR напоминаний и return 7d"),
+        ("next", "Как пользователь, я хочу видеть, как идёт подготовка, и получать план за секунды, чтобы не ждать в тишине.",
+         ["прогресс показывается по стадиям", "время до плана — единицы секунд вместо десятков"],
+         "time to value — медиана от /start до первого плана"),
+        ("next", "Как постоянный пользователь, я хочу, чтобы бот учитывал мои прошлые оценки, чтобы планы попадали точнее.",
+         ["учитываются категории, которые человек лайкал"],
+         "👍 / (👍 + 👎)"),
+    ],
     "src": "Подробнее — в документации репозитория",
     "src_url": GITHUB + "/weekend-planner/blob/main/docs/ARCHITECTURE.md",
 }
@@ -443,7 +464,19 @@ def roadmap_block() -> str:
     cut = "".join(f'<li><s>{esc(a)}</s><span>{esc(b)}</span></li>' for a, b in R["cut"])
     return (f'<section class="roadmap" id="roadmap" aria-labelledby="rm-h"><h2 id="rm-h">{esc(R["title"])}</h2>'
             f'<p class="rm-note">{esc(R["note"])} <a href="{R["src_url"]}">{esc(R["src"])}</a></p>'
-            f'<div class="rm-board">{cols}<div class="rm-col rm-cut"><h3>{esc(R["cut_h"])}</h3><ul>{cut}</ul></div></div></section>')
+            f'<p class="rm-jtbd"><b>{esc(R["jtbd"][0])}</b>{esc(R["jtbd"][1])}</p>'
+            f'<div class="rm-board">{cols}<div class="rm-col rm-cut"><h3>{esc(R["cut_h"])}</h3><ul>{cut}</ul></div></div>'
+            + stories_block(R) + '</section>')
+
+
+def stories_block(R) -> str:
+    L = R["us_lbl"]
+    items = "".join(
+        f'<details class="us us-{st}"><summary><span class="us-st">{L[st]}</span>{esc(story)}</summary>'
+        f'<div class="us-body"><p class="us-k">{L["ac"]}</p><ul>' + "".join(f"<li>{esc(a)}</li>" for a in ac) + '</ul>'
+        f'<p class="us-k">{L["m"]}</p><p class="us-m">{esc(m)}</p></div></details>'
+        for st, story, ac, m in R["stories"])
+    return f'<h3 class="us-h" id="stories">{esc(R["us_h"])}</h3><div class="us-list">{items}</div>'
 
 
 def projects_page() -> str:
@@ -679,7 +712,7 @@ def metric_tree(slug: str) -> str:
         lv = f'<span class="mt-lever">{lbl}{esc(lever)}</span>' if lever else ""
         sub = "<ul>" + "".join(node(k, depth + 1) for k in kids) + "</ul>" if kids else ""
         return (f'<li class="mt-l{depth}"><div class="mt-node" tabindex="0"><span class="mt-name">{esc(name)}</span>{v}{lv}</div>{sub}</li>')
-    return (f'<section class="mtree" aria-label="{TREE_LBL["h"]}"><h2>{TREE_LBL["h"]}</h2><p class="mt-note">{TREE_LBL["note"]}</p>'
+    return (f'<section class="mtree" id="metric-tree" aria-label="{TREE_LBL["h"]}"><h2>{TREE_LBL["h"]}</h2><p class="mt-note">{TREE_LBL["note"]}</p>'
             f'<div class="mt-wrap"><svg class="mt-svg" aria-hidden="true"></svg><ul class="mt">{node(t)}</ul></div></section>'
             """<script>(() => {
   const sec = document.currentScript.previousElementSibling, wrap = sec.querySelector('.mt-wrap'), svg = wrap.querySelector('svg');
@@ -769,6 +802,71 @@ def visual_results(html: str) -> str:
     return html[:m.start(1)] + block + html[m.end(1):]
 
 
+# ---------- Карточки экспериментов: гипотеза → метрика → результат → решение
+EXPERIMENTS = {
+    "asia-online": {"intro": "Гипотез было много, и не все подтвердились.", "cards": [
+        {"status": "no", "hyp": "Если ускорить доставку, количество заказов вырастет.", "metric": "количество заказов",
+         "result": "существенного роста не было", "decision": ""},
+    ]},
+}
+EXP_LBL = {"h": "Что не сработало", "hyp": "Гипотеза", "metric": "Метрика", "result": "Результат", "decision": "Решение",
+           "yes": "подтвердилась", "no": "не подтвердилась", "tag": "эксперимент"}
+
+
+def experiments_block(slug: str) -> str:
+    E = EXPERIMENTS.get(slug)
+    if not E:
+        return ""
+    L = EXP_LBL
+    cards = []
+    for n, c in enumerate(E["cards"], 1):
+        rows = "".join(f'<div class="ex-row"><dt>{L[k]}</dt><dd>{esc(c[k])}</dd></div>' for k in ("metric", "result", "decision") if c.get(k))
+        cards.append(f'<article class="ex-card ex-{c["status"]}"><header><span class="ex-tag">{L["tag"]} #{n}</span>'
+                     f'<span class="ex-status">{"✓" if c["status"] == "yes" else "✕"} {L[c["status"]]}</span></header>'
+                     f'<p class="ex-hyp"><span>{L["hyp"]}</span>{esc(c["hyp"])}</p><dl>{rows}</dl></article>')
+    return f'<section class="exps" id="experiments"><h2>{L["h"]}</h2><p>{esc(E["intro"])}</p><div class="ex-grid">{"".join(cards)}</div></section>\n'
+
+
+def insert_experiments(html: str, slug: str) -> str:
+    block = experiments_block(slug)
+    if not block:
+        return html
+    m = re.search(r"<h2>(Чему научился|What I learned)</h2>", html)
+    return html[:m.start()] + block + html[m.start():] if m else html + block
+
+
+# ---------- JTBD: job stories «Когда… хочу… чтобы…» для каждой стороны продукта
+JTBD = {
+    "dobster": [
+        ("👵", "Получатель помощи", "мне нужна помощь по дому, а заплатить за неё я не могу", "оставить одну простую заявку", "получить помощь бесплатно, не разыскивая исполнителя самому"),
+        ("🙋", "Помощник", "я хочу помогать людям рядом", "видеть конкретные задания от проверенных получателей", "помочь тем, кому это действительно нужно"),
+        ("💳", "Благотворитель", "я жертвую деньги", "оплатить конкретное задание и получить отчёт", "видеть, на что пошли деньги"),
+    ],
+    "bolz-tech": [
+        ("🛴", "Пользователь", "рядом нет самоката или пауэрбанка того сервиса, чьё приложение у меня стоит", "арендовать у другого без новой установки и регистрации", "не тратить время на ещё одно приложение"),
+        ("🔋", "Шеринг-сервис", "бюджета на продвижение мало", "получать клиентов из чужих приложений с большой аудиторией", "расти без собственного маркетинга"),
+        ("📱", "Приложение-партнёр", "нужно поднять MAU и частоту использования", "добавить в приложение шеринг 24/7", "пользователи возвращались чаще, а аудитория монетизировалась"),
+    ],
+    "bolz-dev": [
+        ("🙂", "Пользователь", "я прошу ИИ-ассистента что-то купить или забронировать", "пройти путь от запроса до оплаты в одном диалоге", "не уходить по ссылкам и не заполнять формы"),
+        ("🤖", "ИИ-агент", "пользователь просит совершить действие", "вызвать инструмент с живыми ценами и оплатой", "довести дело до конца, а не отдать ссылку"),
+        ("🏪", "Сервис", "клиенты всё чаще приходят через ИИ-ассистентов", "подключиться один раз и появляться в ответах агентов", "не терять этих клиентов"),
+    ],
+}
+JTBD_LBL = {"h": "Задачи пользователей (JTBD)", "when": "Когда", "want": "хочу", "so": "чтобы"}
+
+
+def jtbd_block(slug: str) -> str:
+    rows = JTBD.get(slug)
+    if not rows:
+        return ""
+    L = JTBD_LBL
+    cards = "".join(f'<li class="jt-card"><p class="jt-who"><span aria-hidden="true">{ic}</span>{esc(who)}</p>'
+                    f'<p class="jt-story"><b>{L["when"]}</b> {esc(w)}, <b>{L["want"]}</b> {esc(x)}, <b>{L["so"]}</b> {esc(y)}.</p></li>'
+                    for ic, who, w, x, y in rows)
+    return f'<section class="jtbd" id="jtbd" aria-label="{L["h"]}"><h2 class="jt-h">{L["h"]}</h2><ul class="jt-grid">{cards}</ul></section>'
+
+
 def case_page(i: int) -> str:
     slug, company, years, kind, about, _result = CASES[i]
     text = (ROOT / "content" / "cases" / f"{slug}.md").read_text(encoding="utf-8")
@@ -777,13 +875,14 @@ def case_page(i: int) -> str:
     # GitHub допускает список сразу после строки текста, python-markdown — только после пустой строки.
     text = re.sub(r"(?m)^(?!- |\d+\. )(.+)\n(?=- |\d+\. )", r"\1\n\n", text)
     body_html = markdown.markdown(text, extensions=["tables", "sane_lists"])
-    body_html = wrap_misses(insert_tree(visual_results(body_html), slug))
+    body_html = insert_experiments(wrap_misses(insert_tree(visual_results(body_html), slug)), slug)
     nxt = CASES[(i + 1) % len(CASES)]
     body = f"""
 <article class="page"><div class="wrap">
 <a class="back" href="index.html">Все кейсы</a>
 <h1>{esc(case_title(slug))}</h1>
 {summary}
+{jtbd_block(slug)}
 <div class="prose">
 {body_html}
 <p class="next-case">Следующий кейс: <a href="{nxt[0]}.html">{esc(case_title(nxt[0]))}</a></p>
@@ -1510,10 +1609,11 @@ def year_block(posts: list[dict], prefix: str = "") -> str:
 <script>document.querySelectorAll('.yr-tab').forEach(b => b.addEventListener('click', () => {{ document.querySelectorAll('.yr-tab').forEach(x => x.setAttribute('aria-pressed', String(x === b))); document.querySelectorAll('.yr-grid').forEach(g => g.hidden = g.dataset.y !== b.dataset.y); }}));</script>"""
 
 
+TOOLKIT_TITLE = "Инструментарий"
 TOOLKIT = [
     ("Исследование пользователей", [
         ("CustDev и глубинные интервью", "Проверка проблемы до разработки.", "Газпромбанк, MTS ID, «Азия Онлайн», опрос 200 пользователей bolz.tech, интервью для диссертации"),
-        ("Jobs To Be Done", "Формулирую, ради какой «работы» пользователь приходит в продукт.", ""),
+        ("Jobs To Be Done", "Формулирую, ради какой «работы» пользователь приходит в продукт.", "«Добстер», bolz.tech, bolz.dev, Планировщик выходных"),
         ("UX-тестирование", "Смотрю, где пользователь спотыкается, до релиза.", ""),
     ]),
     ("Приоритизация и стратегия", [
@@ -1582,16 +1682,244 @@ def constellation() -> str:
 </script>"""
 
 
+# ---------- SQL-песочница: SQLite в браузере (sql.js) над данными самого сайта
+SQL_TEXT = {
+    "title": "SQL-песочница",
+    "desc": "SQL-консоль прямо в браузере: запросы к данным сайта Романа Понурова — кейсам, метрикам и постам.",
+    "intro": "Настоящий SQLite прямо в браузере. Внутри — данные этого сайта: кейсы, их метрики, посты и теги. Выберите пример или напишите свой запрос.",
+    "run": "Выполнить", "hint": "Ctrl+Enter", "examples": "Примеры", "schema": "Таблицы", "rows": ["строка", "строки", "строк"], "ms": "мс",
+    "loading": "Загружаю SQLite…", "ready": "Готово: SQLite запущен в браузере.", "fail": "Не удалось загрузить SQLite.", "empty": "Запрос выполнен, строк нет.",
+    "note": "Данные только публичные — те же, что на страницах сайта. Ничего не отправляется на сервер.",
+    "ex": [
+        ("Топ-5 метрик по росту", "SELECT c.company, r.metric, r.change_pct\nFROM results r\nJOIN cases c ON c.slug = r.case_slug\nWHERE r.change_pct > 0\nORDER BY r.change_pct DESC\nLIMIT 5;"),
+        ("Посты по годам", "SELECT substr(date, 1, 4) AS year, COUNT(*) AS posts\nFROM posts\nGROUP BY year\nORDER BY year;"),
+        ("Частые теги", "SELECT tag, COUNT(*) AS posts\nFROM post_tags\nGROUP BY tag\nORDER BY posts DESC\nLIMIT 8;"),
+        ("Кейсы по типу задачи", "SELECT t.task, COUNT(*) AS cases,\n       GROUP_CONCAT(c.company, ', ') AS companies\nFROM case_tasks t\nJOIN cases c ON c.slug = t.slug\nGROUP BY t.task\nORDER BY cases DESC;"),
+        ("Оконная функция: ранг метрик в кейсе", "SELECT case_slug, metric, change_pct,\n       RANK() OVER (PARTITION BY case_slug\n                    ORDER BY ABS(change_pct) DESC) AS rnk\nFROM results\nORDER BY case_slug, rnk;"),
+    ],
+}
+
+
+def case_results(slug: str) -> list[tuple[str, float]]:
+    md = (ROOT / "content" / "cases" / f"{slug}.md").read_text(encoding="utf-8")
+    m = re.search(r"^## [^\n]*(Результаты|[Rr]esults)[^\n]*\n(.*?)(?=^## |\Z)", md, re.S | re.M)
+    out = []
+    if m:
+        for name, val in re.findall(r"^\|\s*([^|]+?)\s*\|\s*\**([+−-]\d+(?:[.,]\d+)?)%\**\s*\|", m.group(2), re.M):
+            out.append((name, float(val.replace("−", "-").replace(",", "."))))
+    return out
+
+
+def sql_page(posts: list[dict]) -> str:
+    T = SQL_TEXT
+
+    def rows_word(n: int) -> str:
+        f = T["rows"]
+        if globals().get("LANG", "ru") == "en":
+            return f[0] if n == 1 else f[1]
+        return f[2] if 11 <= n % 100 <= 14 else f[0] if n % 10 == 1 else f[1] if n % 10 in (2, 3, 4) else f[2]
+    names = dict(CASE_FILTER["tasks"])
+    data = {
+        "cases": [{"slug": c[0], "company": c[1], "years": c[2], "model": c[3], "own": int(c[0] in OWN_SLUGS)} for c in CASES],
+        "results": [{"case_slug": c[0], "metric": n, "change_pct": v} for c in CASES for n, v in case_results(c[0])],
+        "case_tasks": [{"slug": sl, "task": names[t]} for sl, ts in CASE_TASKS.items() for t in ts],
+        "posts": [{"slug": q["slug"], "date": q["date"], "title": q["title"]} for q in posts],
+        "post_tags": [{"slug": q["slug"], "tag": t} for q in posts for t in q["tags"]],
+    }
+    schema = "".join(f'<li><b>{k}</b><span>{", ".join(v[0].keys()) if v else ""}</span><em>{len(v)} {rows_word(len(v))}</em></li>' for k, v in data.items())
+    ex = "".join(f'<button type="button" class="sq-ex" data-q="{esc(q)}">{esc(t)}</button>' for t, q in T["ex"])
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="tools.html">{esc(TOOLKIT_TITLE)}</a>
+<h1>{esc(T["title"])}</h1>
+<p class="intro">{esc(T["intro"])}</p>
+<div class="sq">
+<aside class="sq-side"><p class="sq-k">{T["schema"]}</p><ul class="sq-schema">{schema}</ul></aside>
+<div class="sq-main">
+<p class="sq-k">{T["examples"]}</p><div class="sq-exs">{ex}</div>
+<label class="visually-hidden" for="sq-in">SQL</label>
+<textarea id="sq-in" class="sq-in" spellcheck="false" rows="7">{esc(T["ex"][0][1])}</textarea>
+<div class="sq-bar"><button type="button" id="sq-run" class="sq-run" disabled>▶ {T["run"]}</button><span class="sq-hint">{T["hint"]}</span><span id="sq-status" class="sq-status" role="status">{T["loading"]}</span></div>
+<div id="sq-out" class="sq-out"></div>
+</div>
+</div>
+<p class="sq-note">{esc(T["note"])}</p>
+</div></article>
+<script id="sq-data" type="application/json">{json.dumps(data, ensure_ascii=False).replace("</", "<\\/")}</script>
+<script src="assets/vendor/sqljs/sql-wasm.js"></script>
+<script>
+(() => {{
+  const L = {json.dumps({k: T[k] for k in ("rows", "ms", "ready", "fail", "empty")}, ensure_ascii=False)};
+  const inp = document.getElementById('sq-in'), run = document.getElementById('sq-run'), st = document.getElementById('sq-status'), out = document.getElementById('sq-out');
+  const base = document.querySelector('script[src*="sql-wasm.js"]').src.replace(/sql-wasm\\.js.*$/, '');
+  const data = JSON.parse(document.getElementById('sq-data').textContent);
+  let db;
+  const pl = n => {{ const f = L.rows, a = n % 10, b = n % 100; if (document.documentElement.lang === 'en') return n === 1 ? f[0] : f[1]; return f[b >= 11 && b <= 14 ? 2 : a === 1 ? 0 : a >= 2 && a <= 4 ? 1 : 2]; }};
+  const esc = v => String(v ?? 'NULL').replace(/[&<>]/g, c => ({{'&': '&amp;', '<': '&lt;', '>': '&gt;'}})[c]);
+  const exec = () => {{
+    if (!db) return; const t0 = performance.now();
+    try {{
+      const res = db.exec(inp.value); const ms = Math.round(performance.now() - t0);
+      if (!res.length) {{ out.innerHTML = `<p class="sq-msg">${{L.empty}}</p>`; st.textContent = `${{ms}} ${{L.ms}}`; return; }}
+      const r = res[res.length - 1];
+      out.innerHTML = '<div class="sq-tbl"><table><thead><tr>' + r.columns.map(c => `<th>${{esc(c)}}</th>`).join('') + '</tr></thead><tbody>'
+        + r.values.map(row => '<tr>' + row.map(v => `<td${{typeof v === 'number' ? ' class="n"' : ''}}>${{esc(v)}}</td>`).join('') + '</tr>').join('') + '</tbody></table></div>';
+      st.textContent = `${{r.values.length}} ${{pl(r.values.length)}} · ${{ms}} ${{L.ms}}`;
+    }} catch (e) {{ out.innerHTML = `<p class="sq-err">${{esc(e.message)}}</p>`; st.textContent = ''; }}
+  }};
+  initSqlJs({{locateFile: f => base + f}}).then(SQL => {{
+    db = new SQL.Database();
+    for (const [name, rows] of Object.entries(data)) {{
+      if (!rows.length) continue; const cols = Object.keys(rows[0]);
+      db.run(`CREATE TABLE ${{name}} (${{cols.map(c => c + (typeof rows[0][c] === 'number' ? ' REAL' : ' TEXT')).join(', ')}})`);
+      const stmt = db.prepare(`INSERT INTO ${{name}} VALUES (${{cols.map(() => '?').join(',')}})`);
+      rows.forEach(r => stmt.run(cols.map(c => r[c]))); stmt.free();
+    }}
+    run.disabled = false; st.textContent = L.ready; exec();
+  }}).catch(() => {{ st.textContent = L.fail; }});
+  run.addEventListener('click', exec);
+  inp.addEventListener('keydown', e => {{ if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {{ e.preventDefault(); exec(); }} }});
+  document.querySelectorAll('.sq-ex').forEach(b => b.addEventListener('click', () => {{ inp.value = b.dataset.q; exec(); }}));
+}})();
+</script>
+"""
+    return layout(T["title"] + T.get("suffix", " — Роман Понуров"), T["desc"], body, "sql.html")
+
+
+# ---------- Калькуляторы продакта: юнит-экономика и A/B-тест
+CALC_TEXT = {
+    "title": "Калькуляторы продакта",
+    "desc": "Интерактивные калькуляторы юнит-экономики (LTV, CAC, окупаемость) и A/B-теста (размер выборки, значимость).",
+    "intro": "Два расчёта, которые продакт делает чаще всего. Цифры по умолчанию — пример, а не данные конкретного продукта: подставьте свои.",
+    "cur": "₽",
+    "u_h": "Юнит-экономика", "u_sub": "Сколько приносит клиент и окупается ли его привлечение.",
+    "u_in": [("check", "Средний чек", 1000, "₽"), ("margin", "Маржа или комиссия с заказа", 25, "%"), ("orders", "Заказов за жизнь клиента", 6, "шт."), ("cac", "CAC — стоимость привлечения", 800, "₽")],
+    "u_out": {"per": "Доход с заказа", "ltv": "LTV — доход с клиента", "ratio": "LTV / CAC", "pay": "Окупаемость CAC", "pay_u": "заказа",
+              "good": "Привлечение окупается с запасом", "ok": "Окупается, но запас небольшой", "bad": "Привлечение не окупается"},
+    "a_h": "A/B-тест", "a_sub": "Сколько нужно пользователей и значим ли результат.",
+    "s_h": "Размер выборки", "s_in": [("p", "Базовая конверсия", 10, "%"), ("mde", "Минимальный эффект (относительный)", 10, "%")],
+    "alpha": "Уровень значимости α", "power": "Мощность",
+    "s_out": "пользователей в каждой группе", "s_total": "всего",
+    "t_h": "Значимость результата", "t_a": "Группа A", "t_b": "Группа B", "t_users": "Пользователи", "t_conv": "Конверсии",
+    "t_out": {"cr": "Конверсия", "lift": "Разница", "p": "p-value", "sig": "Разница статистически значима", "nosig": "Значимой разницы нет — нужно больше данных или эффект меньше ожидаемого"},
+    "note": "Расчёт для конверсий по двустороннему z-тесту для двух долей.",
+}
+
+
+def calc_page() -> str:
+    T = CALC_TEXT
+    num = lambda k, label, v, unit: (f'<label class="cc-f"><span>{esc(label)}</span><span class="cc-in"><input type="number" inputmode="decimal" min="0" step="any" id="{k}" value="{v}">'
+                                      f'<em>{esc(unit)}</em></span></label>')
+    u_in = "".join(num("u-" + k, l, v, un) for k, l, v, un in T["u_in"])
+    s_in = "".join(num("s-" + k, l, v, un) for k, l, v, un in T["s_in"])
+    sel = lambda k, label, opts, d: (f'<label class="cc-f"><span>{esc(label)}</span><span class="cc-in"><select id="{k}">'
+                                     + "".join(f'<option value="{o}"{" selected" if o == d else ""}>{o}%</option>' for o in opts) + '</select></span></label>')
+    t_grp = lambda g, n, c: (f'<fieldset class="cc-grp"><legend>{esc(T["t_" + g])}</legend>{num("t-" + g + "-n", T["t_users"], n, "")}{num("t-" + g + "-c", T["t_conv"], c, "")}</fieldset>')
+    O = T["u_out"]
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="tools.html">{esc(TOOLKIT_TITLE)}</a>
+<h1>{esc(T["title"])}</h1>
+<p class="intro">{esc(T["intro"])}</p>
+
+<section class="cc" id="unit" aria-labelledby="u-h">
+<h2 id="u-h">{esc(T["u_h"])}</h2><p class="cc-sub">{esc(T["u_sub"])}</p>
+<div class="cc-grid"><div class="cc-form">{u_in}</div>
+<div class="cc-res" aria-live="polite">
+<div class="cc-kpis"><div><span>{O["per"]}</span><b id="o-per">—</b></div><div><span>{O["ltv"]}</span><b id="o-ltv">—</b></div>
+<div><span>{O["ratio"]}</span><b id="o-ratio">—</b></div><div><span>{O["pay"]}</span><b id="o-pay">—</b></div></div>
+<div class="cc-bars"><div class="cc-bar"><span>LTV</span><i id="b-ltv"></i></div><div class="cc-bar cc-cac"><span>CAC</span><i id="b-cac"></i></div></div>
+<p class="cc-verdict" id="o-verdict"></p>
+</div></div>
+</section>
+
+<section class="cc" id="ab" aria-labelledby="a-h">
+<h2 id="a-h">{esc(T["a_h"])}</h2><p class="cc-sub">{esc(T["a_sub"])}</p>
+<div class="cc-grid"><div class="cc-form"><h3>{esc(T["s_h"])}</h3>{s_in}{sel("s-alpha", T["alpha"], [10, 5, 1], 5)}{sel("s-power", T["power"], [80, 90], 80)}</div>
+<div class="cc-res" aria-live="polite"><div class="cc-big"><b id="o-n">—</b><span>{esc(T["s_out"])}</span><em id="o-ntot"></em></div></div></div>
+<div class="cc-grid cc-grid-t"><div class="cc-form"><h3>{esc(T["t_h"])}</h3><div class="cc-grps">{t_grp("a", 10000, 1000)}{t_grp("b", 10000, 1100)}</div></div>
+<div class="cc-res" aria-live="polite">
+<div class="cc-kpis"><div><span>{T["t_out"]["cr"]} A</span><b id="o-cra">—</b></div><div><span>{T["t_out"]["cr"]} B</span><b id="o-crb">—</b></div>
+<div><span>{T["t_out"]["lift"]}</span><b id="o-lift">—</b></div><div><span>{T["t_out"]["p"]}</span><b id="o-p">—</b></div></div>
+<p class="cc-verdict" id="o-sig"></p></div></div>
+<p class="cc-note">{esc(T["note"])}</p>
+</section>
+</div></article>
+<script>
+(() => {{
+  const T = {json.dumps({"o": O, "t": T["t_out"], "cur": T["cur"], "s_total": T["s_total"]}, ensure_ascii=False)};
+  const lang = document.documentElement.lang || 'ru', $ = id => document.getElementById(id), v = id => parseFloat(String($(id).value).replace(',', '.')) || 0;
+  const fmt = (x, d = 0) => isFinite(x) ? x.toLocaleString(lang, {{maximumFractionDigits: d, minimumFractionDigits: d}}) : '—';
+  const Phi = z => {{ const t = 1 / (1 + .2316419 * Math.abs(z)), d = .3989423 * Math.exp(-z * z / 2);
+    const p = d * t * (.3193815 + t * (-.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return z > 0 ? 1 - p : p; }};
+  const ZA = {{10: 1.6449, 5: 1.96, 1: 2.5758}}, ZB = {{80: .8416, 90: 1.2816}};
+  const unit = () => {{
+    const per = v('u-check') * v('u-margin') / 100, ltv = per * v('u-orders'), cac = v('u-cac'), r = cac ? ltv / cac : NaN, pay = per ? cac / per : NaN;
+    const money = x => lang === 'en' ? T.cur + fmt(x) : fmt(x) + ' ' + T.cur;
+    $('o-per').textContent = money(per); $('o-ltv').textContent = money(ltv);
+    $('o-ratio').textContent = fmt(r, 2); $('o-pay').textContent = fmt(pay, 1) + ' ' + T.o.pay_u;
+    const mx = Math.max(ltv, cac) || 1; $('b-ltv').style.width = ltv / mx * 100 + '%'; $('b-cac').style.width = cac / mx * 100 + '%';
+    const k = r >= 3 ? 'good' : r >= 1 ? 'ok' : 'bad', el = $('o-verdict'); el.textContent = T.o[k]; el.className = 'cc-verdict cc-' + k;
+  }};
+  const size = () => {{
+    const p1 = v('s-p') / 100, p2 = p1 * (1 + v('s-mde') / 100), za = ZA[$('s-alpha').value], zb = ZB[$('s-power').value], pb = (p1 + p2) / 2;
+    const n = Math.ceil(Math.pow(za * Math.sqrt(2 * pb * (1 - pb)) + zb * Math.sqrt(p1 * (1 - p1) + p2 * (1 - p2)), 2) / Math.pow(p2 - p1, 2));
+    const ok = p1 > 0 && p2 < 1 && p2 !== p1 && isFinite(n);
+    $('o-n').textContent = ok ? fmt(n) : '—'; $('o-ntot').textContent = ok ? T.s_total + ': ' + fmt(2 * n) : '';
+  }};
+  const sig = () => {{
+    const na = v('t-a-n'), nb = v('t-b-n'), ca = v('t-a-c'), cb = v('t-b-c'), a = ca / na, b = cb / nb, pp = (ca + cb) / (na + nb);
+    const se = Math.sqrt(pp * (1 - pp) * (1 / na + 1 / nb)), z = (b - a) / se, p = 2 * (1 - Phi(Math.abs(z))), ok = na > 0 && nb > 0 && se > 0;
+    $('o-cra').textContent = ok ? fmt(a * 100, 2) + '%' : '—'; $('o-crb').textContent = ok ? fmt(b * 100, 2) + '%' : '—';
+    $('o-lift').textContent = ok && a ? (b >= a ? '+' : '') + fmt((b / a - 1) * 100, 1) + '%' : '—'; $('o-p').textContent = ok ? (p < .0001 ? '< 0,0001'.replace(',', lang === 'en' ? '.' : ',') : fmt(p, 4)) : '—';
+    const el = $('o-sig'), s = ok && p < .05; el.textContent = ok ? (s ? T.t.sig : T.t.nosig) : ''; el.className = 'cc-verdict ' + (s ? 'cc-good' : 'cc-ok');
+  }};
+  const all = () => {{ unit(); size(); sig(); }};
+  document.querySelectorAll('.cc input, .cc select').forEach(i => i.addEventListener('input', all)); all();
+}})();
+</script>
+"""
+    return layout(T["title"] + T.get("suffix", " — Роман Понуров"), T["desc"], body, "calc.html")
+
+
+TOOL_PROOF = {
+    "0:0": [("опрос 200 пользователей bolz.tech", "cases/bolz-tech.html")],
+    "0:1": [("Добстер", "cases/dobster.html#jtbd"), ("bolz.tech", "cases/bolz-tech.html#jtbd"), ("bolz.dev", "cases/bolz-dev.html#jtbd"), ("Планировщик", "projects.html#roadmap")],
+    "1:1": [("роадмап Планировщика", "projects.html#roadmap")],
+    "2:0": [("дерево метрик «Азии Онлайн»", "cases/asia-online.html#metric-tree"), ("MTS ID", "cases/mts-id.html#metric-tree")],
+    "2:1": [("bolz.tech", "cases/bolz-tech.html"), ("калькулятор", "calc.html#unit")],
+    "2:2": [("эксперимент в «Азии Онлайн»", "cases/asia-online.html#experiments"), ("калькулятор", "calc.html#ab")],
+    "2:3": [("SQL-песочница", "sql.html"), ("сертификат GoPractice", "study.html")],
+    "3:1": [("user stories Планировщика", "projects.html#stories")],
+    "4:0": [("путь в ИИ-агентах", "agents.html"), ("код Планировщика", GITHUB + "/weekend-planner")],
+    "4:1": [("bolz.dev", "cases/bolz-dev.html")],
+    "4:2": [("эвалы Планировщика", GITHUB + "/weekend-planner/tree/main/evals")],
+}
+TOOL_LBL = {"where": "Где применял", "proof": "Посмотреть", "try_h": "Попробовать руками",
+            "try": [("sql.html", "🗄", "SQL-песочница", "запросы к данным сайта прямо в браузере"),
+                    ("calc.html", "🧮", "Калькуляторы", "юнит-экономика и A/B-тест")]}
+
+
 def toolkit_page() -> str:
     blocks = []
-    for title, rows in TOOLKIT:
-        lis = "".join(f'<li class="skill"><b>{esc(n)}</b><span>{esc(d)}</span>' + (f'<em>Где применял: {esc(w)}</em>' if w else '') + '</li>' for n, d, w in rows)
+    L = TOOL_LBL
+
+    def proof(key):
+        links = TOOL_PROOF.get(key)
+        if not links:
+            return ""
+        return (f'<p class="proof"><span>{L["proof"]}:</span>' + "".join(
+            f'<a href="{u}"' + (' target="_blank" rel="noopener"' if u.startswith("http") else "") + f'>{esc(t)}</a>' for t, u in links) + '</p>')
+    for gi, (title, rows) in enumerate(TOOLKIT):
+        lis = "".join(f'<li class="skill"><b>{esc(n)}</b><span>{esc(d)}</span>' + (f'<em>{L["where"]}: {esc(w)}</em>' if w else '') + proof(f"{gi}:{ii}") + '</li>'
+                      for ii, (n, d, w) in enumerate(rows))
         blocks.append(f'<section class="skill-group"><h2>{esc(title)} <span class="cnt">{len(rows)}</span></h2><ul class="skills">{lis}</ul></section>')
     body = f"""
 <article class="page"><div class="wrap">
 <a class="back" href="./">На главную</a>
-<h1>Инструментарий</h1>
+<h1>{esc(TOOLKIT_TITLE)}</h1>
 <p class="intro">Фреймворки и инструменты, которыми я реально пользуюсь, — и где именно применял каждый.</p>
+<section class="try"><h2>{L["try_h"]}</h2><div class="try-grid">{"".join(f'<a class="try-card" href="{u}"><span aria-hidden="true">{ic}</span><b>{esc(t)}</b><em>{esc(d)}</em></a>' for u, ic, t, d in L["try"])}</div></section>
 {constellation()}
 {"".join(blocks)}
 <p class="related-row">ИИ-скиллы для агентов — на отдельной <a href="skills.html">странице</a>.</p>
@@ -1975,6 +2303,8 @@ def main() -> None:
         (ROOT / "media.html").write_text(media_page(media), encoding="utf-8")
     (ROOT / "now.html").write_text(now_page(posts), encoding="utf-8")
     (ROOT / "skills.html").write_text(skills_page(), encoding="utf-8")
+    (ROOT / "sql.html").write_text(sql_page(load_posts()), encoding="utf-8")
+    (ROOT / "calc.html").write_text(calc_page(), encoding="utf-8")
     (ROOT / "conferences.html").write_text(conferences_page(), encoding="utf-8")
     # раздел «Презентации» убран: PDF лежат в карточках проектов, кейсах и постах; старый адрес ведёт на «Проекты»
     (ROOT / "decks.html").write_text('<!doctype html><meta charset="utf-8"><title>Проекты</title><meta http-equiv="refresh" content="0; url=projects.html"><link rel="canonical" href="projects.html"><a href="projects.html">Проекты</a>', encoding="utf-8")

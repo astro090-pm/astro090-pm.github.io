@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SQL-песочница — Роман Понуров</title>
+<meta name="description" content="SQL-консоль прямо в браузере: запросы к данным сайта Романа Понурова — кейсам, метрикам и постам.">
+<link rel="canonical" href="https://astro090-pm.github.io/sql.html">
+<meta property="og:title" content="SQL-песочница — Роман Понуров">
+<meta property="og:description" content="SQL-консоль прямо в браузере: запросы к данным сайта Романа Понурова — кейсам, метрикам и постам.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://astro090-pm.github.io/sql.html">
+<meta property="og:site_name" content="Роман Понуров">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:image" content="https://astro090-pm.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Роман Понуров — менеджер продукта: +103% выручки e-com, 10 млн пользователей MTS ID, 4 продукта с нуля">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://astro090-pm.github.io/assets/og.png">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="assets/style.css?v=226d5734">
+<script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<script src="assets/site.js?v=122f7508" defer data-root=""></script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="./"><img class="avatar avatar-sm" src="assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
+<nav class="nav" aria-label="Разделы">
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="about.html">👋 обо мне</a><a href="now.html">⏱ сейчас</a><a href="timeline.html">🗓 хронология</a><a href="assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="cases/">📁 портфолио кейсов</a><a href="tools.html">🧰 инструментарий</a><a href="sql.html">🗄 SQL-песочница</a><a href="calc.html">🧮 калькуляторы</a></div></details>
+<a href="projects.html">проекты</a>
+<details class="menu"><summary>знания</summary><div class="menu-list"><a href="research.html">🔬 исследования</a><a href="conferences.html">🎤 конференции</a><a href="study.html">🎓 образование</a><a href="books.html">📚 книги</a><a href="media.html">🎧 подкасты</a></div></details>
+<details class="menu"><summary>ИИ</summary><div class="menu-list"><a href="agents.html">🤖 ИИ-агенты</a><a href="skills.html">🧰 ИИ-скиллы</a></div></details>
+<details class="menu"><summary>посты</summary><div class="menu-list"><a href="blog/">📝 все посты</a><a href="tags/">🏷 теги</a></div></details>
+</nav>
+<span class="tools">
+<a class="icon-btn lang" href="en/sql.html" title="English version" hreflang="en">EN</a>
+<button type="button" class="icon-btn" id="search-open" aria-label="Поиск по сайту" title="Поиск (/)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+<button type="button" class="icon-btn" id="theme-toggle" aria-label="Переключить тёмную тему" title="Тёмная тема"><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</span>
+<script>
+document.addEventListener('click', e => document.querySelectorAll('details.menu[open]').forEach(d => { if (!d.contains(e.target)) d.open = false; }));
+document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggle', () => { if (d.open) document.querySelectorAll('details.menu[open]').forEach(o => { if (o !== d) o.open = false; }); }));
+</script>
+</div></header>
+<main>
+
+<article class="page"><div class="wrap">
+<a class="back" href="tools.html">Инструментарий</a>
+<h1>SQL-песочница</h1>
+<p class="intro">Настоящий SQLite прямо в браузере. Внутри — данные этого сайта: кейсы, их метрики, посты и теги. Выберите пример или напишите свой запрос.</p>
+<div class="sq">
+<aside class="sq-side"><p class="sq-k">Таблицы</p><ul class="sq-schema"><li><b>cases</b><span>slug, company, years, model, own</span><em>8 строк</em></li><li><b>results</b><span>case_slug, metric, change_pct</span><em>16 строк</em></li><li><b>case_tasks</b><span>slug, task</span><em>13 строк</em></li><li><b>posts</b><span>slug, date, title</span><em>23 строки</em></li><li><b>post_tags</b><span>slug, tag</span><em>55 строк</em></li></ul></aside>
+<div class="sq-main">
+<p class="sq-k">Примеры</p><div class="sq-exs"><button type="button" class="sq-ex" data-q="SELECT c.company, r.metric, r.change_pct
+FROM results r
+JOIN cases c ON c.slug = r.case_slug
+WHERE r.change_pct &gt; 0
+ORDER BY r.change_pct DESC
+LIMIT 5;">Топ-5 метрик по росту</button><button type="button" class="sq-ex" data-q="SELECT substr(date, 1, 4) AS year, COUNT(*) AS posts
+FROM posts
+GROUP BY year
+ORDER BY year;">Посты по годам</button><button type="button" class="sq-ex" data-q="SELECT tag, COUNT(*) AS posts
+FROM post_tags
+GROUP BY tag
+ORDER BY posts DESC
+LIMIT 8;">Частые теги</button><button type="button" class="sq-ex" data-q="SELECT t.task, COUNT(*) AS cases,
+       GROUP_CONCAT(c.company, &#x27;, &#x27;) AS companies
+FROM case_tasks t
+JOIN cases c ON c.slug = t.slug
+GROUP BY t.task
+ORDER BY cases DESC;">Кейсы по типу задачи</button><button type="button" class="sq-ex" data-q="SELECT case_slug, metric, change_pct,
+       RANK() OVER (PARTITION BY case_slug
+                    ORDER BY ABS(change_pct) DESC) AS rnk
+FROM results
+ORDER BY case_slug, rnk;">Оконная функция: ранг метрик в кейсе</button></div>
+<label class="visually-hidden" for="sq-in">SQL</label>
+<textarea id="sq-in" class="sq-in" spellcheck="false" rows="7">SELECT c.company, r.metric, r.change_pct
+FROM results r
+JOIN cases c ON c.slug = r.case_slug
+WHERE r.change_pct &gt; 0
+ORDER BY r.change_pct DESC
+LIMIT 5;</textarea>
+<div class="sq-bar"><button type="button" id="sq-run" class="sq-run" disabled>▶ Выполнить</button><span class="sq-hint">Ctrl+Enter</span><span id="sq-status" class="sq-status" role="status">Загружаю SQLite…</span></div>
+<div id="sq-out" class="sq-out"></div>
+</div>
+</div>
+<p class="sq-note">Данные только публичные — те же, что на страницах сайта. Ничего не отправляется на сервер.</p>
+</div></article>
+<script id="sq-data" type="application/json">{"cases": [{"slug": "asia-online", "company": "Азия Ритейл", "years": "2023–2024", "model": "B2C, ~600 тыс. пользователей", "own": 0}, {"slug": "mts-id", "company": "МТС", "years": "2021–2023", "model": "B2B2C, ~10 млн пользователей", "own": 0}, {"slug": "po-sosedstvu", "company": "По соседству", "years": "2022–2024", "model": "B2C и B2B, сооснователь", "own": 1}, {"slug": "gazprombank", "company": "Газпромбанк", "years": "с 2024", "model": "B2E, 1 000 сотрудников", "own": 0}, {"slug": "dobster", "company": "Добстер", "years": "2022–2023", "model": "B2C, сооснователь", "own": 1}, {"slug": "granit", "company": "Концерн ГРАНИТ", "years": "2019–2021", "model": "B2G, 50 пользователей", "own": 0}, {"slug": "bolz-tech", "company": "bolz.tech", "years": "2023–2025", "model": "B2B2C, сооснователь", "own": 1}, {"slug": "bolz-dev", "company": "bolz.dev", "years": "2025", "model": "B2B и B2C, сооснователь", "own": 1}], "results": [{"case_slug": "asia-online", "metric": "Выручка", "change_pct": 103.0}, {"case_slug": "asia-online", "metric": "Доля заказов из приложения", "change_pct": 130.0}, {"case_slug": "asia-online", "metric": "Количество заказов", "change_pct": 67.0}, {"case_slug": "asia-online", "metric": "Новые пользователи", "change_pct": 44.0}, {"case_slug": "asia-online", "metric": "Скачивания приложения", "change_pct": 37.0}, {"case_slug": "asia-online", "metric": "Активные клиенты", "change_pct": 31.0}, {"case_slug": "asia-online", "metric": "Конверсия в покупку", "change_pct": 17.0}, {"case_slug": "asia-online", "metric": "Удовлетворённость клиентов", "change_pct": 16.0}, {"case_slug": "asia-online", "metric": "Отток клиентов", "change_pct": -24.0}, {"case_slug": "asia-online", "metric": "Отмены заказов", "change_pct": -15.0}, {"case_slug": "po-sosedstvu", "metric": "Количество заказов", "change_pct": 89.0}, {"case_slug": "po-sosedstvu", "metric": "Средний чек", "change_pct": 71.0}, {"case_slug": "po-sosedstvu", "metric": "Позиций в чеке", "change_pct": 54.0}, {"case_slug": "po-sosedstvu", "metric": "Выручка", "change_pct": 58.0}, {"case_slug": "po-sosedstvu", "metric": "Активные клиенты", "change_pct": 31.0}, {"case_slug": "po-sosedstvu", "metric": "Новые пользователи", "change_pct": 12.0}], "case_tasks": [{"slug": "asia-online", "task": "рост и перезапуск"}, {"slug": "mts-id", "task": "платформа и интеграции"}, {"slug": "gazprombank", "task": "запуск с нуля"}, {"slug": "gazprombank", "task": "ИИ в продукте"}, {"slug": "granit", "task": "запуск с нуля"}, {"slug": "po-sosedstvu", "task": "запуск с нуля"}, {"slug": "po-sosedstvu", "task": "рост и перезапуск"}, {"slug": "dobster", "task": "запуск с нуля"}, {"slug": "bolz-tech", "task": "запуск с нуля"}, {"slug": "bolz-tech", "task": "платформа и интеграции"}, {"slug": "bolz-dev", "task": "запуск с нуля"}, {"slug": "bolz-dev", "task": "платформа и интеграции"}, {"slug": "bolz-dev", "task": "ИИ в продукте"}], "posts": [{"slug": "intervyu-ii-v-banke", "date": "2026-10-16", "title": "Что мешает ИИ в управлении — итоги интервью в крупном банке"}, {"slug": "lekcii-it-menedzhment", "date": "2026-10-16", "title": "Читаю курс по ИТ-менеджменту в университете"}, {"slug": "put-v-ii-agenty", "date": "2026-10-16", "title": "Начинаю рассказывать свой путь в ИИ-агентах"}, {"slug": "vdohnovlennye-kagan", "date": "2026-10-16", "title": "«Вдохновлённые» Марти Кагана: главное о продакт-менеджменте"}, {"slug": "doklad-gotovnost-kompanij", "date": "2026-09-10", "title": "Онлайн-доклад — готовы ли российские компании к ИИ в менеджменте"}, {"slug": "doklad-riski-ii-banki", "date": "2026-09-07", "title": "Доклад о том, как банку снижать риски ИИ — от ответственности до дорожной карты"}, {"slug": "doklad-infrastruktura-ii", "date": "2026-03-04", "title": "Доклад на международной конференции — что нужно компании, чтобы ИИ работал"}, {"slug": "statya-riski-ii", "date": "2025-12-15", "title": "Статья о рисках и ограничениях ИИ в управлении — на примере банков"}, {"slug": "bolz-akselerator", "date": "2025-09-30", "title": "Прошёл акселератор «Академия инноваторов» с проектом bolz.tech"}, {"slug": "statya-tendencii-ii", "date": "2025-09-23", "title": "Статья о трендах ИИ в корпоративном управлении — от генеративных моделей до агентов"}, {"slug": "bolz-dev-mcp", "date": "2025-08-31", "title": "bolz.dev — MCP-коннектор, через который ИИ-агенты совершают реальные действия"}, {"slug": "statya-ii-v-menedzhmente", "date": "2025-05-31", "title": "Первая статья ВАК — как российские компании применяют ИИ в менеджменте"}, {"slug": "golubogo-okeana", "date": "2022-10-09", "title": "«Стратегия голубого океана» Ким и Моборн: как уйти от конкуренции"}, {"slug": "ocenka-mts", "date": "2022-04-18", "title": "Что показала независимая оценка менеджеров продукта в МТС"}, {"slug": "ot-nulya-k-edinice", "date": "2022-03-13", "title": "«От нуля к единице» Питера Тиля: как создавать принципиально новое"}, {"slug": "dumaj-medlenno", "date": "2021-08-29", "title": "«Думай медленно… решай быстро» Даниэля Канемана: как мы ошибаемся в решениях"}, {"slug": "magisterskaya-vshe", "date": "2021-06-30", "title": "Магистерская в ВШЭ — как оценить, окупится ли цифровая трансформация"}, {"slug": "na-kryuchke", "date": "2021-02-21", "title": "«На крючке» Нира Эяля: как продукты становятся привычкой"}, {"slug": "cel-goldratt", "date": "2020-09-27", "title": "«Цель» Элияху Голдратта: теория ограничений в форме романа"}, {"slug": "dilemma-innovatora", "date": "2020-03-22", "title": "«Дилемма инноватора» Клейтона Кристенсена: почему сильные компании проигрывают новичкам"}, {"slug": "postroenie-biznes-modelej", "date": "2019-10-20", "title": "«Построение бизнес-моделей» Остервальдера и Пинье: бизнес-модель на одном листе"}, {"slug": "spros-mamu", "date": "2019-04-14", "title": "«Спроси маму» Роба Фитцпатрика: как разговаривать с пользователями, чтобы они не врали"}, {"slug": "pervyj-sajt-lighthouse", "date": "2019-03-15", "title": "С чего начался мой путь в продукт — первый сайт для промышленной компании"}], "post_tags": [{"slug": "intervyu-ii-v-banke", "tag": "исследования"}, {"slug": "intervyu-ii-v-banke", "tag": "ИИ в управлении"}, {"slug": "intervyu-ii-v-banke", "tag": "финтех"}, {"slug": "lekcii-it-menedzhment", "tag": "преподавание"}, {"slug": "lekcii-it-menedzhment", "tag": "менеджмент"}, {"slug": "lekcii-it-menedzhment", "tag": "продакт"}, {"slug": "put-v-ii-agenty", "tag": "ИИ-агенты"}, {"slug": "put-v-ii-agenty", "tag": "AI"}, {"slug": "put-v-ii-agenty", "tag": "продакт"}, {"slug": "vdohnovlennye-kagan", "tag": "книги"}, {"slug": "vdohnovlennye-kagan", "tag": "продакт"}, {"slug": "doklad-gotovnost-kompanij", "tag": "конференция"}, {"slug": "doklad-gotovnost-kompanij", "tag": "ИИ в управлении"}, {"slug": "doklad-riski-ii-banki", "tag": "конференция"}, {"slug": "doklad-riski-ii-banki", "tag": "ИИ в управлении"}, {"slug": "doklad-riski-ii-banki", "tag": "финтех"}, {"slug": "doklad-infrastruktura-ii", "tag": "конференция"}, {"slug": "doklad-infrastruktura-ii", "tag": "ИИ в управлении"}, {"slug": "statya-riski-ii", "tag": "научная статья"}, {"slug": "statya-riski-ii", "tag": "ИИ в управлении"}, {"slug": "statya-riski-ii", "tag": "финтех"}, {"slug": "bolz-akselerator", "tag": "стартап"}, {"slug": "bolz-akselerator", "tag": "шеринг"}, {"slug": "bolz-akselerator", "tag": "B2C"}, {"slug": "statya-tendencii-ii", "tag": "научная статья"}, {"slug": "statya-tendencii-ii", "tag": "ИИ в управлении"}, {"slug": "statya-tendencii-ii", "tag": "ИИ-агенты"}, {"slug": "bolz-dev-mcp", "tag": "стартап"}, {"slug": "bolz-dev-mcp", "tag": "ИИ-агенты"}, {"slug": "bolz-dev-mcp", "tag": "AI"}, {"slug": "statya-ii-v-menedzhmente", "tag": "научная статья"}, {"slug": "statya-ii-v-menedzhmente", "tag": "ИИ в управлении"}, {"slug": "golubogo-okeana", "tag": "книги"}, {"slug": "golubogo-okeana", "tag": "менеджмент"}, {"slug": "ocenka-mts", "tag": "продакт"}, {"slug": "ocenka-mts", "tag": "телеком"}, {"slug": "ot-nulya-k-edinice", "tag": "книги"}, {"slug": "ot-nulya-k-edinice", "tag": "стартап"}, {"slug": "dumaj-medlenno", "tag": "книги"}, {"slug": "dumaj-medlenno", "tag": "менеджмент"}, {"slug": "magisterskaya-vshe", "tag": "исследования"}, {"slug": "magisterskaya-vshe", "tag": "финтех"}, {"slug": "magisterskaya-vshe", "tag": "менеджмент"}, {"slug": "na-kryuchke", "tag": "книги"}, {"slug": "na-kryuchke", "tag": "продакт"}, {"slug": "cel-goldratt", "tag": "книги"}, {"slug": "cel-goldratt", "tag": "менеджмент"}, {"slug": "dilemma-innovatora", "tag": "книги"}, {"slug": "dilemma-innovatora", "tag": "продакт"}, {"slug": "postroenie-biznes-modelej", "tag": "книги"}, {"slug": "postroenie-biznes-modelej", "tag": "продакт"}, {"slug": "spros-mamu", "tag": "книги"}, {"slug": "spros-mamu", "tag": "продакт"}, {"slug": "pervyj-sajt-lighthouse", "tag": "продакт"}, {"slug": "pervyj-sajt-lighthouse", "tag": "B2B"}]}</script>
+<script src="assets/vendor/sqljs/sql-wasm.js"></script>
+<script>
+(() => {
+  const L = {"rows": ["строка", "строки", "строк"], "ms": "мс", "ready": "Готово: SQLite запущен в браузере.", "fail": "Не удалось загрузить SQLite.", "empty": "Запрос выполнен, строк нет."};
+  const inp = document.getElementById('sq-in'), run = document.getElementById('sq-run'), st = document.getElementById('sq-status'), out = document.getElementById('sq-out');
+  const base = document.querySelector('script[src*="sql-wasm.js"]').src.replace(/sql-wasm\.js.*$/, '');
+  const data = JSON.parse(document.getElementById('sq-data').textContent);
+  let db;
+  const pl = n => { const f = L.rows, a = n % 10, b = n % 100; if (document.documentElement.lang === 'en') return n === 1 ? f[0] : f[1]; return f[b >= 11 && b <= 14 ? 2 : a === 1 ? 0 : a >= 2 && a <= 4 ? 1 : 2]; };
+  const esc = v => String(v ?? 'NULL').replace(/[&<>]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;'})[c]);
+  const exec = () => {
+    if (!db) return; const t0 = performance.now();
+    try {
+      const res = db.exec(inp.value); const ms = Math.round(performance.now() - t0);
+      if (!res.length) { out.innerHTML = `<p class="sq-msg">${L.empty}</p>`; st.textContent = `${ms} ${L.ms}`; return; }
+      const r = res[res.length - 1];
+      out.innerHTML = '<div class="sq-tbl"><table><thead><tr>' + r.columns.map(c => `<th>${esc(c)}</th>`).join('') + '</tr></thead><tbody>'
+        + r.values.map(row => '<tr>' + row.map(v => `<td${typeof v === 'number' ? ' class="n"' : ''}>${esc(v)}</td>`).join('') + '</tr>').join('') + '</tbody></table></div>';
+      st.textContent = `${r.values.length} ${pl(r.values.length)} · ${ms} ${L.ms}`;
+    } catch (e) { out.innerHTML = `<p class="sq-err">${esc(e.message)}</p>`; st.textContent = ''; }
+  };
+  initSqlJs({locateFile: f => base + f}).then(SQL => {
+    db = new SQL.Database();
+    for (const [name, rows] of Object.entries(data)) {
+      if (!rows.length) continue; const cols = Object.keys(rows[0]);
+      db.run(`CREATE TABLE ${name} (${cols.map(c => c + (typeof rows[0][c] === 'number' ? ' REAL' : ' TEXT')).join(', ')})`);
+      const stmt = db.prepare(`INSERT INTO ${name} VALUES (${cols.map(() => '?').join(',')})`);
+      rows.forEach(r => stmt.run(cols.map(c => r[c]))); stmt.free();
+    }
+    run.disabled = false; st.textContent = L.ready; exec();
+  }).catch(() => { st.textContent = L.fail; });
+  run.addEventListener('click', exec);
+  inp.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); exec(); } });
+  document.querySelectorAll('.sq-ex').forEach(b => b.addEventListener('click', () => { inp.value = b.dataset.q; exec(); }));
+})();
+</script>
+
+</main>
+<footer><div class="wrap foot">
+© 2026 Роман Понуров · <a href="mailto:ponurov.roman@yandex.ru">email</a> · <a href="https://t.me/astro090">telegram</a> · все права защищены
+</div></footer>
+</body>
+</html>

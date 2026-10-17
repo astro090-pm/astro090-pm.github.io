@@ -216,7 +216,7 @@ SKILL_GROUPS = [
 TOOLKIT = [
     ("User research", [
         ("CustDev and in-depth interviews", "Validating the problem before development.", "Gazprombank, MTS ID, Asia Online, a survey of 200 bolz.tech users, interviews for my dissertation"),
-        ("Jobs To Be Done", "I define which “job” the user hires the product for.", ""),
+        ("Jobs To Be Done", "I define which “job” the user hires the product for.", "Dobster, bolz.tech, bolz.dev, Weekend Planner"),
         ("UX testing", "I watch where users stumble before release.", ""),
     ]),
     ("Prioritisation and strategy", [
@@ -439,11 +439,112 @@ ROADMAP = {
         ("The official A2A SDK", "~150 readable lines were enough for a prototype; the contract matches the spec"),
         ("An LLM critic that triggers fixes", "LLM review can be wrong, so it only advises; code checks do the blocking"),
         ("Lock-in to one provider", "the model is switched with one setting, and evals compare models from different companies")],
+    "jtbd": ("User job", "When on Friday I'm thinking about what to do with my kid at the weekend, I want an hour-by-hour plan that accounts for weather and budget in a minute, so that I don't spend half an hour switching between listings, maps and the forecast."),
+    "us_h": "User stories",
+    "us_lbl": {"ac": "Acceptance criteria", "m": "Metric", "done": "done", "next": "next"},
+    "stories": [
+        ("done", "As a user whose plan didn't fit, I want one button for another option or a cheaper one, so that I don't have to write the request again.",
+         ["every plan has “🔁 Another option” and “💸 Cheaper” buttons", "a change can also be written as plain text", "the revised plan passes the same checks as the first one"],
+         "refine rate — revisions per delivered plan"),
+        ("done", "As a parent, I want the bot to account for my child's age and the weather, so that we don't end up somewhere a child isn't allowed, or in the rain.",
+         ["only age-appropriate items get into the plan", "in rain — only indoor places", "code checks this, not the model; there are eval cases for kids and rain"],
+         "👍 / (👍 + 👎)"),
+        ("done", "As a user, I want a reminder on Friday, so that I plan the weekend in time.",
+         ["only subscribers get the reminder", "it is sent on Friday at lunchtime — when people think about the weekend"],
+         "reminder CTR and return 7d"),
+        ("next", "As a user, I want to see the progress and get a plan in seconds, so that I don't wait in silence.",
+         ["progress is shown by stage", "time to plan — seconds instead of tens of seconds"],
+         "time to value — median from /start to the first plan"),
+        ("next", "As a regular user, I want the bot to take my past ratings into account, so that plans fit better.",
+         ["categories the person liked are taken into account"],
+         "👍 / (👍 + 👎)"),
+    ],
     "src": "More in the repository docs",
     "src_url": GITHUB + "/weekend-planner/blob/main/docs/ARCHITECTURE.md",
 }
 
 RES_LBL = {"down": "lower is better", "table": "Show as a table", "aria": "Results in numbers"}
+
+EXPERIMENTS = {
+    "asia-online": {"intro": "There were many hypotheses, and not all of them held up.", "cards": [
+        {"status": "no", "hyp": "If delivery gets faster, the number of orders will grow.", "metric": "number of orders",
+         "result": "no significant growth", "decision": ""},
+    ]},
+}
+EXP_LBL = {"h": "What didn't work", "hyp": "Hypothesis", "metric": "Metric", "result": "Result", "decision": "Decision",
+           "yes": "confirmed", "no": "not confirmed", "tag": "experiment"}
+
+JTBD = {
+    "dobster": [
+        ("👵", "Recipient", "I need help around the house but can't pay for it", "to leave one simple request", "I get help for free without searching for someone myself"),
+        ("🙋", "Helper", "I want to help people nearby", "to see specific tasks from verified recipients", "I help those who really need it"),
+        ("💳", "Donor", "I donate money", "to pay for a specific task and get a report", "I see where the money went"),
+    ],
+    "bolz-tech": [
+        ("🛴", "User", "there is no scooter or power bank nearby from the service whose app I have", "to rent from another one without a new install or sign-up", "I don't waste time on yet another app"),
+        ("🔋", "Sharing service", "the promotion budget is small", "to get customers from other apps with large audiences", "I grow without my own marketing"),
+        ("📱", "Partner app", "I need to raise MAU and usage frequency", "to add 24/7 sharing to the app", "users come back more often and the audience is monetized"),
+    ],
+    "bolz-dev": [
+        ("🙂", "User", "I ask an AI assistant to buy or book something", "to go from request to payment in one conversation", "I don't follow links or fill in forms"),
+        ("🤖", "AI agent", "a user asks me to take an action", "to call a tool with live prices and payment", "I finish the job instead of handing over a link"),
+        ("🏪", "Service", "customers increasingly come through AI assistants", "to connect once and appear in agents' answers", "I don't lose those customers"),
+    ],
+}
+JTBD_LBL = {"h": "User jobs (JTBD)", "when": "When", "want": "I want", "so": "so that"}
+
+TOOLKIT_TITLE = "Toolkit"
+SQL_TEXT = {
+    "title": "SQL sandbox",
+    "desc": "A SQL console right in the browser: queries over Roman Ponurov's site data — cases, metrics and posts.",
+    "intro": "Real SQLite right in your browser. Inside is this site's data: cases, their metrics, posts and tags. Pick an example or write your own query.",
+    "run": "Run", "hint": "Ctrl+Enter", "examples": "Examples", "schema": "Tables", "rows": ["row", "rows", "rows"], "ms": "ms",
+    "loading": "Loading SQLite…", "ready": "Ready: SQLite is running in your browser.", "fail": "Could not load SQLite.", "empty": "Query ran, no rows.",
+    "note": "Public data only — the same as on the site's pages. Nothing is sent to a server.",
+    "suffix": " — Roman Ponurov",
+    "ex": [
+        ("Top 5 metrics by growth", "SELECT c.company, r.metric, r.change_pct\nFROM results r\nJOIN cases c ON c.slug = r.case_slug\nWHERE r.change_pct > 0\nORDER BY r.change_pct DESC\nLIMIT 5;"),
+        ("Posts by year", "SELECT substr(date, 1, 4) AS year, COUNT(*) AS posts\nFROM posts\nGROUP BY year\nORDER BY year;"),
+        ("Frequent tags", "SELECT tag, COUNT(*) AS posts\nFROM post_tags\nGROUP BY tag\nORDER BY posts DESC\nLIMIT 8;"),
+        ("Cases by task type", "SELECT t.task, COUNT(*) AS cases,\n       GROUP_CONCAT(c.company, ', ') AS companies\nFROM case_tasks t\nJOIN cases c ON c.slug = t.slug\nGROUP BY t.task\nORDER BY cases DESC;"),
+        ("Window function: metric rank in a case", "SELECT case_slug, metric, change_pct,\n       RANK() OVER (PARTITION BY case_slug\n                    ORDER BY ABS(change_pct) DESC) AS rnk\nFROM results\nORDER BY case_slug, rnk;"),
+    ],
+}
+
+CALC_TEXT = {
+    "title": "Product calculators",
+    "desc": "Interactive calculators for unit economics (LTV, CAC, payback) and A/B tests (sample size, significance).",
+    "intro": "Two calculations a product manager does most often. The default numbers are an example, not data from a specific product: plug in your own.",
+    "cur": "$", "suffix": " — Roman Ponurov",
+    "u_h": "Unit economics", "u_sub": "How much a customer brings in and whether acquiring them pays off.",
+    "u_in": [("check", "Average order value", 40, "$"), ("margin", "Margin or commission per order", 25, "%"), ("orders", "Orders over customer lifetime", 6, "pcs"), ("cac", "CAC — acquisition cost", 32, "$")],
+    "u_out": {"per": "Revenue per order", "ltv": "LTV — revenue per customer", "ratio": "LTV / CAC", "pay": "CAC payback", "pay_u": "orders",
+              "good": "Acquisition pays off with room to spare", "ok": "Pays off, but with a thin margin", "bad": "Acquisition does not pay off"},
+    "a_h": "A/B test", "a_sub": "How many users you need and whether the result is significant.",
+    "s_h": "Sample size", "s_in": [("p", "Baseline conversion", 10, "%"), ("mde", "Minimum detectable effect (relative)", 10, "%")],
+    "alpha": "Significance level α", "power": "Power",
+    "s_out": "users in each group", "s_total": "total",
+    "t_h": "Result significance", "t_a": "Group A", "t_b": "Group B", "t_users": "Users", "t_conv": "Conversions",
+    "t_out": {"cr": "Conversion", "lift": "Difference", "p": "p-value", "sig": "The difference is statistically significant", "nosig": "No significant difference — you need more data, or the effect is smaller than expected"},
+    "note": "Calculated for conversions with a two-sided two-proportion z-test.",
+}
+
+TOOL_PROOF = {
+    "0:0": [("survey of 200 bolz.tech users", "cases/bolz-tech.html")],
+    "0:1": [("Dobster", "cases/dobster.html#jtbd"), ("bolz.tech", "cases/bolz-tech.html#jtbd"), ("bolz.dev", "cases/bolz-dev.html#jtbd"), ("Weekend Planner", "projects.html#roadmap")],
+    "1:1": [("Weekend Planner roadmap", "projects.html#roadmap")],
+    "2:0": [("Asia Online metric tree", "cases/asia-online.html#metric-tree"), ("MTS ID", "cases/mts-id.html#metric-tree")],
+    "2:1": [("bolz.tech", "cases/bolz-tech.html"), ("calculator", "calc.html#unit")],
+    "2:2": [("experiment at Asia Online", "cases/asia-online.html#experiments"), ("calculator", "calc.html#ab")],
+    "2:3": [("SQL sandbox", "sql.html"), ("GoPractice certificate", "study.html")],
+    "3:1": [("Weekend Planner user stories", "projects.html#stories")],
+    "4:0": [("my path into AI agents", "agents.html"), ("Weekend Planner code", GITHUB + "/weekend-planner")],
+    "4:1": [("bolz.dev", "cases/bolz-dev.html")],
+    "4:2": [("Weekend Planner evals", GITHUB + "/weekend-planner/tree/main/evals")],
+}
+TOOL_LBL = {"where": "Where I used it", "proof": "See", "try_h": "Try it yourself",
+            "try": [("sql.html", "🗄", "SQL sandbox", "queries over the site's data right in your browser"),
+                    ("calc.html", "🧮", "Calculators", "unit economics and A/B tests")]}
 
 PATCH = {k: v for k, v in globals().items() if k.isupper() and k not in ("HERE", "GITHUB", "WP", "PIO", "SP")}
 PATCH["BOOKS_LINK"] = '<a href="{up}books.html">📚 books</a>'
@@ -528,7 +629,7 @@ def layout(ctx):
 <header class="top"><div class="wrap">
 <a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Roman Ponurov</a>
 <nav class="nav" aria-label="Sections">
-<details class="menu"><summary>product</summary><div class="menu-list"><a href="{up}about.html">👋 about me</a><a href="{up}now.html">⏱ now</a><a href="{up}timeline.html">🗓 timeline</a><a href="{up}assets/Ponurov_Roman_CV_EN.pdf" target="_blank" rel="noopener">📄 CV (PDF)</a><a href="{up}cases/index.html">📁 case portfolio</a><a href="{up}tools.html">🧰 toolkit</a></div></details>
+<details class="menu"><summary>product</summary><div class="menu-list"><a href="{up}about.html">👋 about me</a><a href="{up}now.html">⏱ now</a><a href="{up}timeline.html">🗓 timeline</a><a href="{up}assets/Ponurov_Roman_CV_EN.pdf" target="_blank" rel="noopener">📄 CV (PDF)</a><a href="{up}cases/index.html">📁 case portfolio</a><a href="{up}tools.html">🧰 toolkit</a><a href="{up}sql.html">🗄 SQL sandbox</a><a href="{up}calc.html">🧮 calculators</a></div></details>
 <a href="{up}projects.html">projects</a>
 <details class="menu"><summary>knowledge</summary><div class="menu-list"><a href="{up}research.html">🔬 research</a><a href="{up}conferences.html">🎤 conferences</a><a href="{up}study.html">🎓 education</a>{PATCH["BOOKS_LINK"].format(up=up)}{PATCH["MEDIA_LINK"].format(up=up)}</div></details>
 <details class="menu"><summary>AI</summary><div class="menu-list"><a href="{up}agents.html">🤖 AI agents</a><a href="{up}skills.html">🧰 AI skills</a></div></details>

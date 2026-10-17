@@ -56,12 +56,6 @@ The retailer's online channel was underperforming: the app had poor ratings, ord
 
 A full product relaunch where growth came from product (app, payments), operations (picking, call centre, assortment), channels (Glovo, banking app) and team (Agile, KPIs) at the same time.
 
-## What didn't work
-
-There were many hypotheses, and not all of them held up.
-
-**Hypothesis: faster delivery means more orders.** We tested it, and orders did not grow significantly. Delivery speed was not what drove the number of orders; growth came from other levers: channels, conversion and fewer cancellations (see the metric tree).
-
 ## What I learned
 
 - Growth came not from the app alone but from working on product, operations, channels and the team at the same time. A redesign on its own would have hit the limits of order picking and cancellations.

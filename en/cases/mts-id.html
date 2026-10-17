@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../../assets/style.css?v=4c58530a">
+<link rel="stylesheet" href="../../assets/style.css?v=226d5734">
 <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="../../assets/site.js?v=122f7508" defer data-root="../"></script>
 </head>
@@ -32,7 +32,7 @@
 <header class="top"><div class="wrap">
 <a class="brand" href="../"><img class="avatar avatar-sm" src="../../assets/avatar-sm.jpg" width="34" height="34" alt="">Roman Ponurov</a>
 <nav class="nav" aria-label="Sections">
-<details class="menu"><summary>product</summary><div class="menu-list"><a href="../about.html">👋 about me</a><a href="../now.html">⏱ now</a><a href="../timeline.html">🗓 timeline</a><a href="../../assets/Ponurov_Roman_CV_EN.pdf" target="_blank" rel="noopener">📄 CV (PDF)</a><a href="../cases/">📁 case portfolio</a><a href="../tools.html">🧰 toolkit</a></div></details>
+<details class="menu"><summary>product</summary><div class="menu-list"><a href="../about.html">👋 about me</a><a href="../now.html">⏱ now</a><a href="../timeline.html">🗓 timeline</a><a href="../../assets/Ponurov_Roman_CV_EN.pdf" target="_blank" rel="noopener">📄 CV (PDF)</a><a href="../cases/">📁 case portfolio</a><a href="../tools.html">🧰 toolkit</a><a href="../sql.html">🗄 SQL sandbox</a><a href="../calc.html">🧮 calculators</a></div></details>
 <a href="../projects.html">projects</a>
 <details class="menu"><summary>knowledge</summary><div class="menu-list"><a href="../research.html">🔬 research</a><a href="../conferences.html">🎤 conferences</a><a href="../study.html">🎓 education</a><a href="../books.html">📚 books</a><a href="../media.html">🎧 podcasts</a></div></details>
 <details class="menu"><summary>AI</summary><div class="menu-list"><a href="../agents.html">🤖 AI agents</a><a href="../skills.html">🧰 AI skills</a></div></details>
@@ -58,6 +58,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <dl class="tldr-meta"><div><dt>Role</dt><dd>Product Manager</dd></div><div><dt>Where</dt><dd>MTS (largest Russian telecom)</dd></div><div><dt>When</dt><dd>October 2021 — May 2023</dd></div></dl>
 <dl class="tldr-facts"><div><dt>Product</dt><dd>MTS ID — single seamless sign-in for ecosystem products, web + mobile (B2B2C)</dd></div><div><dt>Audience</dt><dd>~10M users</dd></div><div><dt>Stage</dt><dd>in production</dd></div><div><dt>Stack</dt><dd>Java, Swift, Kotlin</dd></div></dl>
 </section>
+
 <div class="prose">
 <h2>Context</h2>
 <p>An ecosystem has many products, and every extra login step loses users. MTS ID lets people use all services with one account without signing in again. The product's value grows with every connected service, so the core work is integrations and reliability.</p>
@@ -75,7 +76,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <li>Moved the product from a monolith to <strong>microservices</strong>.</li>
 <li>Seamless logins grew by <strong>23%</strong>, seamless authorisations by <strong>7%</strong>.</li>
 </ul>
-<section class="mtree" aria-label="Metric tree"><h2>Metric tree</h2><p class="mt-note">How the main result breaks down into metrics and which actions moved them. Numbers come from the Results section.</p><div class="mt-wrap"><svg class="mt-svg" aria-hidden="true"></svg><ul class="mt"><li class="mt-l0"><div class="mt-node" tabindex="0"><span class="mt-name">Seamless logins</span><b class="mt-val">+23%</b><span class="mt-lever">the platform&#x27;s key metric — measured across the whole ecosystem</span></div><ul><li class="mt-l1"><div class="mt-node" tabindex="0"><span class="mt-name">Connected products</span><b class="mt-val">9 + MTS Bank</b><span class="mt-lever"><i>levers:</i> integrations with consumer teams; 2 more external products together with MTS Pay</span></div></li><li class="mt-l1"><div class="mt-node" tabindex="0"><span class="mt-name">Seamless authorizations</span><b class="mt-val">+7%</b></div></li><li class="mt-l1"><div class="mt-node" tabindex="0"><span class="mt-name">Readiness to scale</span><span class="mt-lever"><i>levers:</i> moving from a monolith to microservices</span></div></li></ul></li></ul></div></section><script>(() => {
+<section class="mtree" id="metric-tree" aria-label="Metric tree"><h2>Metric tree</h2><p class="mt-note">How the main result breaks down into metrics and which actions moved them. Numbers come from the Results section.</p><div class="mt-wrap"><svg class="mt-svg" aria-hidden="true"></svg><ul class="mt"><li class="mt-l0"><div class="mt-node" tabindex="0"><span class="mt-name">Seamless logins</span><b class="mt-val">+23%</b><span class="mt-lever">the platform&#x27;s key metric — measured across the whole ecosystem</span></div><ul><li class="mt-l1"><div class="mt-node" tabindex="0"><span class="mt-name">Connected products</span><b class="mt-val">9 + MTS Bank</b><span class="mt-lever"><i>levers:</i> integrations with consumer teams; 2 more external products together with MTS Pay</span></div></li><li class="mt-l1"><div class="mt-node" tabindex="0"><span class="mt-name">Seamless authorizations</span><b class="mt-val">+7%</b></div></li><li class="mt-l1"><div class="mt-node" tabindex="0"><span class="mt-name">Readiness to scale</span><span class="mt-lever"><i>levers:</i> moving from a monolith to microservices</span></div></li></ul></li></ul></div></section><script>(() => {
   const sec = document.currentScript.previousElementSibling, wrap = sec.querySelector('.mt-wrap'), svg = wrap.querySelector('svg');
   const NS = 'http://www.w3.org/2000/svg', nodes = [...wrap.querySelectorAll('.mt-node')];
   const parentNode = n => { const li = n.parentElement.parentElement.closest('li'); return li ? li.querySelector(':scope > .mt-node') : null; };
