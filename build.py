@@ -1558,9 +1558,8 @@ def timeline_page() -> str:
 <h1>Хронология</h1>
 <p class="intro">Весь путь на одной странице — от инженера на испытательной станции до AI-продакта, исследователя и преподавателя. Свежее сверху.</p>
 {gantt_block()}
-<div class="tl-two">
+<div class="tl-one">
 {geo_block()}
-{heat_block()}
 </div>
 <div class="filters" role="group" aria-label="Фильтр">{chips}</div>
 <ol class="tl">{"".join(rows)}</ol>
