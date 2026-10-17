@@ -4,4 +4,4 @@
 # Пример:
 # podcasts | Название подкаста | Ведущий | Одна фраза: что взял в работу | https://...
 # Пока список пуст — страница и пункт меню не показываются.
-podcasts | Make Sense | Yury Ageev, founder of the ProductSense conference | |
+podcasts | make sense podcast (in Russian) | ProductSense — weekly conversations about people, ideas, money and practices in building products | Latest episodes I listened to: on viewer habits, trade-offs between metrics and non-obvious effects of product changes; and on AI slop in texts, checking for substance and an engineering approach to non-engineering tasks | https://podcasts.apple.com/ru/podcast/make-sense-podcast/id1417851966
