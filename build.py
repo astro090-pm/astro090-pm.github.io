@@ -703,6 +703,42 @@ def wrap_misses(html: str) -> str:
     return html[:m.start()] + '<section class="miss">' + html[m.start():n] + "</section>\n" + html[n:]
 
 
+# ---------- Наглядные результаты: таблица «метрика | ±N%» → плитки и полосы
+RES_LBL = {"down": "меньше — лучше", "table": "Показать таблицей", "aria": "Результаты в цифрах"}
+
+
+def visual_results(html: str) -> str:
+    m = re.search(r"<h2>[^<]*(?:Результаты|[Rr]esults)[^<]*</h2>\s*(<table>.*?</table>)", html, re.S)
+    if not m:
+        return html
+    table = m.group(1)
+    rows = re.findall(r"<tr>\s*<td>(.*?)</td>\s*<td>(.*?)</td>\s*</tr>", table, re.S)
+    data = []
+    for name, val in rows:
+        strong = "<strong>" in val
+        v = re.sub(r"<[^>]+>", "", val).strip()
+        num = re.fullmatch(r"([+−-])(\d+(?:[.,]\d+)?)%", v)
+        if not num:
+            return html
+        data.append((re.sub(r"<[^>]+>", "", name).strip(), v, float(num.group(2).replace(",", ".")), num.group(1) != "+", strong))
+    if len(data) < 3:
+        return html
+    mx = max(d[2] for d in data)
+    tiles = "".join(f'<div class="rv-tile"><b>{esc(v)}</b><span>{esc(n)}</span></div>' for n, v, _a, _d, st in data if st)
+    bars = []
+    for n, v, a, down, st in sorted([d for d in data if not d[4]], key=lambda d: -d[2]):
+        note = f' <small>{RES_LBL["down"]}</small>' if down else ""
+        bars.append(f'<li class="rv-row{" rv-down" if down else ""}" title="{esc(n)}: {esc(v)}"><span class="rv-name">{esc(n)}{note}</span>'
+                    f'<span class="rv-track"><span class="rv-bar" style="--w:{a / mx * 100:.1f}%"></span></span><b class="rv-num">{esc(v)}</b></li>')
+    block = (f'<div class="rv" role="group" aria-label="{RES_LBL["aria"]}">'
+             + (f'<div class="rv-tiles">{tiles}</div>' if tiles else "")
+             + f'<ul class="rv-bars">{"".join(bars)}</ul>'
+             + f'<details class="rv-table"><summary>{RES_LBL["table"]}</summary>{table}</details></div>'
+             + """<script>(() => { const r = document.currentScript.previousElementSibling; if (!('IntersectionObserver' in window)) return;
+  r.classList.add('rv-js'); const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { r.classList.add('in'); io.disconnect(); } }), {threshold: .3}); io.observe(r); })();</script>""")
+    return html[:m.start(1)] + block + html[m.end(1):]
+
+
 def case_page(i: int) -> str:
     slug, company, years, kind, about, _result = CASES[i]
     text = (ROOT / "content" / "cases" / f"{slug}.md").read_text(encoding="utf-8")
@@ -711,7 +747,7 @@ def case_page(i: int) -> str:
     # GitHub допускает список сразу после строки текста, python-markdown — только после пустой строки.
     text = re.sub(r"(?m)^(?!- |\d+\. )(.+)\n(?=- |\d+\. )", r"\1\n\n", text)
     body_html = markdown.markdown(text, extensions=["tables", "sane_lists"])
-    body_html = wrap_misses(insert_tree(body_html, slug))
+    body_html = wrap_misses(insert_tree(visual_results(body_html), slug))
     nxt = CASES[(i + 1) % len(CASES)]
     body = f"""
 <article class="page"><div class="wrap">

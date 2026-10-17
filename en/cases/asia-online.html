@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../../assets/style.css?v=a3a93b8b">
+<link rel="stylesheet" href="../../assets/style.css?v=e0644fd0">
 <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="../../assets/site.js?v=122f7508" defer data-root="../"></script>
 </head>
@@ -88,7 +88,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <li>Restructured the department and introduced KPIs.</li>
 </ul>
 <h2>Results</h2>
-<table>
+<div class="rv" role="group" aria-label="Results in numbers"><div class="rv-tiles"><div class="rv-tile"><b>+103%</b><span>Revenue</span></div><div class="rv-tile"><b>+130%</b><span>Share of orders from the app</span></div></div><ul class="rv-bars"><li class="rv-row" title="Orders: +67%"><span class="rv-name">Orders</span><span class="rv-track"><span class="rv-bar" style="--w:51.5%"></span></span><b class="rv-num">+67%</b></li><li class="rv-row" title="New users: +44%"><span class="rv-name">New users</span><span class="rv-track"><span class="rv-bar" style="--w:33.8%"></span></span><b class="rv-num">+44%</b></li><li class="rv-row" title="App downloads: +37%"><span class="rv-name">App downloads</span><span class="rv-track"><span class="rv-bar" style="--w:28.5%"></span></span><b class="rv-num">+37%</b></li><li class="rv-row" title="Active customers: +31%"><span class="rv-name">Active customers</span><span class="rv-track"><span class="rv-bar" style="--w:23.8%"></span></span><b class="rv-num">+31%</b></li><li class="rv-row rv-down" title="Customer churn: −24%"><span class="rv-name">Customer churn <small>lower is better</small></span><span class="rv-track"><span class="rv-bar" style="--w:18.5%"></span></span><b class="rv-num">−24%</b></li><li class="rv-row" title="Conversion to purchase: +17%"><span class="rv-name">Conversion to purchase</span><span class="rv-track"><span class="rv-bar" style="--w:13.1%"></span></span><b class="rv-num">+17%</b></li><li class="rv-row" title="Customer satisfaction: +16%"><span class="rv-name">Customer satisfaction</span><span class="rv-track"><span class="rv-bar" style="--w:12.3%"></span></span><b class="rv-num">+16%</b></li><li class="rv-row rv-down" title="Order cancellations: −15%"><span class="rv-name">Order cancellations <small>lower is better</small></span><span class="rv-track"><span class="rv-bar" style="--w:11.5%"></span></span><b class="rv-num">−15%</b></li></ul><details class="rv-table"><summary>Show as a table</summary><table>
 <thead>
 <tr>
 <th>Metric</th>
@@ -137,7 +137,8 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <td>−15%</td>
 </tr>
 </tbody>
-</table>
+</table></details></div><script>(() => { const r = document.currentScript.previousElementSibling; if (!('IntersectionObserver' in window)) return;
+  r.classList.add('rv-js'); const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { r.classList.add('in'); io.disconnect(); } }), {threshold: .3}); io.observe(r); })();</script>
 <section class="mtree" aria-label="Metric tree"><h2>Metric tree</h2><p class="mt-note">How the main result breaks down into metrics and which actions moved them. Numbers come from the Results section.</p><ul class="mt"><li><div class="mt-node mt-root"><span class="mt-name">Revenue</span> <b class="mt-val">+103%</b></div><ul><li><div class="mt-node"><span class="mt-name">Number of orders</span> <b class="mt-val">+67%</b></div><ul><li><div class="mt-node"><span class="mt-name">New users</span> <b class="mt-val">+44%</b><span class="mt-lever"><i>levers:</i> Glovo integration, storefront in the M-Bank app, app redesign</span></div></li><li><div class="mt-node"><span class="mt-name">Active customers</span> <b class="mt-val">+31%</b></div></li><li><div class="mt-node"><span class="mt-name">Customer churn</span> <b class="mt-val mt-down">−24%</b></div></li><li><div class="mt-node"><span class="mt-name">Purchase conversion</span> <b class="mt-val">+17%</b><span class="mt-lever"><i>levers:</i> online payment, redesign, ordering via the call center</span></div></li><li><div class="mt-node"><span class="mt-name">Order cancellations</span> <b class="mt-val mt-down">−15%</b><span class="mt-lever"><i>levers:</i> the Picker app, up-to-date prices and stock</span></div></li></ul></li><li><div class="mt-node"><span class="mt-name">Average order value</span> <b class="mt-val mt-txt">revenue grew faster than orders</b><span class="mt-lever"><i>levers:</i> assortment +2,000 SKUs</span></div></li></ul></li></ul></section>
 <h2>What this case shows</h2>
 <p>A full product relaunch where growth came from product (app, payments), operations (picking, call centre, assortment), channels (Glovo, banking app) and team (Agile, KPIs) at the same time.</p>

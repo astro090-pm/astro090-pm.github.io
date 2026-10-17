@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../assets/style.css?v=a3a93b8b">
+<link rel="stylesheet" href="../assets/style.css?v=e0644fd0">
 <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="../assets/site.js?v=122f7508" defer data-root="../"></script>
 </head>
@@ -77,7 +77,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <li>Запустил сайт интернет-магазина для B2C и B2B.</li>
 </ul>
 <h2>Результаты для B2B</h2>
-<table>
+<div class="rv" role="group" aria-label="Результаты в цифрах"><div class="rv-tiles"><div class="rv-tile"><b>+89%</b><span>Количество заказов</span></div><div class="rv-tile"><b>+71%</b><span>Средний чек</span></div></div><ul class="rv-bars"><li class="rv-row" title="Выручка: +58%"><span class="rv-name">Выручка</span><span class="rv-track"><span class="rv-bar" style="--w:65.2%"></span></span><b class="rv-num">+58%</b></li><li class="rv-row" title="Позиций в чеке: +54%"><span class="rv-name">Позиций в чеке</span><span class="rv-track"><span class="rv-bar" style="--w:60.7%"></span></span><b class="rv-num">+54%</b></li><li class="rv-row" title="Активные клиенты: +31%"><span class="rv-name">Активные клиенты</span><span class="rv-track"><span class="rv-bar" style="--w:34.8%"></span></span><b class="rv-num">+31%</b></li><li class="rv-row" title="Новые пользователи: +12%"><span class="rv-name">Новые пользователи</span><span class="rv-track"><span class="rv-bar" style="--w:13.5%"></span></span><b class="rv-num">+12%</b></li></ul><details class="rv-table"><summary>Показать таблицей</summary><table>
 <thead>
 <tr>
 <th>Метрика</th>
@@ -110,7 +110,8 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <td>+12%</td>
 </tr>
 </tbody>
-</table>
+</table></details></div><script>(() => { const r = document.currentScript.previousElementSibling; if (!('IntersectionObserver' in window)) return;
+  r.classList.add('rv-js'); const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { r.classList.add('in'); io.disconnect(); } }), {threshold: .3}); io.observe(r); })();</script>
 <h2>Что этот кейс показывает</h2>
 <p>Запуск продукта с нуля в роли основателя: от концепции до работающего канала продаж с ограниченным бюджетом и внешней командой.</p>
 <h2>Чему научился</h2>

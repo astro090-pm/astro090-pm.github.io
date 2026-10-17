@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../../assets/style.css?v=a3a93b8b">
+<link rel="stylesheet" href="../../assets/style.css?v=e0644fd0">
 <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="../../assets/site.js?v=122f7508" defer data-root="../"></script>
 </head>
@@ -77,7 +77,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <li><strong>Trust and retention:</strong> certificates on request, money-back guarantee, loyalty points.</li>
 </ul>
 <h2>B2B results</h2>
-<table>
+<div class="rv" role="group" aria-label="Results in numbers"><div class="rv-tiles"><div class="rv-tile"><b>+89%</b><span>Orders</span></div><div class="rv-tile"><b>+71%</b><span>Average check</span></div></div><ul class="rv-bars"><li class="rv-row" title="Revenue: +58%"><span class="rv-name">Revenue</span><span class="rv-track"><span class="rv-bar" style="--w:65.2%"></span></span><b class="rv-num">+58%</b></li><li class="rv-row" title="Items per order: +54%"><span class="rv-name">Items per order</span><span class="rv-track"><span class="rv-bar" style="--w:60.7%"></span></span><b class="rv-num">+54%</b></li><li class="rv-row" title="Active clients: +31%"><span class="rv-name">Active clients</span><span class="rv-track"><span class="rv-bar" style="--w:34.8%"></span></span><b class="rv-num">+31%</b></li><li class="rv-row" title="New users: +12%"><span class="rv-name">New users</span><span class="rv-track"><span class="rv-bar" style="--w:13.5%"></span></span><b class="rv-num">+12%</b></li></ul><details class="rv-table"><summary>Show as a table</summary><table>
 <thead>
 <tr>
 <th>Metric</th>
@@ -110,7 +110,8 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <td>+12%</td>
 </tr>
 </tbody>
-</table>
+</table></details></div><script>(() => { const r = document.currentScript.previousElementSibling; if (!('IntersectionObserver' in window)) return;
+  r.classList.add('rv-js'); const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { r.classList.add('in'); io.disconnect(); } }), {threshold: .3}); io.observe(r); })();</script>
 <h2>What this case shows</h2>
 <p>Building a product from scratch as a founder: from concept to a working sales channel with a limited budget and an external team.</p>
 <h2>What I learned</h2>

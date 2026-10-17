@@ -443,6 +443,8 @@ ROADMAP = {
     "src_url": GITHUB + "/weekend-planner/blob/main/docs/ARCHITECTURE.md",
 }
 
+RES_LBL = {"down": "lower is better", "table": "Show as a table", "aria": "Results in numbers"}
+
 PATCH = {k: v for k, v in globals().items() if k.isupper() and k not in ("HERE", "GITHUB", "WP", "PIO", "SP")}
 PATCH["BOOKS_LINK"] = '<a href="{up}books.html">📚 books</a>'
 PATCH["MEDIA_LINK"] = '<a href="{up}media.html">🎧 podcasts</a>'

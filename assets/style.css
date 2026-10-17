@@ -1016,3 +1016,27 @@ html { scroll-behavior: smooth; }
 .rm-cut li span{display:block;color:var(--muted);font-size:13px;margin-top:2px}
 @media (max-width:900px){.rm-board{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.rm-board{grid-template-columns:1fr}.mt ul{margin-left:6px;padding-left:14px}.mt ul>li::before{left:-14px;width:10px}}
+
+/* Наглядные результаты */
+.rv{margin:8px 0 28px}
+.rv-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:18px}
+.rv-tile{padding:16px 18px;border-radius:14px;background:var(--surface);border:1px solid var(--rule);position:relative;overflow:hidden}
+.rv-tile::after{content:"";position:absolute;right:-30px;bottom:-30px;width:110px;height:110px;border-radius:50%;background:#D9822B;opacity:.12}
+.rv-tile b{display:block;font-family:var(--display);font-size:clamp(30px,5vw,42px);line-height:1.05;color:var(--ink);letter-spacing:-.02em}
+.rv-tile span{display:block;margin-top:6px;font-size:15px;color:var(--muted);line-height:1.35}
+.rv-bars{list-style:none;margin:0;padding:0}
+.rv-row{display:grid;grid-template-columns:minmax(0,15em) 1fr 4.2em;align-items:center;gap:12px;padding:7px 0;border-bottom:1px dashed var(--rule)}
+.rv-row:last-child{border-bottom:0}
+.rv-name{font-size:15px;line-height:1.3}
+.rv-name small{display:block;font-size:12px;color:var(--muted)}
+.rv-track{height:10px;border-radius:0 5px 5px 0;background:transparent}
+.rv-bar{display:block;height:100%;width:var(--w);border-radius:0 4px 4px 0;background:#D9822B;transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.rv.rv-js .rv-bar{width:0}
+.rv.rv-js.in .rv-bar{width:var(--w)}
+.rv-down .rv-bar{background:repeating-linear-gradient(135deg,#D9822B 0 6px,rgba(217,130,43,.55) 6px 9px)}
+.rv-num{font-variant-numeric:tabular-nums;text-align:right;font-size:16px;color:var(--ink)}
+.rv-row:hover .rv-name{color:var(--ink);font-weight:600}
+.rv-table{margin-top:12px;font-size:14px}
+.rv-table summary{cursor:pointer;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.rv-bar{transition:none}}
+@media (max-width:560px){.rv-row{grid-template-columns:1fr 3.8em;gap:4px 10px}.rv-name{grid-column:1/-1}.rv-track{grid-column:1}}
