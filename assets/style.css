@@ -821,3 +821,9 @@ html { scroll-behavior: smooth; }
 .cert-thumb:hover img { border-color: var(--ink); }
 .cert-links { font: 400 14px/1.4 var(--sans); }
 .cert-thumb img[src$=".png"] { width: 84px; border: 0; background: transparent; }
+
+/* Книги: простой список прочитанного */
+.book-list { max-width: var(--measure); margin: 8px 0 0; padding-left: 28px; font-size: 19px; line-height: 1.5; }
+.book-list li { padding: 10px 0; border-bottom: 1px solid var(--rule); }
+.book-list li::marker { color: var(--muted); font: 500 15px var(--sans); }
+.bk-author { color: var(--muted); }

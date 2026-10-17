@@ -372,7 +372,6 @@ def year_stats(B):
             (pl(tag("conference"), "conference talk", "conference talks"), tag("conference"), "conferences.html"),
             (pl(tag("journal article"), "peer-reviewed article", "peer-reviewed articles"), tag("journal article"), "research.html"),
             (pl(courses, "course", "courses and programmes"), courses, "study.html"),
-            (pl(tag("books"), "book", "books"), tag("books"), "books.html"),
             (pl(len(ys), "post", "posts"), len(ys), "blog/"),
         ]
         if year == 2026:

@@ -952,29 +952,21 @@ def load_books() -> list[dict]:
 
 
 def books_page(books: list[dict], posts: list[dict]) -> str:
-    reviews = [p for p in posts if TG["books"] in p["tags"]]
-    blocks = []
-    if reviews:
-        blocks.append(f'<section class="uni"><div class="uni-head"><h2>Рецензии</h2></div><ul class="feed">{feed(reviews, "blog/")}</ul></section>')
-    topics: dict[str, list[dict]] = {}
-    for b in books:
-        topics.setdefault(b["topic"] or "Разное", []).append(b)
-    for topic, items in topics.items():
-        lis = "\n".join(
-            f'<li><span class="when">{esc(b["author"])}</span><span class="what">'
-            + (f'<a href="blog/{b["post"]}.html">{esc(b["title"])}</a>' if b["post"] else esc(b["title"]))
-            + (f'<i>{esc(b["note"])}</i>' if b["note"] else "") + "</span></li>"
-            for b in items)
-        blocks.append(f'<section class="uni"><div class="uni-head"><h2>{esc(topic)}</h2></div><ul class="pubs">\n{lis}\n</ul></section>')
+    """Простой список прочитанных книг; название ведёт на рецензию."""
+    lis = "\n".join(
+        f'<li><span class="bk-title">' + (f'<a href="blog/{b["post"]}.html">{esc(b["title"])}</a>' if b["post"] else esc(b["title"]))
+        + f'</span> <span class="bk-author">— {esc(b["author"])}</span></li>' for b in books)
     body = f"""
 <article class="page"><div class="wrap">
 <a class="back" href="index.html">На главную</a>
 <h1>Книги</h1>
-<p class="intro">Книги, которые повлияли на то, как я делаю продукты и управляю командами. По главным — пишу рецензии с основными тезисами.</p>
-{"".join(blocks)}
+<p class="intro">Книги, которые я прочитал. По каждой — рецензия с главными тезисами: нажмите на название.</p>
+<ol class="book-list">
+{lis}
+</ol>
 </div></article>
 """
-    return layout("Книги — Роман Понуров", "Книги о продукте, ИИ и менеджменте, которые читает Роман Понуров, и рецензии на них.", body, "books.html")
+    return layout("Книги — Роман Понуров", "Книги, которые прочитал Роман Понуров, и рецензии на них.", body, "books.html")
 
 
 WP = GITHUB + "/weekend-planner"
@@ -1250,7 +1242,6 @@ def year_stats(posts: list[dict], year: int) -> list[tuple[str, int, str]]:
         ("доклада" if tag("конференция") in (2, 3, 4) else "докладов" if tag("конференция") != 1 else "доклад", tag("конференция"), "conferences.html"),
         ("статьи ВАК" if tag("научная статья") in (2, 3, 4) else "статей ВАК" if tag("научная статья") != 1 else "статья ВАК", tag("научная статья"), "research.html"),
         ("курса и программы" if courses in (2, 3, 4) else "курсов и программ" if courses != 1 else "курс", courses, "study.html"),
-        ("книга" if tag("книги") == 1 else "книги" if tag("книги") in (2, 3, 4) else "книг", tag("книги"), "books.html"),
         ("поста" if len(ys) in (2, 3, 4) else "постов" if len(ys) != 1 else "пост", len(ys), "blog/"),
     ]
     if year == 2026:

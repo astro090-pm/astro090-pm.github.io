@@ -1,10 +1,10 @@
 # Books: Topic | Title | Author | Why useful | review post slug
 Product and discovery | Inspired: How to Create Tech Products Customers Love | Marty Cagan | A map of the PM profession: four risks, Discovery and Delivery, missionary teams | vdohnovlennye-kagan
-Product and discovery | The Mom Test | Rob Fitzpatrick | How to ask interview questions that don't get polite lies |
-Product and discovery | The Innovator's Dilemma | Clayton Christensen | Why successful companies lose to disruptive innovation |
-Metrics, growth, experiments | Hooked: How to Build Habit-Forming Products | Nir Eyal | The habit model: trigger, action, reward, investment |
-Thinking and decisions | Thinking, Fast and Slow | Daniel Kahneman | Two systems of thinking and cognitive biases |
-Processes and engineering | The Goal | Eliyahu Goldratt | Theory of constraints: find the system's bottleneck |
-Strategy and business | Zero to One | Peter Thiel | Creating something new instead of copying |
-Strategy and business | Business Model Generation | Alexander Osterwalder, Yves Pigneur | The nine-block Business Model Canvas |
-Strategy and business | Blue Ocean Strategy | W. Chan Kim, Renée Mauborgne | Creating uncontested market space |
+Product and discovery | The Mom Test | Rob Fitzpatrick | How to ask interview questions that don't get polite lies | spros-mamu
+Product and discovery | The Innovator's Dilemma | Clayton Christensen | Why successful companies lose to disruptive innovation | dilemma-innovatora
+Metrics, growth, experiments | Hooked: How to Build Habit-Forming Products | Nir Eyal | The habit model: trigger, action, reward, investment | na-kryuchke
+Thinking and decisions | Thinking, Fast and Slow | Daniel Kahneman | Two systems of thinking and cognitive biases | dumaj-medlenno
+Processes and engineering | The Goal | Eliyahu Goldratt | Theory of constraints: find the system's bottleneck | cel-goldratt
+Strategy and business | Zero to One | Peter Thiel | Creating something new instead of copying | ot-nulya-k-edinice
+Strategy and business | Business Model Generation | Alexander Osterwalder, Yves Pigneur | The nine-block Business Model Canvas | postroenie-biznes-modelej
+Strategy and business | Blue Ocean Strategy | W. Chan Kim, Renée Mauborgne | Creating uncontested market space | golubogo-okeana
