@@ -972,3 +972,47 @@ html { scroll-behavior: smooth; }
 /* меньше воздуха между шапкой и «Кто вы?» */
 .hero-home:has(+ .router){padding-bottom:8px}
 .hero-home + .router{margin-top:12px}
+
+/* Дерево метрик */
+.mtree{margin:36px 0 8px}
+.mt-note{color:var(--muted);font-size:15px;margin:-4px 0 14px}
+.mt,.mt ul{list-style:none;margin:0;padding:0}
+.mt ul{margin-left:14px;padding-left:18px;border-left:1.5px solid var(--rule)}
+.mt li{position:relative;margin:8px 0;padding:0}
+.mt ul>li::before{content:"";position:absolute;left:-18px;top:20px;width:14px;border-top:1.5px solid var(--rule)}
+.mt-node{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;padding:8px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--surface);max-width:100%}
+.mt-root{border-color:#D9822B;border-width:1.5px}
+.mt-name{font-weight:600;font-size:16px}
+.mt-val{font-size:16px;color:#1f7a4d}
+.mt-down{color:#1f7a4d}
+.mt-lever{flex-basis:100%;font-size:14px;color:var(--muted);line-height:1.4}
+.mt-lever i{font-style:normal;opacity:.8}
+/* Что не сработало */
+.miss{margin:28px 0;padding:4px 20px 8px;border-left:3px solid #D9822B;background:var(--surface);border-radius:0 12px 12px 0}
+.miss h2{margin-top:14px}
+/* Фильтр кейсов по задаче */
+.case-filter{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 22px}
+.case-filter[hidden]{display:none}
+.cf-btn{font:inherit;font-size:14px;padding:7px 14px;border-radius:999px;border:1px solid var(--rule);background:transparent;color:inherit;cursor:pointer}
+.cf-btn .cf-n{opacity:.6;margin-left:2px}
+.mt-val.mt-txt{color:var(--muted);font-weight:400;font-size:14px}
+.cf-btn[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.cf-btn:focus-visible{outline:2px solid #D9822B;outline-offset:2px}
+.case-card[hidden]{display:none!important}
+.task-chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}
+.task-chip{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--paper);border:1px solid var(--rule);color:var(--muted)}
+/* Роадмап */
+.roadmap{margin:44px 0 12px;scroll-margin-top:80px}
+.rm-note{color:var(--muted);font-size:15px}
+.rm-board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}
+.rm-col{border:1px solid var(--rule);border-radius:12px;padding:12px 14px;background:var(--surface)}
+.rm-col h3{margin:0 0 8px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.rm-col ul{list-style:none;margin:0;padding:0}
+.rm-col li{font-size:14px;line-height:1.4;padding:7px 0;border-top:1px dashed var(--rule)}
+.rm-col li:first-child{border-top:0;padding-top:0}
+.rm-now{border-color:#D9822B}
+.rm-now h3{color:#D9822B}
+.rm-cut li s{display:block;font-weight:600;text-decoration-thickness:1px}
+.rm-cut li span{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+@media (max-width:900px){.rm-board{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.rm-board{grid-template-columns:1fr}.mt ul{margin-left:6px;padding-left:14px}.mt ul>li::before{left:-14px;width:10px}}

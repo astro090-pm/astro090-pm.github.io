@@ -326,7 +326,7 @@ PROJECTS = [
     ("🗓", "#E6EDF9", "2026.10", "TG BOT / AI AGENTS", "Weekend Planner",
      "A Telegram bot that builds an hour-by-hour weekend plan: weather, events, places, budget and children's ages.",
      ["3 agents over A2A", "32 eval cases", "55 tests", "prototype"],
-     [("Code on GitHub", GITHUB + "/weekend-planner"), ("Agent diagram", "assets/weekend-planner-arch.png"), ("My path into AI agents", "agents.html")],
+     [("Code on GitHub", GITHUB + "/weekend-planner"), ("Roadmap", "#roadmap"), ("Agent diagram", "assets/weekend-planner-arch.png"), ("My path into AI agents", "agents.html")],
      "Planning a weekend means half an hour of switching between event listings, maps and the forecast. I built a bot that does it in a minute. The model only chooses options; names, prices and times are filled in by code, so the plan doesn't invent places that don't exist."),
     ("🔌", "#C9E8D5", "2025.08", "MCP / AI AGENTS · DUBAI", "bolz.dev",
      "An MCP connector through which AI agents find, book and pay for real-world services themselves.",
@@ -382,6 +382,66 @@ ROUTER = {"title": "Who are you?", "aria": "Route through the site", "routes": [
     ("peer", "I'm a colleague", "AI agents in practice, research and open-source code.", [
         ("My path in AI agents", "agents.html"), ("Research", "research.html"), ("Projects and code", "projects.html")]),
 ]}
+
+METRIC_TREES = {
+    "asia-online": ("Revenue", "+103%", "", [
+        ("Number of orders", "+67%", "", [
+            ("New users", "+44%", "Glovo integration, storefront in the M-Bank app, app redesign", []),
+            ("Active customers", "+31%", "", []),
+            ("Customer churn", "−24%", "", []),
+            ("Purchase conversion", "+17%", "online payment, redesign, ordering via the call center", []),
+            ("Order cancellations", "−15%", "the Picker app, up-to-date prices and stock", []),
+        ]),
+        ("Average order value", "revenue grew faster than orders", "assortment +2,000 SKUs", []),
+    ]),
+    "mts-id": ("Seamless logins", "+23%", "the platform's key metric — measured across the whole ecosystem", [
+        ("Connected products", "9 + MTS Bank", "integrations with consumer teams; 2 more external products together with MTS Pay", []),
+        ("Seamless authorizations", "+7%", "", []),
+        ("Readiness to scale", "", "moving from a monolith to microservices", []),
+    ]),
+}
+TREE_LBL = {"h": "Metric tree", "note": "How the main result breaks down into metrics and which actions moved them. Numbers come from the Results section.",
+            "lever": "levers"}
+
+CASE_FILTER = {
+    "intro": "Products I launched and grew: in my day jobs — in banking, telecom, retail and the public sector — and as a co-founder of my own projects. Pick a task similar to yours.",
+    "aria": "Task type", "all": "all",
+    "tasks": [("zero", "launch from scratch"), ("growth", "growth and relaunch"), ("platform", "platform and integrations"), ("ai", "AI in the product")],
+    "own": "own project",
+}
+
+ROADMAP = {
+    "title": "Roadmap: Weekend Planner",
+    "note": "What is done, what I'm working on, what's next and what I dropped — and why.",
+    "cols": [
+        ("done", "Done · MVP in 3 days", [
+            "3 agents over A2A: orchestrator, scout, critic",
+            "My own MCP server and a browser agent",
+            "32 eval cases and model comparison",
+            "Prices, addresses and times in the plan come from code, not the model",
+            "Events and metrics: activation, 👍, return 7d"]),
+        ("now", "Now", [
+            "First users: the goal is 20–50 people who received a plan",
+            "A separate link per channel to see where people come from",
+            "Plans with 👎 → new eval case → fix → re-run"]),
+        ("next", "Next", [
+            "Streaming and caching: answers in seconds, not tens of seconds",
+            "Personalization based on rating history",
+            "Online evals on real conversations",
+            "Tracing by stage and alerts on rising fallbacks",
+            "A/B tests of prompts and models with guardrail metrics",
+            "Ticket purchase as a tool — with user confirmation"]),
+    ],
+    "cut_h": "Dropped",
+    "cut": [
+        ("One agent for everything", "where the path is known, predictable code is better: each stage can be measured and fixed separately"),
+        ("The model writes prices and addresses", "it picks ids and code fills in the facts, so the plan can't invent places"),
+        ("The official A2A SDK", "~150 readable lines were enough for a prototype; the contract matches the spec"),
+        ("An LLM critic that triggers fixes", "LLM review can be wrong, so it only advises; code checks do the blocking"),
+        ("Lock-in to one provider", "the model is switched with one setting, and evals compare models from different companies")],
+    "src": "More in the repository docs",
+    "src_url": GITHUB + "/weekend-planner/blob/main/docs/ARCHITECTURE.md",
+}
 
 PATCH = {k: v for k, v in globals().items() if k.isupper() and k not in ("HERE", "GITHUB", "WP", "PIO", "SP")}
 PATCH["BOOKS_LINK"] = '<a href="{up}books.html">📚 books</a>'

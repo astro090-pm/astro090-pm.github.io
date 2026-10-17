@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../assets/style.css?v=b71fa588">
+<link rel="stylesheet" href="../assets/style.css?v=a3a93b8b">
 <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="../assets/site.js?v=122f7508" defer data-root=""></script>
 </head>
@@ -62,7 +62,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <h2 class="pj-title">Weekend Planner</h2>
 <p class="pj-about">A Telegram bot that builds an hour-by-hour weekend plan: weather, events, places, budget and children&#x27;s ages.</p>
 <p class="pj-nums"><b>3 agents over A2A</b><b>32 eval cases</b><b>55 tests</b><b>prototype</b></p>
-<p class="pj-btns"><a class="pj-btn" href="https://github.com/astro090-pm/weekend-planner" target="_blank" rel="noopener">Code on GitHub<span aria-hidden="true">↗</span></a><a class="pj-btn" href="../assets/weekend-planner-arch.png" target="_blank" rel="noopener">Agent diagram<span aria-hidden="true">↗</span></a><a class="pj-btn" href="agents.html">My path into AI agents<span aria-hidden="true">↗</span></a></p>
+<p class="pj-btns"><a class="pj-btn" href="https://github.com/astro090-pm/weekend-planner" target="_blank" rel="noopener">Code on GitHub<span aria-hidden="true">↗</span></a><a class="pj-btn" href="#roadmap">Roadmap<span aria-hidden="true">↗</span></a><a class="pj-btn" href="../assets/weekend-planner-arch.png" target="_blank" rel="noopener">Agent diagram<span aria-hidden="true">↗</span></a><a class="pj-btn" href="agents.html">My path into AI agents<span aria-hidden="true">↗</span></a></p>
 <p class="pj-story">Planning a weekend means half an hour of switching between event listings, maps and the forecast. I built a bot that does it in a minute. The model only chooses options; names, prices and times are filled in by code, so the plan doesn&#x27;t invent places that don&#x27;t exist.</p>
 </div>
 </li>
@@ -111,6 +111,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 </div>
 </li>
 </ul>
+<section class="roadmap" id="roadmap" aria-labelledby="rm-h"><h2 id="rm-h">Roadmap: Weekend Planner</h2><p class="rm-note">What is done, what I&#x27;m working on, what&#x27;s next and what I dropped — and why. <a href="https://github.com/astro090-pm/weekend-planner/blob/main/docs/ARCHITECTURE.md">More in the repository docs</a></p><div class="rm-board"><div class="rm-col rm-done"><h3>Done · MVP in 3 days</h3><ul><li>3 agents over A2A: orchestrator, scout, critic</li><li>My own MCP server and a browser agent</li><li>32 eval cases and model comparison</li><li>Prices, addresses and times in the plan come from code, not the model</li><li>Events and metrics: activation, 👍, return 7d</li></ul></div><div class="rm-col rm-now"><h3>Now</h3><ul><li>First users: the goal is 20–50 people who received a plan</li><li>A separate link per channel to see where people come from</li><li>Plans with 👎 → new eval case → fix → re-run</li></ul></div><div class="rm-col rm-next"><h3>Next</h3><ul><li>Streaming and caching: answers in seconds, not tens of seconds</li><li>Personalization based on rating history</li><li>Online evals on real conversations</li><li>Tracing by stage and alerts on rising fallbacks</li><li>A/B tests of prompts and models with guardrail metrics</li><li>Ticket purchase as a tool — with user confirmation</li></ul></div><div class="rm-col rm-cut"><h3>Dropped</h3><ul><li><s>One agent for everything</s><span>where the path is known, predictable code is better: each stage can be measured and fixed separately</span></li><li><s>The model writes prices and addresses</s><span>it picks ids and code fills in the facts, so the plan can&#x27;t invent places</span></li><li><s>The official A2A SDK</s><span>~150 readable lines were enough for a prototype; the contract matches the spec</span></li><li><s>An LLM critic that triggers fixes</s><span>LLM review can be wrong, so it only advises; code checks do the blocking</span></li><li><s>Lock-in to one provider</s><span>the model is switched with one setting, and evals compare models from different companies</span></li></ul></div></div></section>
 <section class="more-sec" aria-labelledby="more-h">
 <h2 id="more-h" class="more-h">see more <span class="cnt">2</span></h2>
 <div class="more-grid"><a class="more-card" href="cases/"><span class="more-ic" style="background:linear-gradient(135deg,#5BC0F8,#3D8BEA)" aria-hidden="true"></span><span><b>Cases</b><span>product problems at my main jobs and how I solved them</span></span></a><a class="more-card" href="agents.html"><span class="more-ic" style="background:linear-gradient(135deg,#F4A259,#E0603A)" aria-hidden="true"></span><span><b>AI agents</b><span>my path from theory to practice: LLMs, MCP, A2A, evals</span></span></a></div>

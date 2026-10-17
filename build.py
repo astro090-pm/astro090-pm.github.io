@@ -371,7 +371,7 @@ PROJECTS = [
     ("🗓", "#E6EDF9", "2026.10", "TG-БОТ / ИИ-АГЕНТЫ", "Планировщик выходных",
      "Telegram-бот собирает план выходных по часам: погода, афиша, места, бюджет и возраст детей.",
      ["3 агента по A2A", "32 эвал-кейса", "55 тестов", "прототип"],
-     [("Код на GitHub", GITHUB + "/weekend-planner"), ("Схема агентов", "assets/weekend-planner-arch.png"), ("Путь в ИИ-агентах", "agents.html")],
+     [("Код на GitHub", GITHUB + "/weekend-planner"), ("Роадмап", "#roadmap"), ("Схема агентов", "assets/weekend-planner-arch.png"), ("Путь в ИИ-агентах", "agents.html")],
      "Чтобы собрать выходные, приходится полчаса переключаться между афишей, картами и прогнозом. Сделал бота, который делает это за минуту. Модель только выбирает варианты, а названия, цены и время подставляет код — так план не выдумывает несуществующих мест."),
     ("🔌", "#C9E8D5", "2025.08", "MCP / ИИ-АГЕНТЫ · ДУБАЙ", "bolz.dev",
      "MCP-коннектор, через который ИИ-агенты сами находят, бронируют и оплачивают реальные сервисы.",
@@ -401,6 +401,51 @@ PROJECTS_TEXT = {"title": "Проекты", "intro": "То, что я запус
                            ("agents.html", "ИИ-агенты", "мой путь от теории к практике: LLM, MCP, A2A, эвалы", "linear-gradient(135deg,#F4A259,#E0603A)")]}
 
 
+# ---------- Роадмап Планировщика (по docs/ARCHITECTURE.md и LAUNCH_PLAN.md в репозитории)
+ROADMAP = {
+    "title": "Роадмап: Планировщик выходных",
+    "note": "Что сделано, над чем работаю, что дальше и от чего отказался — и почему.",
+    "cols": [
+        ("done", "Сделано · MVP за 3 дня", [
+            "3 агента по A2A: оркестратор, разведчик, критик",
+            "Свой MCP-сервер и браузерный агент",
+            "32 эвал-кейса и сравнение моделей",
+            "Цены, адреса и время в плане подставляет код, а не модель",
+            "События и метрики: activation, 👍, return 7d"]),
+        ("now", "Сейчас", [
+            "Первые пользователи: цель — 20–50 человек, получивших план",
+            "Своя ссылка для каждого канала, чтобы видеть источник",
+            "Планы с 👎 → новый эвал-кейс → правка → повторный прогон"]),
+        ("next", "Дальше", [
+            "Стриминг и кэш: ответ за секунды, а не за десятки секунд",
+            "Персонализация по истории оценок",
+            "Онлайн-эвалы на реальных диалогах",
+            "Трассировка по стадиям и алерты на рост фолбэков",
+            "A/B-тесты промптов и моделей с guardrail-метриками",
+            "Покупка билетов как инструмент — с подтверждением пользователя"]),
+    ],
+    "cut_h": "Отказался",
+    "cut": [
+        ("Один агент на всё", "где путь известен, нужен предсказуемый код: каждую стадию можно мерить и чинить отдельно"),
+        ("Модель сама пишет цены и адреса", "она выбирает id, а факты подставляет код — так план не выдумывает места"),
+        ("Официальный SDK A2A", "для прототипа хватило ~150 понятных строк, контракт совпадает со спецификацией"),
+        ("LLM-критик сам запускает правки", "LLM-ревью может ошибаться, поэтому только советует; блокируют проверки кодом"),
+        ("Привязка к одному провайдеру", "модель меняется строкой в настройках, эвалы сравнивают модели разных компаний")],
+    "src": "Подробнее — в документации репозитория",
+    "src_url": GITHUB + "/weekend-planner/blob/main/docs/ARCHITECTURE.md",
+}
+
+
+def roadmap_block() -> str:
+    R = ROADMAP
+    cols = "".join(f'<div class="rm-col rm-{k}"><h3>{esc(h)}</h3><ul>' + "".join(f"<li>{esc(x)}</li>" for x in xs) + "</ul></div>"
+                   for k, h, xs in R["cols"])
+    cut = "".join(f'<li><s>{esc(a)}</s><span>{esc(b)}</span></li>' for a, b in R["cut"])
+    return (f'<section class="roadmap" id="roadmap" aria-labelledby="rm-h"><h2 id="rm-h">{esc(R["title"])}</h2>'
+            f'<p class="rm-note">{esc(R["note"])} <a href="{R["src_url"]}">{esc(R["src"])}</a></p>'
+            f'<div class="rm-board">{cols}<div class="rm-col rm-cut"><h3>{esc(R["cut_h"])}</h3><ul>{cut}</ul></div></div></section>')
+
+
 def projects_page() -> str:
     items = []
     for icon, color, date, kind, name, about, nums, links, story in PROJECTS:
@@ -426,6 +471,7 @@ def projects_page() -> str:
 <ul class="pj-list">
 {chr(10).join(items)}
 </ul>
+{roadmap_block()}
 <section class="more-sec" aria-labelledby="more-h">
 <h2 id="more-h" class="more-h">{esc(T["more"])} <span class="cnt">{len(T["links"])}</span></h2>
 <div class="more-grid">{"".join(f'<a class="more-card" href="{u}"><span class="more-ic" style="background:{g}" aria-hidden="true"></span><span><b>{esc(t)}</b><span>{esc(d)}</span></span></a>' for u, t, d, g in T["links"])}</div>
@@ -598,6 +644,65 @@ def case_summary(text: str, about: str, result: str) -> tuple[str, str]:
     return card, text[m.end():]
 
 
+# ---------- Дерево метрик в кейсах: (метрика, значение, рычаги, дети)
+METRIC_TREES = {
+    "asia-online": ("Выручка", "+103%", "", [
+        ("Количество заказов", "+67%", "", [
+            ("Новые пользователи", "+44%", "интеграция с Glovo, витрина в «М-Банке», редизайн приложения", []),
+            ("Активные клиенты", "+31%", "", []),
+            ("Отток клиентов", "−24%", "", []),
+            ("Конверсия в покупку", "+17%", "онлайн-оплата, редизайн, заказ через колл-центр", []),
+            ("Отмены заказов", "−15%", "приложение «Сборщик», актуальные цены и остатки", []),
+        ]),
+        ("Средний чек", "выручка росла быстрее заказов", "ассортимент +2 000 SKU", []),
+    ]),
+    "mts-id": ("Бесшовные входы", "+23%", "главная метрика платформы — на уровне всей экосистемы", [
+        ("Подключённые продукты", "9 + МТС Банк", "интеграции с командами-потребителями; ещё 2 внешних продукта вместе с МТС Pay", []),
+        ("Бесшовные авторизации", "+7%", "", []),
+        ("Готовность к масштабу", "", "переход с монолита на микросервисы", []),
+    ]),
+}
+TREE_LBL = {"h": "Дерево метрик", "note": "Как главный результат раскладывается на метрики и какие действия на них работали. Цифры — из раздела «Результаты».",
+            "lever": "рычаги"}
+
+
+def metric_tree(slug: str) -> str:
+    t = METRIC_TREES.get(slug)
+    if not t:
+        return ""
+
+    def node(n, root=False):
+        name, val, lever, kids = n
+        cls = "mt-val" + (" mt-down" if val.startswith("−") else "") + ("" if val[:1] in "+−0123456789" else " mt-txt")
+        v = f' <b class="{cls}">{esc(val)}</b>' if val else ""
+        lv = f'<span class="mt-lever"><i>{TREE_LBL["lever"]}:</i> {esc(lever)}</span>' if lever else ""
+        sub = "<ul>" + "".join(node(k) for k in kids) + "</ul>" if kids else ""
+        return f'<li><div class="mt-node{" mt-root" if root else ""}"><span class="mt-name">{esc(name)}</span>{v}{lv}</div>{sub}</li>'
+    return (f'<section class="mtree" aria-label="{TREE_LBL["h"]}"><h2>{TREE_LBL["h"]}</h2><p class="mt-note">{TREE_LBL["note"]}</p>'
+            f'<ul class="mt">{node(t, True)}</ul></section>')
+
+
+def insert_tree(html: str, slug: str) -> str:
+    tree = metric_tree(slug)
+    if not tree:
+        return html
+    m = re.search(r"<h2>(Результаты|Results)[^<]*</h2>", html)
+    if not m:
+        return html + tree
+    n = html.find("<h2>", m.end())
+    return html + tree if n < 0 else html[:n] + tree + "\n" + html[n:]
+
+
+def wrap_misses(html: str) -> str:
+    """Раздел «Что не сработало» оформляется отдельной плашкой."""
+    m = re.search(r"<h2>(Что не сработало|What didn&#x27;t work|What didn't work|What did not work)</h2>", html)
+    if not m:
+        return html
+    n = html.find("<h2>", m.end())
+    n = len(html) if n < 0 else n
+    return html[:m.start()] + '<section class="miss">' + html[m.start():n] + "</section>\n" + html[n:]
+
+
 def case_page(i: int) -> str:
     slug, company, years, kind, about, _result = CASES[i]
     text = (ROOT / "content" / "cases" / f"{slug}.md").read_text(encoding="utf-8")
@@ -606,6 +711,7 @@ def case_page(i: int) -> str:
     # GitHub допускает список сразу после строки текста, python-markdown — только после пустой строки.
     text = re.sub(r"(?m)^(?!- |\d+\. )(.+)\n(?=- |\d+\. )", r"\1\n\n", text)
     body_html = markdown.markdown(text, extensions=["tables", "sane_lists"])
+    body_html = wrap_misses(insert_tree(body_html, slug))
     nxt = CASES[(i + 1) % len(CASES)]
     body = f"""
 <article class="page"><div class="wrap">
@@ -764,42 +870,65 @@ CASES_SHOWN = 6
 OWN_SLUGS = {"po-sosedstvu", "dobster", "bolz-tech", "bolz-dev"}  # собственные проекты — на странице «Проекты», не в портфолио
 
 
+CASE_TASKS = {
+    "asia-online": ["growth"], "mts-id": ["platform"], "gazprombank": ["zero", "ai"], "granit": ["zero"],
+    "po-sosedstvu": ["zero", "growth"], "dobster": ["zero"], "bolz-tech": ["zero", "platform"],
+    "bolz-dev": ["zero", "platform", "ai"],
+}
+CASE_FILTER = {
+    "intro": "Продукты, которые я запускал и развивал: на основной работе — в банке, телекоме, ритейле и госсекторе — и как сооснователь собственных проектов. Выберите задачу, похожую на вашу.",
+    "aria": "Тип задачи", "all": "все",
+    "tasks": [("zero", "запуск с нуля"), ("growth", "рост и перезапуск"), ("platform", "платформа и интеграции"), ("ai", "ИИ в продукте")],
+    "own": "свой проект",
+}
+
+
 def cases_index_page() -> str:
+    F = CASE_FILTER
+    names = dict(F["tasks"])
+    order = [c for c in CASES if c[0] not in OWN_SLUGS] + [c for c in CASES if c[0] in OWN_SLUGS]
     cards = []
-    work = [c for c in CASES if c[0] not in OWN_SLUGS]
-    for i, (slug, company, years, _kind, about, result) in enumerate(work):
+    for slug, company, years, _kind, about, result in order:
         sph, mod, (big, small, color) = TAGS[slug]
-        meta = " · ".join([company] + sph + mod)
-        hidden = " hidden" if i >= CASES_SHOWN else ""
-        cards.append(f"""<li class="card case-card"{hidden}>
+        own = [F["own"]] if slug in OWN_SLUGS else []
+        meta = " · ".join([company] + own + sph + mod)
+        tasks = CASE_TASKS.get(slug, [])
+        chips = "".join(f'<span class="task-chip">{esc(names[t])}</span>' for t in tasks)
+        cards.append(f"""<li class="card case-card" data-tasks="{' '.join(tasks)}">
 <a class="cover" href="{slug}.html" style="background:{color}" aria-hidden="true" tabindex="-1">
 <span class="cover-big">{esc(big)}</span><span class="cover-small">{esc(small)}</span></a>
 <p class="card-meta">{esc(meta)}</p>
 <h2 class="card-title"><a href="{slug}.html">{esc(case_title(slug))}</a></h2>
+<p class="task-chips">{chips}</p>
 </li>""")
-    more = len(work) - CASES_SHOWN
-    more_btn = (f'<button type="button" class="pill-btn more-btn" id="more">смотреть дальше <span class="cnt">{more}</span></button>'
-                if more > 0 else "")
+    counts = {k: sum(k in CASE_TASKS.get(c[0], []) for c in order) for k, _ in F["tasks"]}
+    btns = (f'<button type="button" class="cf-btn" data-t="" aria-pressed="true">{esc(F["all"])} <span class="cf-n">{len(order)}</span></button>'
+            + "".join(f'<button type="button" class="cf-btn" data-t="{k}" aria-pressed="false">{esc(t)} <span class="cf-n">{counts[k]}</span></button>'
+                      for k, t in F["tasks"]))
     body = f"""
 <article class="page"><div class="wrap">
 <a class="back" href="../index.html">На главную</a>
 <h1>Портфолио кейсов</h1>
-<p class="intro">Продукты, которые я запускал и развивал на основной работе: в банке, телекоме, ритейле и госсекторе. Каждый кейс открывается отдельно: контекст, что я сделал и к чему это привело. Собственные продукты — на странице <a href="../projects.html">«Проекты»</a>.</p>
-<ul class="cards">
+<p class="intro">{esc(F["intro"])}</p>
+<div class="case-filter" role="group" aria-label="{esc(F["aria"])}" hidden>{btns}</div>
+<ul class="cards" id="case-cards">
 {chr(10).join(cards)}
 </ul>
-{more_btn}
 <div class="xlinks">
 <a class="xlink" href="../projects.html"><b>Проекты</b><span>что строил сам и зачем — свои продукты и AI-прототипы</span></a>
 </div>
 </div></article>
 <script>
 (() => {{
-  const btn = document.getElementById('more');
-  if (btn) btn.addEventListener('click', () => {{
-    document.querySelectorAll('.case-card[hidden]').forEach(c => c.hidden = false);
-    btn.remove();
-  }});
+  const bar = document.querySelector('.case-filter'); if (!bar) return; bar.hidden = false;
+  const cards = document.querySelectorAll('#case-cards .case-card'), btns = bar.querySelectorAll('.cf-btn');
+  const apply = t => {{
+    btns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.t === t)));
+    cards.forEach(c => c.hidden = !!t && !c.dataset.tasks.split(' ').includes(t));
+    try {{ history.replaceState(null, '', t ? '#' + t : location.pathname); }} catch (e) {{}}
+  }};
+  btns.forEach(b => b.addEventListener('click', () => apply(b.dataset.t)));
+  const h = location.hash.slice(1); if ([...btns].some(b => b.dataset.t === h)) apply(h);
 }})();
 </script>
 """

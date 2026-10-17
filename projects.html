@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=b71fa588">
+<link rel="stylesheet" href="assets/style.css?v=a3a93b8b">
 <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="assets/site.js?v=122f7508" defer data-root=""></script>
 </head>
@@ -60,7 +60,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <h2 class="pj-title">Планировщик выходных</h2>
 <p class="pj-about">Telegram-бот собирает план выходных по часам: погода, афиша, места, бюджет и возраст детей.</p>
 <p class="pj-nums"><b>3 агента по A2A</b><b>32 эвал-кейса</b><b>55 тестов</b><b>прототип</b></p>
-<p class="pj-btns"><a class="pj-btn" href="https://github.com/astro090-pm/weekend-planner" target="_blank" rel="noopener">Код на GitHub<span aria-hidden="true">↗</span></a><a class="pj-btn" href="assets/weekend-planner-arch.png" target="_blank" rel="noopener">Схема агентов<span aria-hidden="true">↗</span></a><a class="pj-btn" href="agents.html">Путь в ИИ-агентах<span aria-hidden="true">↗</span></a></p>
+<p class="pj-btns"><a class="pj-btn" href="https://github.com/astro090-pm/weekend-planner" target="_blank" rel="noopener">Код на GitHub<span aria-hidden="true">↗</span></a><a class="pj-btn" href="#roadmap">Роадмап<span aria-hidden="true">↗</span></a><a class="pj-btn" href="assets/weekend-planner-arch.png" target="_blank" rel="noopener">Схема агентов<span aria-hidden="true">↗</span></a><a class="pj-btn" href="agents.html">Путь в ИИ-агентах<span aria-hidden="true">↗</span></a></p>
 <p class="pj-story">Чтобы собрать выходные, приходится полчаса переключаться между афишей, картами и прогнозом. Сделал бота, который делает это за минуту. Модель только выбирает варианты, а названия, цены и время подставляет код — так план не выдумывает несуществующих мест.</p>
 </div>
 </li>
@@ -109,6 +109,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 </div>
 </li>
 </ul>
+<section class="roadmap" id="roadmap" aria-labelledby="rm-h"><h2 id="rm-h">Роадмап: Планировщик выходных</h2><p class="rm-note">Что сделано, над чем работаю, что дальше и от чего отказался — и почему. <a href="https://github.com/astro090-pm/weekend-planner/blob/main/docs/ARCHITECTURE.md">Подробнее — в документации репозитория</a></p><div class="rm-board"><div class="rm-col rm-done"><h3>Сделано · MVP за 3 дня</h3><ul><li>3 агента по A2A: оркестратор, разведчик, критик</li><li>Свой MCP-сервер и браузерный агент</li><li>32 эвал-кейса и сравнение моделей</li><li>Цены, адреса и время в плане подставляет код, а не модель</li><li>События и метрики: activation, 👍, return 7d</li></ul></div><div class="rm-col rm-now"><h3>Сейчас</h3><ul><li>Первые пользователи: цель — 20–50 человек, получивших план</li><li>Своя ссылка для каждого канала, чтобы видеть источник</li><li>Планы с 👎 → новый эвал-кейс → правка → повторный прогон</li></ul></div><div class="rm-col rm-next"><h3>Дальше</h3><ul><li>Стриминг и кэш: ответ за секунды, а не за десятки секунд</li><li>Персонализация по истории оценок</li><li>Онлайн-эвалы на реальных диалогах</li><li>Трассировка по стадиям и алерты на рост фолбэков</li><li>A/B-тесты промптов и моделей с guardrail-метриками</li><li>Покупка билетов как инструмент — с подтверждением пользователя</li></ul></div><div class="rm-col rm-cut"><h3>Отказался</h3><ul><li><s>Один агент на всё</s><span>где путь известен, нужен предсказуемый код: каждую стадию можно мерить и чинить отдельно</span></li><li><s>Модель сама пишет цены и адреса</s><span>она выбирает id, а факты подставляет код — так план не выдумывает места</span></li><li><s>Официальный SDK A2A</s><span>для прототипа хватило ~150 понятных строк, контракт совпадает со спецификацией</span></li><li><s>LLM-критик сам запускает правки</s><span>LLM-ревью может ошибаться, поэтому только советует; блокируют проверки кодом</span></li><li><s>Привязка к одному провайдеру</s><span>модель меняется строкой в настройках, эвалы сравнивают модели разных компаний</span></li></ul></div></div></section>
 <section class="more-sec" aria-labelledby="more-h">
 <h2 id="more-h" class="more-h">смотреть дальше <span class="cnt">2</span></h2>
 <div class="more-grid"><a class="more-card" href="cases/"><span class="more-ic" style="background:linear-gradient(135deg,#5BC0F8,#3D8BEA)" aria-hidden="true"></span><span><b>Кейсы</b><span>продуктовые задачи на основной работе и как я их решал</span></span></a><a class="more-card" href="agents.html"><span class="more-ic" style="background:linear-gradient(135deg,#F4A259,#E0603A)" aria-hidden="true"></span><span><b>ИИ-агенты</b><span>мой путь от теории к практике: LLM, MCP, A2A, эвалы</span></span></a></div>

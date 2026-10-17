@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../../assets/style.css?v=b71fa588">
+<link rel="stylesheet" href="../../assets/style.css?v=a3a93b8b">
 <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="../../assets/site.js?v=122f7508" defer data-root="../"></script>
 </head>
@@ -53,45 +53,81 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <article class="page"><div class="wrap">
 <a class="back" href="../">Home</a>
 <h1>Case portfolio</h1>
-<p class="intro">Products I launched and grew in my main jobs: at a bank, in telecom, retail and the public sector. Each case opens separately: the context, what I did and what came of it. My own products are on the <a href="../projects.html">Projects page</a>.</p>
-<ul class="cards">
-<li class="card case-card">
+<p class="intro">Products I launched and grew: in my day jobs — in banking, telecom, retail and the public sector — and as a co-founder of my own projects. Pick a task similar to yours.</p>
+<div class="case-filter" role="group" aria-label="Task type" hidden><button type="button" class="cf-btn" data-t="" aria-pressed="true">all <span class="cf-n">8</span></button><button type="button" class="cf-btn" data-t="zero" aria-pressed="false">launch from scratch <span class="cf-n">6</span></button><button type="button" class="cf-btn" data-t="growth" aria-pressed="false">growth and relaunch <span class="cf-n">2</span></button><button type="button" class="cf-btn" data-t="platform" aria-pressed="false">platform and integrations <span class="cf-n">3</span></button><button type="button" class="cf-btn" data-t="ai" aria-pressed="false">AI in the product <span class="cf-n">2</span></button></div>
+<ul class="cards" id="case-cards">
+<li class="card case-card" data-tasks="growth">
 <a class="cover" href="asia-online.html" style="background:#F0C24B" aria-hidden="true" tabindex="-1">
 <span class="cover-big">+103%</span><span class="cover-small">revenue</span></a>
 <p class="card-meta">Asia Retail · foodtech · e-com · B2C</p>
 <h2 class="card-title"><a href="asia-online.html">Asia Online: relaunching a grocery retailer&#x27;s e-commerce</a></h2>
+<p class="task-chips"><span class="task-chip">growth and relaunch</span></p>
 </li>
-<li class="card case-card">
+<li class="card case-card" data-tasks="platform">
 <a class="cover" href="mts-id.html" style="background:#BFD3F2" aria-hidden="true" tabindex="-1">
 <span class="cover-big">10M</span><span class="cover-small">users</span></a>
 <p class="card-meta">MTS · telecom · platform · B2B2C</p>
 <h2 class="card-title"><a href="mts-id.html">MTS ID: seamless sign-in across the MTS ecosystem</a></h2>
+<p class="task-chips"><span class="task-chip">platform and integrations</span></p>
 </li>
-<li class="card case-card">
+<li class="card case-card" data-tasks="zero ai">
 <a class="cover" href="gazprombank.html" style="background:#C9DDC5" aria-hidden="true" tabindex="-1">
 <span class="cover-big">AI agent</span><span class="cover-small">in credit analysis</span></a>
 <p class="card-meta">Gazprombank · fintech · AI · B2E</p>
 <h2 class="card-title"><a href="gazprombank.html">Corporate credit analysis service with an AI agent (B2E)</a></h2>
+<p class="task-chips"><span class="task-chip">launch from scratch</span><span class="task-chip">AI in the product</span></p>
 </li>
-<li class="card case-card">
+<li class="card case-card" data-tasks="zero">
 <a class="cover" href="granit.html" style="background:#D9DCD4" aria-hidden="true" tabindex="-1">
 <span class="cover-big">B2G</span><span class="cover-small">process automation</span></a>
 <p class="card-meta">Concern GRANIT · public sector · B2G</p>
 <h2 class="card-title"><a href="granit.html">Process automation for a government department (B2G)</a></h2>
+<p class="task-chips"><span class="task-chip">launch from scratch</span></p>
+</li>
+<li class="card case-card" data-tasks="zero growth">
+<a class="cover" href="po-sosedstvu.html" style="background:#F0C24B" aria-hidden="true" tabindex="-1">
+<span class="cover-big">+89%</span><span class="cover-small">B2B orders</span></a>
+<p class="card-meta">Po Sosedstvu · own project · foodtech · e-com · B2C · B2B</p>
+<h2 class="card-title"><a href="po-sosedstvu.html">Po Sosedstvu: taking an offline grocery store online</a></h2>
+<p class="task-chips"><span class="task-chip">launch from scratch</span><span class="task-chip">growth and relaunch</span></p>
+</li>
+<li class="card case-card" data-tasks="zero">
+<a class="cover" href="dobster.html" style="background:#E8D3E0" aria-hidden="true" tabindex="-1">
+<span class="cover-big">0 → prod</span><span class="cover-small">launched from scratch</span></a>
+<p class="card-meta">Dobster · own project · charity · B2C</p>
+<h2 class="card-title"><a href="dobster.html">Dobster: a charity platform for free help at home</a></h2>
+<p class="task-chips"><span class="task-chip">launch from scratch</span></p>
+</li>
+<li class="card case-card" data-tasks="zero platform">
+<a class="cover" href="bolz-tech.html" style="background:#BFD3F2" aria-hidden="true" tabindex="-1">
+<span class="cover-big">B2B2C</span><span class="cover-small">sharing in one window</span></a>
+<p class="card-meta">bolz.tech · own project · startup · sharing · B2C · B2B2C</p>
+<h2 class="card-title"><a href="bolz-tech.html">bolz.tech: all sharing services in one window</a></h2>
+<p class="task-chips"><span class="task-chip">launch from scratch</span><span class="task-chip">platform and integrations</span></p>
+</li>
+<li class="card case-card" data-tasks="zero platform ai">
+<a class="cover" href="bolz-dev.html" style="background:#C9E8D5" aria-hidden="true" tabindex="-1">
+<span class="cover-big">MCP</span><span class="cover-small">actions for AI agents</span></a>
+<p class="card-meta">bolz.dev · own project · startup · AI · AI agents · B2B · B2C</p>
+<h2 class="card-title"><a href="bolz-dev.html">bolz.dev: an MCP connector that lets AI agents take real-world actions</a></h2>
+<p class="task-chips"><span class="task-chip">launch from scratch</span><span class="task-chip">platform and integrations</span><span class="task-chip">AI in the product</span></p>
 </li>
 </ul>
-
 <div class="xlinks">
 <a class="xlink" href="../projects.html"><b>Projects</b><span>what I built myself and why — my own products and AI prototypes</span></a>
 </div>
 </div></article>
 <script>
 (() => {
-  const btn = document.getElementById('more');
-  if (btn) btn.addEventListener('click', () => {
-    document.querySelectorAll('.case-card[hidden]').forEach(c => c.hidden = false);
-    btn.remove();
-  });
+  const bar = document.querySelector('.case-filter'); if (!bar) return; bar.hidden = false;
+  const cards = document.querySelectorAll('#case-cards .case-card'), btns = bar.querySelectorAll('.cf-btn');
+  const apply = t => {
+    btns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.t === t)));
+    cards.forEach(c => c.hidden = !!t && !c.dataset.tasks.split(' ').includes(t));
+    try { history.replaceState(null, '', t ? '#' + t : location.pathname); } catch (e) {}
+  };
+  btns.forEach(b => b.addEventListener('click', () => apply(b.dataset.t)));
+  const h = location.hash.slice(1); if ([...btns].some(b => b.dataset.t === h)) apply(h);
 })();
 </script>
 

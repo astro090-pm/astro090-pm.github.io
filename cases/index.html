@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../assets/style.css?v=b71fa588">
+<link rel="stylesheet" href="../assets/style.css?v=a3a93b8b">
 <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="../assets/site.js?v=122f7508" defer data-root="../"></script>
 </head>
@@ -51,45 +51,81 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <article class="page"><div class="wrap">
 <a class="back" href="../">На главную</a>
 <h1>Портфолио кейсов</h1>
-<p class="intro">Продукты, которые я запускал и развивал на основной работе: в банке, телекоме, ритейле и госсекторе. Каждый кейс открывается отдельно: контекст, что я сделал и к чему это привело. Собственные продукты — на странице <a href="../projects.html">«Проекты»</a>.</p>
-<ul class="cards">
-<li class="card case-card">
+<p class="intro">Продукты, которые я запускал и развивал: на основной работе — в банке, телекоме, ритейле и госсекторе — и как сооснователь собственных проектов. Выберите задачу, похожую на вашу.</p>
+<div class="case-filter" role="group" aria-label="Тип задачи" hidden><button type="button" class="cf-btn" data-t="" aria-pressed="true">все <span class="cf-n">8</span></button><button type="button" class="cf-btn" data-t="zero" aria-pressed="false">запуск с нуля <span class="cf-n">6</span></button><button type="button" class="cf-btn" data-t="growth" aria-pressed="false">рост и перезапуск <span class="cf-n">2</span></button><button type="button" class="cf-btn" data-t="platform" aria-pressed="false">платформа и интеграции <span class="cf-n">3</span></button><button type="button" class="cf-btn" data-t="ai" aria-pressed="false">ИИ в продукте <span class="cf-n">2</span></button></div>
+<ul class="cards" id="case-cards">
+<li class="card case-card" data-tasks="growth">
 <a class="cover" href="asia-online.html" style="background:#F0C24B" aria-hidden="true" tabindex="-1">
 <span class="cover-big">+103%</span><span class="cover-small">выручка</span></a>
 <p class="card-meta">Азия Ритейл · фудтех · e-com · B2C</p>
 <h2 class="card-title"><a href="asia-online.html">«Азия Онлайн»: перезапуск e-commerce продуктового ритейлера</a></h2>
+<p class="task-chips"><span class="task-chip">рост и перезапуск</span></p>
 </li>
-<li class="card case-card">
+<li class="card case-card" data-tasks="platform">
 <a class="cover" href="mts-id.html" style="background:#BFD3F2" aria-hidden="true" tabindex="-1">
 <span class="cover-big">10 млн</span><span class="cover-small">пользователей</span></a>
 <p class="card-meta">МТС · телеком · платформа · B2B2C</p>
 <h2 class="card-title"><a href="mts-id.html">MTS ID: бесшовная авторизация в экосистеме МТС</a></h2>
+<p class="task-chips"><span class="task-chip">платформа и интеграции</span></p>
 </li>
-<li class="card case-card">
+<li class="card case-card" data-tasks="zero ai">
 <a class="cover" href="gazprombank.html" style="background:#C9DDC5" aria-hidden="true" tabindex="-1">
 <span class="cover-big">ИИ-агент</span><span class="cover-small">в кредитном анализе</span></a>
 <p class="card-meta">Газпромбанк · финтех · AI · B2E</p>
 <h2 class="card-title"><a href="gazprombank.html">Сервис кредитного анализа компаний с ИИ-агентом (B2E)</a></h2>
+<p class="task-chips"><span class="task-chip">запуск с нуля</span><span class="task-chip">ИИ в продукте</span></p>
 </li>
-<li class="card case-card">
+<li class="card case-card" data-tasks="zero">
 <a class="cover" href="granit.html" style="background:#D9DCD4" aria-hidden="true" tabindex="-1">
 <span class="cover-big">B2G</span><span class="cover-small">автоматизация процессов</span></a>
 <p class="card-meta">Концерн ГРАНИТ · госсектор · B2G</p>
 <h2 class="card-title"><a href="granit.html">Автоматизация процессов государственного департамента (B2G)</a></h2>
+<p class="task-chips"><span class="task-chip">запуск с нуля</span></p>
+</li>
+<li class="card case-card" data-tasks="zero growth">
+<a class="cover" href="po-sosedstvu.html" style="background:#F0C24B" aria-hidden="true" tabindex="-1">
+<span class="cover-big">+89%</span><span class="cover-small">заказов B2B</span></a>
+<p class="card-meta">По соседству · свой проект · фудтех · e-com · B2C · B2B</p>
+<h2 class="card-title"><a href="po-sosedstvu.html">«По соседству»: вывод офлайн-магазина в онлайн</a></h2>
+<p class="task-chips"><span class="task-chip">запуск с нуля</span><span class="task-chip">рост и перезапуск</span></p>
+</li>
+<li class="card case-card" data-tasks="zero">
+<a class="cover" href="dobster.html" style="background:#E8D3E0" aria-hidden="true" tabindex="-1">
+<span class="cover-big">0 → прод</span><span class="cover-small">запуск с нуля</span></a>
+<p class="card-meta">Добстер · свой проект · благотворительность · B2C</p>
+<h2 class="card-title"><a href="dobster.html">«Добстер»: платформа благотворительных услуг</a></h2>
+<p class="task-chips"><span class="task-chip">запуск с нуля</span></p>
+</li>
+<li class="card case-card" data-tasks="zero platform">
+<a class="cover" href="bolz-tech.html" style="background:#BFD3F2" aria-hidden="true" tabindex="-1">
+<span class="cover-big">B2B2C</span><span class="cover-small">шеринг в одном окне</span></a>
+<p class="card-meta">bolz.tech · свой проект · стартап · шеринг · B2C · B2B2C</p>
+<h2 class="card-title"><a href="bolz-tech.html">bolz.tech: экосистема шеринг-сервисов в одном окне</a></h2>
+<p class="task-chips"><span class="task-chip">запуск с нуля</span><span class="task-chip">платформа и интеграции</span></p>
+</li>
+<li class="card case-card" data-tasks="zero platform ai">
+<a class="cover" href="bolz-dev.html" style="background:#C9E8D5" aria-hidden="true" tabindex="-1">
+<span class="cover-big">MCP</span><span class="cover-small">действия для ИИ-агентов</span></a>
+<p class="card-meta">bolz.dev · свой проект · стартап · AI · ИИ-агенты · B2B · B2C</p>
+<h2 class="card-title"><a href="bolz-dev.html">bolz.dev: MCP-коннектор, через который ИИ-агенты совершают реальные действия</a></h2>
+<p class="task-chips"><span class="task-chip">запуск с нуля</span><span class="task-chip">платформа и интеграции</span><span class="task-chip">ИИ в продукте</span></p>
 </li>
 </ul>
-
 <div class="xlinks">
 <a class="xlink" href="../projects.html"><b>Проекты</b><span>что строил сам и зачем — свои продукты и AI-прототипы</span></a>
 </div>
 </div></article>
 <script>
 (() => {
-  const btn = document.getElementById('more');
-  if (btn) btn.addEventListener('click', () => {
-    document.querySelectorAll('.case-card[hidden]').forEach(c => c.hidden = false);
-    btn.remove();
-  });
+  const bar = document.querySelector('.case-filter'); if (!bar) return; bar.hidden = false;
+  const cards = document.querySelectorAll('#case-cards .case-card'), btns = bar.querySelectorAll('.cf-btn');
+  const apply = t => {
+    btns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.t === t)));
+    cards.forEach(c => c.hidden = !!t && !c.dataset.tasks.split(' ').includes(t));
+    try { history.replaceState(null, '', t ? '#' + t : location.pathname); } catch (e) {}
+  };
+  btns.forEach(b => b.addEventListener('click', () => apply(b.dataset.t)));
+  const h = location.hash.slice(1); if ([...btns].some(b => b.dataset.t === h)) apply(h);
 })();
 </script>
 
