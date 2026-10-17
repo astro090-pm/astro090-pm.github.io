@@ -921,3 +921,25 @@ html { scroll-behavior: smooth; }
 @media (max-width: 760px) { .orb-glow { width: 150px; height: 150px; } }
 @media (max-width: 420px) { .orb-glow { width: 136px; height: 136px; } }
 .orb-glow { opacity: .22; filter: blur(18px); }
+
+/* Предпросмотр PDF в боковой панели */
+.pdfp { position: fixed; inset: 0; z-index: 200; }
+.pdfp-back { position: absolute; inset: 0; background: rgba(20, 20, 20, .32); opacity: 0; transition: opacity .2s; }
+.pdfp-box { position: absolute; top: 0; right: 0; bottom: 0; width: min(760px, 92vw); display: flex; flex-direction: column; background: var(--paper); border-left: 1px solid var(--rule); box-shadow: -12px 0 40px rgba(0, 0, 0, .14); transform: translateX(24px); opacity: 0; transition: transform .2s, opacity .2s; }
+.pdfp.on .pdfp-back { opacity: 1; }
+.pdfp.on .pdfp-box { transform: none; opacity: 1; }
+.pdfp-head { display: flex; align-items: center; gap: 8px; padding: 10px 12px 10px 18px; border-bottom: 1px solid var(--rule); font-family: var(--sans); }
+.pdfp-name { flex: 1; min-width: 0; font: 600 15px var(--sans); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pdfp-btn { flex: none; padding: 7px 12px; border: 1px solid var(--card-rule); border-radius: 999px; color: var(--ink); font: 500 13px/1 var(--sans); }
+.pdfp-btn:hover { border-color: var(--ink); text-decoration: none; }
+.pdfp-x { flex: none; width: 34px; height: 34px; border: 0; border-radius: 8px; background: transparent; color: var(--ink); font-size: 16px; cursor: pointer; }
+.pdfp-x:hover { background: var(--surface); }
+.pdfp-frame { flex: 1; width: 100%; border: 0; background: #525659; }
+@media (prefers-reduced-motion: reduce) { .pdfp-back, .pdfp-box { transition: none; } }
+.pdfp-count { flex: none; font: 400 13px var(--sans); color: var(--muted); }
+.pdfp-pages { flex: 1; overflow-y: auto; padding: 12px; background: #525659; display: flex; flex-direction: column; gap: 12px; }
+.pdfp-page { width: 100%; background: #fff; box-shadow: 0 2px 10px rgba(0, 0, 0, .3); }
+.pdfp-page canvas { display: block; width: 100%; height: auto; }
+.pdfp-msg { color: #eee; font: 400 15px var(--sans); text-align: center; margin: 40px 0; }
+.pdfp-pages .pdfp-frame { flex: 1; min-height: 80vh; border: 0; }
+@media (max-width: 760px) { .pdfp-box { width: 100vw; } .pdfp-open { display: none; } .pdfp-head { padding-left: 14px; } .pdfp-pages { padding: 8px; gap: 8px; } }
