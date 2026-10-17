@@ -244,5 +244,5 @@ def install(B):
         word = {"пост": "post", "кейс": "case"}.get(one, one)
         return f"{n} {word}{'' if n == 1 else 's'}"
 
-    for f in (cv_page, projects_page, research_page, study_page, about_page, now_page, short_date, plural):
+    for f in (cv_page, research_page, study_page, about_page, now_page, short_date, plural):
         setattr(B, f.__name__, f)

@@ -779,3 +779,22 @@ html { scroll-behavior: smooth; }
 .blog-tags { margin: -8px 0 36px; }
 .blog-tags p { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
 .blog-tags .blog-tags-all { margin-top: 12px; font: 400 15px var(--sans); }
+
+/* Проекты: список с иконкой, цифрами и кнопками */
+.pj-list { list-style: none; margin: 8px 0 0; padding: 0; max-width: 940px; }
+.pj { display: grid; grid-template-columns: 120px 1fr; gap: 28px; padding: 40px 0; border-bottom: 1px solid var(--rule); }
+.pj:first-child { padding-top: 16px; }
+.pj-icon { width: 120px; height: 120px; border-radius: 22px; display: grid; place-items: center; font-size: 56px; line-height: 1; }
+.pj-meta { font: 400 13px/1.4 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; }
+.page h2.pj-title { font: 600 clamp(24px, 3vw, 30px)/1.2 var(--display); letter-spacing: -0.02em; margin: 0 0 10px; }
+.pj-about { font: 400 18px/1.5 var(--sans); margin: 0 0 12px; max-width: 62ch; }
+.pj-nums { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 0 0 16px; font: 600 16px/1.4 var(--sans); }
+.pj-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.pj-btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 14px; border: 1px solid var(--card-rule); border-radius: 999px; background: #fff; color: var(--ink); font: 500 15px/1 var(--sans); }
+.pj-btn span { color: var(--muted); font-size: 13px; }
+.pj-btn:hover { border-color: var(--ink); text-decoration: none; }
+.pj-story { font: 400 17px/1.6 var(--text); color: var(--ink); margin: 0; max-width: 64ch; }
+:root[data-theme="dark"] .pj-btn { background: var(--surface); }
+:root[data-theme="dark"] .pj-icon { filter: saturate(.75) brightness(.8); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pj-btn { background: var(--surface); } :root:not([data-theme="light"]) .pj-icon { filter: saturate(.75) brightness(.8); } }
+@media (max-width: 640px) { .pj { grid-template-columns: 64px 1fr; gap: 16px; padding: 28px 0; } .pj-icon { width: 64px; height: 64px; border-radius: 14px; font-size: 32px; } .pj-about { font-size: 17px; } }

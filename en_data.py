@@ -315,6 +315,36 @@ GEO = [
 
 MEDIA_KINDS = [("podcasts", "🎧 Podcasts"), ("videos", "🎬 Lectures and videos"), ("reading", "📡 Who I read")]
 
+PROJECTS = [
+    ("🗓", "#E6EDF9", "2026.10", "TG BOT / AI AGENTS", "Weekend Planner",
+     "A Telegram bot that builds an hour-by-hour weekend plan: weather, events, places, budget and children's ages.",
+     ["3 agents over A2A", "32 eval cases", "55 tests", "prototype"],
+     [("Code on GitHub", GITHUB + "/weekend-planner"), ("Agent diagram", "assets/weekend-planner-arch.png"), ("My path into AI agents", "agents.html")],
+     "Planning a weekend means half an hour of switching between event listings, maps and the forecast. I built a bot that does it in a minute. The model only chooses options; names, prices and times are filled in by code, so the plan doesn't invent places that don't exist."),
+    ("🔌", "#C9E8D5", "2025.08", "MCP / AI AGENTS · DUBAI", "bolz.dev",
+     "An MCP connector through which AI agents find, book and pay for real-world services themselves.",
+     ["MVP in August 2025", "co-founder, CPO"],
+     [("Website", "https://bolz.dev/"), ("Case", "cases/bolz-dev.html"), ("Pitch, PDF", "assets/decks/bolz-dev-pitch.pdf")],
+     "AI agents can search and advise, but to pay the user still has to follow a link. We gave agents “find, book, pay” actions. We count success as a completed action — a paid order — not a nice-looking model answer."),
+    ("🛴", "#BFD3F2", "2023.10", "B2B2C / SHARING · DUBAI", "bolz.tech",
+     "All sharing services in one window — inside partners' apps, with no installation or sign-up.",
+     ["power banks in production", "survey of 200 users", "MIC and Moscow Innovator 2025"],
+     [("Case", "cases/bolz-tech.html"), ("Pitch, PDF (Russian)", "assets/decks/bolz-tech-pitch.pdf"), ("About the accelerator", "blog/bolz-akselerator.html")],
+     "The scooter whose app you have is often not nearby. We embedded sharing into other apps via WebView: the card is linked once for all services. Then we noticed users increasingly come through AI assistants — that's how bolz.dev appeared."),
+    ("🤝", "#E8D3E0", "2022.11", "WEB / CHARITY", "Dobster",
+     "Free help at home for the elderly, people with disabilities, veterans and large families.",
+     ["from scratch to production", "3-sided deal", "no fees"],
+     [("Case", "cases/dobster.html"), ("Partnership programme, PDF (Russian)", "assets/decks/dobster-partnership.pdf")],
+     "Those who need help most find it hardest to get. The platform connects the client, the helper and a donor who pays for the work. I designed the client's journey so an elderly person could complete it: verification via Gosuslugi, a request, a review."),
+    ("🛒", "#F6DFA4", "2022.08", "E-COM / FOODTECH", "Po Sosedstvu",
+     "An online shop for Belarusian groceries with delivery for private and corporate clients.",
+     ["B2B: orders +89%", "average check +71%", "revenue +58%"],
+     [("Website", "https://po-sosedstvu.ru/"), ("Case", "cases/po-sosedstvu.html")],
+     "An offline store needed an online channel on a small budget. We launched the shop on 1C-Bitrix with a team of external contractors and a separate account area for companies — the site is still running."),
+]
+PROJECTS_TEXT = {"title": "Projects", "intro": "Things I launched myself — as a co-founder or author: startups, a social project and AI prototypes. My work at companies is in the <a href=\"cases/index.html\">case portfolio</a>.",
+                 "desc": "Roman Ponurov's own projects: bolz.dev, bolz.tech, Dobster, Po Sosedstvu and open-source AI prototypes."}
+
 PATCH = {k: v for k, v in globals().items() if k.isupper() and k not in ("HERE", "GITHUB", "WP", "PIO", "SP")}
 PATCH["BOOKS_LINK"] = '<a href="{up}books.html">📚 books</a>'
 PATCH["MEDIA_LINK"] = ""

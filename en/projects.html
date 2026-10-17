@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Projects — Roman Ponurov</title>
-<meta name="description" content="Roman Ponurov&#x27;s own startups and open-source AI projects.">
+<meta name="description" content="Roman Ponurov&#x27;s own projects: bolz.dev, bolz.tech, Dobster, Po Sosedstvu and open-source AI prototypes.">
 <link rel="canonical" href="https://astro090-pm.github.io/en/projects.html">
 <link rel="alternate" hreflang="ru" href="https://astro090-pm.github.io/projects.html">
 <link rel="alternate" hreflang="en" href="https://astro090-pm.github.io/en/projects.html">
 <meta property="og:title" content="Projects — Roman Ponurov">
-<meta property="og:description" content="Roman Ponurov&#x27;s own startups and open-source AI projects.">
+<meta property="og:description" content="Roman Ponurov&#x27;s own projects: bolz.dev, bolz.tech, Dobster, Po Sosedstvu and open-source AI prototypes.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://astro090-pm.github.io/en/projects.html">
 <meta property="og:site_name" content="Roman Ponurov">
@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../assets/style.css?v=8817f5b1">
+<link rel="stylesheet" href="../assets/style.css?v=aadcc1c0">
 <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="../assets/site.js?v=f2bb86bd" defer data-root=""></script>
 </head>
@@ -53,63 +53,64 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <article class="page"><div class="wrap">
 <a class="back" href="./">Home</a>
 <h1>Projects</h1>
-<p class="intro">Things I launched myself — as a co-founder or author — and prototypes I use to test hypotheses about AI products.</p>
-
-<h2>My own projects</h2>
-<ul class="cards own">
-<li class="card">
-<a class="cover" href="cases/po-sosedstvu.html" style="background:#F0C24B" tabindex="-1" aria-hidden="true"><span class="cover-big">+89%</span><span class="cover-small">B2B orders</span></a>
-<p class="card-meta"><span class="card-co">Co-founder and product manager · 2022–2024</span></p>
-<h3 class="card-title"><a href="cases/po-sosedstvu.html">Po Sosedstvu</a></h3>
-<p class="card-about">Took an offline grocery store online: an online shop with delivery for private and corporate clients. Concept, processes, a team of external contractors, launch on 1C-Bitrix.</p>
-<p class="card-result">B2B: orders +89%, average check +71%, revenue +58%</p>
-<p class="card-about"><a href="cases/po-sosedstvu.html">Read the case</a> · <a href="https://po-sosedstvu.ru/">po-sosedstvu.ru</a></p>
-</li>
-<li class="card">
-<a class="cover" href="cases/dobster.html" style="background:#E8D3E0" tabindex="-1" aria-hidden="true"><span class="cover-big">0 → prod</span><span class="cover-small">launched from scratch</span></a>
-<p class="card-meta"><span class="card-co">Co-founder and product manager · 2022–2023</span></p>
-<h3 class="card-title"><a href="cases/dobster.html">Dobster</a></h3>
-<p class="card-about">Free help for the elderly, people with disabilities, veterans and large families: cleaning, repairs, nannies, carers. The platform connects the client, the helper and a donor who pays for the work.</p>
-<p class="card-result">Launched from scratch to production</p>
-<p class="card-about"><a href="cases/dobster.html">Read the case</a></p>
-</li>
-<li class="card">
-<a class="cover" href="cases/bolz-dev.html" style="background:#C9E8D5" tabindex="-1" aria-hidden="true"><span class="cover-big">MCP</span><span class="cover-small">actions for AI agents</span></a>
-<p class="card-meta"><span class="card-co">Co-founder, CPO · Dubai · 2025</span></p>
-<h3 class="card-title"><a href="cases/bolz-dev.html">bolz.dev</a></h3>
-<p class="card-about">An MCP connector through which AI agents take real-world actions themselves: they find, book and pay for services without following links.</p>
-<p class="card-result">MVP in August 2025; marketplace and taxi scenarios</p>
-<p class="card-about"><a href="cases/bolz-dev.html">Read the case</a> · <a href="https://bolz.dev/">bolz.dev</a></p>
-</li>
-<li class="card">
-<a class="cover" href="cases/bolz-tech.html" style="background:#BFD3F2" tabindex="-1" aria-hidden="true"><span class="cover-big">B2B2C</span><span class="cover-small">sharing in one window</span></a>
-<p class="card-meta"><span class="card-co">Co-founder, CPO · Dubai · 2023–2025</span></p>
-<h3 class="card-title"><a href="cases/bolz-tech.html">bolz.tech</a></h3>
-<p class="card-about">An ecosystem of sharing services in one window: scooters, bikes, cars and power banks inside partners&#x27; apps — no installation or sign-up.</p>
-<p class="card-result">Power banks in production; MTS Urent and GetEnergy; MIC and Moscow Innovator 2025</p>
-<p class="card-about"><a href="cases/bolz-tech.html">Read the case</a></p>
-</li>
-</ul>
-
-<h2 class="own-ai">AI prototypes</h2>
-<p class="intro">The code is open.</p>
-<article class="project">
-<div>
-<h3>Weekend Planner</h3>
-<p>A Telegram bot that builds an hour-by-hour weekend plan in a minute: it checks the weather, events and places, stays within budget and takes the children's ages into account.</p>
-<ul>
-<li>Three agents — planner, scout and critic — talk over the A2A protocol</li>
-<li>Tools live in my own MCP server; there is also a browser agent</li>
-<li>The model only chooses options — names, prices and times are filled in by code</li>
-<li>32 eval cases and product metrics: activation, retention, ratings</li>
-</ul>
-<p><a href="https://github.com/astro090-pm/weekend-planner">Code and description on GitHub</a></p>
+<p class="intro">Things I launched myself — as a co-founder or author: startups, a social project and AI prototypes. My work at companies is in the <a href="cases/">case portfolio</a>.</p>
+<ul class="pj-list">
+<li class="pj">
+<div class="pj-icon" style="background:#E6EDF9" aria-hidden="true">🗓</div>
+<div class="pj-body">
+<p class="pj-meta">2026.10 · TG BOT / AI AGENTS</p>
+<h2 class="pj-title">Weekend Planner</h2>
+<p class="pj-about">A Telegram bot that builds an hour-by-hour weekend plan: weather, events, places, budget and children&#x27;s ages.</p>
+<p class="pj-nums"><b>3 agents over A2A</b><b>32 eval cases</b><b>55 tests</b><b>prototype</b></p>
+<p class="pj-btns"><a class="pj-btn" href="https://github.com/astro090-pm/weekend-planner" target="_blank" rel="noopener">Code on GitHub<span aria-hidden="true">↗</span></a><a class="pj-btn" href="../assets/weekend-planner-arch.png" target="_blank" rel="noopener">Agent diagram<span aria-hidden="true">↗</span></a><a class="pj-btn" href="agents.html">My path into AI agents<span aria-hidden="true">↗</span></a></p>
+<p class="pj-story">Planning a weekend means half an hour of switching between event listings, maps and the forecast. I built a bot that does it in a minute. The model only chooses options; names, prices and times are filled in by code, so the plan doesn&#x27;t invent places that don&#x27;t exist.</p>
 </div>
-<figure>
-<img src="../assets/weekend-planner-arch.png" width="1344" height="960" alt="Diagram: the user writes to the Telegram bot, which passes the request to the planner; the planner calls the scout and the critic over A2A; the scout gets weather, events and places through the MCP server and reads pages with a browser.">
-<figcaption>Who works with whom inside the bot</figcaption>
-</figure>
-</article>
+</li>
+<li class="pj">
+<div class="pj-icon" style="background:#C9E8D5" aria-hidden="true">🔌</div>
+<div class="pj-body">
+<p class="pj-meta">2025.08 · MCP / AI AGENTS · DUBAI</p>
+<h2 class="pj-title">bolz.dev</h2>
+<p class="pj-about">An MCP connector through which AI agents find, book and pay for real-world services themselves.</p>
+<p class="pj-nums"><b>MVP in August 2025</b><b>co-founder, CPO</b></p>
+<p class="pj-btns"><a class="pj-btn" href="https://bolz.dev/" target="_blank" rel="noopener">Website<span aria-hidden="true">↗</span></a><a class="pj-btn" href="cases/bolz-dev.html">Case<span aria-hidden="true">↗</span></a><a class="pj-btn" href="../assets/decks/bolz-dev-pitch.pdf" target="_blank" rel="noopener">Pitch, PDF<span aria-hidden="true">↗</span></a></p>
+<p class="pj-story">AI agents can search and advise, but to pay the user still has to follow a link. We gave agents “find, book, pay” actions. We count success as a completed action — a paid order — not a nice-looking model answer.</p>
+</div>
+</li>
+<li class="pj">
+<div class="pj-icon" style="background:#BFD3F2" aria-hidden="true">🛴</div>
+<div class="pj-body">
+<p class="pj-meta">2023.10 · B2B2C / SHARING · DUBAI</p>
+<h2 class="pj-title">bolz.tech</h2>
+<p class="pj-about">All sharing services in one window — inside partners&#x27; apps, with no installation or sign-up.</p>
+<p class="pj-nums"><b>power banks in production</b><b>survey of 200 users</b><b>MIC and Moscow Innovator 2025</b></p>
+<p class="pj-btns"><a class="pj-btn" href="cases/bolz-tech.html">Case<span aria-hidden="true">↗</span></a><a class="pj-btn" href="../assets/decks/bolz-tech-pitch.pdf" target="_blank" rel="noopener">Pitch, PDF (Russian)<span aria-hidden="true">↗</span></a><a class="pj-btn" href="blog/bolz-akselerator.html">About the accelerator<span aria-hidden="true">↗</span></a></p>
+<p class="pj-story">The scooter whose app you have is often not nearby. We embedded sharing into other apps via WebView: the card is linked once for all services. Then we noticed users increasingly come through AI assistants — that&#x27;s how bolz.dev appeared.</p>
+</div>
+</li>
+<li class="pj">
+<div class="pj-icon" style="background:#E8D3E0" aria-hidden="true">🤝</div>
+<div class="pj-body">
+<p class="pj-meta">2022.11 · WEB / CHARITY</p>
+<h2 class="pj-title">Dobster</h2>
+<p class="pj-about">Free help at home for the elderly, people with disabilities, veterans and large families.</p>
+<p class="pj-nums"><b>from scratch to production</b><b>3-sided deal</b><b>no fees</b></p>
+<p class="pj-btns"><a class="pj-btn" href="cases/dobster.html">Case<span aria-hidden="true">↗</span></a><a class="pj-btn" href="../assets/decks/dobster-partnership.pdf" target="_blank" rel="noopener">Partnership programme, PDF (Russian)<span aria-hidden="true">↗</span></a></p>
+<p class="pj-story">Those who need help most find it hardest to get. The platform connects the client, the helper and a donor who pays for the work. I designed the client&#x27;s journey so an elderly person could complete it: verification via Gosuslugi, a request, a review.</p>
+</div>
+</li>
+<li class="pj">
+<div class="pj-icon" style="background:#F6DFA4" aria-hidden="true">🛒</div>
+<div class="pj-body">
+<p class="pj-meta">2022.08 · E-COM / FOODTECH</p>
+<h2 class="pj-title">Po Sosedstvu</h2>
+<p class="pj-about">An online shop for Belarusian groceries with delivery for private and corporate clients.</p>
+<p class="pj-nums"><b>B2B: orders +89%</b><b>average check +71%</b><b>revenue +58%</b></p>
+<p class="pj-btns"><a class="pj-btn" href="https://po-sosedstvu.ru/" target="_blank" rel="noopener">Website<span aria-hidden="true">↗</span></a><a class="pj-btn" href="cases/po-sosedstvu.html">Case<span aria-hidden="true">↗</span></a></p>
+<p class="pj-story">An offline store needed an online channel on a small budget. We launched the shop on 1C-Bitrix with a team of external contractors and a separate account area for companies — the site is still running.</p>
+</div>
+</li>
+</ul>
 </div></article>
 
 </main>
