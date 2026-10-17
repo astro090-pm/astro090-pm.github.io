@@ -1648,13 +1648,14 @@ def timeline_page() -> str:
 # ---------- Лаборатория шапки: варианты 2 (орбита), 3 (было → стало), 4 (карьера линией). Страница не в меню и не в поиске.
 ORBIT = [("продакт", "cases/index.html"), ("ИИ-агенты", "agents.html"), ("наука", "research.html"),
          ("лекции", "blog/lekcii-it-menedzhment.html"), ("стартапы", "projects.html")]
+ORBIT_STYLE = [("💼", "#7C9BEA"), ("🤖", "#4CB782"), ("🔬", "#A98BEA"), ("🎓", "#E8956A"), ("🚀", "#E06C9F")]
 CAREER_LBL = {"now": "сейчас", "aria": "Путь по годам", "present": "н.в.", "sections": "Разделы сайта", "then": "2014: инженер на испытательной станции"}
 THEN_PHOTO = "assets/avatar-2014.jpg"  # появится вариант «было → стало», когда фото будет в assets
 
 
 def orbit_avatar(src: str = "assets/avatar.jpg") -> str:
     n = len(ORBIT)
-    tags = "".join(f'<li style="--a:{i * 360 / n:.1f}deg"><a href="{u}"><span>{esc(t)}</span></a></li>' for i, (t, u) in enumerate(ORBIT))
+    tags = "".join(f'<li style="--a:{i * 360 / n:.1f}deg;--c:{ORBIT_STYLE[i % len(ORBIT_STYLE)][1]}"><a href="{u}"><span><i aria-hidden="true">{ORBIT_STYLE[i % len(ORBIT_STYLE)][0]}</i>{esc(t)}</span></a></li>' for i, (t, u) in enumerate(ORBIT))
     then = (ROOT / THEN_PHOTO).exists()
     flip = (f'<button type="button" class="orb-flip" aria-pressed="false" data-then="{THEN_PHOTO}" data-now="{src}">2014 ↔ 2026</button>'
             '<p class="orb-cap" hidden>' + esc(CAREER_LBL["then"]) + '</p>'
@@ -1663,10 +1664,33 @@ def orbit_avatar(src: str = "assets/avatar.jpg") -> str:
   const on = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', String(on));
   img.src = on ? b.dataset.then : b.dataset.now; cap.hidden = !on; }));</script>""") if then else ""
     return f"""<div class="orb">
+<svg class="orb-paths" viewBox="-150 -150 300 300" aria-hidden="true"><ellipse class="op1" rx="140" ry="58" transform="rotate(-16)"/><ellipse class="op2" rx="128" ry="40" transform="rotate(28)"/><circle class="op-dot" r="3.5"><animateMotion dur="9s" repeatCount="indefinite" path="M128,0 A128,40 0 1,1 -128,0 A128,40 0 1,1 128,0" rotate="0"/></circle></svg>
+<span class="orb-glow" aria-hidden="true"></span>
 <img class="orb-photo" src="{src}" width="160" height="160" alt="Роман Понуров">
 <ul class="orb-ring" aria-label="{esc(CAREER_LBL["sections"])}">{tags}</ul>
 {flip}
-</div>"""
+</div>
+<script>(() => {{
+  const o = document.querySelector('.orb'); if (!o) return;
+  const lis = [...o.querySelectorAll('.orb-ring li')], n = lis.length, tilt = -16 * Math.PI / 180;
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let t = 0, paused = false, last = performance.now();
+  o.classList.add('orb-js');
+  ['mouseenter', 'focusin'].forEach(e => o.addEventListener(e, () => paused = true));
+  ['mouseleave', 'focusout'].forEach(e => o.addEventListener(e, () => paused = false));
+  const place = () => {{
+    const R = o.clientWidth * 0.47, ry = R * 0.42;
+    lis.forEach((li, i) => {{
+      const a = t + i * 2 * Math.PI / n, x0 = R * Math.cos(a), y0 = ry * Math.sin(a), z = (Math.sin(a) + 1) / 2;
+      const x = x0 * Math.cos(tilt) - y0 * Math.sin(tilt), y = x0 * Math.sin(tilt) + y0 * Math.cos(tilt);
+      li.style.transform = `translate(${{x.toFixed(1)}}px, ${{y.toFixed(1)}}px) scale(${{(0.8 + 0.25 * z).toFixed(3)}})`;
+      li.style.opacity = (0.5 + 0.5 * z).toFixed(2); li.style.zIndex = z > 0.5 ? 4 : 1;
+    }});
+  }};
+  const tick = now => {{ if (!paused && !document.hidden) t += (now - last) / 1000 * 0.22; last = now; place(); requestAnimationFrame(tick); }};
+  if (calm) place(); else requestAnimationFrame(tick);
+  addEventListener('resize', place);
+}})();</script>"""
 
 
 def career_line() -> str:
