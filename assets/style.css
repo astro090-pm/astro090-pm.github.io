@@ -774,10 +774,3 @@ html { scroll-behavior: smooth; }
 @media (max-width: 640px) { .tldr { padding: 18px; } .tldr-meta, .tldr-facts { grid-template-columns: 1fr; } }
 .tldr-facts { padding-top: 16px; }
 .cards { grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); }
-
-/* Книги: отметка «прочитал» */
-.read-mark { display: inline-block; margin-left: 8px; font: 600 11px/1 var(--sans); letter-spacing: .04em; text-transform: uppercase; padding: 4px 7px; border-radius: 999px; background: #E4EFE1; color: #2D5A27; vertical-align: 2px; white-space: nowrap; }
-:root[data-theme="dark"] .read-mark { background: #20321E; color: #A9D3A0; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .read-mark { background: #20321E; color: #A9D3A0; } }
-.book-topic .uni-meta { font-variant-numeric: tabular-nums; }
-li.book[hidden], .book-topic[hidden] { display: none; }
