@@ -5,7 +5,7 @@ thumb: assets/posts/en/talk-2.png
 tags: conference, AI in management, fintech
 ---
 
-On 7 September 2026 — a talk at the CX International Scientific and Practical Conference "Current Issues in Economics and Modern Management" (Novosibirsk): "Organisational and managerial mechanisms for reducing the risks of AI in bank management".
+On 7 September 2026 — an online talk at the CX International Scientific and Practical Conference "Current Issues in Economics and Modern Management" (organised in Novosibirsk): "Organisational and managerial mechanisms for reducing the risks of AI in bank management".
 
 It continues my article on AI risks. There I looked at what a bank risks; here — what exactly to do about it.
 

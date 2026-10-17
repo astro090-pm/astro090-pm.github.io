@@ -154,13 +154,13 @@ DECKS = [
 ]
 
 CONFS = [
-    ("10 September 2026", "Penza", "16th International Scientific and Practical Conference “Development of Modern Science and Education: Current Issues, Achievements and Innovations”",
+    ("10 September 2026", "online", "16th International Scientific and Practical Conference “Development of Modern Science and Education: Current Issues, Achievements and Innovations”",
      "Organisational readiness of Russian companies to bring artificial intelligence into the management system: barriers and directions of development",
      "https://naukaip.ru/wp-content/uploads/2026/09/MK-2774.pdf", "doklad-gotovnost-kompanij", "assets/posts/en/talk-3.png"),
-    ("7 September 2026", "Novosibirsk", "110th International Scientific and Practical Conference “Current Issues of Economic Sciences and Modern Management”",
+    ("7 September 2026", "online", "110th International Scientific and Practical Conference “Current Issues of Economic Sciences and Modern Management”",
      "Organisational and managerial mechanisms for reducing the risks of using artificial intelligence in bank management",
      "https://sibac.info/conf/economy/cx/430396", "doklad-riski-ii-banki", "assets/posts/en/talk-2.png"),
-    ("4 March 2026", "Novosibirsk", "104th International Scientific and Practical Conference “Current Issues of Economic Sciences and Modern Management”",
+    ("4 March 2026", "online", "104th International Scientific and Practical Conference “Current Issues of Economic Sciences and Modern Management”",
      "Technological requirements for a company's infrastructure when implementing artificial intelligence",
      "https://sibac.info/conf/economy/civ/403674", "doklad-infrastruktura-ii", "assets/posts/en/talk-1.png"),
 ]
@@ -277,8 +277,8 @@ TIMELINE = [
     ("August 2025", "project", "Co-founder and CPO of bolz.dev — MVP", "An MCP connector through which AI agents take real-world actions.", "cases/bolz-dev.html"),
     ("September 2025", "research", "Second peer-reviewed article", "“Current trends in the use of AI in corporate governance”.", "blog/statya-tendencii-ii.html"),
     ("December 2025", "research", "Third peer-reviewed article", "“Risks and limitations of using AI in company management”.", "blog/statya-riski-ii.html"),
-    ("March 2026", "research", "First talk at an international conference", "Infrastructure requirements for implementing AI, Novosibirsk.", "blog/doklad-infrastruktura-ii.html"),
-    ("September 2026", "research", "Two more talks: Novosibirsk and Penza", "Reducing AI risks in banks; companies' organisational readiness for AI.", "conferences.html"),
+    ("March 2026", "research", "First talk at an international conference", "Infrastructure requirements for implementing AI, online.", "blog/doklad-infrastruktura-ii.html"),
+    ("September 2026", "research", "Two more online talks at international conferences", "Reducing AI risks in banks; companies' organisational readiness for AI.", "conferences.html"),
     ("October 2026", "teaching", "Started teaching an IT Management course at a university", "Seven lectures for first-year students, team cases and a final project.", "blog/lekcii-it-menedzhment.html"),
     ("October 2026", "project", "AI prototype: Weekend Planner", "A2A agents, my own MCP server, a browser agent, 32 eval cases.", "projects.html"),
     ("October 2026", "research", "Interview series for the dissertation case study", "How AI is built into the management of a large bank.", "blog/intervyu-ii-v-banke.html"),
@@ -310,8 +310,6 @@ GANTT = [
 GEO = [
     ("Moscow", 37.6, 55.75, "Work at MTS, GRANIT, Gazprombank; MPEI, HSE, RANEPA; my own startups", "timeline.html"),
     ("Bishkek", 74.6, 42.87, "Asia Retail: e-commerce relaunch, +103% revenue", "cases/asia-online.html"),
-    ("Novosibirsk", 82.9, 55.0, "Two talks at international conferences, 2026", "conferences.html"),
-    ("Penza", 45.0, 53.2, "A talk at an international conference, 2026", "conferences.html"),
 ]
 
 MEDIA_KINDS = [("podcasts", "🎧 Podcasts"), ("videos", "🎬 Lectures and videos"), ("reading", "📡 Who I read")]

@@ -5,7 +5,7 @@ thumb: assets/posts/en/talk-1.png
 tags: conference, AI in management
 ---
 
-On 4 March 2026 I presented at the CIV International Scientific and Practical Conference "Current Issues in Economics and Modern Management" (Novosibirsk). The topic: "Technology requirements for company infrastructure when implementing artificial intelligence".
+On 4 March 2026 I presented online at the CIV International Scientific and Practical Conference "Current Issues in Economics and Modern Management" (organised in Novosibirsk). The topic: "Technology requirements for company infrastructure when implementing artificial intelligence".
 
 ## Main idea
 
