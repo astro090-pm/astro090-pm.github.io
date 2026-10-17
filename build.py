@@ -352,7 +352,10 @@ PROJECTS = [
      "Офлайн-магазину нужен был онлайн-канал, а бюджет был маленький. Запустили магазин на 1С-Битрикс с командой внешних исполнителей и отдельным кабинетом для юрлиц — сайт работает до сих пор."),
 ]
 PROJECTS_TEXT = {"title": "Проекты", "intro": "То, что я запускал сам — как сооснователь или автор: стартапы, социальный проект и ИИ-прототипы. Работа в компаниях — в <a href=\"cases/index.html\">портфолио кейсов</a>.",
-                 "desc": "Собственные проекты Романа Понурова: bolz.dev, bolz.tech, «Добстер», «По соседству» и ИИ-прототипы с открытым кодом."}
+                 "desc": "Собственные проекты Романа Понурова: bolz.dev, bolz.tech, «Добстер», «По соседству» и ИИ-прототипы с открытым кодом.",
+                 "more": "смотреть дальше",
+                 "links": [("cases/index.html", "Кейсы", "продуктовые задачи на основной работе и как я их решал", "linear-gradient(135deg,#5BC0F8,#3D8BEA)"),
+                           ("agents.html", "ИИ-агенты", "мой путь от теории к практике: LLM, MCP, A2A, эвалы", "linear-gradient(135deg,#F4A259,#E0603A)")]}
 
 
 def projects_page() -> str:
@@ -380,6 +383,10 @@ def projects_page() -> str:
 <ul class="pj-list">
 {chr(10).join(items)}
 </ul>
+<section class="more-sec" aria-labelledby="more-h">
+<h2 id="more-h" class="more-h">{esc(T["more"])} <span class="cnt">{len(T["links"])}</span></h2>
+<div class="more-grid">{"".join(f'<a class="more-card" href="{u}"><span class="more-ic" style="background:{g}" aria-hidden="true"></span><span><b>{esc(t)}</b><span>{esc(d)}</span></span></a>' for u, t, d, g in T["links"])}</div>
+</section>
 </div></article>
 """
     return layout(T["title"] + " — Роман Понуров", T["desc"], body, "projects.html")

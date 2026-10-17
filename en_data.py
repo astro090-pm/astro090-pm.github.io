@@ -343,7 +343,10 @@ PROJECTS = [
      "An offline store needed an online channel on a small budget. We launched the shop on 1C-Bitrix with a team of external contractors and a separate account area for companies — the site is still running."),
 ]
 PROJECTS_TEXT = {"title": "Projects", "intro": "Things I launched myself — as a co-founder or author: startups, a social project and AI prototypes. My work at companies is in the <a href=\"cases/index.html\">case portfolio</a>.",
-                 "desc": "Roman Ponurov's own projects: bolz.dev, bolz.tech, Dobster, Po Sosedstvu and open-source AI prototypes."}
+                 "desc": "Roman Ponurov's own projects: bolz.dev, bolz.tech, Dobster, Po Sosedstvu and open-source AI prototypes.",
+                 "more": "see more",
+                 "links": [("cases/index.html", "Cases", "product problems at my main jobs and how I solved them", "linear-gradient(135deg,#5BC0F8,#3D8BEA)"),
+                           ("agents.html", "AI agents", "my path from theory to practice: LLMs, MCP, A2A, evals", "linear-gradient(135deg,#F4A259,#E0603A)")]}
 
 PATCH = {k: v for k, v in globals().items() if k.isupper() and k not in ("HERE", "GITHUB", "WP", "PIO", "SP")}
 PATCH["BOOKS_LINK"] = '<a href="{up}books.html">📚 books</a>'
