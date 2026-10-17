@@ -895,8 +895,8 @@ def load_books() -> list[dict]:
         for line in f.read_text(encoding="utf-8").splitlines():
             if not line.strip() or line.lstrip().startswith("#"):
                 continue
-            parts = [x.strip() for x in line.split("|")] + [""] * 5
-            books.append({"topic": parts[0], "title": parts[1], "author": parts[2], "note": parts[3], "post": parts[4]})
+            parts = [x.strip() for x in line.split("|")] + [""] * 6
+            books.append({"topic": parts[0], "title": parts[1], "author": parts[2], "note": parts[3], "post": parts[4], "read": parts[5]})
     return books
 
 
@@ -908,22 +908,38 @@ def books_page(books: list[dict], posts: list[dict]) -> str:
     topics: dict[str, list[dict]] = {}
     for b in books:
         topics.setdefault(b["topic"] or "Разное", []).append(b)
+    mark = lambda b: (f'<span class="read-mark" title="Прочитал">✓ прочитал{(" в " + esc(b["read"])) if b["read"] not in ("✓", "") else ""}</span>' if b["read"] else "")
     for topic, items in topics.items():
         lis = "\n".join(
-            f'<li><span class="when">{esc(b["author"])}</span><span class="what">'
+            f'<li class="book{" is-read" if b["read"] else ""}"><span class="when">{esc(b["author"])}</span><span class="what">'
             + (f'<a href="blog/{b["post"]}.html">{esc(b["title"])}</a>' if b["post"] else esc(b["title"]))
-            + (f'<i>{esc(b["note"])}</i>' if b["note"] else "") + "</span></li>"
+            + mark(b) + (f'<i>{esc(b["note"])}</i>' if b["note"] else "") + "</span></li>"
             for b in items)
-        blocks.append(f'<section class="uni"><div class="uni-head"><h2>{esc(topic)}</h2></div><ul class="pubs">\n{lis}\n</ul></section>')
+        nread = sum(1 for b in items if b["read"])
+        blocks.append(f'<section class="uni book-topic"><div class="uni-head"><h2>{esc(topic)}</h2><p class="uni-meta">{nread} / {len(items)}</p></div><ul class="pubs">\n{lis}\n</ul></section>')
+    total, done = len(books), sum(1 for b in books if b["read"])
     body = f"""
 <article class="page"><div class="wrap">
 <a class="back" href="index.html">На главную</a>
 <h1>Книги</h1>
-<p class="intro">Книги, которые повлияли на то, как я делаю продукты и управляю командами. По главным — пишу рецензии с основными тезисами.</p>
+<p class="intro">Список из {total} книг для продакт-менеджера: продукт и discovery, метрики, UX, мышление, менеджмент, процессы, стратегия и ИИ. Отмечаю те, что прочитал сам; по главным пишу рецензии с основными тезисами.</p>
+<div class="res-stats"><div><b>{done}</b>прочитал</div><div><b>{total}</b>в списке</div></div>
+<div class="filters" role="group" aria-label="Фильтр книг"><button type="button" class="chip" data-bf="" aria-pressed="true">все книги</button><button type="button" class="chip" data-bf="read" aria-pressed="false">✓ прочитанные</button></div>
 {"".join(blocks)}
 </div></article>
+<script>
+(() => {{
+  const chips = document.querySelectorAll('[data-bf]');
+  chips.forEach(c => c.addEventListener('click', () => {{
+    chips.forEach(x => x.setAttribute('aria-pressed', String(x === c)));
+    const only = c.dataset.bf === 'read';
+    document.querySelectorAll('li.book').forEach(li => li.hidden = only && !li.classList.contains('is-read'));
+    document.querySelectorAll('.book-topic').forEach(sec => sec.hidden = only && !sec.querySelector('li.is-read'));
+  }}));
+}})();
+</script>
 """
-    return layout("Книги — Роман Понуров", "Книги о продукте, ИИ и менеджменте, которые читает Роман Понуров, и рецензии на них.", body, "books.html")
+    return layout("Книги — Роман Понуров", "Список из 50 книг для продакт-менеджера: какие прочитал Роман Понуров, и рецензии на главные.", body, "books.html")
 
 
 WP = GITHUB + "/weekend-planner"

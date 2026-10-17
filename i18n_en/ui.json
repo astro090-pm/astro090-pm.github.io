@@ -127,5 +127,14 @@
 "Где": "Where",
 "Когда": "When",
 "Задача": "Task",
-"Главный результат": "Key result"
+"Главный результат": "Key result",
+"Прочитал": "Read",
+"✓ прочитал": "✓ read",
+"прочитал": "read",
+"в списке": "on the list",
+"все книги": "all books",
+"✓ прочитанные": "✓ read only",
+"Фильтр книг": "Book filter",
+"Список из 50 книг для продакт-менеджера: продукт и discovery, метрики, UX, мышление, менеджмент, процессы, стратегия и ИИ. Отмечаю те, что прочитал сам; по главным пишу рецензии с основными тезисами.": "A list of 50 books for product managers: product and discovery, metrics, UX, thinking, management, processes, strategy and AI. I mark the ones I've read myself; for the key ones I write reviews with the main ideas.",
+"Список из 50 книг для продакт-менеджера: какие прочитал Роман Понуров, и рецензии на главные.": "A list of 50 books for product managers: which ones Roman Ponurov has read, and reviews of the key ones."
 }

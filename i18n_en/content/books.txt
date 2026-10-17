@@ -1,2 +1,51 @@
-# Books: Topic | Title | Author | Why useful | review post slug
-Product | Inspired: How to Create Tech Products Customers Love | Marty Cagan | A map of the PM profession: four risks, Discovery and Delivery, missionary teams | vdohnovlennye-kagan
+# Books: Topic | Title | Author | Why useful | review post slug | ✓ if read
+Product and discovery | Inspired: How to Create Tech Products Customers Love | Marty Cagan | A map of the PM profession: four risks, Discovery and Delivery, missionary teams | vdohnovlennye-kagan | ✓
+Product and discovery | Empowered | Marty Cagan | How leaders build strong product teams that get problems, not features |  | 
+Product and discovery | Continuous Discovery Habits | Teresa Torres | Weekly customer interviews and the opportunity solution tree |  | 
+Product and discovery | The Mom Test | Rob Fitzpatrick | How to ask interview questions that don't get polite lies |  | ✓
+Product and discovery | The Lean Startup | Eric Ries | MVP, the build–measure–learn loop, pivots |  | 
+Product and discovery | Running Lean | Ash Maurya | Lean Canvas and testing business model risks step by step |  | 
+Product and discovery | The Innovator's Dilemma | Clayton Christensen | Why successful companies lose to disruptive innovation |  | ✓
+Product and discovery | Competing Against Luck | Clayton Christensen | Jobs To Be Done: which “job” the user hires a product for |  | 
+Product and discovery | The Build Trap | Melissa Perri | How to stop measuring success by features shipped and focus on outcomes |  | 
+Product and discovery | User Story Mapping | Jeff Patton | A shared view of the product and slicing releases |  | 
+Product and discovery | Lean UX | Jeff Gothelf, Josh Seiden | Hypotheses and experiments instead of detailed specs |  | 
+Product and discovery | Sprint | Jake Knapp | Testing an idea on a prototype in five days |  | 
+Product and discovery | The Lean Product Playbook | Dan Olsen | A step-by-step path to product-market fit |  | 
+Product and discovery | Impact Mapping | Gojko Adzic | Linking a business goal to user behaviour and delivery work |  | 
+Metrics, growth, experiments | Lean Analytics | Alistair Croll, Benjamin Yoskovitz | One metric that matters for each product stage |  | 
+Metrics, growth, experiments | Hacking Growth | Sean Ellis, Morgan Brown | A growth process: fast experiments across the whole funnel |  | 
+Metrics, growth, experiments | Hooked: How to Build Habit-Forming Products | Nir Eyal | The habit model: trigger, action, reward, investment |  | ✓
+Metrics, growth, experiments | Traction | Gabriel Weinberg, Justin Mares | 19 acquisition channels and how to pick yours |  | 
+Metrics, growth, experiments | Trustworthy Online Controlled Experiments | Ron Kohavi, Diane Tang, Ya Xu | How to run A/B tests you can trust |  | 
+Metrics, growth, experiments | The Cold Start Problem | Andrew Chen | Network effects and launching multi-sided products |  | 
+Metrics, growth, experiments | Crossing the Chasm | Geoffrey Moore | Moving from early adopters to the mainstream market |  | 
+UX and research | The Design of Everyday Things | Don Norman | Why things are hard to use and how to fix it |  | 
+UX and research | Don't Make Me Think | Steve Krug | Usability in plain words and quick tests |  | 
+UX and research | The Inmates Are Running the Asylum | Alan Cooper | Personas and goal-directed design |  | 
+UX and research | Just Enough Research | Erika Hall | Research without a big budget |  | 
+Thinking and decisions | Thinking, Fast and Slow | Daniel Kahneman | Two systems of thinking and cognitive biases |  | ✓
+Thinking and decisions | Thinking in Bets | Annie Duke | Decisions under uncertainty: don't confuse decision quality with outcome |  | 
+Thinking and decisions | Decisive | Chip Heath, Dan Heath | Four steps to better decisions |  | 
+Thinking and decisions | Antifragile | Nassim Taleb | How to gain from chaos and uncertainty |  | 
+Thinking and decisions | Thinking in Systems | Donella Meadows | Feedback loops and leverage points in systems |  | 
+Management and teams | High Output Management | Andy Grove | Management as production: a team's output is the manager's output |  | 
+Management and teams | The Hard Thing About Hard Things | Ben Horowitz | Hard startup decisions, first-hand |  | 
+Management and teams | The Making of a Manager | Julie Zhuo | The first years as a manager |  | 
+Management and teams | The Five Dysfunctions of a Team | Patrick Lencioni | Trust, conflict, commitment, accountability, results |  | 
+Management and teams | Radical Candor | Kim Scott | Feedback: care personally and challenge directly |  | 
+Management and teams | The Manager's Path | Camille Fournier | From engineer to technical leader |  | 
+Management and teams | Drive | Daniel Pink | Motivation: autonomy, mastery, purpose |  | 
+Management and teams | Measure What Matters | John Doerr | OKRs: objectives and key results |  | 
+Processes and engineering | The Phoenix Project | Gene Kim, Kevin Behr, George Spafford | DevOps as a novel |  | 
+Processes and engineering | Accelerate | Nicole Forsgren, Jez Humble, Gene Kim | DORA metrics and what sets strong engineering teams apart |  | 
+Processes and engineering | The Goal | Eliyahu Goldratt | Theory of constraints: find the system's bottleneck |  | ✓
+Processes and engineering | The Mythical Man-Month | Frederick Brooks | Why adding people to a late project makes it later |  | 
+Processes and engineering | The Principles of Product Development Flow | Donald Reinertsen | Queues, batch size and the cost of delay |  | 
+Strategy and business | Good Strategy Bad Strategy | Richard Rumelt | The kernel of strategy: diagnosis, guiding policy, coherent actions |  | 
+Strategy and business | Zero to One | Peter Thiel | Creating something new instead of copying |  | ✓
+Strategy and business | Good to Great | Jim Collins | What sets companies that made the leap apart |  | 
+Strategy and business | Business Model Generation | Alexander Osterwalder, Yves Pigneur | The nine-block Business Model Canvas |  | ✓
+Strategy and business | Blue Ocean Strategy | W. Chan Kim, Renée Mauborgne | Creating uncontested market space |  | ✓
+AI products | AI Engineering | Chip Huyen | Building applications on foundation models: evaluation, RAG, agents |  | 
+AI products | Co-Intelligence | Ethan Mollick | Living and working with AI |  | 
