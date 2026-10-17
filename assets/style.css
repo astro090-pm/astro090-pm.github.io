@@ -896,3 +896,4 @@ html { scroll-behavior: smooth; }
 .hero-home .orb { margin-right: 36px; } @media (max-width: 760px) { .hero-home .orb { margin-right: 0; } }
 @media (max-width: 760px) { .hero-home .orb { margin: 0 auto; } }
 @media (max-width: 760px) { .hero-home { overflow-x: clip; } }
+.hero-home .tagline { font: 400 clamp(17px, 1.7vw, 20px)/1.45 var(--sans); color: var(--muted); letter-spacing: 0; max-width: 36ch; margin: 0 0 10px; }
