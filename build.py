@@ -248,12 +248,13 @@ def now_card() -> str:
 
 def index_page(posts: list[dict], page: int = 1) -> str:
     hero = f"""<section class="hero-home">
-<img class="avatar avatar-lg" src="assets/avatar.jpg" width="160" height="160" alt="Роман Понуров">
+{orbit_avatar()}
 <div>
 <h1>Роман Понуров</h1>
 <p class="tagline">Продакт, который сам собирает ИИ-продукты и изучает, как ИИ меняет управление.</p>
 <p class="roles"><a href="cv.html">менеджер продукта</a> · <a href="tags/{tag_slug('преподавание')}.html">начинающий преподаватель</a> · <a href="research.html">исследую ИИ в управлении компанией</a></p>
 {agent_line()}
+{career_line()}
 </div>
 </section>
 {now_card()}"""
@@ -1648,6 +1649,7 @@ def timeline_page() -> str:
 # ---------- Лаборатория шапки: варианты 2 (орбита), 3 (было → стало), 4 (карьера линией). Страница не в меню и не в поиске.
 ORBIT = [("продакт", "cases/index.html"), ("ИИ-агенты", "agents.html"), ("наука", "research.html"),
          ("лекции", "blog/lekcii-it-menedzhment.html"), ("стартапы", "projects.html")]
+CAREER_LBL = {"now": "сейчас", "aria": "Путь по годам", "present": "н.в.", "sections": "Разделы сайта", "then": "2014: инженер на испытательной станции"}
 THEN_PHOTO = "assets/avatar-2014.jpg"  # появится вариант «было → стало», когда фото будет в assets
 
 
@@ -1656,10 +1658,14 @@ def orbit_avatar(src: str = "assets/avatar.jpg") -> str:
     tags = "".join(f'<li style="--a:{i * 360 / n:.1f}deg"><a href="{u}"><span>{esc(t)}</span></a></li>' for i, (t, u) in enumerate(ORBIT))
     then = (ROOT / THEN_PHOTO).exists()
     flip = (f'<button type="button" class="orb-flip" aria-pressed="false" data-then="{THEN_PHOTO}" data-now="{src}">2014 ↔ 2026</button>'
-            '<p class="orb-cap" hidden>2014: инженер на испытательной станции</p>') if then else ""
+            '<p class="orb-cap" hidden>' + esc(CAREER_LBL["then"]) + '</p>'
+            """<script>document.querySelectorAll('.orb-flip').forEach(b => b.addEventListener('click', () => {
+  const img = b.parentElement.querySelector('.orb-photo'), cap = b.parentElement.querySelector('.orb-cap');
+  const on = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', String(on));
+  img.src = on ? b.dataset.then : b.dataset.now; cap.hidden = !on; }));</script>""") if then else ""
     return f"""<div class="orb">
 <img class="orb-photo" src="{src}" width="160" height="160" alt="Роман Понуров">
-<ul class="orb-ring" aria-label="Разделы сайта">{tags}</ul>
+<ul class="orb-ring" aria-label="{esc(CAREER_LBL["sections"])}">{tags}</ul>
 {flip}
 </div>"""
 
@@ -1670,11 +1676,11 @@ def career_line() -> str:
     rows = []
     for name, color, bars in GANTT:
         segs = "".join(
-            (f'<a href="{u}"' if u else '<span') + f' class="cl-seg" style="left:{pos(a):.2f}%;width:{max(pos(b) - pos(a), .9):.2f}%;--c:{color}" data-tip="{esc(t)} · {int(max(a, y0))}–{min(int(b), 2026) if b < 2027 else "н.в."}" aria-label="{esc(t)}"></' + ("a>" if u else "span>")
+            (f'<a href="{u}"' if u else '<span') + f' class="cl-seg" style="left:{pos(a):.2f}%;width:{max(pos(b) - pos(a), .9):.2f}%;--c:{color}" data-tip="{esc(t)} · {int(max(a, y0))}–{min(int(b), 2026) if b < 2027 else CAREER_LBL["present"]}" aria-label="{esc(t)}"></' + ("a>" if u else "span>")
             for t, a, b, u in bars)
         rows.append(f'<div class="cl-row" title="{esc(name)}">{segs}</div>')
     legend = "".join(f'<span><i style="background:{c}"></i>{esc(n)}</span>' for n, c, _ in GANTT)
-    return f'<div class="career" aria-label="Путь по годам">{"".join(rows)}<div class="cl-years"><span>2014</span><span>2020</span><span>сейчас</span></div><div class="cl-leg">{legend}</div></div>'
+    return f'<div class="career" aria-label="{esc(CAREER_LBL["aria"])}">{"".join(rows)}<div class="cl-years"><span>2014</span><span>2020</span><span>{esc(CAREER_LBL["now"])}</span></div><div class="cl-leg">{legend}</div></div>'
 
 
 def lab_page() -> str:
@@ -1745,7 +1751,6 @@ def main() -> None:
     (ROOT / "cases" / "bolz.html").write_text('<!doctype html><meta charset="utf-8"><title>bolz.tech</title><meta http-equiv="refresh" content="0; url=bolz-tech.html"><link rel="canonical" href="bolz-tech.html"><a href="bolz-tech.html">bolz.tech</a>', encoding="utf-8")
     for i, case in enumerate(CASES):
         (ROOT / "cases" / f"{case[0]}.html").write_text(case_page(i), encoding="utf-8")
-    (ROOT / "lab.html").write_text(lab_page(), encoding="utf-8")
     import en
     en.build({"SITE_URL": SITE_URL, "FONTS": FONTS, "CSS_V": CSS_V, "JS_V": JS_V})
     clean_index_links()

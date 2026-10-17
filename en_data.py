@@ -370,6 +370,10 @@ NOW_CARD = {"title": "Now", "updated": "updated 16 October 2026", "more": "more"
     ("🤖", "Building", "Weekend Planner, an agentic Telegram bot", "projects.html"),
 ]}
 
+ORBIT = [("product", "cases/index.html"), ("AI agents", "agents.html"), ("research", "research.html"),
+         ("lectures", "blog/lekcii-it-menedzhment.html"), ("startups", "projects.html")]
+CAREER_LBL = {"now": "now", "aria": "Path by year", "present": "now", "sections": "Site sections", "then": "2014: test bench engineer"}
+
 PATCH = {k: v for k, v in globals().items() if k.isupper() and k not in ("HERE", "GITHUB", "WP", "PIO", "SP")}
 PATCH["BOOKS_LINK"] = '<a href="{up}books.html">📚 books</a>'
 PATCH["MEDIA_LINK"] = ""
