@@ -1,6 +1,6 @@
 ---
 title: Business Model Generation by Osterwalder and Pigneur: a business model on one page
-date: 2026-10-17
+date: 2019-10-20
 thumb: assets/posts/en/book-canvas.png
 tags: books, product
 ---

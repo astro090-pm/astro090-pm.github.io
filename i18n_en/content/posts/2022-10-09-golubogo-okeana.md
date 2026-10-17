@@ -1,6 +1,6 @@
 ---
 title: Blue Ocean Strategy by Kim and Mauborgne: how to escape competition
-date: 2026-10-17
+date: 2022-10-09
 thumb: assets/posts/en/book-ocean.png
 tags: books, management
 ---

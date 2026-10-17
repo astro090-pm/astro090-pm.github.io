@@ -1,6 +1,6 @@
 ---
 title: Thinking, Fast and Slow by Daniel Kahneman: how we get decisions wrong
-date: 2026-10-17
+date: 2021-08-29
 thumb: assets/posts/en/book-kahneman.png
 tags: books, management
 ---

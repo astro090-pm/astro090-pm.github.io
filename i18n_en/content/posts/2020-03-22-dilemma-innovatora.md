@@ -1,6 +1,6 @@
 ---
 title: The Innovator's Dilemma by Clayton Christensen: why strong companies lose to newcomers
-date: 2026-10-17
+date: 2020-03-22
 thumb: assets/posts/en/book-dilemma.png
 tags: books, product
 ---

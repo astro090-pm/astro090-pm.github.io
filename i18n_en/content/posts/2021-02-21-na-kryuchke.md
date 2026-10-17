@@ -1,6 +1,6 @@
 ---
 title: Hooked by Nir Eyal: how products become habits
-date: 2026-10-17
+date: 2021-02-21
 thumb: assets/posts/en/book-hooked.png
 tags: books, product
 ---

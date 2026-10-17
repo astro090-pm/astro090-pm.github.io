@@ -1,6 +1,6 @@
 ---
 title: The Mom Test by Rob Fitzpatrick: how to talk to users so they don't lie to you
-date: 2026-10-17
+date: 2019-04-14
 thumb: assets/posts/en/book-mom.png
 tags: books, product
 ---

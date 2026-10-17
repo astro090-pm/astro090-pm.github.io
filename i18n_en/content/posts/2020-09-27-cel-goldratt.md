@@ -1,6 +1,6 @@
 ---
 title: The Goal by Eliyahu Goldratt: the theory of constraints as a novel
-date: 2026-10-17
+date: 2020-09-27
 thumb: assets/posts/en/book-goal.png
 tags: books, management
 ---

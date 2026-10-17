@@ -1,6 +1,6 @@
 ---
 title: Zero to One by Peter Thiel: how to build something truly new
-date: 2026-10-17
+date: 2022-03-13
 thumb: assets/posts/en/book-zero.png
 tags: books, startup
 ---

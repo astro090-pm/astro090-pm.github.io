@@ -57,14 +57,14 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 
 <section aria-label="Post feed">
 <ul class="feed">
-<li class="feed-item"><a class="feed-link" href="blog/ocenka-mts.html">
-<span class="feed-meta"><span class="feed-cat">product</span><span>1 min</span><time datetime="2022-04-18">18 April 2022</time></span>
-<span class="feed-row"><img class="feed-thumb" src="../assets/posts/assessty-mts.jpg" alt="" loading="lazy"><span class="feed-body"><span class="feed-title">What an independent assessment of product managers at MTS showed</span>
-<span class="feed-excerpt">In April 2022 MTS ran an independent assessment of its product managers; the testing was done by Assessty. At the time I was developing MTS ID — the single sign-on for MTS products.</span></span></span></a></li>
-<li class="feed-item"><a class="feed-link" href="blog/magisterskaya-vshe.html">
-<span class="feed-meta"><span class="feed-cat">research</span><span>2 min</span><time datetime="2021-06-30">30 June 2021</time></span>
-<span class="feed-row"><img class="feed-thumb" src="../assets/posts/hse.jpg" alt="" loading="lazy"><span class="feed-body"><span class="feed-title">My HSE master&#x27;s thesis — how to tell whether digital transformation will pay off</span>
-<span class="feed-excerpt">My master&#x27;s thesis in the Corporate Finance programme at HSE University&#x27;s Faculty of Economic Sciences was &quot;Modelling and evaluating the efficiency of a company&#x27;s digital transformation investment projects&quot;. It started the research line I now continue in my PhD at RANEPA — this time about AI.</span></span></span></a></li>
+<li class="feed-item"><a class="feed-link" href="blog/postroenie-biznes-modelej.html">
+<span class="feed-meta"><span class="feed-cat">books</span><span>2 min</span><time datetime="2019-10-20">20 October 2019</time></span>
+<span class="feed-row"><img class="feed-thumb" src="../assets/posts/en/book-canvas.png" alt="" loading="lazy"><span class="feed-body"><span class="feed-title">Business Model Generation by Osterwalder and Pigneur: a business model on one page</span>
+<span class="feed-excerpt">Key ideas from the book that gave the world the Business Model Canvas: the nine blocks every business is made of, common patterns, and ways to design new models.</span></span></span></a></li>
+<li class="feed-item"><a class="feed-link" href="blog/spros-mamu.html">
+<span class="feed-meta"><span class="feed-cat">books</span><span>2 min</span><time datetime="2019-04-14">14 April 2019</time></span>
+<span class="feed-row"><img class="feed-thumb" src="../assets/posts/en/book-mom.png" alt="" loading="lazy"><span class="feed-body"><span class="feed-title">The Mom Test by Rob Fitzpatrick: how to talk to users so they don&#x27;t lie to you</span>
+<span class="feed-excerpt">Key ideas from a short book on customer development: why users politely tell us what we want to hear, and how to ask questions nobody can lie about.</span></span></span></a></li>
 <li class="feed-item"><a class="feed-link" href="blog/pervyj-sajt-lighthouse.html">
 <span class="feed-meta"><span class="feed-cat">product</span><span>1 min</span><time datetime="2019-03-15">15 March 2019</time></span>
 <span class="feed-row"><img class="feed-thumb" src="../assets/posts/en/lighthouse.png" alt="" loading="lazy"><span class="feed-body"><span class="feed-title">Where my product journey started — a first website for an industrial company</span>
@@ -76,7 +76,7 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 </div>
 <script>
 document.getElementById('random')?.addEventListener('click', () => {
-  const urls = ["blog/cel-goldratt.html","blog/dilemma-innovatora.html","blog/dumaj-medlenno.html","blog/golubogo-okeana.html","blog/na-kryuchke.html","blog/ot-nulya-k-edinice.html","blog/postroenie-biznes-modelej.html","blog/spros-mamu.html","blog/intervyu-ii-v-banke.html","blog/lekcii-it-menedzhment.html","blog/put-v-ii-agenty.html","blog/vdohnovlennye-kagan.html","blog/doklad-gotovnost-kompanij.html","blog/doklad-riski-ii-banki.html","blog/doklad-infrastruktura-ii.html","blog/statya-riski-ii.html","blog/bolz-akselerator.html","blog/statya-tendencii-ii.html","blog/bolz-dev-mcp.html","blog/statya-ii-v-menedzhmente.html","blog/ocenka-mts.html","blog/magisterskaya-vshe.html","blog/pervyj-sajt-lighthouse.html","cases/asia-online.html","cases/mts-id.html","cases/po-sosedstvu.html","cases/gazprombank.html","cases/dobster.html","cases/granit.html","cases/bolz-tech.html","cases/bolz-dev.html"];
+  const urls = ["blog/intervyu-ii-v-banke.html","blog/lekcii-it-menedzhment.html","blog/put-v-ii-agenty.html","blog/vdohnovlennye-kagan.html","blog/doklad-gotovnost-kompanij.html","blog/doklad-riski-ii-banki.html","blog/doklad-infrastruktura-ii.html","blog/statya-riski-ii.html","blog/bolz-akselerator.html","blog/statya-tendencii-ii.html","blog/bolz-dev-mcp.html","blog/statya-ii-v-menedzhmente.html","blog/golubogo-okeana.html","blog/ocenka-mts.html","blog/ot-nulya-k-edinice.html","blog/dumaj-medlenno.html","blog/magisterskaya-vshe.html","blog/na-kryuchke.html","blog/cel-goldratt.html","blog/dilemma-innovatora.html","blog/postroenie-biznes-modelej.html","blog/spros-mamu.html","blog/pervyj-sajt-lighthouse.html","cases/asia-online.html","cases/mts-id.html","cases/po-sosedstvu.html","cases/gazprombank.html","cases/dobster.html","cases/granit.html","cases/bolz-tech.html","cases/bolz-dev.html"];
   location.href = urls[Math.floor(Math.random() * urls.length)];
 });
 </script>
