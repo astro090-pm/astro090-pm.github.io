@@ -59,10 +59,10 @@ OWN = [
     ("dobster", "Dobster", "Co-founder and product manager · 2022–2023",
      "Free help for the elderly, people with disabilities, veterans and large families: cleaning, repairs, nannies, carers. The platform connects the client, the helper and a donor who pays for the work.",
      "Launched from scratch to production", None),
-    ("bolz-dev", "bolz.dev", "Co-founder, CPO · 2025",
+    ("bolz-dev", "bolz.dev", "Co-founder, CPO · Dubai · 2025",
      "An MCP connector through which AI agents take real-world actions themselves: they find, book and pay for services without following links.",
      "MVP in August 2025; marketplace and taxi scenarios", ("bolz.dev", "https://bolz.dev/")),
-    ("bolz-tech", "bolz.tech", "Co-founder, CPO · 2023–2025",
+    ("bolz-tech", "bolz.tech", "Co-founder, CPO · Dubai · 2023–2025",
      "An ecosystem of sharing services in one window: scooters, bikes, cars and power banks inside partners' apps — no installation or sign-up.",
      "Power banks in production; MTS Urent and GetEnergy; MIC and Moscow Innovator 2025", None),
 ]
@@ -267,14 +267,14 @@ TIMELINE = [
     ("November 2022", "project", "Co-founder of Dobster", "A charity platform: from idea to production.", "cases/dobster.html"),
     ("2023", "education", "Google: fundamentals of digital marketing", "Acquisition channels and web analytics.", "study.html"),
     ("April 2023", "work", "Head of E-commerce — Asia Retail", "Relaunch of Asia Online: revenue +103%, orders +67%, churn −24%.", "cases/asia-online.html"),
-    ("October 2023", "project", "Co-founder and CPO of bolz.tech", "An ecosystem of sharing services in one window; power bank sharing in production by December 2024.", "cases/bolz-tech.html"),
+    ("October 2023", "project", "Co-founder and CPO of bolz.tech, Dubai", "An ecosystem of sharing services in one window; power bank sharing in production by December 2024.", "cases/bolz-tech.html"),
     ("April 2024", "work", "Senior product manager — Gazprombank", "Corporate credit analysis service with an AI agent: from scratch to production.", "cases/gazprombank.html"),
     ("2024", "education", "Pendo.io: AI for Product Management", "How to apply AI in product work and in products.", "study.html"),
     ("2024", "research", "Started a PhD at RANEPA", "Topic: using AI to improve a company's management system.", "research.html"),
     ("May 2025", "research", "First peer-reviewed article", "“Characteristic features of AI use in the management of Russian companies”.", "blog/statya-ii-v-menedzhmente.html"),
     ("June–September 2025", "achievement", "MIC Academy of Innovators accelerator and the Moscow Innovator 2025 competition", "With the bolz.tech project.", "blog/bolz-akselerator.html"),
     ("2025", "education", "ProductDo and GoPractice: technical foundations and SQL for PMs", "Architecture, APIs, SQL analytics.", "study.html"),
-    ("August 2025", "project", "Co-founder and CPO of bolz.dev — MVP", "An MCP connector through which AI agents take real-world actions.", "cases/bolz-dev.html"),
+    ("August 2025", "project", "Co-founder and CPO of bolz.dev, Dubai — MVP", "An MCP connector through which AI agents take real-world actions.", "cases/bolz-dev.html"),
     ("September 2025", "research", "Second peer-reviewed article", "“Current trends in the use of AI in corporate governance”.", "blog/statya-tendencii-ii.html"),
     ("December 2025", "research", "Third peer-reviewed article", "“Risks and limitations of using AI in company management”.", "blog/statya-riski-ii.html"),
     ("March 2026", "research", "First talk at an international conference", "Infrastructure requirements for implementing AI, online.", "blog/doklad-infrastruktura-ii.html"),
@@ -308,7 +308,8 @@ GANTT = [
 ]
 
 GEO = [
-    ("Moscow", 37.6, 55.75, "Work at MTS, GRANIT, Gazprombank; MPEI, HSE, RANEPA; my own startups", "timeline.html"),
+    ("Moscow", 37.6, 55.75, "Work at MTS, GRANIT, Gazprombank; MPEI, HSE, RANEPA; Po Sosedstvu and Dobster", "timeline.html"),
+    ("Dubai", 55.27, 25.2, "My own startups bolz.tech and bolz.dev, 2023–2025", "cases/bolz-tech.html"),
     ("Bishkek", 74.6, 42.87, "Asia Retail: e-commerce relaunch, +103% revenue", "cases/asia-online.html"),
 ]
 

@@ -1,6 +1,6 @@
 # bolz.tech: all sharing services in one window
 
-**Co-founder & CPO** · bolz.tech · October 2023 — 2025 (startup)
+**Co-founder & CPO** · bolz.tech, Dubai · October 2023 — 2025 (startup)
 
 | | |
 |---|---|

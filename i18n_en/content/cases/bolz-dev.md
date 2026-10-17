@@ -1,6 +1,6 @@
 # bolz.dev: an MCP connector that lets AI agents take real-world actions
 
-**Co-founder & CPO** · bolz.dev · 2025 (startup)
+**Co-founder & CPO** · bolz.dev, Dubai · 2025 (startup)
 
 | | |
 |---|---|
