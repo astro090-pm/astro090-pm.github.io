@@ -54,7 +54,6 @@ def build(ctx):
     pages["now.html"] = B.now_page(posts)
     pages["skills.html"] = B.skills_page()
     pages["conferences.html"] = B.conferences_page()
-    pages["decks.html"] = B.decks_page()
     pages["agents.html"] = B.agents_page(posts)
     books = B.load_books()
     if books:
@@ -83,6 +82,7 @@ def build(ctx):
         f = OUT / path
         f.parent.mkdir(parents=True, exist_ok=True)
         f.write_text(h, encoding="utf-8")
+    (OUT / "decks.html").write_text('<!doctype html><meta charset="utf-8"><title>Projects</title><meta http-equiv="refresh" content="0; url=projects.html"><link rel="canonical" href="projects.html"><a href="projects.html">Projects</a>', encoding="utf-8")
     search_index(pages)
     link_tag_pages(B, D)
     if leftovers:

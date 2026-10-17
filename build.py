@@ -109,7 +109,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <header class="top"><div class="wrap">
 <a class="brand" href="{up}index.html"><img class="avatar avatar-sm" src="{up}assets/avatar-sm.jpg" width="34" height="34" alt="">Роман Понуров</a>
 <nav class="nav" aria-label="Разделы">
-<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}now.html">⏱ сейчас</a><a href="{up}timeline.html">🗓 хронология</a><a href="{up}assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}decks.html">🎞 презентации</a><a href="{up}tools.html">🧰 инструментарий</a></div></details>
+<details class="menu"><summary>продакт</summary><div class="menu-list"><a href="{up}about.html">👋 обо мне</a><a href="{up}now.html">⏱ сейчас</a><a href="{up}timeline.html">🗓 хронология</a><a href="{up}assets/Ponurov_Roman_CV.pdf" target="_blank" rel="noopener">📄 резюме (PDF)</a><a href="{up}cases/index.html">📁 портфолио кейсов</a><a href="{up}tools.html">🧰 инструментарий</a></div></details>
 <a href="{up}projects.html">проекты</a>
 <details class="menu"><summary>знания</summary><div class="menu-list"><a href="{up}research.html">🔬 исследования</a><a href="{up}conferences.html">🎤 конференции</a><a href="{up}study.html">🎓 образование</a>{BOOKS_LINK.format(up=up)}{MEDIA_LINK.format(up=up)}</div></details>
 <details class="menu"><summary>ИИ</summary><div class="menu-list"><a href="{up}agents.html">🤖 ИИ-агенты</a><a href="{up}skills.html">🧰 ИИ-скиллы</a></div></details>
@@ -638,7 +638,7 @@ def post_links(p: dict, posts: list[dict]) -> list[tuple[str, str, str]]:
     """Связи поста: куда он ссылается внутри сайта и какие посты ссылаются на него."""
     out = []
     names = {"agents.html": "ИИ-агенты", "projects.html": "Проекты", "study.html": "Образование", "research.html": "Исследования",
-             "cv.html": "Резюме", "timeline.html": "Хронология", "now.html": "Сейчас", "tools.html": "Инструментарий", "skills.html": "ИИ-скиллы", "conferences.html": "Конференции", "decks.html": "Презентации", "about.html": "Обо мне", "books.html": "Книги", "cases/index.html": "Портфолио кейсов"}
+             "cv.html": "Резюме", "timeline.html": "Хронология", "now.html": "Сейчас", "tools.html": "Инструментарий", "skills.html": "ИИ-скиллы", "conferences.html": "Конференции", "about.html": "Обо мне", "books.html": "Книги", "cases/index.html": "Портфолио кейсов"}
     for text, href in re.findall(r"\[([^\]]+)\]\((\.\./[^)]+|[a-z0-9-]+\.html)\)", p["body"]):
         target = href[3:] if href.startswith("../") else "blog/" + href
         label = names.get(target)
@@ -741,7 +741,6 @@ def cases_index_page() -> str:
 {more_btn}
 <div class="xlinks">
 <a class="xlink" href="../projects.html"><b>Проекты</b><span>что строил сам и зачем — свои продукты и AI-прототипы</span></a>
-<a class="xlink" href="../decks.html"><b>Презентации</b><span>питчи bolz.dev и bolz.tech, лекция по ИТ-менеджменту</span></a>
 </div>
 </div></article>
 <script>
@@ -1055,7 +1054,7 @@ def build_search_index() -> None:
     items = []
     for f in sorted(ROOT.rglob("*.html")):
         rel = f.relative_to(ROOT).as_posix()
-        if rel.startswith(("tags/", "content/", "tools/", "en/")) or re.match(r"page\d+\.html$", rel) or rel in ("blog/index.html", "index.html", "cases/bolz.html"):
+        if rel.startswith(("tags/", "content/", "tools/", "en/")) or re.match(r"page\d+\.html$", rel) or rel in ("blog/index.html", "index.html", "cases/bolz.html", "decks.html"):
             continue
         html_ = f.read_text(encoding="utf-8")
         title = html.unescape(re.search(r"<title>(.*?)</title>", html_).group(1)).replace(" — Роман Понуров", "").replace(" — кейс Романа Понурова", "")
@@ -1596,7 +1595,8 @@ def main() -> None:
     (ROOT / "now.html").write_text(now_page(posts), encoding="utf-8")
     (ROOT / "skills.html").write_text(skills_page(), encoding="utf-8")
     (ROOT / "conferences.html").write_text(conferences_page(), encoding="utf-8")
-    (ROOT / "decks.html").write_text(decks_page(), encoding="utf-8")
+    # раздел «Презентации» убран: PDF лежат в карточках проектов, кейсах и постах; старый адрес ведёт на «Проекты»
+    (ROOT / "decks.html").write_text('<!doctype html><meta charset="utf-8"><title>Проекты</title><meta http-equiv="refresh" content="0; url=projects.html"><link rel="canonical" href="projects.html"><a href="projects.html">Проекты</a>', encoding="utf-8")
     (ROOT / "agents.html").write_text(agents_page(posts), encoding="utf-8")
     books = load_books()
     if books:
