@@ -376,7 +376,7 @@ CAREER_LBL = {"now": "now", "aria": "Path by year", "present": "now", "sections"
 
 PATCH = {k: v for k, v in globals().items() if k.isupper() and k not in ("HERE", "GITHUB", "WP", "PIO", "SP")}
 PATCH["BOOKS_LINK"] = '<a href="{up}books.html">📚 books</a>'
-PATCH["MEDIA_LINK"] = ""
+PATCH["MEDIA_LINK"] = '<a href="{up}media.html">🎧 podcasts</a>'
 PATCH["MONTHS_NOM"] = {m.lower(): i + 1 for i, m in enumerate(MONTHS_GEN)}
 
 
@@ -459,7 +459,7 @@ def layout(ctx):
 <nav class="nav" aria-label="Sections">
 <details class="menu"><summary>product</summary><div class="menu-list"><a href="{up}about.html">👋 about me</a><a href="{up}now.html">⏱ now</a><a href="{up}timeline.html">🗓 timeline</a><a href="{up}assets/Ponurov_Roman_CV_EN.pdf" target="_blank" rel="noopener">📄 CV (PDF)</a><a href="{up}cases/index.html">📁 case portfolio</a><a href="{up}tools.html">🧰 toolkit</a></div></details>
 <a href="{up}projects.html">projects</a>
-<details class="menu"><summary>knowledge</summary><div class="menu-list"><a href="{up}research.html">🔬 research</a><a href="{up}conferences.html">🎤 conferences</a><a href="{up}study.html">🎓 education</a>{PATCH["BOOKS_LINK"].format(up=up)}</div></details>
+<details class="menu"><summary>knowledge</summary><div class="menu-list"><a href="{up}research.html">🔬 research</a><a href="{up}conferences.html">🎤 conferences</a><a href="{up}study.html">🎓 education</a>{PATCH["BOOKS_LINK"].format(up=up)}{PATCH["MEDIA_LINK"].format(up=up)}</div></details>
 <details class="menu"><summary>AI</summary><div class="menu-list"><a href="{up}agents.html">🤖 AI agents</a><a href="{up}skills.html">🧰 AI skills</a></div></details>
 <details class="menu"><summary>posts</summary><div class="menu-list"><a href="{up}blog/index.html">📝 all posts</a><a href="{up}tags/index.html">🏷 tags</a></div></details>
 </nav>

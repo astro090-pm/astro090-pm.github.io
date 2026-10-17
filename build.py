@@ -72,7 +72,7 @@ def esc(s: str) -> str:
 
 BOOKS_LINK = '<a href="{up}books.html">📚 книги</a>' if (ROOT / "content" / "books.txt").exists() and any(l.strip() and not l.lstrip().startswith("#") for l in (ROOT / "content" / "books.txt").read_text(encoding="utf-8").splitlines()) else ""
 
-MEDIA_LINK = '<a href="{up}media.html">🎧 медиатека</a>' if (ROOT / "content" / "media.txt").exists() and any(l.strip() and not l.lstrip().startswith("#") for l in (ROOT / "content" / "media.txt").read_text(encoding="utf-8").splitlines()) else ""
+MEDIA_LINK = '<a href="{up}media.html">🎧 подкасты</a>' if (ROOT / "content" / "media.txt").exists() and any(l.strip() and not l.lstrip().startswith("#") for l in (ROOT / "content" / "media.txt").read_text(encoding="utf-8").splitlines()) else ""
 
 
 def layout(title: str, description: str, body: str, path: str, depth: int = 0) -> str:
@@ -1463,12 +1463,12 @@ def media_page(media: dict[str, list[dict]]) -> str:
     body = f"""
 <article class="page"><div class="wrap">
 <a class="back" href="./">На главную</a>
-<h1>Медиатека</h1>
-<p class="intro">Что я слушаю, смотрю и читаю о продукте, ИИ и управлении — и что из этого вынес. Книги — на <a href="books.html">отдельной странице</a>.</p>
+<h1>Подкасты</h1>
+<p class="intro">Подкасты о продукте, ИИ и управлении, которые я слушаю. Книги — на <a href="books.html">отдельной странице</a>.</p>
 {"".join(blocks)}
 </div></article>
 """
-    return layout("Медиатека — Роман Понуров", "Подкасты, лекции и авторы, которых слушает и читает Роман Понуров.", body, "media.html")
+    return layout("Подкасты — Роман Понуров", "Подкасты, лекции и авторы, которых слушает и читает Роман Понуров.", body, "media.html")
 
 
 TIMELINE = [

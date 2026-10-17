@@ -55,6 +55,9 @@ def build(ctx):
     pages["skills.html"] = B.skills_page()
     pages["conferences.html"] = B.conferences_page()
     pages["agents.html"] = B.agents_page(posts)
+    media = B.load_media()
+    if any(media.values()):
+        pages["media.html"] = B.media_page(media)
     books = B.load_books()
     if books:
         pages["books.html"] = B.books_page(books, posts)

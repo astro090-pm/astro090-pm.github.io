@@ -4,3 +4,4 @@
 # Пример:
 # podcasts | Название подкаста | Ведущий | Одна фраза: что взял в работу | https://...
 # Пока список пуст — страница и пункт меню не показываются.
+podcasts | Make Sense | Yury Ageev, founder of the ProductSense conference | |
