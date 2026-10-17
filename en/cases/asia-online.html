@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../../assets/style.css?v=e0644fd0">
+<link rel="stylesheet" href="../../assets/style.css?v=4c58530a">
 <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="../../assets/site.js?v=122f7508" defer data-root="../"></script>
 </head>
@@ -139,7 +139,35 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 </tbody>
 </table></details></div><script>(() => { const r = document.currentScript.previousElementSibling; if (!('IntersectionObserver' in window)) return;
   r.classList.add('rv-js'); const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { r.classList.add('in'); io.disconnect(); } }), {threshold: .3}); io.observe(r); })();</script>
-<section class="mtree" aria-label="Metric tree"><h2>Metric tree</h2><p class="mt-note">How the main result breaks down into metrics and which actions moved them. Numbers come from the Results section.</p><ul class="mt"><li><div class="mt-node mt-root"><span class="mt-name">Revenue</span> <b class="mt-val">+103%</b></div><ul><li><div class="mt-node"><span class="mt-name">Number of orders</span> <b class="mt-val">+67%</b></div><ul><li><div class="mt-node"><span class="mt-name">New users</span> <b class="mt-val">+44%</b><span class="mt-lever"><i>levers:</i> Glovo integration, storefront in the M-Bank app, app redesign</span></div></li><li><div class="mt-node"><span class="mt-name">Active customers</span> <b class="mt-val">+31%</b></div></li><li><div class="mt-node"><span class="mt-name">Customer churn</span> <b class="mt-val mt-down">−24%</b></div></li><li><div class="mt-node"><span class="mt-name">Purchase conversion</span> <b class="mt-val">+17%</b><span class="mt-lever"><i>levers:</i> online payment, redesign, ordering via the call center</span></div></li><li><div class="mt-node"><span class="mt-name">Order cancellations</span> <b class="mt-val mt-down">−15%</b><span class="mt-lever"><i>levers:</i> the Picker app, up-to-date prices and stock</span></div></li></ul></li><li><div class="mt-node"><span class="mt-name">Average order value</span> <b class="mt-val mt-txt">revenue grew faster than orders</b><span class="mt-lever"><i>levers:</i> assortment +2,000 SKUs</span></div></li></ul></li></ul></section>
+<section class="mtree" aria-label="Metric tree"><h2>Metric tree</h2><p class="mt-note">How the main result breaks down into metrics and which actions moved them. Numbers come from the Results section.</p><div class="mt-wrap"><svg class="mt-svg" aria-hidden="true"></svg><ul class="mt"><li class="mt-l0"><div class="mt-node" tabindex="0"><span class="mt-name">Revenue</span><b class="mt-val">+103%</b></div><ul><li class="mt-l1"><div class="mt-node" tabindex="0"><span class="mt-name">Number of orders</span><b class="mt-val">+67%</b></div><ul><li class="mt-l2"><div class="mt-node" tabindex="0"><span class="mt-name">New users</span><b class="mt-val">+44%</b><span class="mt-lever"><i>levers:</i> Glovo integration, storefront in the M-Bank app, app redesign</span></div></li><li class="mt-l2"><div class="mt-node" tabindex="0"><span class="mt-name">Active customers</span><b class="mt-val">+31%</b></div></li><li class="mt-l2"><div class="mt-node" tabindex="0"><span class="mt-name">Customer churn</span><b class="mt-val">−24%</b></div></li><li class="mt-l2"><div class="mt-node" tabindex="0"><span class="mt-name">Purchase conversion</span><b class="mt-val">+17%</b><span class="mt-lever"><i>levers:</i> online payment, redesign, ordering via the call center</span></div></li><li class="mt-l2"><div class="mt-node" tabindex="0"><span class="mt-name">Order cancellations</span><b class="mt-val">−15%</b><span class="mt-lever"><i>levers:</i> the Picker app, up-to-date prices and stock</span></div></li></ul></li><li class="mt-l1"><div class="mt-node" tabindex="0"><span class="mt-name">Average order value</span><b class="mt-val mt-txt">revenue grew faster than orders</b><span class="mt-lever"><i>levers:</i> assortment +2,000 SKUs</span></div></li></ul></li></ul></div></section><script>(() => {
+  const sec = document.currentScript.previousElementSibling, wrap = sec.querySelector('.mt-wrap'), svg = wrap.querySelector('svg');
+  const NS = 'http://www.w3.org/2000/svg', nodes = [...wrap.querySelectorAll('.mt-node')];
+  const parentNode = n => { const li = n.parentElement.parentElement.closest('li'); return li ? li.querySelector(':scope > .mt-node') : null; };
+  const links = [];
+  const draw = () => {
+    svg.innerHTML = ''; links.length = 0;
+    const horiz = getComputedStyle(wrap).getPropertyValue('--mt-dir').trim() === 'h';
+    const W = wrap.getBoundingClientRect(); svg.setAttribute('width', W.width); svg.setAttribute('height', W.height);
+    nodes.forEach(n => { const p = parentNode(n); if (!p) return;
+      const a = p.getBoundingClientRect(), b = n.getBoundingClientRect(); let d;
+      if (horiz) { const x1 = a.right - W.left, y1 = a.top + a.height / 2 - W.top, x2 = b.left - W.left, y2 = b.top + b.height / 2 - W.top, m = (x1 + x2) / 2;
+        d = `M${x1},${y1} C${m},${y1} ${m},${y2} ${x2},${y2}`; }
+      else { const x1 = a.left - W.left + 14, y1 = a.bottom - W.top, x2 = b.left - W.left, y2 = b.top + b.height / 2 - W.top;
+        d = `M${x1},${y1} L${x1},${y2 - 8} Q${x1},${y2} ${x1 + 8},${y2} L${x2},${y2}`; }
+      const path = document.createElementNS(NS, 'path'); path.setAttribute('d', d); path.setAttribute('pathLength', '1'); svg.appendChild(path);
+      links.push({path, from: p, to: n}); });
+  };
+  const chain = n => { const s = new Set([n]); let p = n; while ((p = parentNode(p))) s.add(p);
+    n.parentElement.querySelectorAll('.mt-node').forEach(x => s.add(x)); return s; };
+  const on = n => { const s = chain(n); wrap.classList.add('mt-dim');
+    nodes.forEach(x => x.classList.toggle('mt-hl', s.has(x))); links.forEach(l => l.path.classList.toggle('mt-hl', s.has(l.from) && s.has(l.to))); };
+  const off = () => { wrap.classList.remove('mt-dim'); nodes.forEach(x => x.classList.remove('mt-hl')); links.forEach(l => l.path.classList.remove('mt-hl')); };
+  nodes.forEach(n => { n.addEventListener('mouseenter', () => on(n)); n.addEventListener('focus', () => on(n));
+    n.addEventListener('mouseleave', off); n.addEventListener('blur', off); });
+  draw(); new ResizeObserver(draw).observe(wrap); if (document.fonts) document.fonts.ready.then(draw);
+  if ('IntersectionObserver' in window) { wrap.classList.add('mt-js');
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { wrap.classList.add('mt-in'); io.disconnect(); } }), {threshold: .25}); io.observe(wrap); }
+})();</script>
 <h2>What this case shows</h2>
 <p>A full product relaunch where growth came from product (app, payments), operations (picking, call centre, assortment), channels (Glovo, banking app) and team (Agile, KPIs) at the same time.</p>
 <section class="miss"><h2>What didn't work</h2>

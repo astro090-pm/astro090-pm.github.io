@@ -671,15 +671,45 @@ def metric_tree(slug: str) -> str:
     if not t:
         return ""
 
-    def node(n, root=False):
+    def node(n, depth=0):
         name, val, lever, kids = n
-        cls = "mt-val" + (" mt-down" if val.startswith("−") else "") + ("" if val[:1] in "+−0123456789" else " mt-txt")
-        v = f' <b class="{cls}">{esc(val)}</b>' if val else ""
-        lv = f'<span class="mt-lever"><i>{TREE_LBL["lever"]}:</i> {esc(lever)}</span>' if lever else ""
-        sub = "<ul>" + "".join(node(k) for k in kids) + "</ul>" if kids else ""
-        return f'<li><div class="mt-node{" mt-root" if root else ""}"><span class="mt-name">{esc(name)}</span>{v}{lv}</div>{sub}</li>'
+        cls = "mt-val" + ("" if val[:1] in "+−0123456789" else " mt-txt")
+        v = f'<b class="{cls}">{esc(val)}</b>' if val else ""
+        lbl = f'<i>{TREE_LBL["lever"]}:</i> ' if depth else ""
+        lv = f'<span class="mt-lever">{lbl}{esc(lever)}</span>' if lever else ""
+        sub = "<ul>" + "".join(node(k, depth + 1) for k in kids) + "</ul>" if kids else ""
+        return (f'<li class="mt-l{depth}"><div class="mt-node" tabindex="0"><span class="mt-name">{esc(name)}</span>{v}{lv}</div>{sub}</li>')
     return (f'<section class="mtree" aria-label="{TREE_LBL["h"]}"><h2>{TREE_LBL["h"]}</h2><p class="mt-note">{TREE_LBL["note"]}</p>'
-            f'<ul class="mt">{node(t, True)}</ul></section>')
+            f'<div class="mt-wrap"><svg class="mt-svg" aria-hidden="true"></svg><ul class="mt">{node(t)}</ul></div></section>'
+            """<script>(() => {
+  const sec = document.currentScript.previousElementSibling, wrap = sec.querySelector('.mt-wrap'), svg = wrap.querySelector('svg');
+  const NS = 'http://www.w3.org/2000/svg', nodes = [...wrap.querySelectorAll('.mt-node')];
+  const parentNode = n => { const li = n.parentElement.parentElement.closest('li'); return li ? li.querySelector(':scope > .mt-node') : null; };
+  const links = [];
+  const draw = () => {
+    svg.innerHTML = ''; links.length = 0;
+    const horiz = getComputedStyle(wrap).getPropertyValue('--mt-dir').trim() === 'h';
+    const W = wrap.getBoundingClientRect(); svg.setAttribute('width', W.width); svg.setAttribute('height', W.height);
+    nodes.forEach(n => { const p = parentNode(n); if (!p) return;
+      const a = p.getBoundingClientRect(), b = n.getBoundingClientRect(); let d;
+      if (horiz) { const x1 = a.right - W.left, y1 = a.top + a.height / 2 - W.top, x2 = b.left - W.left, y2 = b.top + b.height / 2 - W.top, m = (x1 + x2) / 2;
+        d = `M${x1},${y1} C${m},${y1} ${m},${y2} ${x2},${y2}`; }
+      else { const x1 = a.left - W.left + 14, y1 = a.bottom - W.top, x2 = b.left - W.left, y2 = b.top + b.height / 2 - W.top;
+        d = `M${x1},${y1} L${x1},${y2 - 8} Q${x1},${y2} ${x1 + 8},${y2} L${x2},${y2}`; }
+      const path = document.createElementNS(NS, 'path'); path.setAttribute('d', d); path.setAttribute('pathLength', '1'); svg.appendChild(path);
+      links.push({path, from: p, to: n}); });
+  };
+  const chain = n => { const s = new Set([n]); let p = n; while ((p = parentNode(p))) s.add(p);
+    n.parentElement.querySelectorAll('.mt-node').forEach(x => s.add(x)); return s; };
+  const on = n => { const s = chain(n); wrap.classList.add('mt-dim');
+    nodes.forEach(x => x.classList.toggle('mt-hl', s.has(x))); links.forEach(l => l.path.classList.toggle('mt-hl', s.has(l.from) && s.has(l.to))); };
+  const off = () => { wrap.classList.remove('mt-dim'); nodes.forEach(x => x.classList.remove('mt-hl')); links.forEach(l => l.path.classList.remove('mt-hl')); };
+  nodes.forEach(n => { n.addEventListener('mouseenter', () => on(n)); n.addEventListener('focus', () => on(n));
+    n.addEventListener('mouseleave', off); n.addEventListener('blur', off); });
+  draw(); new ResizeObserver(draw).observe(wrap); if (document.fonts) document.fonts.ready.then(draw);
+  if ('IntersectionObserver' in window) { wrap.classList.add('mt-js');
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { wrap.classList.add('mt-in'); io.disconnect(); } }), {threshold: .25}); io.observe(wrap); }
+})();</script>""")
 
 
 def insert_tree(html: str, slug: str) -> str:

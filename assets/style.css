@@ -975,18 +975,42 @@ html { scroll-behavior: smooth; }
 
 /* Дерево метрик */
 .mtree{margin:36px 0 8px}
-.mt-note{color:var(--muted);font-size:15px;margin:-4px 0 14px}
+.mt-note{color:var(--muted);font-size:15px;margin:-4px 0 16px}
+.mt-wrap{--mt-dir:h;position:relative;padding:6px 0}
+.mt-svg{position:absolute;inset:0;pointer-events:none;overflow:visible}
+.mt-svg path{fill:none;stroke:var(--rule);stroke-width:2;stroke-linecap:round;transition:stroke .25s,stroke-width .25s,opacity .25s}
+.mt-js .mt-svg path{stroke-dasharray:1;stroke-dashoffset:1}
+.mt-js.mt-in .mt-svg path{stroke-dashoffset:0;transition:stroke-dashoffset .9s ease .15s,stroke .25s,stroke-width .25s,opacity .25s}
+.mt-svg path.mt-hl{stroke:#D9822B;stroke-width:3}
+.mt-dim .mt-svg path:not(.mt-hl){opacity:.4}
 .mt,.mt ul{list-style:none;margin:0;padding:0}
-.mt ul{margin-left:14px;padding-left:18px;border-left:1.5px solid var(--rule)}
-.mt li{position:relative;margin:8px 0;padding:0}
-.mt ul>li::before{content:"";position:absolute;left:-18px;top:20px;width:14px;border-top:1.5px solid var(--rule)}
-.mt-node{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;padding:8px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--surface);max-width:100%}
-.mt-root{border-color:#D9822B;border-width:1.5px}
-.mt-name{font-weight:600;font-size:16px}
-.mt-val{font-size:16px;color:#1f7a4d}
-.mt-down{color:#1f7a4d}
-.mt-lever{flex-basis:100%;font-size:14px;color:var(--muted);line-height:1.4}
-.mt-lever i{font-style:normal;opacity:.8}
+.mt li{display:flex;align-items:center;margin:0;padding:0}
+.mt ul{display:flex;flex-direction:column;gap:10px;padding-left:44px}
+.mt-node{position:relative;z-index:1;display:flex;flex-direction:column;gap:2px;padding:10px 14px;border:1px solid var(--rule);border-radius:12px;background:var(--surface);
+  cursor:default;outline:none;transition:transform .2s,box-shadow .2s,border-color .2s,opacity .25s}
+.mt-l0>.mt-node{flex:0 0 132px;background:#D9822B;border-color:#D9822B;color:#fff}
+.mt-l0>.mt-node .mt-val{color:#fff;font-size:26px}
+.mt-l1>.mt-node{flex:0 0 160px}
+.mt-l2{flex:1 1 auto;min-width:0}
+.mt-l2>.mt-node{flex:1 1 auto;min-width:0}
+.mt-l1:not(:has(ul))>.mt-node{flex:0 1 300px}
+.mt-name{font-weight:600;font-size:15px;line-height:1.25}
+.mt-val{font-family:var(--display);font-size:20px;line-height:1.1;color:#1f7a4d;letter-spacing:-.01em}
+.mt-val.mt-txt{font-family:inherit;color:var(--muted);font-weight:400;font-size:13px;letter-spacing:0}
+.mt-lever{font-size:13px;color:var(--muted);line-height:1.35;margin-top:2px}
+.mt-lever i{font-style:normal;color:#D9822B}
+.mt-l0 .mt-lever{color:rgba(255,255,255,.85)}.mt-l0 .mt-lever i{color:#fff}
+.mt-node:hover,.mt-node:focus-visible,.mt-node.mt-hl{border-color:#D9822B}
+.mt-node:hover,.mt-node:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(217,130,43,.18)}
+.mt-dim .mt-node:not(.mt-hl){opacity:.6}
+@media (max-width:700px){
+  .mt-wrap{--mt-dir:v}
+  .mt li{display:block}
+  .mt ul{gap:8px;padding:8px 0 0 28px}
+  .mt-l0>.mt-node,.mt-l1>.mt-node,.mt-l2>.mt-node,.mt-l1:not(:has(ul))>.mt-node{flex:none;width:auto}
+  .mt-l0>.mt-node{display:inline-flex}
+}
+@media (prefers-reduced-motion:reduce){.mt-js .mt-svg path{stroke-dasharray:none;stroke-dashoffset:0}.mt-node{transition:none}}
 /* Что не сработало */
 .miss{margin:28px 0;padding:4px 20px 8px;border-left:3px solid #D9822B;background:var(--surface);border-radius:0 12px 12px 0}
 .miss h2{margin-top:14px}
@@ -1040,3 +1064,7 @@ html { scroll-behavior: smooth; }
 .rv-table summary{cursor:pointer;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){.rv-bar{transition:none}}
 @media (max-width:560px){.rv-row{grid-template-columns:1fr 3.8em;gap:4px 10px}.rv-name{grid-column:1/-1}.rv-track{grid-column:1}}
+
+:root[data-theme="dark"] .mt-val:not(.mt-txt){color:#5fd39a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mt-val:not(.mt-txt){color:#5fd39a}}
+.mt-l0>.mt-node .mt-val{color:#fff!important}

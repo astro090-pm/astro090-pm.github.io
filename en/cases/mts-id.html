@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-<link rel="stylesheet" href="../../assets/style.css?v=e0644fd0">
+<link rel="stylesheet" href="../../assets/style.css?v=4c58530a">
 <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="../../assets/site.js?v=122f7508" defer data-root="../"></script>
 </head>
@@ -75,7 +75,35 @@ document.querySelectorAll('details.menu').forEach(d => d.addEventListener('toggl
 <li>Moved the product from a monolith to <strong>microservices</strong>.</li>
 <li>Seamless logins grew by <strong>23%</strong>, seamless authorisations by <strong>7%</strong>.</li>
 </ul>
-<section class="mtree" aria-label="Metric tree"><h2>Metric tree</h2><p class="mt-note">How the main result breaks down into metrics and which actions moved them. Numbers come from the Results section.</p><ul class="mt"><li><div class="mt-node mt-root"><span class="mt-name">Seamless logins</span> <b class="mt-val">+23%</b><span class="mt-lever"><i>levers:</i> the platform&#x27;s key metric — measured across the whole ecosystem</span></div><ul><li><div class="mt-node"><span class="mt-name">Connected products</span> <b class="mt-val">9 + MTS Bank</b><span class="mt-lever"><i>levers:</i> integrations with consumer teams; 2 more external products together with MTS Pay</span></div></li><li><div class="mt-node"><span class="mt-name">Seamless authorizations</span> <b class="mt-val">+7%</b></div></li><li><div class="mt-node"><span class="mt-name">Readiness to scale</span><span class="mt-lever"><i>levers:</i> moving from a monolith to microservices</span></div></li></ul></li></ul></section>
+<section class="mtree" aria-label="Metric tree"><h2>Metric tree</h2><p class="mt-note">How the main result breaks down into metrics and which actions moved them. Numbers come from the Results section.</p><div class="mt-wrap"><svg class="mt-svg" aria-hidden="true"></svg><ul class="mt"><li class="mt-l0"><div class="mt-node" tabindex="0"><span class="mt-name">Seamless logins</span><b class="mt-val">+23%</b><span class="mt-lever">the platform&#x27;s key metric — measured across the whole ecosystem</span></div><ul><li class="mt-l1"><div class="mt-node" tabindex="0"><span class="mt-name">Connected products</span><b class="mt-val">9 + MTS Bank</b><span class="mt-lever"><i>levers:</i> integrations with consumer teams; 2 more external products together with MTS Pay</span></div></li><li class="mt-l1"><div class="mt-node" tabindex="0"><span class="mt-name">Seamless authorizations</span><b class="mt-val">+7%</b></div></li><li class="mt-l1"><div class="mt-node" tabindex="0"><span class="mt-name">Readiness to scale</span><span class="mt-lever"><i>levers:</i> moving from a monolith to microservices</span></div></li></ul></li></ul></div></section><script>(() => {
+  const sec = document.currentScript.previousElementSibling, wrap = sec.querySelector('.mt-wrap'), svg = wrap.querySelector('svg');
+  const NS = 'http://www.w3.org/2000/svg', nodes = [...wrap.querySelectorAll('.mt-node')];
+  const parentNode = n => { const li = n.parentElement.parentElement.closest('li'); return li ? li.querySelector(':scope > .mt-node') : null; };
+  const links = [];
+  const draw = () => {
+    svg.innerHTML = ''; links.length = 0;
+    const horiz = getComputedStyle(wrap).getPropertyValue('--mt-dir').trim() === 'h';
+    const W = wrap.getBoundingClientRect(); svg.setAttribute('width', W.width); svg.setAttribute('height', W.height);
+    nodes.forEach(n => { const p = parentNode(n); if (!p) return;
+      const a = p.getBoundingClientRect(), b = n.getBoundingClientRect(); let d;
+      if (horiz) { const x1 = a.right - W.left, y1 = a.top + a.height / 2 - W.top, x2 = b.left - W.left, y2 = b.top + b.height / 2 - W.top, m = (x1 + x2) / 2;
+        d = `M${x1},${y1} C${m},${y1} ${m},${y2} ${x2},${y2}`; }
+      else { const x1 = a.left - W.left + 14, y1 = a.bottom - W.top, x2 = b.left - W.left, y2 = b.top + b.height / 2 - W.top;
+        d = `M${x1},${y1} L${x1},${y2 - 8} Q${x1},${y2} ${x1 + 8},${y2} L${x2},${y2}`; }
+      const path = document.createElementNS(NS, 'path'); path.setAttribute('d', d); path.setAttribute('pathLength', '1'); svg.appendChild(path);
+      links.push({path, from: p, to: n}); });
+  };
+  const chain = n => { const s = new Set([n]); let p = n; while ((p = parentNode(p))) s.add(p);
+    n.parentElement.querySelectorAll('.mt-node').forEach(x => s.add(x)); return s; };
+  const on = n => { const s = chain(n); wrap.classList.add('mt-dim');
+    nodes.forEach(x => x.classList.toggle('mt-hl', s.has(x))); links.forEach(l => l.path.classList.toggle('mt-hl', s.has(l.from) && s.has(l.to))); };
+  const off = () => { wrap.classList.remove('mt-dim'); nodes.forEach(x => x.classList.remove('mt-hl')); links.forEach(l => l.path.classList.remove('mt-hl')); };
+  nodes.forEach(n => { n.addEventListener('mouseenter', () => on(n)); n.addEventListener('focus', () => on(n));
+    n.addEventListener('mouseleave', off); n.addEventListener('blur', off); });
+  draw(); new ResizeObserver(draw).observe(wrap); if (document.fonts) document.fonts.ready.then(draw);
+  if ('IntersectionObserver' in window) { wrap.classList.add('mt-js');
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { wrap.classList.add('mt-in'); io.disconnect(); } }), {threshold: .25}); io.observe(wrap); }
+})();</script>
 <h2>What this case shows</h2>
 <p>A platform product at scale: working with many internal consumer teams, architectural change (monolith → microservices) and ecosystem-level product metrics.</p>
 <h2>What I learned</h2>
