@@ -135,9 +135,7 @@ def install(B):
     def study_page():
         blocks = []
         for title, rows in B.STUDY:
-            lis = "\n".join(
-                f'<li><span class="when">{esc(org)}<br>{esc(kind)}</span><span class="what">{esc(name)}<i>{esc(about)}</i></span></li>'
-                for org, name, about, kind in rows)
+            lis = "\n".join(B.study_row(r) for r in rows)
             blocks.append(f'<section class="uni"><div class="uni-head"><h2>{esc(title)}</h2></div><ul class="pubs">\n{lis}\n</ul></section>')
         body = f"""
 <article class="page"><div class="wrap">

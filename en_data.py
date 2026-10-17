@@ -100,8 +100,10 @@ STUDY = [
         ("ProductDo · 2025", "Technical knowledge for product managers", "Architecture, APIs, databases and integrations — to speak the same language as engineers.", "course"),
         ("GoPractice · 2025", "SQL simulator for product analytics", "SQL queries for product metrics: funnels, cohorts, retention.", "course"),
         ("Pendo.io · 2024", "AI for Product Management", "How to apply AI in product management work and in the products themselves.", "course"),
-        ("Google · 2023", "Fundamentals of digital marketing", "Acquisition channels, search and contextual ads, web analytics.", "course"),
-        ("GoPractice · 2022", "Data-driven product management simulator", "Product analytics and metrics on an end-to-end case: from hypothesis to a data-based decision.", "course"),
+        ("Google · 2023", "Fundamentals of digital marketing", "Acquisition channels, search and contextual ads, web analytics. Exam passed on 23 July 2023; the programme is endorsed by IAB Europe.", "course",
+         {"img": "assets/certs/google-marketing-2023.jpg", "verify": "https://learndigital.withgoogle.com/link/1ol24okmw3k"}),
+        ("GoPractice · 2022", "Data-driven product management simulator", "Product analytics and metrics on an end-to-end case: from hypothesis to a data-based decision. 413 practical assignments, 83% correct answers; certificate dated 12 August 2022.", "course",
+         {"img": "assets/certs/gopractice-pm-2022.jpg", "verify": "https://gopractice.ru/course/pm/certificate/rr3mnnve"}),
         ("HSE University · 2014", "Translator in professional communication", "Professional English: translation and business communication.", "programme"),
     ]),
     ("Accelerators and competitions", [
@@ -312,6 +314,8 @@ GEO = [
     ("Dubai", 55.27, 25.2, "My own startups bolz.tech and bolz.dev, 2023–2025", "cases/bolz-tech.html"),
     ("Bishkek", 74.6, 42.87, "Asia Retail: e-commerce relaunch, +103% revenue", "cases/asia-online.html"),
 ]
+
+CERT_LBL = {"cert": "Certificate", "verify": "verify", "alt": "Certificate"}
 
 MEDIA_KINDS = [("podcasts", "🎧 Podcasts"), ("videos", "🎬 Lectures and videos"), ("reading", "📡 Who I read")]
 

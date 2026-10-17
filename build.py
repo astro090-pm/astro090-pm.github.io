@@ -830,8 +830,10 @@ STUDY = [
         ("ProductDo · 2025", "Технические знания для продакта", "Архитектура, API, базы данных и интеграции — чтобы говорить с разработкой на одном языке.", "курс"),
         ("GoPractice · 2025", "Симулятор SQL для продуктовой аналитики", "SQL-запросы для продуктовых метрик: воронки, когорты, retention.", "курс"),
         ("Pendo.io · 2024", "AI for Product Management", "Как применять ИИ в работе продакт-менеджера и в самих продуктах.", "курс"),
-        ("Google · 2023", "Основы интернет-маркетинга", "Каналы привлечения, поисковая и контекстная реклама, веб-аналитика.", "курс"),
-        ("GoPractice · 2022", "Симулятор управления продуктом на основе данных", "Продуктовая аналитика и метрики на сквозном кейсе: от гипотезы до решения по данным.", "курс"),
+        ("Google · 2023", "Основы интернет-маркетинга", "Каналы привлечения, поисковая и контекстная реклама, веб-аналитика. Экзамен сдан 23 июля 2023 года; программа одобрена IAB Europe.", "курс",
+         {"img": "assets/certs/google-marketing-2023.jpg", "verify": "https://learndigital.withgoogle.com/link/1ol24okmw3k"}),
+        ("GoPractice · 2022", "Симулятор управления продуктом на основе данных", "Продуктовая аналитика и метрики на сквозном кейсе: от гипотезы до решения по данным. 413 практических заданий, 83% правильных ответов; сертификат от 12 августа 2022 года.", "курс",
+         {"img": "assets/certs/gopractice-pm-2022.jpg", "verify": "https://gopractice.ru/course/pm/certificate/rr3mnnve"}),
         ("НИУ ВШЭ · 2014", "Переводчик в сфере профессиональных коммуникаций", "Профессиональный английский: перевод и деловая коммуникация.", "программа"),
     ]),
     ("Акселераторы и конкурсы", [
@@ -843,12 +845,25 @@ STUDY = [
 ]
 
 
+CERT_LBL = {"cert": "Сертификат", "verify": "проверить подлинность", "alt": "Сертификат"}
+
+
+def study_row(row: tuple) -> str:
+    """Строка «Образования»; если есть сертификат — миниатюра и ссылка на проверку."""
+    org, name, about, kind, *extra = row
+    cert = extra[0] if extra else {}
+    links = ""
+    if cert:
+        links = (f'<span class="cert"><a class="cert-thumb" href="{cert["img"]}" target="_blank" rel="noopener"><img src="{cert["img"]}" alt="{esc(CERT_LBL["alt"])}: {esc(name)}" loading="lazy"></a>'
+                 f'<span class="cert-links"><a href="{cert["img"]}" target="_blank" rel="noopener">{esc(CERT_LBL["cert"])}</a>'
+                 + (f' · <a href="{esc(cert["verify"])}" target="_blank" rel="noopener">{esc(CERT_LBL["verify"])}</a>' if cert.get("verify") else "") + '</span></span>')
+    return f'<li><span class="when">{esc(org)}<br>{esc(kind)}</span><span class="what">{esc(name)}<i>{esc(about)}</i>{links}</span></li>'
+
+
 def study_page() -> str:
     blocks = []
     for title, rows in STUDY:
-        lis = "\n".join(
-            f'<li><span class="when">{esc(org)}<br>{esc(kind)}</span><span class="what">{esc(name)}<i>{esc(about)}</i></span></li>'
-            for org, name, about, kind in rows)
+        lis = "\n".join(study_row(r) for r in rows)
         blocks.append(f'<section class="uni"><div class="uni-head"><h2>{esc(title)}</h2></div><ul class="pubs">\n{lis}\n</ul></section>')
     body = f"""
 <article class="page"><div class="wrap">

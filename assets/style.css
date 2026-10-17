@@ -814,3 +814,9 @@ html { scroll-behavior: smooth; }
 :root[data-theme="dark"] .more-card { background: var(--surface); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .more-card { background: var(--surface); } }
 @media (max-width: 640px) { .more-grid { grid-template-columns: 1fr; } .more-card { padding: 18px; } .more-ic { width: 44px; height: 44px; } }
+
+/* Образование: сертификат — миниатюра и проверка */
+.cert { display: flex; align-items: center; gap: 14px; margin-top: 10px; }
+.cert-thumb img { display: block; width: 120px; height: auto; border: 1px solid var(--card-rule); border-radius: 6px; background: #fff; }
+.cert-thumb:hover img { border-color: var(--ink); }
+.cert-links { font: 400 14px/1.4 var(--sans); }
