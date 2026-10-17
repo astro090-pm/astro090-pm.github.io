@@ -323,11 +323,6 @@ CERT_LBL = {"cert": "Certificate", "verify": "verify", "alt": "Certificate"}
 MEDIA_KINDS = [("podcasts", "🎧 Podcasts"), ("videos", "🎬 Lectures and videos"), ("reading", "📡 Who I read")]
 
 PROJECTS = [
-    ("🧭", "#EDE7DA", "2026.10", "WEBSITE / PERSONAL BRAND", "This website",
-     "A portfolio site I run as a product: audiences, their jobs, decisions and what I chose to drop.",
-     ["3 audiences", "2 languages", "static Python generator"],
-     [("Case: the site as a product", "site.html"), ("Code on GitHub", "https://github.com/astro090-pm/astro090-pm.github.io")],
-     "The site records what I have done and learned — for hiring managers, students and colleagues. I run it as a product: each audience gets its own route, every change is a decision with a reason, and I remove what doesn't help."),
     ("🗓", "#E6EDF9", "2026.10", "TG BOT / AI AGENTS", "Weekend Planner",
      "A Telegram bot that builds an hour-by-hour weekend plan: weather, events, places, budget and children's ages.",
      ["3 agents over A2A", "32 eval cases", "55 tests", "prototype"],
@@ -387,45 +382,6 @@ ROUTER = {"title": "Who are you?", "aria": "Route through the site", "routes": [
     ("peer", "I'm a colleague", "AI agents in practice, research and open-source code.", [
         ("My path in AI agents", "agents.html"), ("Research", "research.html"), ("Projects and code", "projects.html")]),
 ]}
-
-SITE_CASE = {
-    "title": "This website as a product",
-    "desc": "How Roman Ponurov runs his website as a product: audiences and their jobs, principles, decisions and a log of what was removed and why.",
-    "lead": "A website is a product too. It has users with different jobs, hypotheses and decisions to make — including decisions to remove things.",
-    "aud_h": "Who it is for and why",
-    "aud": [("Hiring managers and HR", "quickly judge whether the candidate fits", "CV, results in numbers, a summary at the top of every case, the “I'm hiring” route on the home page"),
-            ("Students", "understand the profession and learn", "the IT management course, lecture slides, book reviews"),
-            ("Colleagues", "exchange experience", "my path in AI agents, research, open-source project code")],
-    "aud_cols": ("Who", "Job", "What the site offers"),
-    "pr_h": "Principles",
-    "pr": ["Verifiable facts only: certificates link to verification, projects to code or a case, articles to the publication.",
-           "Numbers with context: where a result spans two years, that is stated.",
-           "Every audience gets a short path to what it came for."],
-    "do_h": "What was done",
-    "do": ["“Who are you?” routes on the home page — for hiring managers, students and colleagues.",
-           "A summary at the top of every case: main result, role, where and when.",
-           "A “What I learned” section at the end of cases.",
-           "Certificates with thumbnails and verification links.",
-           "PDFs open in a side panel without leaving the page.",
-           "A full English version, serverless search, dark theme."],
-    "cut_h": "Decision log: what I removed and why",
-    "cut_cols": ("What", "Decision"),
-    "cut": [("Stats strip on the home page", "Removed: the numbers stay in the CV and case summaries, and the first screen got calmer."),
-            ("“Random post” button", "Removed: it helped none of the three audiences."),
-            ("“Presentations” section", "Dissolved: each PDF now sits next to its project, case or post."),
-            ("“Activity by month” block", "Removed from the Timeline: pretty, but explained nothing."),
-            ("Career line in the header", "Removed: the same information is on the Timeline in more detail."),
-            ("A list of 50 books", "Replaced with a list of books I have read, with reviews."),
-            ("A big redesign with “coaching” and “students” pages", "Published and rolled back the same day: the structure diluted the main message; a few ideas from it stayed.")],
-    "m_h": "Metrics",
-    "m": "The site does not collect visit statistics yet, so the decisions above are qualitative, not data-driven. The next step is to add a counter and check which routes and sections people actually use.",
-    "tech_h": "How it is built",
-    "tech": "A static Python generator with no frameworks: posts and cases are written in Markdown, pages are built by a script and published on GitHub Pages. The English version is built from the same templates. I build the site together with an AI coding assistant.",
-    "next_h": "What's next",
-    "next": ["An own domain instead of the GitHub address.", "Testimonials from colleagues and students — with their consent.", "A visit counter and data-driven decisions."],
-    "code": "Site code on GitHub",
-    "suffix": " — Roman Ponurov",
-}
 
 PATCH = {k: v for k, v in globals().items() if k.isupper() and k not in ("HERE", "GITHUB", "WP", "PIO", "SP")}
 PATCH["BOOKS_LINK"] = '<a href="{up}books.html">📚 books</a>'

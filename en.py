@@ -46,7 +46,6 @@ def build(ctx):
         pages["index.html" if n == 1 else f"page{n}.html"] = B.index_page(posts, n)
     pages["cv.html"] = B.cv_page()
     pages["projects.html"] = B.projects_page()
-    pages["site.html"] = B.site_case_page()
     pages["research.html"] = B.research_page(posts)
     pages["study.html"] = B.study_page()
     pages["about.html"] = B.about_page()
