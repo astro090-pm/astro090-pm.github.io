@@ -256,6 +256,7 @@ def index_page(posts: list[dict], page: int = 1) -> str:
 {agent_line()}
 </div>
 </section>
+{router()}
 {now_card()}"""
     items = all_items(posts)
     pages = max(1, -(-len(posts) // PER_PAGE))
@@ -367,6 +368,11 @@ def own_cards() -> str:
 # Проекты — список: иконка, дата и тип, название, описание, цифры, кнопки-ссылки, история.
 # (иконка, цвет плитки, дата, тип, название, описание, цифры, [(кнопка, ссылка)], история)
 PROJECTS = [
+    ("🧭", "#EDE7DA", "2026.10", "САЙТ / ЛИЧНЫЙ БРЕНД", "Этот сайт",
+     "Сайт-портфолио, который я веду как продукт: аудитории, их задачи, решения и то, от чего отказался.",
+     ["3 аудитории", "2 языка", "статический генератор на Python"],
+     [("Кейс: сайт как продукт", "site.html"), ("Код на GitHub", "https://github.com/astro090-pm/astro090-pm.github.io")],
+     "Сайт фиксирует, что я сделал и чему научился, — для нанимающих менеджеров, студентов и коллег. Я веду его как продукт: у каждой аудитории свой маршрут, каждое изменение — решение с причиной, а лишнее убираю."),
     ("🗓", "#E6EDF9", "2026.10", "TG-БОТ / ИИ-АГЕНТЫ", "Планировщик выходных",
      "Telegram-бот собирает план выходных по часам: погода, афиша, места, бюджет и возраст детей.",
      ["3 агента по A2A", "32 эвал-кейса", "55 тестов", "прототип"],
@@ -1737,6 +1743,99 @@ document.querySelectorAll('.orb-flip').forEach(b => b.addEventListener('click', 
     return h.replace("<head>", '<head>\n<meta name="robots" content="noindex">', 1)
 
 
+# ---------- «Кто вы?» — маршруты по аудиториям на главной
+ROUTER = {"title": "Кто вы?", "aria": "Маршрут по сайту", "routes": [
+    ("hr", "Я нанимаю", "За 2 минуты: результаты, кейсы и как со мной работать.", [
+        ("Резюме, PDF", "assets/Ponurov_Roman_CV.pdf"), ("Портфолио кейсов", "cases/index.html"), ("Как со мной работать", "about.html")]),
+    ("student", "Я студент", "Курс по ИТ-менеджменту, слайды лекций и разборы книг.", [
+        ("О курсе «ИТ-менеджмент»", "blog/lekcii-it-menedzhment.html"), ("Лекция 1, PDF", "assets/decks/it-management-lecture-1.pdf"), ("Книги и рецензии", "books.html")]),
+    ("peer", "Я коллега", "ИИ-агенты на практике, исследования и открытый код.", [
+        ("Мой путь в ИИ-агентах", "agents.html"), ("Исследования", "research.html"), ("Проекты и код", "projects.html")]),
+]}
+
+
+def router() -> str:
+    R = ROUTER
+    tabs = "".join(f'<button type="button" class="rt-tab" data-r="{k}" aria-pressed="{str(i == 0).lower()}">{esc(t)}</button>' for i, (k, t, _d, _l) in enumerate(R["routes"]))
+    panes = "".join(
+        f'<div class="rt-pane" data-r="{k}"><p class="rt-desc">{esc(d)}</p><p class="rt-links">'
+        + "".join(f'<a href="{u}">{esc(t)} →</a>' for t, u in links) + '</p></div>'
+        for k, _t, d, links in R["routes"])
+    return (f'<section class="router" aria-label="{esc(R["aria"])}"><div class="rt-head"><h2>{esc(R["title"])}</h2><div class="rt-tabs">{tabs}</div></div>{panes}</section>'
+            """<script>(() => { const s = document.querySelector('.router'); if (!s) return; s.classList.add('rt-js');
+  const tabs = s.querySelectorAll('.rt-tab'), panes = s.querySelectorAll('.rt-pane');
+  const show = r => { tabs.forEach(t => t.setAttribute('aria-pressed', String(t.dataset.r === r))); panes.forEach(p => p.hidden = p.dataset.r !== r); };
+  tabs.forEach(t => t.addEventListener('click', () => show(t.dataset.r))); show(tabs[0].dataset.r); })();</script>""")
+
+
+# ---------- Кейс «Этот сайт как продукт»
+SITE_CASE = {
+    "title": "Этот сайт как продукт",
+    "desc": "Как Роман Понуров ведёт свой сайт как продукт: аудитории и их задачи, принципы, решения и журнал того, что убрано и почему.",
+    "lead": "Сайт — тоже продукт. У него есть пользователи с разными задачами, гипотезы и решения, которые приходится принимать, — в том числе решения что-то убрать.",
+    "aud_h": "Для кого и зачем",
+    "aud": [("Нанимающие менеджеры и HR", "быстро понять, подходит ли кандидат", "резюме, результаты в цифрах, выжимка в начале каждого кейса, маршрут «Я нанимаю» на главной"),
+            ("Студенты", "разобраться в профессии и учиться", "курс по ИТ-менеджменту, слайды лекций, рецензии на книги"),
+            ("Коллеги", "обменяться опытом", "путь в ИИ-агентах, исследования, открытый код проектов")],
+    "aud_cols": ("Кто", "Задача", "Что для этого на сайте"),
+    "pr_h": "Принципы",
+    "pr": ["Только проверяемые факты: у сертификатов — ссылка на проверку подлинности, у проектов — код или кейс, у статей — публикация.",
+           "Цифры с контекстом: где результат захватывает два года, это указано.",
+           "Каждой аудитории — короткий путь к тому, за чем она пришла."],
+    "do_h": "Что сделано",
+    "do": ["Маршруты «Кто вы?» на главной — для нанимающих, студентов и коллег.",
+           "Выжимка в начале каждого кейса: главный результат, роль, где и когда.",
+           "Раздел «Чему научился» в конце кейсов.",
+           "Сертификаты с миниатюрами и ссылками на проверку.",
+           "PDF открываются в боковой панели, не уводя со страницы.",
+           "Английская версия всего сайта, поиск без сервера, тёмная тема."],
+    "cut_h": "Журнал решений: что убрал и почему",
+    "cut_cols": ("Что", "Решение"),
+    "cut": [("Блок со статистикой на главной", "Убран: цифры остались в резюме и в выжимках кейсов, первый экран стал спокойнее."),
+            ("Кнопка «случайный пост»", "Убрана: не помогала ни одной из трёх аудиторий."),
+            ("Раздел «Презентации»", "Расформирован: каждый PDF теперь лежит рядом со своим проектом, кейсом или постом."),
+            ("Блок «Насыщенность по месяцам»", "Убран с «Хронологии»: красиво, но ничего не объяснял."),
+            ("Линия карьеры в шапке", "Убрана: та же информация подробнее есть на «Хронологии»."),
+            ("Список из 50 книг", "Заменён на список прочитанных книг с рецензиями."),
+            ("Большой редизайн со страницами «коучинг» и «студентам»", "Опубликован и откачен в тот же день: структура размывала главное; из него остались отдельные идеи.")],
+    "m_h": "Метрики",
+    "m": "Пока сайт не собирает статистику посещений, поэтому решения выше приняты по качественным соображениям, а не по данным. Следующий шаг — подключить счётчик и проверить, какие маршруты и разделы реально используют.",
+    "tech_h": "Как устроен",
+    "tech": "Статический генератор на Python без фреймворков: тексты постов и кейсов — в Markdown, страницы собираются скриптом и публикуются на GitHub Pages. Английская версия собирается из тех же шаблонов. Сайт я собираю вместе с ИИ-ассистентом для кода.",
+    "next_h": "Что дальше",
+    "next": ["Свой домен вместо адреса на GitHub.", "Отзывы коллег и студентов — с их согласия.", "Счётчик посещений и решения по данным."],
+    "code": "Код сайта на GitHub",
+    "suffix": " — Роман Понуров",
+}
+
+
+def site_case_page() -> str:
+    T = SITE_CASE
+    aud = "".join(f'<tr><th scope="row">{esc(a)}</th><td>{esc(b)}</td><td>{esc(c)}</td></tr>' for a, b, c in T["aud"])
+    cut = "".join(f'<tr><th scope="row">{esc(a)}</th><td>{esc(b)}</td></tr>' for a, b in T["cut"])
+    li = lambda xs: "".join(f"<li>{esc(x)}</li>" for x in xs)
+    c1, c2 = T["aud_cols"], T["cut_cols"]
+    body = f"""
+<article class="page"><div class="wrap">
+<a class="back" href="projects.html">{esc(PROJECTS_TEXT["title"])}</a>
+<h1>{esc(T["title"])}</h1>
+<div class="prose site-case">
+<p class="lead-p">{esc(T["lead"])}</p>
+<h2>{esc(T["aud_h"])}</h2>
+<div class="tbl-wrap"><table class="sc-tbl"><thead><tr><th scope="col">{c1[0]}</th><th scope="col">{c1[1]}</th><th scope="col">{c1[2]}</th></tr></thead><tbody>{aud}</tbody></table></div>
+<h2>{esc(T["pr_h"])}</h2><ul class="facts">{li(T["pr"])}</ul>
+<h2>{esc(T["do_h"])}</h2><ul class="facts">{li(T["do"])}</ul>
+<h2>{esc(T["cut_h"])}</h2>
+<div class="tbl-wrap"><table class="sc-tbl"><thead><tr><th scope="col">{c2[0]}</th><th scope="col">{c2[1]}</th></tr></thead><tbody>{cut}</tbody></table></div>
+<h2>{esc(T["m_h"])}</h2><p class="intro">{esc(T["m"])}</p>
+<h2>{esc(T["tech_h"])}</h2><p class="intro">{esc(T["tech"])} <a href="https://github.com/astro090-pm/astro090-pm.github.io">{esc(T["code"])}</a>.</p>
+<h2>{esc(T["next_h"])}</h2><ul class="facts">{li(T["next"])}</ul>
+</div>
+</div></article>
+"""
+    return layout(T["title"] + T["suffix"], T["desc"], body, "site.html")
+
+
 def main() -> None:
     posts = load_posts()
     pages = max(1, -(-len(posts) // PER_PAGE))
@@ -1774,6 +1873,7 @@ def main() -> None:
     (ROOT / "cases" / "bolz.html").write_text('<!doctype html><meta charset="utf-8"><title>bolz.tech</title><meta http-equiv="refresh" content="0; url=bolz-tech.html"><link rel="canonical" href="bolz-tech.html"><a href="bolz-tech.html">bolz.tech</a>', encoding="utf-8")
     for i, case in enumerate(CASES):
         (ROOT / "cases" / f"{case[0]}.html").write_text(case_page(i), encoding="utf-8")
+    (ROOT / "site.html").write_text(site_case_page(), encoding="utf-8")
     import en
     en.build({"SITE_URL": SITE_URL, "FONTS": FONTS, "CSS_V": CSS_V, "JS_V": JS_V})
     clean_index_links()

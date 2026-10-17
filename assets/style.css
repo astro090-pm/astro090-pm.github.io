@@ -953,3 +953,33 @@ html { scroll-behavior: smooth; }
 .geo-pin text { font-size: 15px; }
 @media (max-width: 860px) { .geo-wrap { grid-template-columns: 1fr; } .geo-pin text { font-size: 26px; } .geo-pin circle { r: 11; } }
 @media (max-width: 860px) { .geo-pin text { font-size: 36px; } .geo-arc { stroke-width: 3; } }
+
+/* «Кто вы?» — маршруты */
+.router{margin:28px 0 8px;padding:20px 22px;border:1px solid var(--rule);border-radius:16px}
+.rt-head{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px}
+.rt-head h2{margin:0;font-size:18px}
+.rt-tabs{display:flex;flex-wrap:wrap;gap:8px}
+.rt-tab{font:inherit;font-size:14px;padding:7px 14px;border-radius:999px;border:1px solid var(--rule);background:transparent;color:inherit;cursor:pointer}
+.rt-tab[aria-pressed="true"]{background:#D9822B;border-color:#D9822B;color:#fff}
+.rt-tab:focus-visible{outline:2px solid #D9822B;outline-offset:2px}
+.rt-pane{margin-top:14px}
+.router:not(.rt-js) .rt-tabs{display:none}
+.router:not(.rt-js) .rt-pane{border-top:1px dashed var(--rule);padding-top:10px}
+.rt-pane[hidden]{display:none}
+.rt-desc{margin:0 0 8px;color:var(--muted)}
+.rt-links{display:flex;flex-wrap:wrap;gap:8px 20px;margin:0}
+.rt-links a{font-weight:600}
+/* Кейс «Этот сайт как продукт» */
+.site-case .lead-p{font-size:19px}
+.tbl-wrap{overflow-x:auto}
+.sc-tbl{width:100%;border-collapse:collapse;font-size:15px}
+.sc-tbl th,.sc-tbl td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--rule)}
+.sc-tbl thead th{font-size:13px;opacity:.65;font-weight:600}
+.sc-tbl tbody th{font-weight:600;min-width:9em}
+@media (max-width:600px){
+.sc-tbl thead{display:none}
+.sc-tbl tr{display:block;padding:10px 0;border-bottom:1px solid var(--rule)}
+.sc-tbl th,.sc-tbl td{display:block;border:0;padding:2px 0}
+.sc-tbl tbody th{min-width:0}
+.sc-tbl td{color:var(--muted)}
+}
