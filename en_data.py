@@ -90,7 +90,8 @@ RESULTS_STRIP = """<section class="results" aria-label="Key results">
 STUDY = [
     ("Certificates", [
         ("Scrum.org", "Professional Scrum Product Owner I (PSPO I)", "Scrum product owner certificate: product value, backlog, stakeholder management.", "certificate"),
-        ("Cambridge English", "Business English Certificate (BEC)", "Business English, level B1.", "certificate"),
+        ("Cambridge English · October 2021", "Business English Certificate Preliminary (BEC)", "Business English, level B1: exam passed (Pass), overall score 146 on the Cambridge English Scale. Reading 152, writing 142, listening 139, speaking 151.", "certificate",
+         {"img": "assets/certs/cambridge-bec-2021.jpg", "verify": "https://www.cambridgeenglish.org/verifiers", "label": "Statement of results"}),
     ]),
     ("Independent assessment", [
         ("Assessty for MTS · April 2022", "Product manager competency assessment",

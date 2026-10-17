@@ -820,7 +820,8 @@ def research_page(posts: list[dict]) -> str:
 STUDY = [
     ("Сертификаты", [
         ("Scrum.org", "Professional Scrum Product Owner I (PSPO I)", "Сертификат владельца продукта по Scrum: ценность продукта, бэклог, работа со стейкхолдерами.", "сертификат"),
-        ("Cambridge English", "Business English Certificate (BEC)", "Деловой английский, уровень B1.", "сертификат"),
+        ("Cambridge English · октябрь 2021", "Business English Certificate Preliminary (BEC)", "Деловой английский, уровень B1: экзамен сдан (Pass), общий балл 146 по шкале Cambridge English. Чтение — 152, письмо — 142, аудирование — 139, говорение — 151.", "сертификат",
+         {"img": "assets/certs/cambridge-bec-2021.jpg", "verify": "https://www.cambridgeenglish.org/verifiers", "label": "Результаты экзамена"}),
     ]),
     ("Независимая оценка", [
         ("Assessty для МТС · апрель 2022", "Оценка компетенций менеджера продукта",
@@ -856,7 +857,7 @@ def study_row(row: tuple) -> str:
     links = ""
     if cert:
         links = (f'<span class="cert"><a class="cert-thumb" href="{cert["img"]}" target="_blank" rel="noopener"><img src="{cert["img"]}" alt="{esc(CERT_LBL["alt"])}: {esc(name)}" loading="lazy"></a>'
-                 f'<span class="cert-links"><a href="{cert["img"]}" target="_blank" rel="noopener">{esc(CERT_LBL["cert"])}</a>'
+                 f'<span class="cert-links"><a href="{cert["img"]}" target="_blank" rel="noopener">{esc(cert.get("label", CERT_LBL["cert"]))}</a>'
                  + (f' · <a href="{esc(cert["verify"])}" target="_blank" rel="noopener">{esc(CERT_LBL["verify"])}</a>' if cert.get("verify") else "") + '</span></span>')
     return f'<li><span class="when">{esc(org)}<br>{esc(kind)}</span><span class="what">{esc(name)}<i>{esc(about)}</i>{links}</span></li>'
 
