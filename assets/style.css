@@ -969,3 +969,6 @@ html { scroll-behavior: smooth; }
 .rt-desc{margin:0 0 8px;color:var(--muted)}
 .rt-links{display:flex;flex-wrap:wrap;gap:8px 20px;margin:0}
 .rt-links a{font-weight:600}
+/* меньше воздуха между шапкой и «Кто вы?» */
+.hero-home:has(+ .router){padding-bottom:8px}
+.hero-home + .router{margin-top:12px}
