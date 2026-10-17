@@ -254,7 +254,6 @@ def index_page(posts: list[dict], page: int = 1) -> str:
 <p class="tagline">Продакт, который сам собирает ИИ-продукты и изучает, как ИИ меняет управление.</p>
 <p class="roles"><a href="cv.html">менеджер продукта</a> · <a href="tags/{tag_slug('преподавание')}.html">начинающий преподаватель</a> · <a href="research.html">исследую ИИ в управлении компанией</a></p>
 {agent_line()}
-{career_line()}
 </div>
 </section>
 {now_card()}"""
