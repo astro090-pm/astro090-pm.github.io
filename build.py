@@ -113,8 +113,7 @@ def layout(title: str, description: str, body: str, path: str, depth: int = 0) -
 <a href="{up}projects.html">проекты</a>
 <details class="menu"><summary>знания</summary><div class="menu-list"><a href="{up}research.html">🔬 исследования</a><a href="{up}conferences.html">🎤 конференции</a><a href="{up}study.html">🎓 образование</a>{BOOKS_LINK.format(up=up)}{MEDIA_LINK.format(up=up)}</div></details>
 <details class="menu"><summary>ИИ</summary><div class="menu-list"><a href="{up}agents.html">🤖 ИИ-агенты</a><a href="{up}skills.html">🧰 ИИ-скиллы</a></div></details>
-<a href="{up}blog/index.html">посты</a>
-<a href="{up}tags/index.html">теги</a>
+<details class="menu"><summary>посты</summary><div class="menu-list"><a href="{up}blog/index.html">📝 все посты</a><a href="{up}tags/index.html">🏷 теги</a></div></details>
 </nav>
 <span class="tools">
 <a class="icon-btn lang" href="{up}en/{path}" title="English version" hreflang="en">EN</a>
@@ -675,6 +674,7 @@ def blog_index_page(posts: list[dict]) -> str:
 <a class="back" href="../index.html">На главную</a>
 <h1>Посты</h1>
 <p class="intro">Короткие заметки о работе, продуктах и преподавании.</p>
+<section class="cloud blog-tags" aria-label="Темы"><p>{tag_cloud(all_items(posts), "../")}</p><p class="blog-tags-all"><a href="../tags/index.html">Все темы и как они развивались →</a></p></section>
 <ul class="posts">
 {post_list(posts, "")}
 </ul>

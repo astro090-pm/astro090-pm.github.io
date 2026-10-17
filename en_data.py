@@ -394,8 +394,7 @@ def layout(ctx):
 <a href="{up}projects.html">projects</a>
 <details class="menu"><summary>knowledge</summary><div class="menu-list"><a href="{up}research.html">🔬 research</a><a href="{up}conferences.html">🎤 conferences</a><a href="{up}study.html">🎓 education</a>{PATCH["BOOKS_LINK"].format(up=up)}</div></details>
 <details class="menu"><summary>AI</summary><div class="menu-list"><a href="{up}agents.html">🤖 AI agents</a><a href="{up}skills.html">🧰 AI skills</a></div></details>
-<a href="{up}blog/index.html">posts</a>
-<a href="{up}tags/index.html">tags</a>
+<details class="menu"><summary>posts</summary><div class="menu-list"><a href="{up}blog/index.html">📝 all posts</a><a href="{up}tags/index.html">🏷 tags</a></div></details>
 </nav>
 <span class="tools">
 <a class="icon-btn lang" href="{root}{ru_path}" title="Russian version" hreflang="ru">RU</a>

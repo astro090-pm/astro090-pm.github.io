@@ -774,3 +774,8 @@ html { scroll-behavior: smooth; }
 @media (max-width: 640px) { .tldr { padding: 18px; } .tldr-meta, .tldr-facts { grid-template-columns: 1fr; } }
 .tldr-facts { padding-top: 16px; }
 .cards { grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); }
+
+/* Посты: темы над лентой */
+.blog-tags { margin: -8px 0 36px; }
+.blog-tags p { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+.blog-tags .blog-tags-all { margin-top: 12px; font: 400 15px var(--sans); }
