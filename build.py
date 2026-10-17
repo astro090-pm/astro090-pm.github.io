@@ -1233,12 +1233,22 @@ def year_stats(posts: list[dict], year: int) -> list[tuple[str, int, str]]:
         rows.insert(1, ("AI-прототип с открытым кодом", 1, "projects.html"))
     if year == 2025:
         rows.insert(0, ("стартапа: bolz.tech и bolz.dev", 2, "projects.html"))
+    if year == 2024:
+        rows[0:0] = [("новая роль — старший менеджер продукта в Газпромбанке", 1, "cases/gazprombank.html"),
+                     ("поступил в аспирантуру РАНХиГС", 1, "research.html"),
+                     ("партнёра bolz.tech: МТС Юрент и ГетЭнерджи", 2, "cases/bolz-tech.html"),
+                     ("сервис шеринга пауэрбанков в продакшене", 1, "cases/bolz-tech.html")]
+    if year == 2023:
+        rows[0:0] = [("выручки «Азия Онлайн» после перезапуска (2023–2024)", "+103%", "cases/asia-online.html"),
+                     ("IT-команда собрана с нуля в «Азия Ритейл»", 1, "cases/asia-online.html"),
+                     ("стартап основан — bolz.tech", 1, "cases/bolz-tech.html"),
+                     ("«Добстер»: от идеи до продакшена (2022–2023)", 1, "cases/dobster.html")]
     return [r for r in rows if r[1]]
 
 
 def year_block(posts: list[dict], prefix: str = "") -> str:
     tabs, panes = [], []
-    for i, y in enumerate((2026, 2025)):
+    for i, y in enumerate((2026, 2025, 2024, 2023)):
         cells = "".join(f'<a class="yr-cell" href="{prefix}{u}"><b>{n}</b><span>{esc(l)}</span></a>' for l, n, u in year_stats(posts, y))
         tabs.append(f'<button type="button" class="yr-tab" data-y="{y}" aria-pressed="{str(i == 0).lower()}">{y}</button>')
         panes.append(f'<div class="yr-grid" data-y="{y}"{"" if i == 0 else " hidden"}>{cells}</div>')

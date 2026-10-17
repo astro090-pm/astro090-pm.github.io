@@ -799,3 +799,4 @@ html { scroll-behavior: smooth; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pj-btn { background: var(--surface); } :root:not([data-theme="light"]) .pj-icon { filter: saturate(.75) brightness(.8); } }
 @media (max-width: 640px) { .pj { grid-template-columns: 64px 1fr; gap: 16px; padding: 28px 0; } .pj-icon { width: 64px; height: 64px; border-radius: 14px; font-size: 32px; } .pj-about { font-size: 17px; } }
 .tl-one { max-width: 620px; margin: 0 0 40px; }
+.yr-head { flex-wrap: wrap; gap: 10px; } .yr-tabs { flex-wrap: wrap; }

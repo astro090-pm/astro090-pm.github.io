@@ -370,6 +370,16 @@ def year_stats(B):
             rows.insert(1, ("open-source AI prototype", 1, "projects.html"))
         if year == 2025:
             rows.insert(0, ("startups: bolz.tech and bolz.dev", 2, "projects.html"))
+        if year == 2024:
+            rows[0:0] = [("new role: senior product manager at Gazprombank", 1, "cases/gazprombank.html"),
+                         ("started a PhD at RANEPA", 1, "research.html"),
+                         ("bolz.tech partners: MTS Urent and GetEnergy", 2, "cases/bolz-tech.html"),
+                         ("power bank sharing service in production", 1, "cases/bolz-tech.html")]
+        if year == 2023:
+            rows[0:0] = [("Asia Online revenue after the relaunch (2023–2024)", "+103%", "cases/asia-online.html"),
+                         ("IT team built from scratch at Asia Retail", 1, "cases/asia-online.html"),
+                         ("startup founded: bolz.tech", 1, "cases/bolz-tech.html"),
+                         ("Dobster: from idea to production (2022–2023)", 1, "cases/dobster.html")]
         return [r for r in rows if r[1]]
     return stats
 
