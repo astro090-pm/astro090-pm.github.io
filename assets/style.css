@@ -851,3 +851,45 @@ html { scroll-behavior: smooth; }
 .now-ic { font-size: 20px; line-height: 1.2; }
 @media (max-width: 640px) { .now-grid { grid-template-columns: 1fr; } .now-more { margin-left: 0; } }
 @media (max-width: 640px) { .agent { min-height: 4.6em; font-size: 14px; } }
+
+/* Лаборатория шапки */
+.lab-note { margin: 24px 0 0; padding: 10px 14px; border: 1px dashed var(--card-rule); border-radius: 10px; font: 400 14px var(--sans); color: var(--muted); }
+.lab-list { max-width: var(--measure); font: 400 16px/1.55 var(--sans); padding-left: 20px; margin: 8px 0 48px; }
+.lab-list li { margin-bottom: 8px; }
+/* 2. Орбита */
+.orb { position: relative; flex: none; width: 300px; height: 300px; display: grid; place-items: center; }
+.orb-photo { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; position: relative; z-index: 1; }
+.orb-ring { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; border: 1px dashed var(--card-rule); border-radius: 50%; }
+.orb-ring li { position: absolute; left: 50%; top: 50%; transform: rotate(var(--a)) translate(150px) rotate(calc(-1 * var(--a))); }
+.orb-ring a { display: block; transform: translate(-50%, -50%); }
+.orb-ring span { display: inline-block; padding: 5px 11px; border-radius: 999px; background: var(--paper); border: 1px solid var(--card-rule); color: var(--ink); font: 500 13px/1 var(--sans); white-space: nowrap; }
+.orb-ring a:hover span, .orb-ring a:focus-visible span { border-color: var(--link); color: var(--link); text-decoration: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .orb-ring { animation: orb-spin 60s linear infinite; }
+  .orb-ring span { animation: orb-spin 60s linear infinite reverse; }
+  .orb:hover .orb-ring, .orb:hover .orb-ring span, .orb:focus-within .orb-ring, .orb:focus-within .orb-ring span { animation-play-state: paused; }
+}
+@keyframes orb-spin { to { transform: rotate(360deg); } }
+.orb-flip { position: absolute; bottom: 52px; z-index: 2; font: 500 12px var(--sans); padding: 5px 10px; border-radius: 999px; border: 1px solid var(--card-rule); background: var(--paper); cursor: pointer; }
+.orb-cap { position: absolute; bottom: 18px; font: 400 12px var(--sans); color: var(--muted); margin: 0; }
+/* 4. Карьера линией */
+.career { margin: 18px 0 0; max-width: 520px; }
+.cl-row { position: relative; height: 8px; margin-bottom: 5px; border-radius: 4px; background: var(--surface); }
+.cl-seg { position: absolute; top: 0; height: 8px; border-radius: 4px; background: var(--c); opacity: .9; }
+.cl-seg:hover, .cl-seg:focus-visible { opacity: 1; outline: 2px solid var(--ink); outline-offset: 1px; z-index: 2; }
+.cl-seg:hover::after, .cl-seg:focus-visible::after { content: attr(data-tip); position: absolute; left: 0; bottom: 14px; white-space: nowrap; padding: 4px 8px; border-radius: 6px; background: var(--ink); color: var(--paper); font: 500 12px var(--sans); }
+.cl-years { display: flex; justify-content: space-between; font: 400 12px var(--sans); color: var(--muted); margin-top: 2px; }
+.cl-leg { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 8px; font: 400 12px var(--sans); color: var(--muted); }
+.cl-leg i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+@media (max-width: 760px) {
+  .orb { width: 240px; height: 240px; } .orb-photo { width: 120px; height: 120px; }
+  .orb-ring li { transform: rotate(var(--a)) translate(120px) rotate(calc(-1 * var(--a))); }
+}
+@media (max-width: 420px) {
+  .orb { width: 210px; height: 210px; margin: 0 auto; } .orb-photo { width: 110px; height: 110px; }
+  .orb-ring li { transform: rotate(var(--a)) translate(98px) rotate(calc(-1 * var(--a))); }
+  .orb-ring span { font-size: 12px; padding: 4px 8px; }
+  .hero-lab { align-items: center; }
+}
+.cl-seg[style*="left:8"]::after, .cl-seg[style*="left:9"]::after { left: auto; right: 0; }
+.orb-ring li { width: 0; height: 0; } .orb-ring a { width: max-content; }

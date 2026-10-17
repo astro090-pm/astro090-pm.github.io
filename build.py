@@ -1113,7 +1113,7 @@ def build_search_index() -> None:
     items = []
     for f in sorted(ROOT.rglob("*.html")):
         rel = f.relative_to(ROOT).as_posix()
-        if rel.startswith(("tags/", "content/", "tools/", "en/")) or re.match(r"page\d+\.html$", rel) or rel in ("blog/index.html", "index.html", "cases/bolz.html", "decks.html"):
+        if rel.startswith(("tags/", "content/", "tools/", "en/")) or re.match(r"page\d+\.html$", rel) or rel in ("blog/index.html", "index.html", "cases/bolz.html", "decks.html", "lab.html"):
             continue
         html_ = f.read_text(encoding="utf-8")
         title = html.unescape(re.search(r"<title>(.*?)</title>", html_).group(1)).replace(" — Роман Понуров", "").replace(" — кейс Романа Понурова", "")
@@ -1645,6 +1645,69 @@ def timeline_page() -> str:
     return layout("Хронология — Роман Понуров", "Путь Романа Понурова с 2014 года: работа, проекты, наука, учёба, преподавание.", body, "timeline.html")
 
 
+# ---------- Лаборатория шапки: варианты 2 (орбита), 3 (было → стало), 4 (карьера линией). Страница не в меню и не в поиске.
+ORBIT = [("продакт", "cases/index.html"), ("ИИ-агенты", "agents.html"), ("наука", "research.html"),
+         ("лекции", "blog/lekcii-it-menedzhment.html"), ("стартапы", "projects.html")]
+THEN_PHOTO = "assets/avatar-2014.jpg"  # появится вариант «было → стало», когда фото будет в assets
+
+
+def orbit_avatar(src: str = "assets/avatar.jpg") -> str:
+    n = len(ORBIT)
+    tags = "".join(f'<li style="--a:{i * 360 / n:.1f}deg"><a href="{u}"><span>{esc(t)}</span></a></li>' for i, (t, u) in enumerate(ORBIT))
+    then = (ROOT / THEN_PHOTO).exists()
+    flip = (f'<button type="button" class="orb-flip" aria-pressed="false" data-then="{THEN_PHOTO}" data-now="{src}">2014 ↔ 2026</button>'
+            '<p class="orb-cap" hidden>2014: инженер на испытательной станции</p>') if then else ""
+    return f"""<div class="orb">
+<img class="orb-photo" src="{src}" width="160" height="160" alt="Роман Понуров">
+<ul class="orb-ring" aria-label="Разделы сайта">{tags}</ul>
+{flip}
+</div>"""
+
+
+def career_line() -> str:
+    y0, y1 = 2014, 2027
+    pos = lambda y: (min(max(y, y0), y1) - y0) / (y1 - y0) * 100
+    rows = []
+    for name, color, bars in GANTT:
+        segs = "".join(
+            (f'<a href="{u}"' if u else '<span') + f' class="cl-seg" style="left:{pos(a):.2f}%;width:{max(pos(b) - pos(a), .9):.2f}%;--c:{color}" data-tip="{esc(t)} · {int(max(a, y0))}–{min(int(b), 2026) if b < 2027 else "н.в."}" aria-label="{esc(t)}"></' + ("a>" if u else "span>")
+            for t, a, b, u in bars)
+        rows.append(f'<div class="cl-row" title="{esc(name)}">{segs}</div>')
+    legend = "".join(f'<span><i style="background:{c}"></i>{esc(n)}</span>' for n, c, _ in GANTT)
+    return f'<div class="career" aria-label="Путь по годам">{"".join(rows)}<div class="cl-years"><span>2014</span><span>2020</span><span>сейчас</span></div><div class="cl-leg">{legend}</div></div>'
+
+
+def lab_page() -> str:
+    then = (ROOT / THEN_PHOTO).exists()
+    body = f"""
+<div class="wrap home">
+<p class="lab-note">Тестовая страница: варианты шапки главной. Её нет в меню и в поиске.</p>
+<section class="hero-home hero-lab">
+{orbit_avatar()}
+<div>
+<h1>Роман Понуров</h1>
+<p class="tagline">Продакт, который сам собирает ИИ-продукты и изучает, как ИИ меняет управление.</p>
+{career_line()}
+</div>
+</section>
+<ul class="lab-list">
+<li><b>2. Орбита.</b> Метки разделов медленно кружат вокруг фото; наведите — орбита остановится, нажмите — откроется раздел.</li>
+<li><b>4. Карьера линией.</b> Под фразой — путь с 2014 года: работа, свои проекты, образование, наука. Наведите на отрезок — подпись, нажмите — кейс.</li>
+<li><b>3. Было → стало.</b> {"Кнопка «2014 ↔ 2026» на фото." if then else "Нужно ваше фото 2014 года (инженер на испытательной станции) — пришлите, и под фото появится кнопка «2014 ↔ 2026»."}</li>
+</ul>
+</div>
+<script>
+document.querySelectorAll('.orb-flip').forEach(b => b.addEventListener('click', () => {{
+  const img = b.parentElement.querySelector('.orb-photo'), cap = b.parentElement.querySelector('.orb-cap');
+  const on = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', String(on));
+  img.src = on ? b.dataset.then : b.dataset.now; cap.hidden = !on;
+}}));
+</script>
+"""
+    h = layout("Лаборатория шапки — Роман Понуров", "Тестовая страница.", body, "lab.html")
+    return h.replace("<head>", '<head>\n<meta name="robots" content="noindex">', 1)
+
+
 def main() -> None:
     posts = load_posts()
     pages = max(1, -(-len(posts) // PER_PAGE))
@@ -1682,6 +1745,7 @@ def main() -> None:
     (ROOT / "cases" / "bolz.html").write_text('<!doctype html><meta charset="utf-8"><title>bolz.tech</title><meta http-equiv="refresh" content="0; url=bolz-tech.html"><link rel="canonical" href="bolz-tech.html"><a href="bolz-tech.html">bolz.tech</a>', encoding="utf-8")
     for i, case in enumerate(CASES):
         (ROOT / "cases" / f"{case[0]}.html").write_text(case_page(i), encoding="utf-8")
+    (ROOT / "lab.html").write_text(lab_page(), encoding="utf-8")
     import en
     en.build({"SITE_URL": SITE_URL, "FONTS": FONTS, "CSS_V": CSS_V, "JS_V": JS_V})
     clean_index_links()
