@@ -372,7 +372,7 @@ PROJECTS = [
     ("🗓", "#E6EDF9", "2026.10", "TG-БОТ / ИИ-АГЕНТЫ", "Планировщик выходных",
      "Telegram-бот собирает план выходных по часам: погода, афиша, места, бюджет и возраст детей.",
      ["3 агента по A2A", "32 эвал-кейса", "55 тестов", "прототип"],
-     [("Код на GitHub", GITHUB + "/weekend-planner"), ("Роадмап", "#roadmap"), ("Схема агентов", "assets/weekend-planner-arch.png"), ("Путь в ИИ-агентах", "agents.html")],
+     [("Код на GitHub", GITHUB + "/weekend-planner"), ("Роадмап", "#roadmap"), ("Архитектура", "#architecture"), ("Путь в ИИ-агентах", "agents.html")],
      "Чтобы собрать выходные, приходится полчаса переключаться между афишей, картами и прогнозом. Сделал бота, который делает это за минуту. Модель только выбирает варианты, а названия, цены и время подставляет код — так план не выдумывает несуществующих мест."),
     ("🔌", "#C9E8D5", "2025.08", "MCP / ИИ-АГЕНТЫ · ДУБАЙ", "bolz.dev",
      "MCP-коннектор, через который ИИ-агенты сами находят, бронируют и оплачивают реальные сервисы.",
@@ -505,6 +505,7 @@ def projects_page() -> str:
 {chr(10).join(items)}
 </ul>
 {roadmap_block()}
+{arch_block("planner", ARCH_LBL["planner_h"], ARCH_LBL["planner_intro"], f'<a href="{GITHUB}/weekend-planner/blob/main/docs/ARCHITECTURE.md">{esc(ARCH_LBL["src"])}</a>')}
 <section class="more-sec" aria-labelledby="more-h">
 <h2 id="more-h" class="more-h">{esc(T["more"])} <span class="cnt">{len(T["links"])}</span></h2>
 <div class="more-grid">{"".join(f'<a class="more-card" href="{u}"><span class="more-ic" style="background:{g}" aria-hidden="true"></span><span><b>{esc(t)}</b><span>{esc(d)}</span></span></a>' for u, t, d, g in T["links"])}</div>
@@ -867,6 +868,110 @@ def jtbd_block(slug: str) -> str:
     return f'<section class="jtbd" id="jtbd" aria-label="{L["h"]}"><h2 class="jt-h">{L["h"]}</h2><ul class="jt-grid">{cards}</ul></section>'
 
 
+# ---------- Системные диаграммы продуктов (данные — в arch_data_ru.py, для EN — в en_data.py)
+from arch_data_ru import ARCH, ARCH_LBL  # noqa: E402
+
+
+def _wrap(text: str, n: int) -> list[str]:
+    words, lines, cur = text.split(), [], ""
+    for w in words:
+        if cur and len(cur) + 1 + len(w) > n:
+            lines.append(cur)
+            cur = w
+        else:
+            cur = (cur + " " + w).strip()
+    if cur:
+        lines.append(cur)
+    return lines[:2]
+
+
+def arch_svg(a: dict) -> str:
+    CW, GX, NH, RU, PAD = 170, 46, 58, 82, 14
+    nodes = {n[0]: n for n in a["nodes"]}
+    minr = min(n[5] for n in a["nodes"])
+    cols = max(n[4] for n in a["nodes"]) + 1
+    pos = {}
+    for nid, label, sub, kind, c, r in a["nodes"]:
+        x, y = PAD + c * (CW + GX), PAD + (r - minr) * RU
+        pos[nid] = (x, y)
+    W = PAD * 2 + cols * CW + (cols - 1) * GX
+    H = PAD * 2 + int((max(n[5] for n in a["nodes"]) - minr) * RU) + NH
+    out = [f'<svg class="ar-svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="{esc(ARCH_LBL["h"])}">',
+           '<defs><marker id="ar-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">'
+           '<path d="M0,0 L10,5 L0,10 z" class="ar-arrh"/></marker></defs><g class="ar-edges">']
+    labels = []
+    for f, t, lab, dashed in a["edges"]:
+        (x1, y1), (x2, y2) = pos[f], pos[t]
+        cf, ct = nodes[f][4], nodes[t][4]
+        if ct > cf:
+            sx, sy, ex, ey = x1 + CW, y1 + NH / 2, x2, y2 + NH / 2
+            m = (sx + ex) / 2
+            d = f"M{sx:.0f},{sy:.0f} C{m:.0f},{sy:.0f} {m:.0f},{ey:.0f} {ex - 2:.0f},{ey:.0f}"
+        elif ct < cf:
+            sx, sy, ex, ey = x1, y1 + NH / 2, x2 + CW, y2 + NH / 2
+            m = (sx + ex) / 2
+            d = f"M{sx:.0f},{sy:.0f} C{m:.0f},{sy:.0f} {m:.0f},{ey:.0f} {ex + 2:.0f},{ey:.0f}"
+        else:
+            down = y2 > y1
+            sx, sy = x1 + CW / 2, (y1 + NH) if down else y1
+            ex, ey = x2 + CW / 2, y2 if down else (y2 + NH)
+            d = f"M{sx:.0f},{sy:.0f} L{ex:.0f},{ey + (-2 if down else 2):.0f}"
+        out.append(f'<path d="{d}" class="ar-e{" ar-dash" if dashed else ""}" data-f="{f}" data-t="{t}" marker-end="url(#ar-arr)"/>')
+        if lab:
+            lx, ly = (sx + ex) / 2, (sy + ey) / 2
+            labels.append(f'<text x="{lx:.0f}" y="{ly - 5:.0f}" class="ar-elab" data-f="{f}" data-t="{t}">{esc(lab)}</text>')
+    out.append("</g>" + "".join(labels))
+    for nid, label, sub, kind, c, r in a["nodes"]:
+        x, y = pos[nid]
+        sub_lines = _wrap(sub, 25) if sub else []
+        ty = y + (NH / 2 + 5 if not sub_lines else (NH / 2 - 4 if len(sub_lines) == 1 else 19))
+        t = f'<text x="{x + 12}" y="{ty:.0f}" class="ar-t">{esc(label)}</text>'
+        for i, sl in enumerate(sub_lines):
+            t += f'<text x="{x + 12}" y="{ty + 15 + i * 13:.0f}" class="ar-s">{esc(sl)}</text>'
+        out.append(f'<g class="ar-n ar-{kind}" data-id="{nid}" tabindex="0"><rect x="{x}" y="{y}" width="{CW}" height="{NH}" rx="10"/>{t}</g>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+ARCH_JS = """<script>(() => { document.querySelectorAll('.arch:not([data-ready])').forEach(sec => { sec.dataset.ready = 1;
+  const svg = sec.querySelector('svg'), nodes = svg.querySelectorAll('.ar-n'), links = svg.querySelectorAll('[data-f]');
+  const on = id => { const near = new Set([id]); links.forEach(l => { if (l.dataset.f === id) near.add(l.dataset.t); if (l.dataset.t === id) near.add(l.dataset.f); });
+    svg.classList.add('ar-dim'); nodes.forEach(n => n.classList.toggle('ar-hl', near.has(n.dataset.id)));
+    links.forEach(l => l.classList.toggle('ar-hl', l.dataset.f === id || l.dataset.t === id)); };
+  const off = () => { svg.classList.remove('ar-dim'); svg.querySelectorAll('.ar-hl').forEach(x => x.classList.remove('ar-hl')); };
+  nodes.forEach(n => { n.addEventListener('mouseenter', () => on(n.dataset.id)); n.addEventListener('focus', () => on(n.dataset.id));
+    n.addEventListener('mouseleave', off); n.addEventListener('blur', off); }); }); })();</script>"""
+
+
+def arch_block(key: str, heading: str = "", intro: str = "", src: str = "") -> str:
+    a = ARCH.get(key)
+    if not a:
+        return ""
+    L = ARCH_LBL
+    legend = "".join(f'<span class="ar-lg ar-lg-{k}"><i></i>{esc(t)}</span>' for k, t in L["legend"] if any(n[3] == k for n in a["nodes"]))
+    tech = "".join(f"<li>{esc(t)}</li>" for t in a["tech"])
+    decs = []
+    for d in a.get("decisions", []):
+        opts = "".join(f'<li class="{"ad-pick" if i == d["pick"] else ""}">{"✓ " if i == d["pick"] else ""}{esc(o)}</li>' for i, o in enumerate(d["opts"]))
+        rows = "".join(f'<div class="ad-row"><dt>{L[k]}</dt><dd>{esc(d[k])}</dd></div>' for k in ("why", "trade", "role") if d.get(k))
+        decs.append(f'<article class="ad"><h4>{esc(d["q"])}</h4><p class="ad-k">{L["opts"]}</p><ul class="ad-opts">{opts}</ul><dl>{rows}</dl></article>')
+    dec_html = f'<h3 class="ar-sub">{L["dec"]}</h3><div class="ad-grid">{"".join(decs)}</div>' if decs else ""
+    h = heading or L["h"]
+    return (f'<section class="arch" id="architecture" aria-label="{esc(h)}"><h2>{esc(h)}</h2>'
+            + (f'<p class="ar-intro">{esc(intro)}</p>' if intro else "")
+            + f'<div class="ar-box"><div class="ar-scroll" tabindex="0" aria-label="{esc(L["scroll"])}">{arch_svg(a)}</div><p class="ar-hint">↔ {esc(L["scroll"])}</p><p class="ar-legend">{legend}</p></div>'
+            + f'<h3 class="ar-sub">{L["tech"]}</h3><ul class="ar-tech">{tech}</ul>{dec_html}'
+            + (f'<p class="ar-src">{src}</p>' if src else "") + f'</section>{ARCH_JS}')
+
+
+def insert_arch(html: str, slug: str) -> str:
+    block = arch_block(slug)
+    if not block:
+        return html
+    m = re.search(r"<h2>(Что этот кейс показывает|What this case shows|Чему научился|What I learned)</h2>", html)
+    return html[:m.start()] + block + "\n" + html[m.start():] if m else html + block
+
+
 def case_page(i: int) -> str:
     slug, company, years, kind, about, _result = CASES[i]
     text = (ROOT / "content" / "cases" / f"{slug}.md").read_text(encoding="utf-8")
@@ -875,7 +980,7 @@ def case_page(i: int) -> str:
     # GitHub допускает список сразу после строки текста, python-markdown — только после пустой строки.
     text = re.sub(r"(?m)^(?!- |\d+\. )(.+)\n(?=- |\d+\. )", r"\1\n\n", text)
     body_html = markdown.markdown(text, extensions=["tables", "sane_lists"])
-    body_html = insert_experiments(wrap_misses(insert_tree(visual_results(body_html), slug)), slug)
+    body_html = insert_arch(insert_experiments(wrap_misses(insert_tree(visual_results(body_html), slug)), slug), slug)
     nxt = CASES[(i + 1) % len(CASES)]
     body = f"""
 <article class="page"><div class="wrap">
